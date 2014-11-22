@@ -92,7 +92,7 @@ return array(
 				$cache = \Zend\Cache\StorageFactory::factory(array(
 					'adapter' => 'filesystem',
 					'options' => array(
-						'cache_dir' => __DIR__ . '/../../../data/cache',
+						'cache_dir' => __DIR__ . '/../../../../data/cache',
 						'ttl' => 86400
 					),
 					'plugins' => array(
