@@ -7,7 +7,7 @@
 		"game backend",
 		"p-server-cms"
     ],
-    "homepage": "https://github.com/kokspflanze/GameBackend",
+    "homepage": "https://github.com/kokspflanze/PServerCMS",
 	"autoload": {
 		"psr-0": {
 			"PServerCMS\\": "src/"
