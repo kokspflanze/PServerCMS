@@ -1,0 +1,34 @@
+{% extends 'layout/layout' %}
+
+{% block title %}
+	Accountmanagment
+{% endblock title %}
+
+{% block content %}
+
+    {% if errors %}
+        <div class="alert alert-danger" role="alert">
+            {% for error in errors %}
+                {{ error }}
+            {% endfor %}
+        </div>
+    {% elseif messages %}
+        <div class="alert alert-success" role="alert">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+	{% if changeWebPwdForm %}
+    <div class="col-sm-6">
+        <h4>Change Web Password</h4>
+        {{ formWidget(changeWebPwdForm) }}
+    </div>
+	{% endif %}
+
+    <div class="col-sm-6">
+        <h4>Change {{ changeWebPwdForm?'Ingame':''  }} Password</h4>
+        {{ formWidget(changeIngamePwdForm) }}
+    </div>
+{% endblock content %}

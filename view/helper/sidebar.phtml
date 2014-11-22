@@ -1,0 +1,32 @@
+<div>
+	<h3>Server Info</h3>
+	<hr/>
+	<ul class="list-unstyled">
+		<?php foreach($this->serverInfo as $curInfo): ?>
+			<?php /** @var \PServerCMS\Entity\ServerInfo $curInfo */ ?>
+			<li>
+				<i class="<?= $this->escapeHtml($curInfo->getIcon()) ?>"></i>
+				<b><?= $this->escapeHtml($curInfo->getLabel()) ?></b>
+				<?= $this->escapeHtml($curInfo->getMemo()) ?>
+			</li>
+		<?php endforeach ?>
+	</ul>
+</div>
+<div class="margin-top-30">
+	<h3>Servertime</h3>
+	<hr/>
+	<ul class="list-unstyled">
+		<li><i class="fa fa-clock-o"></i> Timer: <span id="idTimerClock"><?php echo date('H:i:s') ?></span></li>
+		<?php $i=0; ?>
+		<?php foreach($this->timer as $aCurTimer): ?>
+			<li><i class="<?php echo $this->escapeHtml($aCurTimer['icon']) ?>"></i>
+				<?php echo $aCurTimer['name'] ?>:
+				<?php if($aCurTimer['time'] > 0){ ?>
+					<span class="timerCountdown" id="<?php echo 'idTimeCountdown_'.$i++; ?>" data-time="<?php echo $aCurTimer['time'] ?>"></span>
+				<?php }else{ ?>
+					<?php echo $this->escapeHtml($aCurTimer['text']) ?>
+				<?php } ?>
+			</li>
+		<?php endforeach ?>
+	</ul>
+</div>

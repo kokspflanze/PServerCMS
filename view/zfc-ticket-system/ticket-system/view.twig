@@ -1,0 +1,13 @@
+{% extends 'layout/layout' %}
+
+{% block title %}
+	TicketSystem
+{% endblock title %}
+
+{% block content %}
+	{{ formWidget(form) }}
+	{% for key, curEntry in entry %}
+		<label>{{ curEntry.getUser.getUsername }}</label><br/>
+		{{ curEntry.getMemo }}<br />
+	{% endfor %}
+{% endblock content %}

@@ -1,0 +1,33 @@
+{% extends 'layout/layout' %}
+
+{% block title %}
+	TicketSystem
+{% endblock title %}
+
+{% block content %}
+
+	{% set typeList = {0:'new',1:'open',2:'closed'} %}
+
+	<a href="{{ url('zfc-ticketsystem', {'action':'new'}) }}" class="btn btn-primary"><i class="fa fa-plus"></i> new ticket</a>
+	<div class="clearfix"></div>
+	<div class="table-responsive margin-top-10">
+		<table class="table table-bordered table-hover">
+			<tr>
+				<th>Subject</th>
+				<th>Category</th>
+				<th>Type</th>
+				<th>LastEdit</th>
+				<th>Option</th>
+			</tr>
+			{% for iKey, oCurTicketSubject in ticketList %}
+				<tr>
+					<td>{{ oCurTicketSubject.getSubject }}</td>
+					<td>{{ oCurTicketSubject.getTicketCategory.getSubject }}</td>
+					<td>{{ typeList[oCurTicketSubject.getType] }}</td>
+					<td>{{ oCurTicketSubject.getLastEdit|date('d.m.Y H:i') }}</td>
+					<td><a href="{{ url('zfc-ticketsystem', {'id':oCurTicketSubject.getTicketid, 'action':'view'}) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> View</a></td>
+				</tr>
+			{% endfor %}
+		</table>
+	</div>
+{% endblock content %}

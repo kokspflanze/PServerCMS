@@ -1,0 +1,34 @@
+{
+    "name": "kokspflanze/p-server-cms",
+    "description": "Zendframework 2 Module for pServer ",
+    "keywords": [
+        "framework",
+        "zf2",
+		"game backend",
+		"p-server-cms"
+    ],
+    "homepage": "https://github.com/kokspflanze/GameBackend",
+	"autoload": {
+		"psr-0": {
+			"PServerCMS\\": "src/"
+		}
+	},
+	"authors": [
+		{
+			"name": "Oliver"
+		}
+	],
+    "require": {
+        "php": ">=5.4",
+		"zendframework/zendframework": "2.*",
+		"zf-commons/zfc-twig": "dev-master",
+		"zendframework/Zend-developer-tools": "dev-master",
+		"twig/twig": "1.*",
+		"doctrine/doctrine-orm-module": "0.*",
+		"mabuzagu/pdo-dblib-module": "dev-master",
+		"kokspflanze/zfc-ticket-system": "dev-master",
+		"kokspflanze/small-user": "dev-master",
+		"kokspflanze/game-backend": "dev-master",
+		"kokspflanze/payment-api": "dev-master"
+    }
+}

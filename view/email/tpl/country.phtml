@@ -1,0 +1,6 @@
+<?php include '_salutation.phtml' ?>
+Please click on the following link to to confirm your login from your ip.<br />
+<br />
+<a href="<?php echo $this->url('small-user-auth', array('action' => 'ip-confirm', 'code' => $this->code), array('force_canonical' => true)); ?>">
+	<?php echo $this->url('small-user-auth', array('action' => 'ip-confirm', 'code' => $this->code), array('force_canonical' => true)); ?>
+</a>

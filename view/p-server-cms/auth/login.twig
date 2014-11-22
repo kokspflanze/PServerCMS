@@ -1,0 +1,22 @@
+{% extends 'layout/layout' %}
+
+{% block title %}
+	Login
+{% endblock title %}
+
+{% block content %}
+
+	{% if aErrorMessages is not empty %}
+		<div class="alert alert-danger" role="alert">
+			<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+			{% for sError in aErrorMessages %}
+				{{ sError }}<br />
+			{% endfor %}
+		</div>
+	{% endif %}
+
+	{{ formWidget(loginForm) }}
+
+	<a href="{{ url('small-user-auth',{'action':'pw-lost'}) }}">PW LOST</a>
+
+{% endblock content %}

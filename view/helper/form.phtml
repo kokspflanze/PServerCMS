@@ -1,0 +1,53 @@
+<?php
+/** @var \Zend\Form\Form $form */
+$form = $this->formWidget;
+$form->prepare();
+$form->setAttribute('method', 'post');
+$form->setAttribute('class', 'form-horizontal');
+?>
+
+<?php echo $this->form()->openTag($form) ?>
+<?php foreach ($form as $element): ?>
+	<?php
+	/** @var \Zend\Form\Element $element */
+	if($element->getAttribute('type') == 'hidden'): ?>
+		<?php echo $this->formInput($element) . $this->pserverformerrors($element) ?>
+	<?php
+	 	continue;
+	 endif;
+	?>
+    <div class="form-group">
+        <?php if (!$element instanceof Zend\Form\Element\Button && !$element instanceof Zend\Form\Element\Checkbox): ?>
+            <label class="col-sm-2 control-label"><?php echo $this->formLabel($element) ?></label>
+        <?php endif ?>
+        <?php if ($element instanceof Zend\Form\Element\Button): ?>
+            <div class="col-sm-offset-2 col-sm-10">
+                <?php echo $this->formButton($element) ?>
+            </div>
+		<?php elseif ($element instanceof Zend\Form\Element\Captcha): ?>
+			<?php echo $this->formCaptcha($element) . $this->pserverformerrors($element) ?>
+		<?php elseif ($element instanceof DoctrineModule\Form\Element\ObjectSelect || $element instanceof Zend\Form\Element\Select): ?>
+			<div class="col-sm-10">
+				<?php echo $this->formSelect($element) . $this->pserverformerrors($element) ?>
+			</div>
+		<?php elseif ($element instanceof Zend\Form\Element\Textarea): ?>
+			<div class="col-sm-10">
+				<?php echo $this->formTextarea($element) . $this->pserverformerrors($element) ?>
+			</div>
+		<?php elseif ($element instanceof Zend\Form\Element\Checkbox): ?>
+			<div class="col-sm-10 col-sm-offset-2">
+				<div class="checkbox">
+					<label>
+						<?php echo $this->formCheckbox($element) . $this->formLabel($element) . $this->pserverformerrors($element) ?>
+					</label>
+				</div>
+			</div>
+		<?php else: ?>
+
+            <div class="col-sm-10">
+                <?php echo $this->formInput($element) . $this->pserverformerrors($element) ?>
+            </div>
+        <?php endif ?>
+    </div>
+<?php endforeach ?>
+<?php echo $this->form()->closeTag() ?>
