@@ -10,17 +10,25 @@ use Doctrine\ORM\EntityRepository;
 class News extends EntityRepository {
 
 	/**
-	 * @return null|\PServerCMS\Entity\News[]
+	 * @param $limit
+	 *
+	 * @return \PServerCMS\Entity\News[]
 	 */
-	public function getActiveNews() {
-		$oQuery = $this->createQueryBuilder('p')
+	public function getActiveNews( $limit = null ) {
+		$query = $this->createQueryBuilder('p')
 			->select('p')
 			->where('p.active = :active')
 			->setParameter('active', '1')
 			->orderBy('p.created','desc')
-			->setMaxResults(5)
 			->getQuery();
-		return $oQuery->getResult();
+
+		if(!$limit){
+			$limit = 5;
+		}
+
+		$query = $query->setMaxResults($limit);
+
+		return $query->getResult();
 	}
 
 	/**

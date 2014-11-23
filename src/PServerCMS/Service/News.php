@@ -21,11 +21,11 @@ class News extends InvokableBase {
 	 * @return \PServerCMS\Entity\News[]
 	 */
 	public function getActiveNews(){
-
-		$newsInfo = $this->getCachingHelperService()->getItem(Caching::News, function() {
+		$limit = $this->getConfigService()->get('pserver.news.limit', 5);
+		$newsInfo = $this->getCachingHelperService()->getItem(Caching::News, function() use ($limit) {
 			/** @var \PServerCMS\Entity\Repository\News $repository */
 			$repository = $this->getEntityManager()->getRepository(Entity::News);
-			return $repository->getActiveNews();
+			return $repository->getActiveNews($limit);
 		});
 
 		return $newsInfo;

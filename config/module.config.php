@@ -234,6 +234,9 @@ return array(
 			 * set other pw for web as ingame
 			 */
 			'different-passwords' => true
+		),
+		'news' => array(
+			'limit' => 5
 		)
 	),
 	'authenticationadapter' => array(
