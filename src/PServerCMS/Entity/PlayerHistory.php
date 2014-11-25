@@ -18,7 +18,7 @@ use PServerCMS\Service\ServiceManager;
  * Ipblock
  *
  * @ORM\Table(name="pageInfo")
- * @ORM\Entity(repositoryClass="PServerCMS\Entity\Repository\PageInfo")
+ * @ORM\Entity(repositoryClass="PServerCMS\Entity\Repository\PlayerHistory")
  * @ORM\HasLifecycleCallbacks
  */
 class PlayerHistory {
