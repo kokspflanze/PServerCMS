@@ -114,6 +114,7 @@ return array(
 			'pserver_usercodes_service'			=> 'PServerCMS\Service\UserCodes',
 			'pserver_configread_service'		=> 'PServerCMS\Service\ConfigRead',
 			'pserver_pageinfo_service'			=> 'PServerCMS\Service\PageInfo',
+			'pserver_playerhistory_service'		=> 'PServerCMS\Service\PlayerHistory',
 			'pserver_donate_service'			=> 'PServerCMS\Service\Donate',
 			'pserver_cachinghelper_service'		=> 'PServerCMS\Service\CachingHelper',
 			'payment_api_log_service'			=> 'PServerCMS\Service\PaymentNotify',
