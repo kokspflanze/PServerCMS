@@ -40,9 +40,12 @@ class Module {
 				'sidebarWidget' => function(AbstractPluginManager $pluginManager){
 					return new View\Helper\SideBarWidget($pluginManager->getServiceLocator());
 				},
-                'formWidget' => function(AbstractPluginManager $pluginManager){
-                    return new View\Helper\FormWidget($pluginManager->getServiceLocator());
-                },
+				'formWidget' => function(AbstractPluginManager $pluginManager){
+					return new View\Helper\FormWidget($pluginManager->getServiceLocator());
+				},
+				'playerHistory' => function(AbstractPluginManager $pluginManager){
+					return new View\Helper\PlayerHistory($pluginManager->getServiceLocator());
+				},
                 'active' => function(AbstractPluginManager $pluginManager){
                     return new View\Helper\Active($pluginManager->getServiceLocator());
                 }

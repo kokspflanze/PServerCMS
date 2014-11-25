@@ -29,6 +29,8 @@ class InvokerBase extends AbstractHelper {
 	protected $routerService;
 	/** @var \Zend\Http\PhpEnvironment\Request */
 	protected $requestService;
+	/** @var \PServerCMS\Service\PlayerHistory */
+	protected $playerHistoryService;
 
 	/**
 	 * @param ServiceLocatorInterface $serviceLocatorInterface
@@ -86,6 +88,17 @@ class InvokerBase extends AbstractHelper {
 		}
 
 		return $this->serverInfoService;
+	}
+
+	/**
+	 * @return \PServerCMS\Service\PlayerHistory
+	 */
+	protected function getPlayerHistory(){
+		if (!$this->playerHistoryService) {
+			$this->playerHistoryService = $this->getServiceLocator()->get('pserver_playerhistory_service');
+		}
+
+		return $this->playerHistoryService;
 	}
 
 	/**
