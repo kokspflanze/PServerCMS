@@ -15,9 +15,9 @@ use PServerCMS\Keys\Caching;
 use PServerCMS\Service\ServiceManager;
 
 /**
- * Ipblock
+ * PlayerHistory
  *
- * @ORM\Table(name="pageInfo")
+ * @ORM\Table(name="playerHistory")
  * @ORM\Entity(repositoryClass="PServerCMS\Entity\Repository\PlayerHistory")
  * @ORM\HasLifecycleCallbacks
  */
