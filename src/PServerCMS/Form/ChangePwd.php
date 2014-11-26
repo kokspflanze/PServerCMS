@@ -10,6 +10,11 @@ class ChangePwd extends ProvidesEventsForm{
     public function __construct(){
         parent::__construct();
 
+		$this->add(array(
+			'type' => 'Zend\Form\Element\Csrf',
+			'name' => 'eugzhoe45gh3o49ug2wrtu7gz50'
+		));
+
         $this->add(array(
             'name' => 'currentPassword',
             'options' => array(

@@ -17,6 +17,11 @@ class Password extends ProvidesEventsForm {
 		parent::__construct();
 
 		$this->add(array(
+			'type' => 'Zend\Form\Element\Csrf',
+			'name' => 'eugzhoe45gh3o49ug2wrtu7gz50'
+		));
+
+		$this->add(array(
 			'name' => 'password',
 			'options' => array(
 				'label' => 'Password',
@@ -38,13 +43,6 @@ class Password extends ProvidesEventsForm {
 			),
 		));
 
-		/*
-		$this->add(array(
-			'name' => 'security',
-			'type' => 'Zend\Form\Element\Csrf'
-		));
-		*/
-
 		$submitElement = new Element\Button('submit');
 		$submitElement
 			->setLabel('Submit')
@@ -56,9 +54,5 @@ class Password extends ProvidesEventsForm {
 		$this->add($submitElement, array(
 			'priority' => -100,
 		));
-		/**
-		$csrf = new Element\Csrf('csrf');
-		$this->add($csrf->getCsrfValidator());
-		 */
 	}
 } 

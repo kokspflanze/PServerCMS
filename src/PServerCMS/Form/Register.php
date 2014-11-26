@@ -16,6 +16,12 @@ class Register extends ProvidesEventsForm {
 
 	public function __construct() {
 		parent::__construct();
+
+		$this->add(array(
+			'type' => 'Zend\Form\Element\Csrf',
+			'name' => 'eugzhoe45gh3o49ug2wrtu7gz50'
+		));
+
 		$this->add(array(
 			'name' => 'username',
 			'options' => array(
@@ -74,13 +80,6 @@ class Register extends ProvidesEventsForm {
 				'type' => 'password'
 			),
 		));
-
-		/*
-		$this->add(array(
-			'name' => 'security',
-			'type' => 'Zend\Form\Element\Csrf'
-		));
-		*/
 
 		$submitElement = new Element\Button('submit');
 		$submitElement
