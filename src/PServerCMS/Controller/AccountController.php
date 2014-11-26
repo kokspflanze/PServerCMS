@@ -12,7 +12,8 @@ use PServerCMS\Service;
 use Zend\Mvc\Controller\AbstractActionController;
 
 class AccountController extends AbstractActionController {
-	const ErrorNameSpace = 'pserver-user-account';
+	const ErrorNameSpace = 'pserver-user-account-error';
+	const SuccessNameSpace = 'pserver-user-account-success';
 	protected $userService;
 
 	public function indexAction() {
@@ -42,15 +43,23 @@ class AccountController extends AbstractActionController {
             return array(
 				'changeWebPwdForm' => $formChangeWebPwd,
 				'changeIngamePwdForm' => $formChangeIngamePwd,
-				'messages' => $this->flashmessenger()->getMessagesFromNamespace('success'),
-				'errors' => $this->flashmessenger()->getMessagesFromNamespace(self::ErrorNameSpace)
+				'messagesWeb' => $this->flashmessenger()->getMessagesFromNamespace(self::SuccessNameSpace. 'Web'),
+				'messagesInGame' => $this->flashmessenger()->getMessagesFromNamespace(self::SuccessNameSpace. 'InGame'),
+				'errorsWeb' => $this->flashmessenger()->getMessagesFromNamespace(self::ErrorNameSpace. 'Web'),
+				'errorsInGame' => $this->flashmessenger()->getMessagesFromNamespace(self::ErrorNameSpace. 'InGame')
 			);
 
         }
 
         $method = $this->params()->fromPost('which') == 'ingame'?'changeIngamePwd':'changeWebPwd';
         if($this->getUserService()->$method($this->params()->fromPost(), $user)){
-            $this->flashMessenger()->setNamespace('success')->addMessage('Success, password changed.');
+			$successKey = self::SuccessNameSpace;
+			if($this->params()->fromPost('which') == 'ingame'){
+				$successKey .= 'InGame';
+			}else{
+				$successKey .= 'Web';
+			}
+            $this->flashMessenger()->setNamespace($successKey)->addMessage('Success, password changed.');
         }
         return $this->redirect()->toUrl($this->url()->fromRoute('user'));
 	}

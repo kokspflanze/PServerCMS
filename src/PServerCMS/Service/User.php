@@ -36,8 +36,6 @@ class User extends \SmallUser\Service\User {
 	protected $passwordLostForm;
 	/** @var ConfigRead */
 	protected $configReadService;
-	/** @var string for user change namespace */
-	const UserErrorNameSpace = 'pserver-user-account';
 
 	/**
 	 * @param array $aData
@@ -172,7 +170,7 @@ class User extends \SmallUser\Service\User {
 			return false;
 		}
 
-        if(!$this->isPwdChangeAllowed($data, $user)){
+        if(!$this->isPwdChangeAllowed($data, $user, 'Web')){
 			return false;
 		}
 
@@ -188,7 +186,7 @@ class User extends \SmallUser\Service\User {
      */
     public function changeIngamePwd( array $data, Users $user ){
 		$user = $this->getUser4Id($user->getId());
-        if(!$this->isPwdChangeAllowed($data, $user)){
+        if(!$this->isPwdChangeAllowed($data, $user, 'InGame')){
 			return false;
         }
 
@@ -531,18 +529,18 @@ class User extends \SmallUser\Service\User {
 	 * @param Users $user
 	 * @return bool
 	 */
-	protected function isPwdChangeAllowed( array $data, Users $user){
+	protected function isPwdChangeAllowed( array $data, Users $user, $errorExtension){
 		$form = $this->getChangePwdForm();
 		$form->setData($data);
 		if(!$form->isValid()){
-			$this->getFlashMessenger()->setNamespace(self::UserErrorNameSpace)->addMessage('Form not valid.');
+			$this->getFlashMessenger()->setNamespace(\PServerCMS\Controller\AccountController::ErrorNameSpace.$errorExtension)->addMessage('Form not valid.');
 			return false;
 		}
 
 		$data = $form->getData();
 
 		if(!$user->hashPassword($user, $data['currentPassword'])){
-			$this->getFlashMessenger()->setNamespace(self::UserErrorNameSpace)->addMessage('Wrong Password.');
+			$this->getFlashMessenger()->setNamespace(\PServerCMS\Controller\AccountController::ErrorNameSpace.$errorExtension)->addMessage('Wrong Password.');
 			return false;
 		}
 
