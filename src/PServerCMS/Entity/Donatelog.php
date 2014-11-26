@@ -32,42 +32,42 @@ class Donatelog {
 	 *
 	 * @ORM\Column(name="`type`", type="string", length=45, nullable=false)
 	 */
-	private $type;
+	private $type = '';
 
 	/**
 	 * @var string
 	 *
 	 * @ORM\Column(name="transaction_id", type="string", length=255, nullable=true)
 	 */
-	private $transactionId;
+	private $transactionId = '';
 
 	/**
 	 * @var string
 	 *
 	 * @ORM\Column(name="success", type="string", nullable=false)
 	 */
-	private $success;
+	private $success = '';
 
 	/**
 	 * @var integer
 	 *
 	 * @ORM\Column(name="coins", type="integer", nullable=false)
 	 */
-	private $coins;
+	private $coins = '';
 
 	/**
 	 * @var string
 	 *
 	 * @ORM\Column(name="`desc`", type="text", nullable=false)
 	 */
-	private $desc;
+	private $desc = '';
 
 	/**
 	 * @var string
 	 *
 	 * @ORM\Column(name="ip", type="string", length=60, nullable=false)
 	 */
-	private $ip;
+	private $ip = '';
 
 	/**
 	 * @var \DateTime
