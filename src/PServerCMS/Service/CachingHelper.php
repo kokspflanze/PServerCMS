@@ -23,9 +23,7 @@ class CachingHelper extends InvokableBase {
 		if(!$data){
 			$data = $closure();
 			if($lifetime > 0){
-				$this->getCachingService()->setOptions(array(
-					'ttl' => $lifetime
-				));
+				$this->cachingService->setOptions($this->getCachingService()->getOptions()->setTtl($lifetime));
 			}
 			$this->getCachingService()->setItem($cacheKey, $data);
 		}
