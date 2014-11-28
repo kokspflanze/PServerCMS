@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use GameBackend\Entity\User\UserInterface;
 use PServerCMS\Service\ServiceManager;
 use SmallUser\Entity\UsersInterface;
+use ZfcTicketSystem\Entity\UserInterface as TicketUserInterface;
 use Zend\Crypt\Password\Bcrypt;
 
 /**
@@ -18,7 +19,8 @@ use Zend\Crypt\Password\Bcrypt;
 class Users implements
 	ProviderInterface, 
 	UsersInterface,
-	UserInterface {
+	UserInterface,
+	TicketUserInterface{
 	/**
 	 * @var integer
 	 *
