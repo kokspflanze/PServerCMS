@@ -196,7 +196,7 @@ class User extends \SmallUser\Service\User {
 		}
 
 		$gameBackend = $this->getGameBackendService();
-		$gameBackend->setUser($user);
+		$gameBackend->setUser($user, $data['password']);
 		return $user;
     }
 
@@ -241,7 +241,7 @@ class User extends \SmallUser\Service\User {
 
 		if(!$this->isSamePasswordOption()){
 			$gameBackend = $this->getGameBackendService();
-			$gameBackend->setUser($userEntity);
+			$gameBackend->setUser($userEntity, $sPlainPassword);
 		}
 
 		return $userEntity;
