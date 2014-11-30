@@ -44,7 +44,11 @@ class RegisterFilter extends ProvidesEventsInputFilter {
 			'filters'    => array(array('name' => 'StringTrim')),
 			'validators' => array(
 				array(
-					'name' => 'EmailAddress'
+					'name' => 'EmailAddress',
+					'options' => array(
+						'allow' 		=> \Zend\Validator\Hostname::ALLOW_DNS,
+						'useMxCheck'    => true
+					)
 				),
 			),
 		));
