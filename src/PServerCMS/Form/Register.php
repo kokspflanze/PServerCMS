@@ -11,10 +11,11 @@ namespace PServerCMS\Form;
 use Zend\Form\Form;
 use Zend\Form\Element;
 use ZfcBase\Form\ProvidesEventsForm;
+use Doctrine\ORM\EntityManager;
 
 class Register extends ProvidesEventsForm {
 
-	public function __construct() {
+	public function __construct( EntityManager $entityManager ) {
 		parent::__construct();
 
 		$this->add(array(
@@ -78,6 +79,37 @@ class Register extends ProvidesEventsForm {
                 'placeholder' => 'Password Verify',
                 'class' => 'form-control',
 				'type' => 'password'
+			),
+		));
+
+		$this->add(array(
+			'name' => 'question',
+			'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+			'options' => array(
+				'object_manager'=> $entityManager,
+				'target_class'  => 'PServerCMS\Entity\SecretQuestion',
+				'property'		=> 'question',
+				'label'			=> 'SecretQuestion',
+				'empty_option'  => '-- select --',
+				'is_method'		=> true,
+				'find_method'	=> array(
+					'name' => 'getQuestions',
+				),
+			),
+			'attributes' => array(
+				'class' => 'form-control',
+			),
+		));
+
+		$this->add(array(
+			'name' => 'answer',
+			'options' => array(
+				'label' => 'SecretAnswer',
+			),
+			'attributes' => array(
+				'placeholder' => 'Answer',
+				'class' => 'form-control',
+				'type' => 'text'
 			),
 		));
 

@@ -28,5 +28,7 @@ class Entity {
 	const UserRole				= 'PServerCMS\Entity\UserRole';
 	const Users					= 'PServerCMS\Entity\Users';
 	const ServerInfo			= 'PServerCMS\Entity\ServerInfo';
+	const SecretAnswer 			= 'PServerCMS\Entity\SecretAnswer';
+	const SecretQuestion		= 'PServerCMS\Entity\SecretQuestion';
 
 } 

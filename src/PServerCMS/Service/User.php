@@ -38,16 +38,16 @@ class User extends \SmallUser\Service\User {
 	protected $configReadService;
 
 	/**
-	 * @param array $aData
+	 * @param array $data
 	 *
 	 * @return Users|bool
 	 */
-	public function register( array $aData ){
+	public function register( array $data ){
 
 		$oForm = $this->getRegisterForm();
 		$oForm->setHydrator( new HydratorUser() );
 		$oForm->bind( new Users() );
-		$oForm->setData($aData);
+		$oForm->setData($data);
 		if(!$oForm->isValid()){
 			return false;
 		}
@@ -64,6 +64,8 @@ class User extends \SmallUser\Service\User {
 		$sCode = $this->getUserCodesService()->setCode4User($userEntity, \PServerCMS\Entity\Usercodes::Type_Register);
 
 		$this->getMailService()->register($userEntity, $sCode);
+
+		$this->getSecretQuestionService()->setSecretAnswer($userEntity, $data['question'], $data['answer']);
 
 		return $userEntity;
 	}
@@ -224,16 +226,16 @@ class User extends \SmallUser\Service\User {
 
 	public function lostPwConfirm( array $data, Usercodes $userCode ){
 
-		$oForm = $this->getPasswordForm();
-
-		$oForm->setData($data);
-		if(!$oForm->isValid()){
+		$form = $this->getPasswordForm();
+		$form->getInputFilter()->setUser( $userCode->getUser() );
+		$form->setData($data);
+		if(!$form->isValid()){
 			return false;
 		}
 
-		$data = $oForm->getData();
+		$data = $form->getData();
 		$sPlainPassword = $data['password'];
-		$userEntity = $userCode->getUsersUsrid();
+		$userEntity = $userCode->getUser();
 
 		$this->setNewPasswordAtUser( $userEntity, $sPlainPassword );
 
@@ -560,5 +562,12 @@ class User extends \SmallUser\Service\User {
 		$entityManager->flush();
 
 		return $userEntity;
+	}
+
+	/**
+	 * @return SecretQuestion
+	 */
+	protected function getSecretQuestionService(){
+		return $this->getServiceManager()->get('pserver_secret_question');
 	}
 }

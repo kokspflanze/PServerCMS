@@ -8,12 +8,17 @@
 
 namespace PServerCMS\Form;
 
-
+use PServerCMS\Entity\Users;
 use ZfcBase\InputFilter\ProvidesEventsInputFilter;
+use Zend\ServiceManager\ServiceLocatorInterface;
+use PServerCMS\Validator\SimilarText;
 
 class PasswordFilter extends ProvidesEventsInputFilter {
 
-	public function __construct( ){
+	protected $similarText;
+	protected $user;
+
+	public function __construct( SimilarText $similarText ){
 
 		$this->add(array(
 			'name'       => 'password',
@@ -50,5 +55,36 @@ class PasswordFilter extends ProvidesEventsInputFilter {
 				),
 			),
 		));
+
 	}
+
+	public function addAnswerValidation(Users $user){
+		$similarText = $this->getSimilarText();
+		$similarText->setUser($user);
+
+		$this->add(array(
+			'name'       => 'answer',
+			'required'   => true,
+			'filters'    => array(array('name' => 'StringTrim')),
+			'validators' => array(
+				$similarText,
+			),
+		));
+
+	}
+
+	/**
+	 * @param SimilarText $similarText
+	 */
+	protected function setSimilarText( SimilarText $similarText ){
+		$this->similarText = $similarText;
+	}
+
+	/**
+	 * @return SimilarText
+	 */
+	protected function getSimilarText(){
+		return $this->similarText;
+	}
+
 } 

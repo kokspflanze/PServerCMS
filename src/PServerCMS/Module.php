@@ -64,33 +64,32 @@ class Module {
 			'factories' => array(
 				'pserver_user_register_form' => function($sm){
 					/** @var $sm \Zend\ServiceManager\ServiceLocatorInterface */
-					/** @var $oRepositoryUser \Doctrine\Common\Persistence\ObjectRepository */
-					$oRepositoryUser = $sm->get('Doctrine\ORM\EntityManager')->getRepository(Entity::Users);
-					$form = new Form\Register();
-					$form->setInputFilter(new Form\RegisterFilter(
-						new Validator\NoRecordExists( $oRepositoryUser, 'username' )
-					));
+					$form = new Form\Register($sm);
+					$form->setInputFilter(new Form\RegisterFilter($sm));
 					return $form;
 				},
-				'pserver_user_password_form' => function(){
-					$form = new Form\Password();
-					$form->setInputFilter(new Form\PasswordFilter());
+				'pserver_user_password_form' => function($sm){
+					/** @var $sm \Zend\ServiceManager\ServiceLocatorInterface */
+					$form = new Form\Password($sm);
+					$form->setInputFilter(new Form\PasswordFilter(
+						new Validator\SimilarText( $sm->get('pserver_secret_question') )
+					));
 					return $form;
 				},
 				'pserver_user_pwlost_form' => function($sm){
 					/** @var $sm \Zend\ServiceManager\ServiceLocatorInterface */
-					/** @var $oRepositoryUser \Doctrine\Common\Persistence\ObjectRepository */
-					$oRepositoryUser = $sm->get('Doctrine\ORM\EntityManager')->getRepository(Entity::Users);
+					/** @var $repositoryUser \Doctrine\Common\Persistence\ObjectRepository */
+					$repositoryUser = $sm->get('Doctrine\ORM\EntityManager')->getRepository(Entity::Users);
 					$form = new Form\PwLost();
 					$form->setInputFilter(new Form\PwLostFilter(
-						new Validator\RecordExists( $oRepositoryUser, 'username' )
+						new Validator\RecordExists( $repositoryUser, 'username' )
 					));
 					return $form;
 				},
                 'pserver_user_changepwd_form' => function(){
-                        $form = new Form\ChangePwd();
-                        $form->setInputFilter(new Form\ChangePwdFilter());
-                        return $form;
+					$form = new Form\ChangePwd();
+					$form->setInputFilter(new Form\ChangePwdFilter());
+					return $form;
                 },
 			),
 		);

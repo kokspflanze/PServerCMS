@@ -10,8 +10,13 @@ namespace PServerCMS\Form;
 
 use ZfcBase\InputFilter\ProvidesEventsInputFilter;
 use PServerCMS\Validator\AbstractRecord;
+use PServerCMS\Keys\Entity;
+use PServerCMS\Validator;
+use Zend\ServiceManager\ServiceManager;
 
 class RegisterFilter extends ProvidesEventsInputFilter {
+	protected $serviceManager;
+	protected $entityManager;
 
 	/**
 	 * @var AbstractRecord
@@ -19,8 +24,13 @@ class RegisterFilter extends ProvidesEventsInputFilter {
 	protected $usernameValidator;
 
 
-	public function __construct( AbstractRecord $usernameValidator ){
-		$this->setUsernameValidator( $usernameValidator );
+	public function __construct( ServiceManager $serviceManager ){
+
+		$this->setServiceManager($serviceManager);
+
+		/** @var $oRepositoryUser \Doctrine\Common\Persistence\ObjectRepository */
+		$oRepositoryUser = $serviceManager->get('Doctrine\ORM\EntityManager')->getRepository(Entity::Users);
+		$this->setUsernameValidator( new Validator\NoRecordExists( $oRepositoryUser, 'username' ) );
 
 		$this->add(array(
 			'name'       => 'username',
@@ -47,7 +57,8 @@ class RegisterFilter extends ProvidesEventsInputFilter {
 					'name' => 'EmailAddress',
 					'options' => array(
 						'allow' 		=> \Zend\Validator\Hostname::ALLOW_DNS,
-						'useMxCheck'    => true
+						'useMxCheck'    => true,
+						'useDeepMxCheck'  => true
 					)
 				),
 			),
@@ -109,6 +120,58 @@ class RegisterFilter extends ProvidesEventsInputFilter {
 				),
 			),
 		));
+		$this->add(array(
+			'name'       => 'question',
+			'required'   => true,
+			'validators' => array(
+				array(
+					'name'    => 'InArray',
+					'options' => array(
+						'haystack' => $this->getSecretQuestionList(),
+					),
+				),
+			),
+		));
+		$this->add(array(
+			'name'       => 'answer',
+			'required'   => true,
+			'filters'    => array(array('name' => 'StringTrim')),
+			'validators' => array(
+				array(
+					'name'    => 'StringLength',
+					'options' => array(
+						'min' => 3,
+						'max' => 255,
+					),
+				),
+			),
+		));
+	}
+
+	/**
+	 * @param ServiceManager $oServiceManager
+	 *
+	 * @return $this
+	 */
+	public function setServiceManager( ServiceManager $oServiceManager ) {
+		$this->serviceManager = $oServiceManager;
+
+		return $this;
+	}
+
+	/**
+	 * @return array
+	 */
+	protected function getSecretQuestionList(){
+		/** @var \PServerCMS\Entity\Repository\SecretQuestion $secret */
+		$secret = $this->getEntityManager()->getRepository('BlazeCF\Entity\SecretQuestion');
+		$secretQuestion = $secret->getQuestions();
+
+		$result = array();
+		foreach($secretQuestion as $entry){
+			$result[] = $entry->getId();
+		}
+		return $result;
 	}
 
 	/**
@@ -126,5 +189,23 @@ class RegisterFilter extends ProvidesEventsInputFilter {
 	public function setUsernameValidator($usernameValidator) {
 		$this->usernameValidator = $usernameValidator;
 		return $this;
+	}
+
+	/**
+	 * @return ServiceManager
+	 */
+	protected function getServiceManager() {
+		return $this->serviceManager;
+	}
+
+	/**
+	 * @return \Doctrine\ORM\EntityManager
+	 */
+	protected function getEntityManager() {
+		if (!$this->entityManager) {
+			$this->entityManager = $this->getServiceManager()->get('Doctrine\ORM\EntityManager');
+		}
+
+		return $this->entityManager;
 	}
 } 

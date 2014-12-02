@@ -102,15 +102,16 @@ class AuthController extends \SmallUser\Controller\AuthController {
 	public function pwLostConfirmAction(){
 		$code = $this->params()->fromRoute('code');
 
-		$oCode = $this->getCode4Data($code, Usercodes::Type_LostPassword);
-		if(!$oCode){
+		$codeEntity = $this->getCode4Data($code, Usercodes::Type_LostPassword);
+		if(!$codeEntity){
 			return $this->forward()->dispatch('PServerCMS\Controller\Auth', array('action' => 'wrong-code'));
 		}
 
 		$form = $this->getUserService()->getPasswordForm();
+		$form->setUser($codeEntity->getUser());
 		$request = $this->getRequest();
 		if($request->isPost()){
-			$user = $this->getUserService()->lostPwConfirm($this->params()->fromPost(), $oCode);
+			$user = $this->getUserService()->lostPwConfirm($this->params()->fromPost(), $codeEntity);
 			if($user){
 				return $this->redirect()->toRoute('small-user-auth', array('action' => 'pw-lost-confirm-done'));
 			}

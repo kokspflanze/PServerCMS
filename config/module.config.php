@@ -119,6 +119,7 @@ return array(
 			'pserver_cachinghelper_service'		=> 'PServerCMS\Service\CachingHelper',
 			'payment_api_log_service'			=> 'PServerCMS\Service\PaymentNotify',
 			'pserver_user_block_service'		=> 'PServerCMS\Service\UserBlock',
+			'pserver_secret_question'			=> 'PServerCMS\Service\SecretQuestion',
 		)
     ),
     'controllers' => array(

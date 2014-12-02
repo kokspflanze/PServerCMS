@@ -158,9 +158,22 @@ class Usercodes {
 	 * @param \PServerCMS\Entity\Users $usersUsrid
 	 *
 	 * @return Usercodes
+	 * @deprecated
 	 */
 	public function setUsersUsrid( \PServerCMS\Entity\Users $usersUsrid = null ) {
-		$this->usersUsrid = $usersUsrid;
+		return $this->setUser($usersUsrid);
+	}
+
+
+	/**
+	 * Set usersUsrid
+	 *
+	 * @param \PServerCMS\Entity\Users $user
+	 *
+	 * @return Usercodes
+	 */
+	public function setUser( \PServerCMS\Entity\Users $user = null ){
+		$this->usersUsrid = $user;
 
 		return $this;
 	}
@@ -169,8 +182,18 @@ class Usercodes {
 	 * Get usersUsrid
 	 *
 	 * @return \PServerCMS\Entity\Users
+	 * @deprecated
 	 */
 	public function getUsersUsrid() {
+		return $this->getUser();
+	}
+
+	/**
+	 * Get usersUsrid
+	 *
+	 * @return \PServerCMS\Entity\Users
+	 */
+	public function getUser() {
 		return $this->usersUsrid;
 	}
 }
