@@ -108,7 +108,7 @@ class AuthController extends \SmallUser\Controller\AuthController {
 		}
 
 		$form = $this->getUserService()->getPasswordForm();
-		$form->setUser($codeEntity->getUser());
+		$form->addSecretQuestion($codeEntity->getUser());
 		$request = $this->getRequest();
 		if($request->isPost()){
 			$user = $this->getUserService()->lostPwConfirm($this->params()->fromPost(), $codeEntity);

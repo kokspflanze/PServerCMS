@@ -227,7 +227,7 @@ class User extends \SmallUser\Service\User {
 	public function lostPwConfirm( array $data, Usercodes $userCode ){
 
 		$form = $this->getPasswordForm();
-		$form->getInputFilter()->setUser( $userCode->getUser() );
+		$form->getInputFilter()->addAnswerValidation( $userCode->getUser() );
 		$form->setData($data);
 		if(!$form->isValid()){
 			return false;
