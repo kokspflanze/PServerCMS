@@ -64,7 +64,7 @@ class Module {
 			'factories' => array(
 				'pserver_user_register_form' => function($sm){
 					/** @var $sm \Zend\ServiceManager\ServiceLocatorInterface */
-					$form = new Form\Register($sm);
+					$form = new Form\Register($sm->get('Doctrine\ORM\EntityManager'));
 					$form->setInputFilter(new Form\RegisterFilter($sm));
 					return $form;
 				},

@@ -13,14 +13,28 @@ use Zend\Validator\Exception;
 use PServerCMS\Entity\Users;
 
 class SimilarText extends AbstractValidator {
+	/**
+	 * Error constants
+	 */
+	const ERROR_NOT_SAME    = 'noRecordFound';
+
+	/**
+	 * TODO better message
+	 * @var array Message templates
+	 */
+	protected $messageTemplates = array(
+		self::ERROR_NOT_SAME => "Secret Answer is not correct"
+	);
+
+
 
 	/** @var \PServerCMS\Service\SecretQuestion */
 	protected $secretQuestionService;
 
 	function __construct( \PServerCMS\Service\SecretQuestion $secretQuestionService ) {
 		$this->setSecretQuestion($secretQuestionService);
-	}
 
+	}
 
 	/**
 	 * Returns true if and only if $value meets the validation requirements
@@ -39,7 +53,7 @@ class SimilarText extends AbstractValidator {
 		$this->setValue($value);
 		if(!$this->getSecretQuestion()->isAnswerAllowed( $this->getUser(), $value )){
 			$result = false;
-			$this->error('Secret Answer is not correct');
+			$this->error(self::ERROR_NOT_SAME);
 		}
 
 		return $result;

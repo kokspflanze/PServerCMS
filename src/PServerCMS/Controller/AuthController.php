@@ -60,25 +60,25 @@ class AuthController extends \SmallUser\Controller\AuthController {
 		return array('registerForm' => $form);
 	}
 
-    public function ipConfirmAction(){
-        $code = $this->params()->fromRoute('code');
+	public function ipConfirmAction(){
+		$code = $this->params()->fromRoute('code');
 
 		$oCode = $this->getCode4Data($code, Usercodes::Type_ConfirmCountry);
 		if(!$oCode){
 			return $this->forward()->dispatch('PServerCMS\Controller\Auth', array('action' => 'wrong-code'));
 		}
 
-        $user = $this->getUserService()->countryConfirm($oCode);
-        if($user){
-            return $this->redirect()->toRoute('small-user-auth', array('action' => 'ip-confirm-done'));
-        }
+		$user = $this->getUserService()->countryConfirm($oCode);
+		if($user){
+			return $this->redirect()->toRoute('small-user-auth', array('action' => 'ip-confirm-done'));
+		}
 
-        return array();
-    }
+		return array();
+	}
 
-    public function ipConfirmDoneAction(){
-        return array();
-    }
+	public function ipConfirmDoneAction(){
+		return array();
+	}
 
 	public function pwLostAction(){
 
@@ -106,7 +106,6 @@ class AuthController extends \SmallUser\Controller\AuthController {
 		if(!$codeEntity){
 			return $this->forward()->dispatch('PServerCMS\Controller\Auth', array('action' => 'wrong-code'));
 		}
-
 		$form = $this->getUserService()->getPasswordForm();
 		$form->addSecretQuestion($codeEntity->getUser());
 		$request = $this->getRequest();

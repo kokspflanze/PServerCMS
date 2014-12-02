@@ -20,6 +20,8 @@ class PasswordFilter extends ProvidesEventsInputFilter {
 
 	public function __construct( SimilarText $similarText ){
 
+		$this->setSimilarText($similarText);
+
 		$this->add(array(
 			'name'       => 'password',
 			'required'   => true,
