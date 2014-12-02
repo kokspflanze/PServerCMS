@@ -164,7 +164,7 @@ class RegisterFilter extends ProvidesEventsInputFilter {
 	 */
 	protected function getSecretQuestionList(){
 		/** @var \PServerCMS\Entity\Repository\SecretQuestion $secret */
-		$secret = $this->getEntityManager()->getRepository('BlazeCF\Entity\SecretQuestion');
+		$secret = $this->getEntityManager()->getRepository('PServerCMS\Entity\SecretQuestion');
 		$secretQuestion = $secret->getQuestions();
 
 		$result = array();

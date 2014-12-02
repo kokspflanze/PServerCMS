@@ -40,7 +40,7 @@ class SecretAnswer {
 	/**
 	 * @var SecretQuestion
 	 *
-	 * @ORM\ManyToOne(targetEntity="BlazeCF\Entity\SecretQuestion")
+	 * @ORM\ManyToOne(targetEntity="PServerCMS\Entity\SecretQuestion")
 	 * @ORM\JoinColumns({
 	 *   @ORM\JoinColumn(name="question", referencedColumnName="id")
 	 * })
