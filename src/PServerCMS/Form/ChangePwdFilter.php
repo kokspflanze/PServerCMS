@@ -2,11 +2,12 @@
 
 namespace PServerCMS\Form;
 
-class ChangePwdFilter extends PasswordFilter{
+use ZfcBase\InputFilter\ProvidesEventsInputFilter;
+
+class ChangePwdFilter extends ProvidesEventsInputFilter{
 
 
     public function __construct(){
-        parent::__construct();
 
         $this->add(array(
             'name'       => 'currentPassword',
@@ -22,5 +23,40 @@ class ChangePwdFilter extends PasswordFilter{
                 ),
             ),
         ));
+		$this->add(array(
+			'name'       => 'password',
+			'required'   => true,
+			'filters'    => array(array('name' => 'StringTrim')),
+			'validators' => array(
+				array(
+					'name'    => 'StringLength',
+					'options' => array(
+						'min' => 6,
+						'max' => 16,
+					),
+				),
+			),
+		));
+
+		$this->add(array(
+			'name'       => 'passwordVerify',
+			'required'   => true,
+			'filters'    => array(array('name' => 'StringTrim')),
+			'validators' => array(
+				array(
+					'name'    => 'StringLength',
+					'options' => array(
+						'min' => 6,
+						'max' => 16,
+					),
+				),
+				array(
+					'name'    => 'Identical',
+					'options' => array(
+						'token' => 'password',
+					),
+				),
+			),
+		));
     }
 }
