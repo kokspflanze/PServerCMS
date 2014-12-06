@@ -7,18 +7,18 @@ use Zend\View\Model\ViewModel;
 class FormWidget extends InvokerBase {
 
 	/**
-	 * @param $oForm
+	 * @param $form
 	 *
 	 * @return string
 	 */
-	public function __invoke($oForm){
+	public function __invoke($form, $template = 'helper/formWidget'){
 
-        $oViewModel = new ViewModel(array(
-			'formWidget' => $oForm
+        $viewModel = new ViewModel(array(
+			'formWidget' => $form
 		));
-        $oViewModel->setTemplate('helper/formWidget');
+        $viewModel->setTemplate($template);
 
-        return $this->getView()->render($oViewModel);
+        return $this->getView()->render($viewModel);
     }
 
 }
