@@ -239,6 +239,12 @@ return array(
 		),
 		'news' => array(
 			'limit' => 5
+		),
+		'pageinfotype' => array(
+			'faq',
+			'rules',
+			'guides',
+			'events'
 		)
 	),
 	'authenticationadapter' => array(

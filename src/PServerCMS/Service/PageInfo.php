@@ -61,6 +61,13 @@ class PageInfo extends InvokableBase {
 	}
 
 	/**
+	 * @return array
+	 */
+	public function getPossiblePageInfoTypes(){
+		return $this->getConfigService()->get('pserver.pageinfotype', array());
+	}
+
+	/**
 	 * @return \PServerAdmin\Form\PageInfo
 	 */
 	public function getPageInfoForm(){
