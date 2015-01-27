@@ -8,7 +8,6 @@
 
 namespace PServerCMS\Validator;
 
-use Zend\ServiceManager\ServiceManagerAwareInterface;
 use Zend\Validator\AbstractValidator;
 use Zend\Validator\Exception;
 use Zend\ServiceManager\ServiceManager;
@@ -30,17 +29,17 @@ class StriposExists extends AbstractValidator {
 		self::ERROR_NOT_SAME => "Entry not allowed"
 	);
 
-	/** @var ServiceManagerAwareInterface */
+	/** @var ServiceManager */
 	protected $serviceManager;
 	/** @var  string */
 	protected $type;
 
 	/**
-	 * @param ServiceManagerAwareInterface $serviceManagerAwareInterface
+	 * @param ServiceManager $serviceManager
 	 * @param                              $type
 	 */
-	function __construct( ServiceManagerAwareInterface $serviceManagerAwareInterface, $type ) {
-		$this->setServiceManager($serviceManagerAwareInterface);
+	function __construct( ServiceManager $serviceManager, $type ) {
+		$this->setServiceManager($serviceManager);
 		$this->setType($type);
 	}
 
