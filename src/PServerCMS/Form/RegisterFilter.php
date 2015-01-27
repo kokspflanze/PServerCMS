@@ -18,10 +18,10 @@ class RegisterFilter extends ProvidesEventsInputFilter {
 	protected $serviceManager;
 	protected $entityManager;
 
-	/**
-	 * @var AbstractRecord
-	 */
+	/** @var AbstractRecord */
 	protected $usernameValidator;
+	/** @var Validator\StriposExists */
+	protected $striposValidator;
 
 
 	public function __construct( ServiceManager $serviceManager ){
@@ -31,8 +31,7 @@ class RegisterFilter extends ProvidesEventsInputFilter {
 		/** @var $oRepositoryUser \Doctrine\Common\Persistence\ObjectRepository */
 		$oRepositoryUser = $serviceManager->get('Doctrine\ORM\EntityManager')->getRepository(Entity::Users);
 		$this->setUsernameValidator( new Validator\NoRecordExists( $oRepositoryUser, 'username' ) );
-
-		$striposValidator = new Validator\StriposExists($serviceManager, Validator\StriposExists::TypeEmail);
+		$this->setStriposValidator( new Validator\StriposExists($serviceManager, Validator\StriposExists::TypeEmail) );
 
 		$this->add(array(
 			'name'       => 'username',
@@ -63,7 +62,7 @@ class RegisterFilter extends ProvidesEventsInputFilter {
 						'useDeepMxCheck'  => true
 					)
 				),
-				$striposValidator
+				$this->getStriposValidator()
 			),
 		));
 
@@ -198,6 +197,23 @@ class RegisterFilter extends ProvidesEventsInputFilter {
 	 */
 	public function setUsernameValidator($usernameValidator) {
 		$this->usernameValidator = $usernameValidator;
+		return $this;
+	}
+
+	/**
+	 * @return Validator\StriposExists
+	 */
+	public function getStriposValidator()	{
+		return $this->striposValidator;
+	}
+
+	/**
+	 * @param Validator\StriposExists $striposValidator
+	 *
+	 * @return $this
+	 */
+	public function setStriposValidator($striposValidator) {
+		$this->striposValidator = $striposValidator;
 		return $this;
 	}
 

@@ -19,14 +19,14 @@ class StriposExists extends AbstractValidator {
 	/**
 	 * Error constants
 	 */
-	const ERROR_NOT_SAME    = 'noRecordFound';
+	const ERROR_BLACKLIST    = 'EntryNotAllowed';
 
 	/**
 	 * TODO better message
 	 * @var array Message templates
 	 */
 	protected $messageTemplates = array(
-		self::ERROR_NOT_SAME => "Entry not allowed"
+		self::ERROR_BLACKLIST => "Entry not allowed"
 	);
 
 	/** @var ServiceManager */
@@ -41,6 +41,8 @@ class StriposExists extends AbstractValidator {
 	function __construct( ServiceManager $serviceManager, $type ) {
 		$this->setServiceManager($serviceManager);
 		$this->setType($type);
+
+		parent::__construct();
 	}
 
 	/**
@@ -62,13 +64,12 @@ class StriposExists extends AbstractValidator {
 		if(!$blackList){
 			return $result;
 		}
-		$value = strtolower($value);
 		foreach($blackList as $entry){
-			if(stripos($value, $entry) !== true){
+			if(stripos($value, $this->editBlackListedData($entry)) === false){
 				continue;
 			}
 			$result = false;
-			$this->error(self::ERROR_NOT_SAME);
+			$this->error(self::ERROR_BLACKLIST);
 			break;
 		}
 
