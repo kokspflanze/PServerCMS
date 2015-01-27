@@ -245,6 +245,9 @@ return array(
 			'rules',
 			'guides',
 			'events'
+		),
+		'blacklisted' => array(
+			'email' => array()
 		)
 	),
 	'authenticationadapter' => array(

@@ -32,6 +32,8 @@ class RegisterFilter extends ProvidesEventsInputFilter {
 		$oRepositoryUser = $serviceManager->get('Doctrine\ORM\EntityManager')->getRepository(Entity::Users);
 		$this->setUsernameValidator( new Validator\NoRecordExists( $oRepositoryUser, 'username' ) );
 
+		$striposValidator = new Validator\StriposExists($serviceManager, Validator\StriposExists::TypeEmail);
+
 		$this->add(array(
 			'name'       => 'username',
 			'required'   => true,
@@ -61,6 +63,7 @@ class RegisterFilter extends ProvidesEventsInputFilter {
 						'useDeepMxCheck'  => true
 					)
 				),
+				$striposValidator
 			),
 		));
 
@@ -160,6 +163,13 @@ class RegisterFilter extends ProvidesEventsInputFilter {
 	}
 
 	/**
+	 * @return ServiceManager
+	 */
+	protected function getServiceManager() {
+		return $this->serviceManager;
+	}
+
+	/**
 	 * @return array
 	 */
 	protected function getSecretQuestionList(){
@@ -189,13 +199,6 @@ class RegisterFilter extends ProvidesEventsInputFilter {
 	public function setUsernameValidator($usernameValidator) {
 		$this->usernameValidator = $usernameValidator;
 		return $this;
-	}
-
-	/**
-	 * @return ServiceManager
-	 */
-	protected function getServiceManager() {
-		return $this->serviceManager;
 	}
 
 	/**
