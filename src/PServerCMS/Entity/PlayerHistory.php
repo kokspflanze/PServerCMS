@@ -51,9 +51,9 @@ class PlayerHistory {
 	}
 
 	/**
-	 * @ORM\PostPersist()
+	 * @ORM\PreFlush()
 	 */
-	public function postPersist( LifecycleEventArgs $eventArgs ) {
+	public function preFlush( ) {
 		/** @var \PServerCMS\Service\CachingHelper $cachingHelperService */
 		$cachingHelperService = ServiceManager::getInstance()->get('pserver_cachinghelper_service');
 		$cachingHelperService->delItem(Caching::PlayerHistory);
