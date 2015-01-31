@@ -27,10 +27,14 @@ class PlayerHistory extends InvokableBase {
 	}
 
 	/**
-	 * read from gamebackend the current player and save them in database
+	 * read from gamebackend the current player [or] as param and save them in database
+	 *
+	 * @param int $player
 	 */
-	public function setCurrentPlayer(){
-		$player = $this->getGameBackendService()->getCurrentPlayerNumber();
+	public function setCurrentPlayer( $player = 0 ){
+		if(!$player){
+			$player = $this->getGameBackendService()->getCurrentPlayerNumber();
+		}
 
 		$playerHistory = new \PServerCMS\Entity\PlayerHistory();
 		$playerHistory->setPlayer($player);
