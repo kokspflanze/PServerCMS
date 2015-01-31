@@ -1,111 +1,111 @@
 <?php
 
-return array(
-    'router' => array(
-        'routes' => array(
-            'home' => array(
+return [
+    'router' => [
+        'routes' => [
+            'home' => [
                 'type' => 'Zend\Mvc\Router\Http\Literal',
-                'options' => array(
+                'options' => [
                     'route'    => '/',
-                    'defaults' => array(
+                    'defaults' => [
                         'controller' => 'PServerCMS\Controller\Index',
                         'action'     => 'index',
-                    ),
-                ),
-            ),
-			'site-detail' => array(
+                    ],
+                ],
+            ],
+			'site-detail' => [
 				'type' => 'segment',
-				'options' => array(
+				'options' => [
 					'route'    => '/detail-[:type].html',
-					'constraints' => array(
+					'constraints' => [
 						'type'     => '[a-zA-Z]+',
-					),
-					'defaults' => array(
+					],
+					'defaults' => [
 						'controller'	=> 'PServerCMS\Controller\Site',
 						'action'		=> 'page'
-					),
-				),
-			),
-			'site-download' => array(
+					],
+				],
+			],
+			'site-download' => [
 				'type' => 'segment',
-				'options' => array(
+				'options' => [
 					'route'    => '/download.html',
-					'defaults' => array(
+					'defaults' => [
 						'controller'	=> 'PServerCMS\Controller\Site',
 						'action'		=> 'download'
-					),
-				),
-			),
-			'user' => array(
+					],
+				],
+			],
+			'user' => [
 				'type' => 'segment',
-				'options' => array(
+				'options' => [
 					'route'    => '/panel/account[/:action].html',
-					'constraints' => array(
+					'constraints' => [
 						'action'     => '[a-zA-Z-]+',
-					),
-					'defaults' => array(
+					],
+					'defaults' => [
 						'controller'	=> 'PServerCMS\Controller\Account',
 						'action'		=> 'index',
-					),
-				),
-			),
+					],
+				],
+			],
             // The following is a route to simplify getting started creating
             // new controllers and actions without needing to create a new
             // module. Simply drop new controllers in, and you can access them
             // using the path /p-server-cms/:controller/:action
 			/*
-            'p-server-cms' => array(
+            'p-server-cms' => [
                 'type'    => 'Literal',
-                'options' => array(
+                'options' => [
                     'route'    => '/p-server-cms',
-                    'defaults' => array(
+                    'defaults' => [
                         '__NAMESPACE__' => 'PServerCMS\Controller',
                         'controller'    => 'Index',
                         'action'        => 'index',
-                    ),
-                ),
+                    ],
+                ],
                 'may_terminate' => true,
-                'child_routes' => array(
-                    'default' => array(
+                'child_routes' => [
+                    'default' => [
                         'type'    => 'Segment',
-                        'options' => array(
+                        'options' => [
                             'route'    => '/[:controller[/:action]]',
-                            'constraints' => array(
+                            'constraints' => [
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                            ),
-                            'defaults' => array(
-                            ),
-                        ),
-                    ),
-                ),
-            ),*/
-        ),
-    ),
-    'service_manager' => array(
-        'abstract_factories' => array(
+                            ],
+                            'defaults' => [
+                            ],
+                        ],
+                    ],
+                ],
+            ],*/
+        ],
+    ],
+    'service_manager' => [
+        'abstract_factories' => [
             'Zend\Cache\Service\StorageCacheAbstractServiceFactory',
             'Zend\Log\LoggerAbstractServiceFactory',
-        ),
-		'factories' => array(
+        ],
+		'factories' => [
 			'pserver_caching_service' => function($sm){
-				$cache = \Zend\Cache\StorageFactory::factory(array(
+				$cache = \Zend\Cache\StorageFactory::factory([
 					'adapter' => 'filesystem',
-					'options' => array(
+					'options' => [
 						'cache_dir' => __DIR__ . '/../../../../data/cache',
 						'ttl' => 86400
-					),
-					'plugins' => array(
-						'exception_handler' => array(
+					],
+					'plugins' => [
+						'exception_handler' => [
 							'throw_exceptions' => false
-						),
+						],
 						'serializer'
-					)
-				));
+					]
+				]);
 				return $cache;
 			},
-		),
-		'invokables' => array(
+		],
+		'invokables' => [
 			'small_user_service'				=> 'PServerCMS\Service\User',
 			'pserver_mail_service'				=> 'PServerCMS\Service\Mail',
 			'pserver_download_service'			=> 'PServerCMS\Service\Download',
@@ -120,24 +120,24 @@ return array(
 			'payment_api_log_service'			=> 'PServerCMS\Service\PaymentNotify',
 			'pserver_user_block_service'		=> 'PServerCMS\Service\UserBlock',
 			'pserver_secret_question'			=> 'PServerCMS\Service\SecretQuestion',
-		)
-    ),
-    'controllers' => array(
-        'invokables' => array(
+		]
+    ],
+    'controllers' => [
+        'invokables' => [
 			'PServerCMS\Controller\Index' => 'PServerCMS\Controller\IndexController',
 			'SmallUser\Controller\Auth' => 'PServerCMS\Controller\AuthController',
 			'PServerCMS\Controller\Auth' => 'PServerCMS\Controller\AuthController',
 			'PServerCMS\Controller\Site' => 'PServerCMS\Controller\SiteController',
 			'PServerCMS\Controller\Account' => 'PServerCMS\Controller\AccountController',
-        ),
-    ),
-    'view_manager' => array(
+        ],
+    ],
+    'view_manager' => [
         'display_not_found_reason' => true,
         'display_exceptions'       => true,
         'doctype'                  => 'HTML5',
         'not_found_template'       => 'error/404',
         'exception_template'       => 'error/index',
-        'template_map' => array(
+        'template_map' => [
             'layout/layout'					=> __DIR__ . '/../view/layout/layout.twig',
             'p-server-cms/index/index'		=> __DIR__ . '/../view/p-server-cms/index/index.phtml',
             'error/404'						=> __DIR__ . '/../view/error/404.phtml',
@@ -153,118 +153,118 @@ return array(
 			'zfc-ticket-system/index'		=> __DIR__ . '/../view/zfc-ticket-system/ticket-system/index.twig',
 			'small-user/login'				=> __DIR__ . '/../view/p-server-cms/auth/login.twig',
 			'small-user/logout-page'		=> __DIR__ . '/../view/p-server-cms/auth/logout-page.twig',
-        ),
-        'template_path_stack' => array(
+        ],
+        'template_path_stack' => [
             __DIR__ . '/../view',
-        ),
-    ),
+        ],
+    ],
     // Placeholder for console routes
-    'console' => array(
-        'router' => array(
-            'routes' => array(
-            ),
-        ),
-    ),
+    'console' => [
+        'router' => [
+            'routes' => [
+            ],
+        ],
+    ],
 
-	'doctrine' => array(
-		'connection' => array(
-			'orm_default' => array(
+	'doctrine' => [
+		'connection' => [
+			'orm_default' => [
 				'driverClass' => 'Doctrine\DBAL\Driver\PDOMySql\Driver',
-				'params' => array(
+				'params' => [
 					'host'     => 'localhost',
 					'port'     => '3306',
 					'user'     => 'username',
 					'password' => 'password',
 					'dbname'   => 'dbname',
-				),
-				'doctrine_type_mappings' => array(
+				],
+				'doctrine_type_mappings' => [
 					'enum' => 'string'
-				),
-			),
-		),
-		'entitymanager' => array(
-			'orm_default' => array(
+				],
+			],
+		],
+		'entitymanager' => [
+			'orm_default' => [
 				'connection'    => 'orm_default',
 				'configuration' => 'orm_default'
-			),
-		),
-		'driver' => array(
-			'application_entities' => array(
+			],
+		],
+		'driver' => [
+			'application_entities' => [
 				'class' =>'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
 				'cache' => 'array',
-				'paths' => array(__DIR__ . '/../src/PServerCMS/Entity')
-			),
-			'orm_default' => array(
-				'drivers' => array(
+				'paths' => [__DIR__ . '/../src/PServerCMS/Entity']
+			],
+			'orm_default' => [
+				'drivers' => [
 					'PServerCMS\Entity' => 'application_entities'
-				),
-			),
-		),
-	),
-	'pserver' => array(
-		'register' => array(
+				],
+			],
+		],
+	],
+	'pserver' => [
+		'register' => [
 			'role' => 'user'
-		),
-		'mail' => array(
+		],
+		'mail' => [
 			'from' => 'abcd@example.com',
 			'fromName' => 'team',
-			'subject' => array(
+			'subject' => [
 				'register' => 'RegisterMail',
 				'password' => 'LostPasswordMail',
 				'country' => 'LoginIpMail',
-			),
-			'basic' => array(
+			],
+			'basic' => [
 				'name' => 'localhost',
 				'host' => 'smtp.example.com',
 				'port'=> 587,
 				'connection_class' => 'login',
-				'connection_config' => array(
+				'connection_config' => [
 					'username' => 'put your username',
 					'password' => 'put your password',
 					'ssl'=> 'tls',
-				),
-			),
-		),
-        'login' => array(
-            'exploit' => array(
+				],
+			],
+		],
+        'login' => [
+            'exploit' => [
                 'time' => 900, //in seconds
                 'try' => 5
-            )
-        ),
-		'password' => array(
+            ]
+        ],
+		'password' => [
 			/*
 			 * set other pw for web as ingame
 			 */
 			'different-passwords' => true
-		),
-		'news' => array(
+		],
+		'news' => [
 			'limit' => 5
-		),
-		'pageinfotype' => array(
+		],
+		'pageinfotype' => [
 			'faq',
 			'rules',
 			'guides',
 			'events'
-		),
-		'blacklisted' => array(
-			'email' => array()
-		)
-	),
-	'authenticationadapter' => array(
-		'odm_default' => array(
+		],
+		'blacklisted' => [
+			'email' => []
+		],
+	],
+	'authenticationadapter' => [
+		'odm_default' => [
 			'objectManager' => 'doctrine.documentmanager.odm_default',
 			'identityClass' => 'PServerCMS\Entity\Users',
 			'identityProperty' => 'username',
 			'credentialProperty' => 'password',
 			'credentialCallable' => 'PServerCMS\Entity\Users::hashPassword'
-		),
-	),
-	'small-user' => array(
-		'user_entity' => array(
+		],
+	],
+	'small-user' => [
+		'user_entity' => [
 			'class' => 'PServerCMS\Entity\Users'
-		)
-	),
-	'payment-api' => array(
+		]
+	],
+	'payment-api' => [
 		'ban-time' => '946681200',
-	)
-);
+	]
+];

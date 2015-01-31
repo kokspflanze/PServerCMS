@@ -54,13 +54,9 @@ class PlayerHistory {
 	 * @ORM\PostPersist()
 	 */
 	public function postPersist( LifecycleEventArgs $eventArgs ) {
-		/** @var PageInfo $entity */
-		$entity = $eventArgs->getEntity();
-
 		/** @var \PServerCMS\Service\CachingHelper $cachingHelperService */
 		$cachingHelperService = ServiceManager::getInstance()->get('pserver_cachinghelper_service');
 		$cachingHelperService->delItem(Caching::PlayerHistory);
-		//$em->getUnitOfWork()->getS
 	}
 
 	/**
