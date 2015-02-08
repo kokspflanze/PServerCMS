@@ -196,7 +196,8 @@ return [
 			],
 			'orm_default' => [
 				'drivers' => [
-					'PServerCMS\Entity' => 'application_entities'
+					'PServerCMS\Entity' => 'application_entities',
+					'SmallUser\Entity' => null
 				],
 			],
 		],
