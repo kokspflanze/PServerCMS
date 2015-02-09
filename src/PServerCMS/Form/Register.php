@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: †KôKšPfLâÑzè®
- * Date: 14.07.14
- * Time: 22:51
- */
 
 namespace PServerCMS\Form;
 

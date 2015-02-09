@@ -250,6 +250,7 @@ return [
 		'blacklisted' => [
 			'email' => []
 		],
+		'entity' => []
 	],
 	'authenticationadapter' => [
 		'odm_default' => [

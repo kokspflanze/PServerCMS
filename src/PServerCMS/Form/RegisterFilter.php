@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: †KôKšPfLâÑzè®
- * Date: 14.07.14
- * Time: 23:21
- */
 
 namespace PServerCMS\Form;
 
@@ -31,7 +25,7 @@ class RegisterFilter extends ProvidesEventsInputFilter {
 		/** @var $oRepositoryUser \Doctrine\Common\Persistence\ObjectRepository */
 		$oRepositoryUser = $serviceManager->get('Doctrine\ORM\EntityManager')->getRepository(Entity::Users);
 		$this->setUsernameValidator( new Validator\NoRecordExists( $oRepositoryUser, 'username' ) );
-		$this->setStriposValidator( new Validator\StriposExists($serviceManager, Validator\StriposExists::TypeEmail) );
+		$this->setStriposValidator( new Validator\StriposExists($serviceManager, Validator\StriposExists::TYPE_EMAIL) );
 
 		$this->add(array(
 			'name'       => 'username',

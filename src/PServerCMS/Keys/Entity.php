@@ -1,14 +1,13 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: †KôKšPfLâÑzè®
- * Date: 16.07.14
- * Time: 00:19
- */
 
 namespace PServerCMS\Keys;
 
-
+/**
+ * Class Entity
+ * @package PServerCMS\Keys
+ *
+ * @deprecated please use now options
+ */
 class Entity {
 
 	const AvailableCountries	= 'PServerCMS\Entity\AvailableCountries';

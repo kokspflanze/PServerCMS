@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: †KôKšPfLâÑzè®
- * Date: 18.08.14
- * Time: 22:19
- */
 
 namespace PServerCMS\Entity;
 
@@ -21,11 +15,6 @@ use PServerCMS\Service\ServiceManager;
  * @ORM\HasLifecycleCallbacks
  */
 class PageInfo {
-
-	const TypeFAQ = 'faq';
-	const TypeRules = 'rules';
-	const TypeGuides = 'guides';
-	const TypeEvent = 'event';
 
 	/**
 	 * @var integer

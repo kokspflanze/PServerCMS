@@ -1,104 +1,122 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: †KôKšPfLâÑzè®
- * Date: 18.08.14
- * Time: 22:42
- */
-
 namespace PServerCMS\Service;
 
 use SmallUser\Service\InvokableBase as UserBase;
 
-class InvokableBase extends UserBase {
+class InvokableBase extends UserBase
+{
 
-	/** @var \Zend\Cache\Storage\StorageInterface */
-	protected $cachingService;
-	/** @var  CachingHelper */
-	protected $cachingHelperService;
-	/** @var  \GameBackend\DataService\DataServiceInterface */
-	protected $gameBackendService;
-	/** @var  ConfigRead */
-	protected $configReadService;
-	/** @var  UserBlock */
-	protected $userBlockService;
-	/** @var array */
-	private $aConfig;
+    /** @var \Zend\Cache\Storage\StorageInterface */
+    protected $cachingService;
+    /** @var  CachingHelper */
+    protected $cachingHelperService;
+    /** @var  \GameBackend\DataService\DataServiceInterface */
+    protected $gameBackendService;
+    /** @var  ConfigRead */
+    protected $configReadService;
+    /** @var  UserBlock */
+    protected $userBlockService;
+    /** @var array */
+    protected $config;
+    /** @var \PServerCMS\Options\EntityOptions */
+    protected $entityOptions;
 
-	/**
-	 * @return array
-	 */
-	protected function getConfigData(){
-		if(!$this->aConfig){
-			$this->aConfig = $this->getServiceManager()->get('Config');
-		}
-		return $this->aConfig;
-	}
 
-	/**
-	 * @return \Zend\Cache\Storage\StorageInterface
-	 */
-	protected function getCachingService(){
-		if (!$this->cachingService) {
-			$this->cachingService = $this->getServiceManager()->get('pserver_caching_service');
-		}
+    /**
+     * TODO refactoring
+     * @return array
+     */
+    protected function getConfigData()
+    {
+        if (!$this->config) {
+            $this->config = $this->getServiceManager()->get( 'Config' );
+        }
+        return $this->config;
+    }
 
-		return $this->cachingService;
-	}
+    /**
+     * @return \Zend\Cache\Storage\StorageInterface
+     */
+    protected function getCachingService()
+    {
+        if (!$this->cachingService) {
+            $this->cachingService = $this->getServiceManager()->get( 'pserver_caching_service' );
+        }
 
-	/**
-	 * @return CachingHelper
-	 */
-	protected function getCachingHelperService(){
-		if (!$this->cachingHelperService) {
-			$this->cachingHelperService = $this->getServiceManager()->get('pserver_cachinghelper_service');
-		}
+        return $this->cachingService;
+    }
 
-		return $this->cachingHelperService;
-	}
+    /**
+     * @return CachingHelper
+     */
+    protected function getCachingHelperService()
+    {
+        if (!$this->cachingHelperService) {
+            $this->cachingHelperService = $this->getServiceManager()->get( 'pserver_cachinghelper_service' );
+        }
 
-	/**
-	 * @return \GameBackend\DataService\DataServiceInterface
-	 */
-	protected function getGameBackendService() {
-		if (!$this->gameBackendService) {
-			$this->gameBackendService = $this->getServiceManager()->get('gamebackend_dataservice');
-		}
+        return $this->cachingHelperService;
+    }
 
-		return $this->gameBackendService;
-	}
+    /**
+     * @return \GameBackend\DataService\DataServiceInterface
+     */
+    protected function getGameBackendService()
+    {
+        if (!$this->gameBackendService) {
+            $this->gameBackendService = $this->getServiceManager()->get( 'gamebackend_dataservice' );
+        }
 
-	/**
-	 * TODO refactoring
-	 * @param $userId
-	 *
-	 * @return null|\PServerCMS\Entity\Users
-	 */
-	protected function getUser4Id( $userId ){
-		$entityManager = $this->getEntityManager();
-		return $entityManager->getRepository('PServerCMS\Entity\Users')->findOneBy(array('usrid' => $userId));
-	}
+        return $this->gameBackendService;
+    }
 
-	/**
-	 * @return ConfigRead
-	 */
-	protected function getConfigService() {
-		if (!$this->configReadService) {
-			$this->configReadService = $this->getServiceManager()->get('pserver_configread_service');
-		}
+    /**
+     * TODO refactoring
+     *
+     * @param $userId
+     *
+     * @return null|\PServerCMS\Entity\Users
+     */
+    protected function getUser4Id( $userId )
+    {
+        $entityManager = $this->getEntityManager();
+        return $entityManager->getRepository( 'PServerCMS\Entity\Users' )->findOneBy( array( 'usrid' => $userId ) );
+    }
 
-		return $this->configReadService;
-	}
+    /**
+     * @return ConfigRead
+     */
+    protected function getConfigService()
+    {
+        if (!$this->configReadService) {
+            $this->configReadService = $this->getServiceManager()->get( 'pserver_configread_service' );
+        }
 
-	/**
-	 * @return UserBlock
-	 */
-	protected function getUserBlockService() {
-		if (!$this->userBlockService) {
-			$this->userBlockService = $this->getServiceManager()->get('pserver_user_block_service');
-		}
+        return $this->configReadService;
+    }
 
-		return $this->userBlockService;
-	}
+    /**
+     * @return UserBlock
+     */
+    protected function getUserBlockService()
+    {
+        if (!$this->userBlockService) {
+            $this->userBlockService = $this->getServiceManager()->get( 'pserver_user_block_service' );
+        }
+
+        return $this->userBlockService;
+    }
+
+    /**
+     * @return \PServerCMS\Options\EntityOptions
+     */
+    protected function getEntityOptions()
+    {
+        if (!$this->entityOptions) {
+            $this->entityOptions = $this->getServiceManager()->get( 'pserver_entity_options' );
+        }
+
+        return $this->entityOptions;
+    }
 
 } 

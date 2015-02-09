@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: †KôKšPfLâÑzè®
- * Date: 27.01.2015
- * Time: 23:59
- */
 
 namespace PServerCMS\Validator;
 
@@ -14,7 +8,7 @@ use Zend\ServiceManager\ServiceManager;
 
 class StriposExists extends AbstractValidator {
 
-	const TypeEmail = 'email';
+	const TYPE_EMAIL = 'email';
 
 	/**
 	 * Error constants
@@ -121,7 +115,7 @@ class StriposExists extends AbstractValidator {
 	 * @return string
 	 */
 	protected function editBlackListedData( $data ) {
-		if($this->getType() == self::TypeEmail){
+		if($this->getType() == self::TYPE_EMAIL){
 			$data = sprintf('@%s', $data);
 		}
 

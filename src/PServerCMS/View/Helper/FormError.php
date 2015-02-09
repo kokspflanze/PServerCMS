@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: †KôKšPfLâÑzè®
- * Date: 15.08.14
- * Time: 21:41
- */
 
 namespace PServerCMS\View\Helper;
 

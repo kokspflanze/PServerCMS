@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: †KôKšPfLâÑzè®
- * Date: 15.07.14
- * Time: 18:46
- */
 
 namespace PServerCMS\Service;
 
@@ -36,7 +30,7 @@ class UserCodes extends InvokableBase {
 		$oUserCodesEntity = new \PServerCMS\Entity\Usercodes();
 		$oUserCodesEntity
 			->setCode($sCode)
-			->setUsersUsrid($oUserEntity)
+			->setUser($oUserEntity)
 			->setType($sType);
 
 		if($iExpire){
