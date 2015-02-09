@@ -5,7 +5,7 @@ namespace PServerCMS\Entity\Repository;
 use Doctrine\ORM\EntityRepository;
 
 /**
- * News
+ * NEWS
  */
 class News extends EntityRepository {
 

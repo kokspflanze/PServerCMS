@@ -14,7 +14,7 @@ class ServerInfo extends InvokableBase {
 	 * @return null|\PServerCMS\Entity\ServerInfo[]
 	 */
 	public function getServerInfo(){
-		$serverInfo = $this->getCachingHelperService()->getItem(Caching::ServerInfo, function() {
+		$serverInfo = $this->getCachingHelperService()->getItem(Caching::SERVER_INFO, function() {
 			/** @var \PServerCMS\Entity\Repository\ServerInfo $repository */
 			$repository = $this->getEntityManager()->getRepository(Entity::ServerInfo);
 			return $repository->getActiveInfos();

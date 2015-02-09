@@ -17,7 +17,7 @@ class PageInfo extends InvokableBase {
 	 * @return \PServerCMS\Entity\PageInfo|null
 	 */
 	public function getPage4Type( $type ){
-		$cachingKey = Caching::PageInfo . '_' . $type;
+		$cachingKey = Caching::PAGE_INFO . '_' . $type;
 
 		$pageInfo = $this->getCachingHelperService()->getItem($cachingKey, function() use ($type) {
 			/** @var \PServerCMS\Entity\Repository\PageInfo $repository */

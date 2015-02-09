@@ -16,7 +16,7 @@ class Download extends InvokableBase {
 	 */
 	public function getActiveList(){
 
-		$downloadInfo = $this->getCachingHelperService()->getItem(Caching::Download, function() {
+		$downloadInfo = $this->getCachingHelperService()->getItem(Caching::DOWNLOAD, function() {
 			/** @var \PServerCMS\Entity\Repository\DownloadList $repository */
 			$repository = $this->getEntityManager()->getRepository(Entity::DownloadList);
 			return $repository->getActiveDownloadList();

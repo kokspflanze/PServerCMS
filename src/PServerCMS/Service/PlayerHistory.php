@@ -11,7 +11,7 @@ class PlayerHistory extends InvokableBase {
 	 * @return int
 	 */
 	public function getCurrentPlayer(){
-		$currentPlayer = $this->getCachingHelperService()->getItem(Caching::PlayerHistory, function() {
+		$currentPlayer = $this->getCachingHelperService()->getItem(Caching::PLAYER_HISTORY, function() {
 			/** @var \PServerCMS\Entity\Repository\PlayerHistory $repository */
 			$repository = $this->getEntityManager()->getRepository(Entity::PlayerHistory);
 			return $repository->getCurrentPlayer();

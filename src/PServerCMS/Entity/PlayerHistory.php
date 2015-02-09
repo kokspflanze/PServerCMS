@@ -9,7 +9,7 @@ use PServerCMS\Keys\Caching;
 use PServerCMS\Service\ServiceManager;
 
 /**
- * PlayerHistory
+ * PLAYER_HISTORY
  *
  * @ORM\Table(name="playerHistory")
  * @ORM\Entity(repositoryClass="PServerCMS\Entity\Repository\PlayerHistory")
@@ -50,7 +50,7 @@ class PlayerHistory {
 	public function preFlush( ) {
 		/** @var \PServerCMS\Service\CachingHelper $cachingHelperService */
 		$cachingHelperService = ServiceManager::getInstance()->get('pserver_cachinghelper_service');
-		$cachingHelperService->delItem(Caching::PlayerHistory);
+		$cachingHelperService->delItem(Caching::PLAYER_HISTORY);
 	}
 
 	/**

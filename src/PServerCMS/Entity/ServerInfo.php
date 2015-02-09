@@ -66,7 +66,7 @@ class ServerInfo {
 	public function preFlush() {
 		/** @var \PServerCMS\Service\CachingHelper $cachingHelperService */
 		$cachingHelperService = ServiceManager::getInstance()->get('pserver_cachinghelper_service');
-		$cachingHelperService->delItem(Caching::ServerInfo);
+		$cachingHelperService->delItem(Caching::SERVER_INFO);
 	}
 
 	/**

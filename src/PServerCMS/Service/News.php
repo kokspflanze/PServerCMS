@@ -16,7 +16,7 @@ class News extends InvokableBase {
 	 */
 	public function getActiveNews(){
 		$limit = $this->getConfigService()->get('pserver.news.limit', 5);
-		$newsInfo = $this->getCachingHelperService()->getItem(Caching::News, function() use ($limit) {
+		$newsInfo = $this->getCachingHelperService()->getItem(Caching::NEWS, function() use ($limit) {
 			/** @var \PServerCMS\Entity\Repository\News $repository */
 			$repository = $this->getEntityManager()->getRepository(Entity::News);
 			return $repository->getActiveNews($limit);

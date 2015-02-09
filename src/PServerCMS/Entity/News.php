@@ -7,7 +7,7 @@ use PServerCMS\Keys\Caching;
 use PServerCMS\Service\ServiceManager;
 
 /**
- * News
+ * NEWS
  *
  * @ORM\Table(name="news", indexes={@ORM\Index(name="fk_news_users1_idx", columns={"users_usrId"})})
  * @ORM\Entity(repositoryClass="PServerCMS\Entity\Repository\News")
@@ -67,7 +67,7 @@ class News {
 	public function preFlush( ) {
 		/** @var \PServerCMS\Service\CachingHelper $cachingHelperService */
 		$cachingHelperService = ServiceManager::getInstance()->get('pserver_cachinghelper_service');
-		$cachingHelperService->delItem(Caching::News);
+		$cachingHelperService->delItem(Caching::NEWS);
 	}
 
 	public function __construct( ) {

@@ -62,7 +62,7 @@ class PageInfo {
 
 		/** @var \PServerCMS\Service\CachingHelper $cachingHelperService */
 		$cachingHelperService = ServiceManager::getInstance()->get('pserver_cachinghelper_service');
-		$cachingHelperService->delItem(Caching::PageInfo . '_' . $entity->getType());
+		$cachingHelperService->delItem(Caching::PAGE_INFO . '_' . $entity->getType());
 		//$em->getUnitOfWork()->getS
 	}
 

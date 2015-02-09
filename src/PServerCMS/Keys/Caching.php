@@ -5,10 +5,10 @@ namespace PServerCMS\Keys;
 
 class Caching {
 
-	const ServerInfo = 'pserver_serverinfo';
-	const Download = 'pserver_download';
-	const News = 'pserver_news';
-	const PageInfo = 'pserver_pageinfo';
-	const PlayerHistory = 'pserver_player_history';
+	const SERVER_INFO = 'pserver_serverinfo';
+	const DOWNLOAD = 'pserver_download';
+	const NEWS = 'pserver_news';
+	const PAGE_INFO = 'pserver_pageinfo';
+	const PLAYER_HISTORY = 'pserver_player_history';
 
 } 
