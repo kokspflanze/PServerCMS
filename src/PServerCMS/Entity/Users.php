@@ -14,7 +14,7 @@ use Zend\Crypt\Password\Bcrypt;
  * Users
  *
  * @ORM\Table(name="users", uniqueConstraints={@ORM\UniqueConstraint(name="username_UNIQUE", columns={"username"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="PServerCMS\Entity\Repository\Users")
  */
 class Users implements
 	ProviderInterface, 

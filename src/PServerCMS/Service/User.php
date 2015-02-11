@@ -272,7 +272,7 @@ class User extends \SmallUser\Service\User
         $class               = $this->getEntityOptions()->getAvailableCountries();
         $availableCountries = new $class();
         $availableCountries->setCntry( $country );
-        $availableCountries->setUsersUsrid( $userEntity );
+        $availableCountries->setUser( $userEntity );
 
         $entityManager->persist( $availableCountries );
         $entityManager->remove( $userCodes );
@@ -352,60 +352,61 @@ class User extends \SmallUser\Service\User
      */
     protected function getUser4Id( $userId )
     {
-        $entityManager = $this->getEntityManager();
-        return $entityManager->getRepository( 'PServerCMS\Entity\Users' )->findOneBy( array( 'usrid' => $userId ) );
+        /** @var \PServerCMS\Entity\Repository\Users $userRepository */
+        $userRepository = $this->getEntityManager()->getRepository( $this->getEntityOptions()->getUsers() );
+        return $userRepository->getUser4Id( $userId );
     }
 
     /**
-     * @param Users $oUser
+     * @param Users $user
      */
-    protected function doLogin( UsersInterface $oUser )
+    protected function doLogin( UsersInterface $user )
     {
-        parent::doLogin( $oUser );
-        $oEntityManager = $this->getEntityManager();
+        parent::doLogin( $user );
+        $entityManager = $this->getEntityManager();
         /**
          * Set LoginHistory
          */
         $class = $this->getEntityOptions()->getLoginHistory();
-        /** @var \PServerCMS\Entity\LoginHistory $oLoginHistory */
-        $oLoginHistory = new $class();
-        $oLoginHistory->setUsersUsrid( $oUser );
-        $oLoginHistory->setIp( Ip::getIp() );
-        $oEntityManager->persist( $oLoginHistory );
-        $oEntityManager->flush();
+        /** @var \PServerCMS\Entity\LoginHistory $loginHistory */
+        $loginHistory = new $class();
+        $loginHistory->setUsersUsrid( $user );
+        $loginHistory->setIp( Ip::getIp() );
+        $entityManager->persist( $loginHistory );
+        $entityManager->flush();
     }
 
-    protected function handleInvalidLogin( UsersInterface $oUser )
+    protected function handleInvalidLogin( UsersInterface $user )
     {
-        $iMaxTries = $this->getConfigService()->get( 'pserver.login.exploit.try' );
-        if (!$iMaxTries) {
+        $maxTries = $this->getConfigService()->get( 'pserver.login.exploit.try' );
+        if (!$maxTries) {
             return false;
         }
 
-        $oEntityManager = $this->getEntityManager();
+        $entityManager = $this->getEntityManager();
         /**
          * Set LoginHistory
          */
         $class = $this->getEntityOptions()->getLoginFailed();
-        /** @var \PServerCMS\Entity\Loginfaild $oLoginFailed */
-        $oLoginFailed = new $class();
-        $oLoginFailed->setUsername( $oUser->getUsername() );
-        $oLoginFailed->setIp( Ip::getIp() );
-        $oEntityManager->persist( $oLoginFailed );
-        $oEntityManager->flush();
+        /** @var \PServerCMS\Entity\Loginfaild $loginFailed */
+        $loginFailed = new $class();
+        $loginFailed->setUsername( $user->getUsername() );
+        $loginFailed->setIp( Ip::getIp() );
+        $entityManager->persist( $loginFailed );
+        $entityManager->flush();
 
-        $iTime = $this->getConfigService()->get( 'pserver.login.exploit.time' );
+        $time = $this->getConfigService()->get( 'pserver.login.exploit.time' );
 
-        /** @var \PServerCMS\Entity\Repository\LoginFaild $oRepositoryLoginFailed */
-        $oRepositoryLoginFailed = $oEntityManager->getRepository( $class );
-        if ($oRepositoryLoginFailed->getNumberOfFailLogins4Ip( Ip::getIp(), $iTime ) >= $iMaxTries) {
+        /** @var \PServerCMS\Entity\Repository\LoginFaild $repositoryLoginFailed */
+        $repositoryLoginFailed = $entityManager->getRepository( $class );
+        if ($repositoryLoginFailed->getNumberOfFailLogins4Ip( Ip::getIp(), $time ) >= $maxTries) {
             $class = $this->getEntityOptions()->getIpBlock();
-            /** @var \PServerCMS\Entity\Ipblock $oIPBlock */
-            $oIPBlock = new $class();
-            $oIPBlock->setExpire( DateTimer::getDateTime4TimeStamp( time() + $iTime ) );
-            $oIPBlock->setIp( Ip::getIp() );
-            $oEntityManager->persist( $oIPBlock );
-            $oEntityManager->flush();
+            /** @var \PServerCMS\Entity\Ipblock $ipBlock */
+            $ipBlock = new $class();
+            $ipBlock->setExpire( DateTimer::getDateTime4TimeStamp( time() + $time ) );
+            $ipBlock->setIp( Ip::getIp() );
+            $entityManager->persist( $ipBlock );
+            $entityManager->flush();
         }
     }
 
@@ -414,12 +415,12 @@ class User extends \SmallUser\Service\User
      */
     protected function isIpAllowed()
     {
-        $oEntityManager = $this->getEntityManager();
-        /** @var \PServerCMS\Entity\Repository\IPBlock $RepositoryIPBlock */
-        $RepositoryIPBlock = $oEntityManager->getRepository( $this->getEntityOptions()->getIpBlock() );
-        $oIsIpAllowed      = $RepositoryIPBlock->isIPAllowed( Ip::getIp() );
-        if ($oIsIpAllowed) {
-            $message = sprintf( 'Your IP is blocked!, try it again %s', $oIsIpAllowed->getExpire()->format( 'H:i:s' ) );
+        $entityManager = $this->getEntityManager();
+        /** @var \PServerCMS\Entity\Repository\IPBlock $repositoryIPBlock */
+        $repositoryIPBlock = $entityManager->getRepository( $this->getEntityOptions()->getIpBlock() );
+        $ipAllowed         = $repositoryIPBlock->isIPAllowed( Ip::getIp() );
+        if ($ipAllowed) {
+            $message = sprintf( 'Your IP is blocked!, try it again %s', $ipAllowed->getExpire()->format( 'H:i:s' ) );
             $this->getFlashMessenger()->setNamespace( self::ErrorNameSpace )->addMessage( $message );
             return false;
         }
