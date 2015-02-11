@@ -2,8 +2,6 @@
 
 namespace PServerCMS\Service;
 
-
-use PServerCMS\Keys\Entity;
 use PServerCMS\Entity\Users;
 
 class SecretQuestion extends InvokableBase {
@@ -16,7 +14,7 @@ class SecretQuestion extends InvokableBase {
 	 * @return \PServerCMS\Entity\SecretAnswer
 	 */
 	public function setSecretAnswer( Users $user, $questionId, $answer ){
-		$class = Entity::SecretAnswer;
+		$class = $this->getEntityOptions()->getSecretAnswer();
 		/** @var \PServerCMS\Entity\SecretAnswer $secretAnswer */
 		$secretAnswer = new $class;
 		$secretAnswer->setUser($user)
@@ -51,7 +49,7 @@ class SecretQuestion extends InvokableBase {
 	 * @return null|\PServerCMS\Entity\Repository\SecretQuestion
 	 */
 	protected function getQuestion4Id( $questionId ){
-		$repository = $this->getEntityManager()->getRepository(Entity::SecretQuestion);
+		$repository = $this->getEntityManager()->getRepository($this->getEntityOptions()->getSecretQuestion());
 		return $repository->findOneBy(array('id' => $questionId));
 	}
 
@@ -59,7 +57,7 @@ class SecretQuestion extends InvokableBase {
 	 * @return null|\PServerCMS\Entity\Repository\SecretAnswer
 	 */
 	protected function getEntityManagerAnswer(){
-		return $this->getEntityManager()->getRepository(Entity::SecretAnswer);
+		return $this->getEntityManager()->getRepository($this->getEntityOptions()->getSecretAnswer());
 	}
 
 } 

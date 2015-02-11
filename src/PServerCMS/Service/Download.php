@@ -5,7 +5,6 @@ namespace PServerCMS\Service;
 use PServerAdmin\Mapper\HydratorDownload;
 use PServerCMS\Entity\Downloadlist;
 use PServerCMS\Keys\Caching;
-use PServerCMS\Keys\Entity;
 
 class Download extends InvokableBase {
 	/** @var \PServerAdmin\Form\Download */
@@ -18,7 +17,7 @@ class Download extends InvokableBase {
 
 		$downloadInfo = $this->getCachingHelperService()->getItem(Caching::DOWNLOAD, function() {
 			/** @var \PServerCMS\Entity\Repository\DownloadList $repository */
-			$repository = $this->getEntityManager()->getRepository(Entity::DownloadList);
+			$repository = $this->getEntityManager()->getRepository($this->getEntityOptions()->getDownloadList());
 			return $repository->getActiveDownloadList();
 		});
 
@@ -30,13 +29,13 @@ class Download extends InvokableBase {
 	 */
 	public function getDownloadList(){
 		/** @var \PServerCMS\Entity\Repository\DownloadList $repository */
-		$repository = $this->getEntityManager()->getRepository(Entity::DownloadList);
+		$repository = $this->getEntityManager()->getRepository($this->getEntityOptions()->getDownloadList());
 		return $repository->getDownloadList();
 	}
 
 	public function getDownload4Id( $id ){
 		/** @var \PServerCMS\Entity\Repository\DownloadList $repository */
-		$repository = $this->getEntityManager()->getRepository(Entity::DownloadList);
+		$repository = $this->getEntityManager()->getRepository($this->getEntityOptions()->getDownloadList());
 		return $repository->getDownload4Id($id);
 	}
 

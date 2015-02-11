@@ -137,9 +137,23 @@ class AvailableCountries {
 	 * @param \PServerCMS\Entity\Users $usersUsrid
 	 *
 	 * @return AvailableCountries
+	 *
+	 * @deprecated please user setUser
 	 */
 	public function setUsersUsrid( \PServerCMS\Entity\Users $usersUsrid = null ) {
-		$this->usersUsrid = $usersUsrid;
+		return $this->setUser($usersUsrid);
+	}
+
+
+	/**
+	 * Set usersUsrid
+	 *
+	 * @param \PServerCMS\Entity\Users $usersUsrid
+	 *
+	 * @return AvailableCountries
+	 */
+	public function setUser( \PServerCMS\Entity\Users $user = null ){
+		$this->usersUsrid = $user;
 
 		return $this;
 	}
@@ -148,8 +162,19 @@ class AvailableCountries {
 	 * Get usersUsrid
 	 *
 	 * @return \PServerCMS\Entity\Users
+	 *
+	 * @deprecated please use getUser
 	 */
 	public function getUsersUsrid() {
+		return $this->getUser();
+	}
+
+	/**
+	 * Get usersUsrid
+	 *
+	 * @return \PServerCMS\Entity\Users
+	 */
+	public function getUser() {
 		return $this->usersUsrid;
 	}
 }

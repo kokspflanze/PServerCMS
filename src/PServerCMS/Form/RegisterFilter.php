@@ -4,7 +4,6 @@ namespace PServerCMS\Form;
 
 use ZfcBase\InputFilter\ProvidesEventsInputFilter;
 use PServerCMS\Validator\AbstractRecord;
-use PServerCMS\Keys\Entity;
 use PServerCMS\Validator;
 use Zend\ServiceManager\ServiceManager;
 
@@ -23,7 +22,7 @@ class RegisterFilter extends ProvidesEventsInputFilter {
 		$this->setServiceManager($serviceManager);
 
 		/** @var $oRepositoryUser \Doctrine\Common\Persistence\ObjectRepository */
-		$oRepositoryUser = $serviceManager->get('Doctrine\ORM\EntityManager')->getRepository(Entity::Users);
+		$oRepositoryUser = $serviceManager->get('Doctrine\ORM\EntityManager')->getRepository($this->getEntityOptions()->getUsers());
 		$this->setUsernameValidator( new Validator\NoRecordExists( $oRepositoryUser, 'username' ) );
 		$this->setStriposValidator( new Validator\StriposExists($serviceManager, Validator\StriposExists::TYPE_EMAIL) );
 
@@ -220,5 +219,12 @@ class RegisterFilter extends ProvidesEventsInputFilter {
 		}
 
 		return $this->entityManager;
+	}
+
+	/**
+	 * @return \PServerCMS\Options\EntityOptions
+	 */
+	protected function getEntityOptions(){
+		return $this->getServiceManager()->get('pserver_entity_options');
 	}
 } 

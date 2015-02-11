@@ -4,7 +4,6 @@ namespace PServerCMS\Service;
 
 
 use PServerCMS\Entity\Users;
-use PServerCMS\Keys\Entity;
 use Zend\Mail\Transport\Smtp;
 use Zend\Mail\Transport\SmtpOptions;
 use Zend\Mime\Part;
@@ -13,9 +12,9 @@ use Zend\View\Model\ViewModel;
 
 class Mail extends InvokableBase {
 
-	const SubjectKeyRegister = 'register';
-	const SubjectKeyPasswordLost = 'password';
-    const SubjectKeyConfirmCountry = 'country';
+	const SUBJECT_KEY_REGISTER = 'register';
+	const SUBJECT_KEY_PASSWORD_LOST = 'password';
+    const SUBJECT_KEY_CONFIRM_COUNTRY = 'country';
 
 	/**
 	 * @var \Zend\View\Renderer\PhpRenderer
@@ -46,7 +45,7 @@ class Mail extends InvokableBase {
 			'code' => $code
 		);
 
-		$this->send(static::SubjectKeyRegister, $user, $params);
+		$this->send(static::SUBJECT_KEY_REGISTER, $user, $params);
 	}
 
 	/**
@@ -60,7 +59,7 @@ class Mail extends InvokableBase {
 			'code' => $sCode
 		);
 
-		$this->send(static::SubjectKeyPasswordLost, $user, $aParams);
+		$this->send(static::SUBJECT_KEY_PASSWORD_LOST, $user, $aParams);
 	}
 
     /**
@@ -74,59 +73,59 @@ class Mail extends InvokableBase {
             'code' => $sCode
         );
 
-        $this->send(static::SubjectKeyConfirmCountry, $oUser, $aParams);
+        $this->send(static::SUBJECT_KEY_CONFIRM_COUNTRY, $oUser, $aParams);
     }
 
 	/**
-	 * @param       $sSubjectKey
-	 * @param Users $oUser
-	 * @param       $aParams
+	 * @param       $subjectKey
+	 * @param Users $user
+	 * @param       $params
 	 */
-	protected function send($sSubjectKey, Users $oUser, $aParams){
+	protected function send($subjectKey, Users $user, $params){
 		// TODO TwigTemplateEngine
-		$oRenderer = $this->getViewRenderer();
+		$renderer = $this->getViewRenderer();
 		/** @var \ZfcTwig\View\TwigResolver $oResolver */
 		//$oResolver = $this->getServiceManager()->get('ZfcTwig\View\TwigResolver');
 		//$oResolver->resolve(__DIR__ . '/../../../view');
 		//$oRenderer->setResolver($oResolver);
 
 		//$oRenderer->setVars($aParams);
-		$oViewModel = new ViewModel();
-		$oViewModel->setTemplate( 'email/tpl/'.$sSubjectKey );
-		$oViewModel->setVariables($aParams);
+		$viewModel = new ViewModel();
+		$viewModel->setTemplate( 'email/tpl/'.$subjectKey );
+		$viewModel->setVariables($params);
 
-		$sBody = $oRenderer->render($oViewModel);
+		$bodyRender = $renderer->render($viewModel);
 
-		$sSubject = $this->getSubject4Key($sSubjectKey);
+		$subject = $this->getSubject4Key($subjectKey);
 
 		try{
 			set_time_limit(30);
 			// make a header as html
-			$oHtml = new Part($sBody);
-			$oHtml->type = "text/html";
-			$oBody = new MimeMessage();
-			$oBody->setParts(array($oHtml));
+			$html = new Part($bodyRender);
+			$html->type = "text/html";
+			$body = new MimeMessage();
+			$body->setParts(array($html));
 
-			$oMail = new \Zend\Mail\Message();
-			$oMail->setBody($oBody);
-			$aConfig = $this->getMailConfig();
-			$oMail->setFrom($aConfig['from'], $aConfig['fromName']);
-			$oMail->setTo($oUser->getEmail());
-			$oMail->setSubject($sSubject);
+			$mail = new \Zend\Mail\Message();
+			$mail->setBody($body);
+			$config = $this->getMailConfig();
+			$mail->setFrom($config['from'], $config['fromName']);
+			$mail->setTo($user->getEmail());
+			$mail->setSubject($subject);
 
 			$transport = new Smtp($this->getSMTPOptions());
-			$transport->send($oMail);
+			$transport->send($mail);
 		}catch (\Exception $e){
 			// Logging if smth wrong in Configuration or SMTP Offline =)
-			$oEntityManager = $this->getEntityManager();
-			$sClass = Entity::Logs;
-			/** @var \PServerCMS\Entity\Logs $oLogs */
-			$oLogs = new $sClass();
-			$oLogs->setTopic('mail_faild');
-			$oLogs->setMemo($e->getMessage());
-			$oLogs->setUsersUsrid($oUser);
-			$oEntityManager->persist($oLogs);
-			$oEntityManager->flush();
+			$entityManager = $this->getEntityManager();
+			$class = $this->getEntityOptions()->getLogs();
+			/** @var \PServerCMS\Entity\Logs $logEntity */
+			$logEntity = new $class();
+			$logEntity->setTopic('mail_faild');
+			$logEntity->setMemo($e->getMessage());
+			$logEntity->setUsersUsrid($user);
+			$entityManager->persist($logEntity);
+			$entityManager->flush();
 		}
 	}
 
@@ -147,8 +146,8 @@ class Mail extends InvokableBase {
 	 */
 	protected function getMailConfig() {
 		if (! $this->mailConfig) {
-			$aConfig = $this->getServiceManager()->get('Config');
-			$this->mailConfig = $aConfig['pserver']['mail'];
+			$config = $this->getServiceManager()->get('Config');
+			$this->mailConfig = $config['pserver']['mail'];
 		}
 
 		return $this->mailConfig;
@@ -167,13 +166,13 @@ class Mail extends InvokableBase {
 	}
 
 	/**
-	 * @param $sKey
+	 * @param $key
 	 *
 	 * @return string
 	 */
-	public function getSubject4Key($sKey){
-		$aConfig = $this->getMailConfig();
+	public function getSubject4Key($key){
+		$config = $this->getMailConfig();
 		// added fallback if the key not exists, in the config
-		return isset($aConfig['subject'][$sKey])?$sKey:$aConfig['subject'][$sKey];
+		return isset($config['subject'][$key])?$key:$config['subject'][$key];
 	}
 }

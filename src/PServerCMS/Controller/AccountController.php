@@ -6,8 +6,8 @@ use PServerCMS\Service;
 use Zend\Mvc\Controller\AbstractActionController;
 
 class AccountController extends AbstractActionController {
-	const ErrorNameSpace = 'pserver-user-account-error';
-	const SuccessNameSpace = 'pserver-user-account-success';
+	const ERROR_NAME_SPACE = 'pserver-user-account-error';
+	const SUCCESS_NAME_SPACE = 'pserver-user-account-success';
 	protected $userService;
 
 	public function indexAction() {
@@ -37,17 +37,17 @@ class AccountController extends AbstractActionController {
             return array(
 				'changeWebPwdForm' => $formChangeWebPwd,
 				'changeIngamePwdForm' => $formChangeIngamePwd,
-				'messagesWeb' => $this->flashmessenger()->getMessagesFromNamespace(self::SuccessNameSpace. 'Web'),
-				'messagesInGame' => $this->flashmessenger()->getMessagesFromNamespace(self::SuccessNameSpace. 'InGame'),
-				'errorsWeb' => $this->flashmessenger()->getMessagesFromNamespace(self::ErrorNameSpace. 'Web'),
-				'errorsInGame' => $this->flashmessenger()->getMessagesFromNamespace(self::ErrorNameSpace. 'InGame')
+				'messagesWeb' => $this->flashmessenger()->getMessagesFromNamespace(self::SUCCESS_NAME_SPACE. 'Web'),
+				'messagesInGame' => $this->flashmessenger()->getMessagesFromNamespace(self::SUCCESS_NAME_SPACE. 'InGame'),
+				'errorsWeb' => $this->flashmessenger()->getMessagesFromNamespace(self::ERROR_NAME_SPACE. 'Web'),
+				'errorsInGame' => $this->flashmessenger()->getMessagesFromNamespace(self::ERROR_NAME_SPACE. 'InGame')
 			);
 
         }
 
         $method = $this->params()->fromPost('which') == 'ingame'?'changeIngamePwd':'changeWebPwd';
         if($this->getUserService()->$method($this->params()->fromPost(), $user)){
-			$successKey = self::SuccessNameSpace;
+			$successKey = self::SUCCESS_NAME_SPACE;
 			if($this->params()->fromPost('which') == 'ingame'){
 				$successKey .= 'InGame';
 			}else{

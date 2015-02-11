@@ -5,7 +5,6 @@ namespace PServerCMS\Service;
 use PServerAdmin\Mapper\HydratorNews;
 use PServerCMS\Entity\Users;
 use PServerCMS\Keys\Caching;
-use PServerCMS\Keys\Entity;
 
 class News extends InvokableBase {
 	/** @var \PServerAdmin\Form\News */
@@ -18,7 +17,7 @@ class News extends InvokableBase {
 		$limit = $this->getConfigService()->get('pserver.news.limit', 5);
 		$newsInfo = $this->getCachingHelperService()->getItem(Caching::NEWS, function() use ($limit) {
 			/** @var \PServerCMS\Entity\Repository\News $repository */
-			$repository = $this->getEntityManager()->getRepository(Entity::News);
+			$repository = $this->getEntityManager()->getRepository($this->getEntityOptions()->getNews());
 			return $repository->getActiveNews($limit);
 		});
 
@@ -30,7 +29,7 @@ class News extends InvokableBase {
 	 */
 	public function getNews(){
 		/** @var \PServerCMS\Entity\Repository\News $repository */
-		$repository = $this->getEntityManager()->getRepository(Entity::News);
+		$repository = $this->getEntityManager()->getRepository($this->getEntityOptions()->getNews());
 		return $repository->getNews();
 	}
 
@@ -41,7 +40,7 @@ class News extends InvokableBase {
 	 */
 	public function getNews4Id( $newsId ){
 		/** @var \PServerCMS\Entity\Repository\News $repository */
-		$repository = $this->getEntityManager()->getRepository(Entity::News);
+		$repository = $this->getEntityManager()->getRepository($this->getEntityOptions()->getNews());
 		return $repository->getNews4Id($newsId);
 	}
 

@@ -4,7 +4,6 @@ namespace PServerCMS\Service;
 
 use PServerAdmin\Mapper\HydratorPageInfo;
 use PServerCMS\Keys\Caching;
-use PServerCMS\Keys\Entity;
 
 class PageInfo extends InvokableBase {
 
@@ -21,7 +20,7 @@ class PageInfo extends InvokableBase {
 
 		$pageInfo = $this->getCachingHelperService()->getItem($cachingKey, function() use ($type) {
 			/** @var \PServerCMS\Entity\Repository\PageInfo $repository */
-			$repository = $this->getEntityManager()->getRepository(Entity::PageInfo);
+			$repository = $this->getEntityManager()->getRepository($this->getEntityOptions()->getPageInfo());
 			return $repository->getPageData4Type($type);
 		});
 
@@ -37,7 +36,8 @@ class PageInfo extends InvokableBase {
 	public function pageInfo( array $data, $type ){
 		$form = $this->getPageInfoForm();
 		$form->setHydrator(new HydratorPageInfo());
-		$form->bind( new \PServerCMS\Entity\PageInfo() );
+		$class = $this->getEntityOptions()->getPageInfo();
+		$form->bind( new $class() );
 		$form->setData($data);
 		if(!$form->isValid()){
 			return false;

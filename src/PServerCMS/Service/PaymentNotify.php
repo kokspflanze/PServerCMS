@@ -6,7 +6,6 @@ use PaymentAPI\Provider\Request;
 use PaymentAPI\Service\LogInterface;
 use PServerCMS\Entity\Donatelog;
 use PServerCMS\Entity\Users;
-use PServerCMS\Keys\Entity;
 
 class PaymentNotify extends InvokableBase implements LogInterface {
 
@@ -135,7 +134,7 @@ class PaymentNotify extends InvokableBase implements LogInterface {
 	 */
 	protected function isDonateAlreadyAdded( Request $request){
 		/** @var \PServerCMS\Entity\Repository\DonateLog $donateEntity */
-		$donateEntity = $this->getEntityManager()->getRepository(Entity::DonateLog);
+		$donateEntity = $this->getEntityManager()->getRepository($this->getEntityOptions()->getDonateLog());
 		return $donateEntity->isDonateAlreadyAdded($request->getTransactionId(), $this->mapPaymentProvider2DonateType($request));
 	}
 }

@@ -3,7 +3,6 @@
 namespace PServerCMS\Form;
 
 use PServerCMS\Entity\Users;
-use PServerCMS\Keys\Entity;
 use Zend\Form\Element;
 use ZfcBase\Form\ProvidesEventsForm;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -62,7 +61,7 @@ class Password extends ProvidesEventsForm {
 	public function addSecretQuestion(Users $user){
 		$this->setUser($user);
 		/** @var \PServerCMS\Entity\Repository\SecretAnswer $repositorySecretAnswer */
-		$repositorySecretAnswer = $this->getEntityManager()->getRepository(Entity::SecretAnswer);
+		$repositorySecretAnswer = $this->getEntityManager()->getRepository($this->getEntityOptions()->getSecretAnswer());
 		$answer = $repositorySecretAnswer->getAnswer4UserId($this->getUser()->getId());
 
 		$this->add(array(
@@ -134,5 +133,12 @@ class Password extends ProvidesEventsForm {
 	 */
 	protected function getServiceManager() {
 		return $this->serviceManager;
+	}
+
+	/**
+	 * @return \PServerCMS\Options\EntityOptions
+	 */
+	protected function getEntityOptions(){
+		return $this->getServiceManager()->get('pserver_entity_options');
 	}
 } 

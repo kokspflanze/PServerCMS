@@ -2,7 +2,6 @@
 
 namespace PServerCMS\Service;
 
-use PServerCMS\Keys\Entity;
 use PServerCMS\Keys\Caching;
 
 class PlayerHistory extends InvokableBase {
@@ -13,7 +12,7 @@ class PlayerHistory extends InvokableBase {
 	public function getCurrentPlayer(){
 		$currentPlayer = $this->getCachingHelperService()->getItem(Caching::PLAYER_HISTORY, function() {
 			/** @var \PServerCMS\Entity\Repository\PlayerHistory $repository */
-			$repository = $this->getEntityManager()->getRepository(Entity::PlayerHistory);
+			$repository = $this->getEntityManager()->getRepository($this->getEntityOptions()->getPlayerHistory());
 			return $repository->getCurrentPlayer();
 		});
 
@@ -30,7 +29,9 @@ class PlayerHistory extends InvokableBase {
 			$player = $this->getGameBackendService()->getCurrentPlayerNumber();
 		}
 
-		$playerHistory = new \PServerCMS\Entity\PlayerHistory();
+		$class = $this->getEntityOptions()->getPlayerHistory();
+		/** @var \PServerCMS\Entity\PlayerHistory $playerHistory */
+		$playerHistory = new $class();
 		$playerHistory->setPlayer($player);
 
 		$entityManager = $this->getEntityManager();

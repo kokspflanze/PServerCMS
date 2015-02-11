@@ -2,7 +2,6 @@
 
 namespace PServerCMS;
 
-use PServerCMS\Keys\Entity;
 use PServerCMS\Service\ServiceManager;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
@@ -87,7 +86,9 @@ class Module
                 'pserver_user_pwlost_form'    => function ( $sm ) {
                     /** @var $sm \Zend\ServiceManager\ServiceLocatorInterface */
                     /** @var $repositoryUser \Doctrine\Common\Persistence\ObjectRepository */
-                    $repositoryUser = $sm->get( 'Doctrine\ORM\EntityManager' )->getRepository( Entity::Users );
+                    /** @var Options\EntityOptions $entityOptions */
+                    $entityOptions = $sm->get( 'pserver_entity_options' );
+                    $repositoryUser = $sm->get( 'Doctrine\ORM\EntityManager' )->getRepository( $entityOptions->getUsers() );
                     $form           = new Form\PwLost();
                     $form->setInputFilter(
                         new Form\PwLostFilter(

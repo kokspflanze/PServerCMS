@@ -18,10 +18,13 @@ class UserBlock extends InvokableBase {
 	 * @return bool
 	 */
 	public function blockUser( Users $user, $expire, $reason ){
-		$userBlock = new UserBlockEntity();
+		$class = $this->getEntityOptions()->getUserBlock();
+		/** @var UserBlockEntity $userBlock */
+		$userBlock = new $class;
 		$userBlock->setUser($user);
 		$userBlock->setReason($reason);
 		$userBlock->setExpire($expire);
+
 		$entityManager = $this->getEntityManager();
 		$entityManager->persist($userBlock);
 		$entityManager->flush();

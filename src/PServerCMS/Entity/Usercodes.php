@@ -12,10 +12,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Usercodes {
 
-	const Type_Register = 'register';
-	const Type_LostPassword = 'password';
-    const Type_ConfirmCountry = 'country';
-	const Expire_Default = 86400;
+	const TYPE_REGISTER = 'register';
+	const TYPE_LOST_PASSWORD = 'password';
+    const TYPE_CONFIRM_COUNTRY = 'country';
+	const EXPIRE_DEFAULT = 86400;
 
 	/**
 	 * @var string
@@ -60,7 +60,7 @@ class Usercodes {
 	public function __construct( ) {
 		$this->created = new \DateTime();
 		$oDateTime = new \DateTime();
-		$this->expire = $oDateTime->setTimestamp(time()+static::Expire_Default);
+		$this->expire = $oDateTime->setTimestamp(time()+static::EXPIRE_DEFAULT);
 	}
 
 

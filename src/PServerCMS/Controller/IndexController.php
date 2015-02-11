@@ -2,7 +2,6 @@
 
 namespace PServerCMS\Controller;
 
-use PServerCMS\Keys\Entity;
 use Zend\Mvc\Controller\AbstractActionController;
 
 class IndexController extends AbstractActionController {

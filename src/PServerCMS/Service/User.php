@@ -10,558 +10,617 @@ use PServerCMS\Entity\Repository\AvailableCountries as RepositoryAvailableCountr
 use PServerCMS\Entity\Repository\CountryList;
 use PServerCMS\Helper\DateTimer;
 use PServerCMS\Helper\Ip;
-use PServerCMS\Keys\Entity;
 use SmallUser\Entity\UsersInterface;
 use SmallUser\Mapper\HydratorUser;
 use Zend\Crypt\Password\Bcrypt;
 
-class User extends \SmallUser\Service\User {
-	/** @var \PServerCMS\Form\Register */
-	protected $registerForm;
-	/** @var \PServerCMS\Service\Mail */
-	protected $mailService;
-	/** @var \PServerCMS\Service\UserCodes */
-	protected $userCodesService;
-	/** @var \PServerCMS\Form\Password */
-	protected $passwordForm;
-	/** @var \GameBackend\DataService\DataServiceInterface */
-	protected $gameBackendService;
-	/** @var \PServerCMS\Form\PwLost */
-	protected $passwordLostForm;
-	/** @var ConfigRead */
-	protected $configReadService;
-
-	/**
-	 * @param array $data
-	 *
-	 * @return Users|bool
-	 */
-	public function register( array $data ){
-
-		$oForm = $this->getRegisterForm();
-		$oForm->setHydrator( new HydratorUser() );
-		$oForm->bind( new Users() );
-		$oForm->setData($data);
-		if(!$oForm->isValid()){
-			return false;
-		}
-
-		$oEntityManager = $this->getEntityManager();
-		/** @var Users $userEntity */
-		$userEntity = $oForm->getData();
-		$userEntity->setCreateip(Ip::getIp());
-		$userEntity->setPassword($this->bcrypt($userEntity->getPassword()));
-
-		$oEntityManager->persist($userEntity);
-		$oEntityManager->flush();
-
-		$sCode = $this->getUserCodesService()->setCode4User($userEntity, \PServerCMS\Entity\Usercodes::Type_Register);
-
-		$this->getMailService()->register($userEntity, $sCode);
-
-		$this->getSecretQuestionService()->setSecretAnswer($userEntity, $data['question'], $data['answer']);
-
-		return $userEntity;
-	}
-
-	/**
-	 * @param Usercodes $userCode
-	 *
-	 * @return Users
-	 */
-	public function registerGameWithSamePassword( Usercodes $userCode ){
-
-		$option = $this->getConfigService()->get('pserver.password.different-passwords');
-
-		// config is different pw-system
-		if($option){
-			return null;
-		}
-
-		$user = $this->registerGame( $userCode->getUsersUsrid());
-		if($user){
-			$this->getUserCodesService()->deleteCode($userCode);
-		}
-
-		return $user;
-	}
-
-	/**
-	 * @param array     $data
-	 * @param Usercodes $userCode
-	 *
-	 * @return Users|bool
-	 */
-	public function registerGameWithOtherPw( array $data, Usercodes $userCode ){
-
-		$form = $this->getPasswordForm();
-
-		$form->setData($data);
-		if(!$form->isValid()){
-			return false;
-		}
-
-		$data = $form->getData();
-		$plainPassword = $data['password'];
-
-		$user = $this->registerGame( $userCode->getUsersUsrid(), $plainPassword);
-
-		if($user){
-			$this->getUserCodesService()->deleteCode($userCode);
-		}
-
-		return $user;
-	}
-
-	/**
-	 * @param Users  $user
-	 * @param string $plainPassword
-	 *
-	 * @return Users
-	 */
-	public function registerGame( Users $user, $plainPassword = '' ){
-
-		$gameBackend = $this->getGameBackendService();
-
-		$backendId = $gameBackend->setUser($user, $plainPassword);
-		$user->setBackendId($backendId);
-
-		$entityManager = $this->getEntityManager();
-		/** user have already a backendId, so better to set it there */
-		$entityManager->persist($user);
-		$entityManager->flush();
-
-		/** @var CountryList $countryList */
-		$countryList = $entityManager->getRepository(Entity::CountryList);
-		$availableCountries = new AvailableCountries();
-		$availableCountries->setActive('1');
-		$availableCountries->setUsersUsrid($user);
-		$availableCountries->setCntry($countryList->getCountryCode4Ip(Ip::getIp()));
-
-		$repositoryRole = $entityManager->getRepository(Entity::UserRole);
-		$role = $this->getConfigService()->get('pserver.register.role','user');
-		$roleEntity = $repositoryRole->findOneBy(array('roleId' => $role));
-
-		// add the ROLE + Remove the Key
-		$user->addUserRole($roleEntity);
-		$roleEntity->addUsersUsrid($user);
-		$entityManager->persist($user);
-		$entityManager->persist($roleEntity);
-		$entityManager->persist($availableCountries);
-		$entityManager->flush();
-
-		return $user;
-	}
+class User extends \SmallUser\Service\User
+{
+    /** @var \PServerCMS\Form\Register */
+    protected $registerForm;
+    /** @var \PServerCMS\Service\Mail */
+    protected $mailService;
+    /** @var \PServerCMS\Service\UserCodes */
+    protected $userCodesService;
+    /** @var \PServerCMS\Form\Password */
+    protected $passwordForm;
+    /** @var \GameBackend\DataService\DataServiceInterface */
+    protected $gameBackendService;
+    /** @var \PServerCMS\Form\PwLost */
+    protected $passwordLostForm;
+    /** @var ConfigRead */
+    protected $configReadService;
 
     /**
      * @param array $data
-     * @param Users $user
-     * @return bool|null|Users
+     *
+     * @return Users|bool
      */
-    public function changeWebPwd( array $data, Users $user ){
-		$user = $this->getUser4Id($user->getId());
+    public function register( array $data )
+    {
 
-		// check if we use different pw system
-		if(!$this->isSamePasswordOption()){
-			return false;
-		}
-
-        if(!$this->isPwdChangeAllowed($data, $user, 'Web')){
-			return false;
-		}
-
-		$user = $this->setNewPasswordAtUser($user, $data['password']);
-
-		return $user;
-    }
-
-    /**
-     * @param array $data
-     * @param Users $user
-     * @return bool
-     */
-    public function changeIngamePwd( array $data, Users $user ){
-		$user = $this->getUser4Id($user->getId());
-        if(!$this->isPwdChangeAllowed($data, $user, 'InGame')){
-			return false;
+        $oForm = $this->getRegisterForm();
+        $oForm->setHydrator( new HydratorUser() );
+        $oForm->bind( new Users() );
+        $oForm->setData( $data );
+        if (!$oForm->isValid()) {
+            return false;
         }
 
-		// check if we have to change it at web too
-		if(!$this->isSamePasswordOption()){
-			$user = $this->setNewPasswordAtUser($user, $data['password']);
-		}
-
-		$gameBackend = $this->getGameBackendService();
-		$gameBackend->setUser($user, $data['password']);
-		return $user;
-    }
-
-	public function lostPw( array $aData ){
-
-		$oForm = $this->getPasswordLostForm();
-
-		$oForm->setData($aData);
-		if(!$oForm->isValid()){
-			return false;
-		}
-
-		$aData = $oForm->getData();
-
-		$oEntityManager = $this->getEntityManager();
-		$oUser = $oEntityManager->getRepository(Entity::Users)->findOneBy(array('username' => $aData['username']));
-
-
-		$sCode = $this->getUserCodesService()->setCode4User($oUser, \PServerCMS\Entity\Usercodes::Type_LostPassword);
-
-		$this->getMailService()->lostPw($oUser, $sCode);
-
-		return $oUser;
-	}
-
-	public function lostPwConfirm( array $data, Usercodes $userCode ){
-
-		$form = $this->getPasswordForm();
-		$form->getInputFilter()->addAnswerValidation( $userCode->getUser() );
-		$form->setData($data);
-		if(!$form->isValid()){
-			return false;
-		}
-
-		$data = $form->getData();
-		$sPlainPassword = $data['password'];
-		$userEntity = $userCode->getUser();
-
-		$this->setNewPasswordAtUser( $userEntity, $sPlainPassword );
-
-		$this->getUserCodesService()->deleteCode($userCode);
-
-		if(!$this->isSamePasswordOption()){
-			$gameBackend = $this->getGameBackendService();
-			$gameBackend->setUser($userEntity, $sPlainPassword);
-		}
-
-		return $userEntity;
-	}
-
-    public function countryConfirm( Usercodes $oUserCodes ){
         $oEntityManager = $this->getEntityManager();
+        /** @var Users $userEntity */
+        $userEntity = $oForm->getData();
+        $userEntity->setCreateip( Ip::getIp() );
+        $userEntity->setPassword( $this->bcrypt( $userEntity->getPassword() ) );
 
-        /** @var Users $oUserEntity */
-        $oUserEntity = $oUserCodes->getUsersUsrid();
-
-		/** @var CountryList $oCountryList */
-		$oCountryList = $oEntityManager->getRepository(Entity::CountryList);
-		$sCountry = $oCountryList->getCountryCode4Ip(Ip::getIp());
-
-		/** @var AvailableCountries $oAvailableCountries */
-		$class = Entity::AvailableCountries;
-        $oAvailableCountries = new $class();
-        $oAvailableCountries->setCntry($sCountry);
-        $oAvailableCountries->setUsersUsrid($oUserEntity);
-
-        $oEntityManager->persist($oAvailableCountries);
-        $oEntityManager->remove($oUserCodes);
+        $oEntityManager->persist( $userEntity );
         $oEntityManager->flush();
 
-        return $oUserEntity;
+        $sCode = $this->getUserCodesService()->setCode4User( $userEntity, \PServerCMS\Entity\Usercodes::TYPE_REGISTER );
+
+        $this->getMailService()->register( $userEntity, $sCode );
+
+        $this->getSecretQuestionService()->setSecretAnswer( $userEntity, $data['question'], $data['answer'] );
+
+        return $userEntity;
     }
 
-	/**
-	 * @param Users $oUser
-	 * @return bool
-	 */
-	protected function isValidLogin(UsersInterface $oUser) {
-		if (!(bool)$oUser->getUserRole()->getKeys()) {
-			$this->setFailedLoginMessage('Your Account is not active, please confirm your email');
-			return false;
-		}
-		if(!$this->isCountryAllowed($oUser)){
-			return false;
-		}
-		if($this->isUserBlocked($oUser)){
-			return false;
-		}
-		return true;
-	}
+    /**
+     * @param Usercodes $userCode
+     *
+     * @return Users
+     */
+    public function registerGameWithSamePassword( Usercodes $userCode )
+    {
 
-	/**
-	 * @param Users $oUser
-	 * @return bool
-	 */
-	protected function isCountryAllowed(UsersInterface $oUser) {
-		$oEntityManager = $this->getEntityManager();
+        $option = $this->getConfigService()->get( 'pserver.password.different-passwords' );
 
-		/** @var CountryList $oCountryList */
-		$oCountryList = $oEntityManager->getRepository(Entity::CountryList);
-		$sCountry = $oCountryList->getCountryCode4Ip(Ip::getIp());
-		/** @var RepositoryAvailableCountries $oAvailableCountries */
-		$oAvailableCountries = $oEntityManager->getRepository(Entity::AvailableCountries);
-		if(!$oAvailableCountries->isCountryAllowedForUser($oUser->getUsrid(), $sCountry)){
-			$sCode = $this->getUserCodesService()->setCode4User($oUser, \PServerCMS\Entity\Usercodes::Type_ConfirmCountry);
-			$this->getMailService()->confirmCountry($oUser, $sCode);
-			$this->getFlashMessenger()->setNamespace(self::ErrorNameSpace)->addMessage('Please confirm your new ip with your email');
-			return false;
-		}
-		return true;
-	}
+        // config is different pw-system
+        if ($option) {
+            return null;
+        }
 
-	/**
-	 * @param Users $oUser
-	 * @return bool
-	 */
-	protected function isUserBlocked(UsersInterface $oUser) {
-		$oEntityManager = $this->getEntityManager();
-		/** @var \PServerCMS\Entity\Repository\UserBlock $RepositoryUserBlock */
-		$RepositoryUserBlock = $oEntityManager->getRepository(Entity::UserBlock);
-		$oIsUserBlocked = $RepositoryUserBlock->isUserAllowed( $oUser->getUsrid() );
-		if($oIsUserBlocked){
-			$this->getFlashMessenger()->setNamespace(self::ErrorNameSpace)->addMessage('You are blocked because '.$oIsUserBlocked->getReason().' !, try it again '.$oIsUserBlocked->getExpire()->format('H:i:s'));
-			return true;
-		}
-		return false;
-	}
+        $user = $this->registerGame( $userCode->getUser() );
+        if ($user) {
+            $this->getUserCodesService()->deleteCode( $userCode );
+        }
+
+        return $user;
+    }
+
+    /**
+     * @param array     $data
+     * @param Usercodes $userCode
+     *
+     * @return Users|bool
+     */
+    public function registerGameWithOtherPw( array $data, Usercodes $userCode )
+    {
+
+        $form = $this->getPasswordForm();
+
+        $form->setData( $data );
+        if (!$form->isValid()) {
+            return false;
+        }
+
+        $data          = $form->getData();
+        $plainPassword = $data['password'];
+
+        $user = $this->registerGame( $userCode->getUser(), $plainPassword );
+
+        if ($user) {
+            $this->getUserCodesService()->deleteCode( $userCode );
+        }
+
+        return $user;
+    }
+
+    /**
+     * @param Users  $user
+     * @param string $plainPassword
+     *
+     * @return Users
+     */
+    public function registerGame( Users $user, $plainPassword = '' )
+    {
+
+        $gameBackend = $this->getGameBackendService();
+
+        $backendId = $gameBackend->setUser( $user, $plainPassword );
+        $user->setBackendId( $backendId );
+
+        $entityManager = $this->getEntityManager();
+        /** user have already a backendId, so better to set it there */
+        $entityManager->persist( $user );
+        $entityManager->flush();
+
+        /** @var CountryList $countryList */
+        $countryList        = $entityManager->getRepository( $this->getEntityOptions()->getCountryList() );
+        $class = $this->getEntityOptions()->getAvailableCountries();
+        /** @var \PServerCMS\Entity\AvailableCountries $availableCountries */
+        $availableCountries = new $class;
+        $availableCountries->setActive( '1' );
+        $availableCountries->setUser( $user );
+        $availableCountries->setCntry( $countryList->getCountryCode4Ip( Ip::getIp() ) );
+
+        $repositoryRole = $entityManager->getRepository( $this->getEntityOptions()->getUserRole() );
+        $role           = $this->getConfigService()->get( 'pserver.register.role', 'user' );
+        $roleEntity     = $repositoryRole->findOneBy( array( 'roleId' => $role ) );
+
+        // add the ROLE + Remove the Key
+        $user->addUserRole( $roleEntity );
+        $roleEntity->addUsersUsrid( $user );
+        $entityManager->persist( $user );
+        $entityManager->persist( $roleEntity );
+        $entityManager->persist( $availableCountries );
+        $entityManager->flush();
+
+        return $user;
+    }
+
+    /**
+     * @param array $data
+     * @param Users $user
+     *
+     * @return bool|null|Users
+     */
+    public function changeWebPwd( array $data, Users $user )
+    {
+        $user = $this->getUser4Id( $user->getId() );
+
+        // check if we use different pw system
+        if (!$this->isSamePasswordOption()) {
+            return false;
+        }
+
+        if (!$this->isPwdChangeAllowed( $data, $user, 'Web' )) {
+            return false;
+        }
+
+        $user = $this->setNewPasswordAtUser( $user, $data['password'] );
+
+        return $user;
+    }
+
+    /**
+     * @param array $data
+     * @param Users $user
+     *
+     * @return bool
+     */
+    public function changeIngamePwd( array $data, Users $user )
+    {
+        $user = $this->getUser4Id( $user->getId() );
+        if (!$this->isPwdChangeAllowed( $data, $user, 'InGame' )) {
+            return false;
+        }
+
+        // check if we have to change it at web too
+        if (!$this->isSamePasswordOption()) {
+            $user = $this->setNewPasswordAtUser( $user, $data['password'] );
+        }
+
+        $gameBackend = $this->getGameBackendService();
+        $gameBackend->setUser( $user, $data['password'] );
+        return $user;
+    }
+
+    public function lostPw( array $data )
+    {
+        $form = $this->getPasswordLostForm();
+
+        $form->setData( $data );
+        if (!$form->isValid()) {
+            return false;
+        }
+
+        $data = $form->getData();
+
+        $entityManager = $this->getEntityManager();
+        $user          = $entityManager->getRepository( $this->getEntityOptions()->getUsers() )
+            ->findOneBy( array( 'username' => $data['username'] ) );
+
+
+        $code = $this->getUserCodesService()->setCode4User( $user, \PServerCMS\Entity\Usercodes::TYPE_LOST_PASSWORD );
+
+        $this->getMailService()->lostPw( $user, $code );
+
+        return $user;
+    }
+
+    public function lostPwConfirm( array $data, Usercodes $userCode )
+    {
+
+        $form = $this->getPasswordForm();
+        /** @var \PServerCMS\Form\PasswordFilter $filter */
+        $filter = $form->getInputFilter();
+        $filter->addAnswerValidation( $userCode->getUser() );
+        $form->setData( $data );
+        if (!$form->isValid()) {
+            return false;
+        }
+
+        $data           = $form->getData();
+        $sPlainPassword = $data['password'];
+        $userEntity     = $userCode->getUser();
+
+        $this->setNewPasswordAtUser( $userEntity, $sPlainPassword );
+
+        $this->getUserCodesService()->deleteCode( $userCode );
+
+        if (!$this->isSamePasswordOption()) {
+            $gameBackend = $this->getGameBackendService();
+            $gameBackend->setUser( $userEntity, $sPlainPassword );
+        }
+
+        return $userEntity;
+    }
+
+    public function countryConfirm( Usercodes $userCodes )
+    {
+        $entityManager = $this->getEntityManager();
+
+        /** @var Users $userEntity */
+        $userEntity = $userCodes->getUser();
+
+        /** @var CountryList $countryList */
+        $countryList = $entityManager->getRepository( $this->getEntityOptions()->getCountryList() );
+        $country     = $countryList->getCountryCode4Ip( Ip::getIp() );
+
+        /** @var AvailableCountries $availableCountries */
+        $class               = $this->getEntityOptions()->getAvailableCountries();
+        $availableCountries = new $class();
+        $availableCountries->setCntry( $country );
+        $availableCountries->setUsersUsrid( $userEntity );
+
+        $entityManager->persist( $availableCountries );
+        $entityManager->remove( $userCodes );
+        $entityManager->flush();
+
+        return $userEntity;
+    }
+
+    /**
+     * @param Users $user
+     *
+     * @return bool
+     */
+    protected function isValidLogin( UsersInterface $user )
+    {
+        $result = true;
+        if (!(bool)$user->getUserRole()->getKeys()) {
+            $this->setFailedLoginMessage( 'Your Account is not active, please confirm your email' );
+            $result = false;
+        }
+        if (!$this->isCountryAllowed( $user )) {
+            $result = false;
+        }
+        if ($this->isUserBlocked( $user )) {
+            $result = false;
+        }
+        return $result;
+    }
+
+    /**
+     * @param Users $user
+     *
+     * @return bool
+     */
+    protected function isCountryAllowed( UsersInterface $user )
+    {
+        $entityManager = $this->getEntityManager();
+        $result = true;
+
+        /** @var CountryList $countryList */
+        $countryList = $entityManager->getRepository( $this->getEntityOptions()->getCountryList() );
+        $country     = $countryList->getCountryCode4Ip( Ip::getIp() );
+        /** @var RepositoryAvailableCountries $availableCountries */
+        $availableCountries = $entityManager->getRepository( $this->getEntityOptions()->getAvailableCountries() );
+        if (!$availableCountries->isCountryAllowedForUser( $user->getUsrid(), $country )) {
+            $code = $this->getUserCodesService()->setCode4User( $user, \PServerCMS\Entity\Usercodes::TYPE_CONFIRM_COUNTRY );
+            $this->getMailService()->confirmCountry( $user, $code );
+            $this->getFlashMessenger()->setNamespace( self::ErrorNameSpace )->addMessage( 'Please confirm your new ip with your email' );
+            $result = false;
+        }
+        return $result;
+    }
+
+    /**
+     * @param Users $user
+     *
+     * @return bool
+     */
+    protected function isUserBlocked( UsersInterface $user )
+    {
+        $entityManager = $this->getEntityManager();
+        /** @var \PServerCMS\Entity\Repository\UserBlock $repositoryUserBlock */
+        $repositoryUserBlock = $entityManager->getRepository( $this->getEntityOptions()->getUserBlock() );
+        $userBlocked      = $repositoryUserBlock->isUserAllowed( $user->getUsrid() );
+        if ($userBlocked) {
+            $message = sprintf('You are blocked because %s !, try it again %s', $userBlocked->getReason(), $userBlocked->getExpire()->format( 'H:i:s' ) );
+            $this->getFlashMessenger()->setNamespace( self::ErrorNameSpace )->addMessage($message);
+            return true;
+        }
+        return false;
+    }
 
     /**
      * @param $userId
      *
      * @return null|\PServerCMS\Entity\Users
      */
-    protected function getUser4Id( $userId ){
+    protected function getUser4Id( $userId )
+    {
         $entityManager = $this->getEntityManager();
-        return $entityManager->getRepository('PServerCMS\Entity\Users')->findOneBy(array('usrid' => $userId));
+        return $entityManager->getRepository( 'PServerCMS\Entity\Users' )->findOneBy( array( 'usrid' => $userId ) );
     }
 
-	/**
-	 * @param Users $oUser
-	 */
-	protected function doLogin(UsersInterface $oUser) {
-		parent::doLogin($oUser);
-		$oEntityManager = $this->getEntityManager();
-		/**
-		 * Set LoginHistory
-		 */
-		$class = Entity::LoginHistory;
-		/** @var \PServerCMS\Entity\LoginHistory $oLoginHistory */
-		$oLoginHistory = new $class();
-		$oLoginHistory->setUsersUsrid($oUser);
-		$oLoginHistory->setIp(Ip::getIp());
-		$oEntityManager->persist($oLoginHistory);
-		$oEntityManager->flush();
-	}
-
-	protected function handleInvalidLogin(UsersInterface $oUser) {
-		$iMaxTries = $this->getConfigService()->get('pserver.login.exploit.try');
-		if(!$iMaxTries){
-			return false;
-		}
-
-		$oEntityManager = $this->getEntityManager();
-		/**
-		 * Set LoginHistory
-		 */
-		$class = Entity::LoginFailed;
-		/** @var \PServerCMS\Entity\Loginfaild $oLoginFailed */
-		$oLoginFailed = new $class();
-		$oLoginFailed->setUsername($oUser->getUsername());
-		$oLoginFailed->setIp(Ip::getIp());
-		$oEntityManager->persist($oLoginFailed);
-		$oEntityManager->flush();
-
-		$iTime = $this->getConfigService()->get('pserver.login.exploit.time');
-
-		/** @var \PServerCMS\Entity\Repository\LoginFaild $oRepositoryLoginFailed */
-		$oRepositoryLoginFailed = $oEntityManager->getRepository($class);
-		if($oRepositoryLoginFailed->getNumberOfFailLogins4Ip(Ip::getIp(), $iTime) >= $iMaxTries){
-			$class = Entity::IpBlock;
-			/** @var \PServerCMS\Entity\Ipblock $oIPBlock */
-			$oIPBlock = new $class();
-			$oIPBlock->setExpire(DateTimer::getDateTime4TimeStamp(time()+$iTime));
-			$oIPBlock->setIp(Ip::getIp());
-			$oEntityManager->persist($oIPBlock);
-			$oEntityManager->flush();
-		}
-	}
-
-	/**
-	 * @return bool
-	 */
-	protected function isIpAllowed(){
-		$oEntityManager = $this->getEntityManager();
-		/** @var \PServerCMS\Entity\Repository\IPBlock $RepositoryIPBlock */
-		$RepositoryIPBlock = $oEntityManager->getRepository(Entity::IpBlock);
-		$oIsIpAllowed = $RepositoryIPBlock->isIPAllowed( Ip::getIp() );
-		if($oIsIpAllowed){
-			$this->getFlashMessenger()->setNamespace(self::ErrorNameSpace)->addMessage('Your IP is blocked!, try it again '.$oIsIpAllowed->getExpire()->format('H:i:s'));
-			return false;
-		}
-		return true;
-	}
-
-	/**
-	 * @return \PServerCMS\Form\Register
-	 */
-	public function getRegisterForm() {
-		if (! $this->registerForm) {
-			$this->registerForm = $this->getServiceManager()->get('pserver_user_register_form');
-		}
-
-		return $this->registerForm;
-	}
-
-	/**
-	 * @return \PServerCMS\Form\Password
-	 */
-	public function getPasswordForm() {
-		if (! $this->passwordForm) {
-			$this->passwordForm = $this->getServiceManager()->get('pserver_user_password_form');
-		}
-
-		return $this->passwordForm;
-	}
-
-	/**
-	 * Login with a User
-	 * @param UsersInterface $user
-	 */
-	public function doAuthentication( Users $user ){
-		$find = array($this->getUserEntityUserName() => $user->getUsername());
-		$userNew = $this->getEntityManager()->getRepository($this->getUserEntityClassName())->findOneBy($find);
-
-		$authService = $this->getAuthService();
-		// FIX: no roles after register
-		$userNew->getUserRole();
-		$userNew->getUserExtension();
-		$authService->getStorage()->write($userNew);
-	}
-
-	/**
-	 * @return \PServerCMS\Form\PwLost
-	 */
-	public function getPasswordLostForm() {
-		if (! $this->passwordLostForm) {
-			$this->passwordLostForm = $this->getServiceManager()->get('pserver_user_pwlost_form');
-		}
-
-		return $this->passwordLostForm;
-	}
-
-	/**
-	 * @return \PServerCMS\Form\ChangePwd
-	 */
-    public function getChangePwdForm(){
-        return $this->getServiceManager()->get('pserver_user_changepwd_form');
+    /**
+     * @param Users $oUser
+     */
+    protected function doLogin( UsersInterface $oUser )
+    {
+        parent::doLogin( $oUser );
+        $oEntityManager = $this->getEntityManager();
+        /**
+         * Set LoginHistory
+         */
+        $class = $this->getEntityOptions()->getLoginHistory();
+        /** @var \PServerCMS\Entity\LoginHistory $oLoginHistory */
+        $oLoginHistory = new $class();
+        $oLoginHistory->setUsersUsrid( $oUser );
+        $oLoginHistory->setIp( Ip::getIp() );
+        $oEntityManager->persist( $oLoginHistory );
+        $oEntityManager->flush();
     }
 
-	/**
-	 * read from the config if system works for different pws @ web and in-game or with same
-	 * @return boolean
-	 */
-	public function isSamePasswordOption(){
-		return (bool) $this->getConfigService()->get('pserver.password.different-passwords');
-	}
+    protected function handleInvalidLogin( UsersInterface $oUser )
+    {
+        $iMaxTries = $this->getConfigService()->get( 'pserver.login.exploit.try' );
+        if (!$iMaxTries) {
+            return false;
+        }
 
-	/**
-	 * @return \GameBackend\DataService\DataServiceInterface
-	 */
-	public function getGameBackendService() {
-		if (! $this->gameBackendService) {
-			$this->gameBackendService = $this->getServiceManager()->get('gamebackend_dataservice');
-		}
+        $oEntityManager = $this->getEntityManager();
+        /**
+         * Set LoginHistory
+         */
+        $class = $this->getEntityOptions()->getLoginFailed();
+        /** @var \PServerCMS\Entity\Loginfaild $oLoginFailed */
+        $oLoginFailed = new $class();
+        $oLoginFailed->setUsername( $oUser->getUsername() );
+        $oLoginFailed->setIp( Ip::getIp() );
+        $oEntityManager->persist( $oLoginFailed );
+        $oEntityManager->flush();
 
-		return $this->gameBackendService;
-	}
+        $iTime = $this->getConfigService()->get( 'pserver.login.exploit.time' );
 
-	/**
-	 * @return \PServerCMS\Service\Mail
-	 */
-	protected function getMailService() {
-		if (! $this->mailService) {
-			$this->mailService = $this->getServiceManager()->get('pserver_mail_service');
-		}
+        /** @var \PServerCMS\Entity\Repository\LoginFaild $oRepositoryLoginFailed */
+        $oRepositoryLoginFailed = $oEntityManager->getRepository( $class );
+        if ($oRepositoryLoginFailed->getNumberOfFailLogins4Ip( Ip::getIp(), $iTime ) >= $iMaxTries) {
+            $class = $this->getEntityOptions()->getIpBlock();
+            /** @var \PServerCMS\Entity\Ipblock $oIPBlock */
+            $oIPBlock = new $class();
+            $oIPBlock->setExpire( DateTimer::getDateTime4TimeStamp( time() + $iTime ) );
+            $oIPBlock->setIp( Ip::getIp() );
+            $oEntityManager->persist( $oIPBlock );
+            $oEntityManager->flush();
+        }
+    }
 
-		return $this->mailService;
-	}
+    /**
+     * @return bool
+     */
+    protected function isIpAllowed()
+    {
+        $oEntityManager = $this->getEntityManager();
+        /** @var \PServerCMS\Entity\Repository\IPBlock $RepositoryIPBlock */
+        $RepositoryIPBlock = $oEntityManager->getRepository( $this->getEntityOptions()->getIpBlock() );
+        $oIsIpAllowed      = $RepositoryIPBlock->isIPAllowed( Ip::getIp() );
+        if ($oIsIpAllowed) {
+            $message = sprintf( 'Your IP is blocked!, try it again %s', $oIsIpAllowed->getExpire()->format( 'H:i:s' ) );
+            $this->getFlashMessenger()->setNamespace( self::ErrorNameSpace )->addMessage( $message );
+            return false;
+        }
+        return true;
+    }
 
-	/**
-	 * @return \PServerCMS\Service\UserCodes
-	 */
-	protected function getUserCodesService() {
-		if (! $this->userCodesService) {
-			$this->userCodesService = $this->getServiceManager()->get('pserver_usercodes_service');
-		}
+    /**
+     * @return \PServerCMS\Form\Register
+     */
+    public function getRegisterForm()
+    {
+        if (!$this->registerForm) {
+            $this->registerForm = $this->getServiceManager()->get( 'pserver_user_register_form' );
+        }
 
-		return $this->userCodesService;
-	}
+        return $this->registerForm;
+    }
 
-	/**
-	 * @return ConfigRead
-	 */
-	protected function getConfigService() {
-		if (!$this->configReadService) {
-			$this->configReadService = $this->getServiceManager()->get('pserver_configread_service');
-		}
+    /**
+     * @return \PServerCMS\Form\Password
+     */
+    public function getPasswordForm()
+    {
+        if (!$this->passwordForm) {
+            $this->passwordForm = $this->getServiceManager()->get( 'pserver_user_password_form' );
+        }
 
-		return $this->configReadService;
-	}
+        return $this->passwordForm;
+    }
 
-	/**
-	 * We want to crypt a password =)
-	 * @param $password
-	 *
-	 * @return string
-	 */
-    protected function bcrypt($password){
-		if(!$this->isSamePasswordOption()){
-			return $this->getGameBackendService()->hashPassword($password);
-		}
+    /**
+     * Login with a User
+     *
+     * @param UsersInterface $user
+     */
+    public function doAuthentication( Users $user )
+    {
+        $find    = array( $this->getUserEntityUserName() => $user->getUsername() );
+        $userNew = $this->getEntityManager()->getRepository( $this->getUserEntityClassName() )->findOneBy( $find );
+
+        $authService = $this->getAuthService();
+        // FIX: no roles after register
+        $userNew->getUserRole();
+        $userNew->getUserExtension();
+        $authService->getStorage()->write( $userNew );
+    }
+
+    /**
+     * @return \PServerCMS\Form\PwLost
+     */
+    public function getPasswordLostForm()
+    {
+        if (!$this->passwordLostForm) {
+            $this->passwordLostForm = $this->getServiceManager()->get( 'pserver_user_pwlost_form' );
+        }
+
+        return $this->passwordLostForm;
+    }
+
+    /**
+     * @return \PServerCMS\Form\ChangePwd
+     */
+    public function getChangePwdForm()
+    {
+        return $this->getServiceManager()->get( 'pserver_user_changepwd_form' );
+    }
+
+    /**
+     * read from the config if system works for different pws @ web and in-game or with same
+     * @return boolean
+     */
+    public function isSamePasswordOption()
+    {
+        return (bool)$this->getConfigService()->get( 'pserver.password.different-passwords' );
+    }
+
+    /**
+     * @return \GameBackend\DataService\DataServiceInterface
+     */
+    public function getGameBackendService()
+    {
+        if (!$this->gameBackendService) {
+            $this->gameBackendService = $this->getServiceManager()->get( 'gamebackend_dataservice' );
+        }
+
+        return $this->gameBackendService;
+    }
+
+    /**
+     * @return \PServerCMS\Service\Mail
+     */
+    protected function getMailService()
+    {
+        if (!$this->mailService) {
+            $this->mailService = $this->getServiceManager()->get( 'pserver_mail_service' );
+        }
+
+        return $this->mailService;
+    }
+
+    /**
+     * @return \PServerCMS\Service\UserCodes
+     */
+    protected function getUserCodesService()
+    {
+        if (!$this->userCodesService) {
+            $this->userCodesService = $this->getServiceManager()->get( 'pserver_usercodes_service' );
+        }
+
+        return $this->userCodesService;
+    }
+
+    /**
+     * @return ConfigRead
+     */
+    protected function getConfigService()
+    {
+        if (!$this->configReadService) {
+            $this->configReadService = $this->getServiceManager()->get( 'pserver_configread_service' );
+        }
+
+        return $this->configReadService;
+    }
+
+    /**
+     * We want to crypt a password =)
+     *
+     * @param $password
+     *
+     * @return string
+     */
+    protected function bcrypt( $password )
+    {
+        if (!$this->isSamePasswordOption()) {
+            return $this->getGameBackendService()->hashPassword( $password );
+        }
 
         $bcrypt = new Bcrypt();
-        return $bcrypt->create($password);
+        return $bcrypt->create( $password );
     }
 
-	/**
-	 * @TODO better error handling
-	 * @param array $data
-	 * @param Users $user
-	 * @return bool
-	 */
-	protected function isPwdChangeAllowed( array $data, Users $user, $errorExtension){
-		$form = $this->getChangePwdForm();
-		$form->setData($data);
-		if(!$form->isValid()){
-			$this->getFlashMessenger()->setNamespace(\PServerCMS\Controller\AccountController::ErrorNameSpace.$errorExtension)->addMessage('Form not valid.');
-			return false;
-		}
+    /**
+     * @TODO better error handling
+     *
+     * @param array $data
+     * @param Users $user
+     *
+     * @return bool
+     */
+    protected function isPwdChangeAllowed( array $data, Users $user, $errorExtension )
+    {
+        $form = $this->getChangePwdForm();
+        $form->setData( $data );
+        if (!$form->isValid()) {
+            $this->getFlashMessenger()
+                ->setNamespace( \PServerCMS\Controller\AccountController::ERROR_NAME_SPACE . $errorExtension )
+                ->addMessage( 'Form not valid.' );
+            return false;
+        }
 
-		$data = $form->getData();
+        $data = $form->getData();
 
-		if(!$user->hashPassword($user, $data['currentPassword'])){
-			$this->getFlashMessenger()->setNamespace(\PServerCMS\Controller\AccountController::ErrorNameSpace.$errorExtension)->addMessage('Wrong Password.');
-			return false;
-		}
+        if (!$user->hashPassword( $user, $data['currentPassword'] )) {
+            $this->getFlashMessenger()
+                ->setNamespace( \PServerCMS\Controller\AccountController::ERROR_NAME_SPACE . $errorExtension )
+                ->addMessage( 'Wrong Password.' );
+            return false;
+        }
 
-		return true;
-	}
+        return true;
+    }
 
-	/**
-	 * @param $userEntity
-	 * @param $password
-	 */
-	protected function setNewPasswordAtUser( $userEntity, $password ) {
-		$entityManager = $this->getEntityManager();
-		/** @var Users $userEntity */
-		$userEntity->setPassword( $this->bcrypt( $password ) );
+    /**
+     * @param $userEntity
+     * @param $password
+     */
+    protected function setNewPasswordAtUser( $userEntity, $password )
+    {
+        $entityManager = $this->getEntityManager();
+        /** @var Users $userEntity */
+        $userEntity->setPassword( $this->bcrypt( $password ) );
 
-		$entityManager->persist( $userEntity );
-		$entityManager->flush();
+        $entityManager->persist( $userEntity );
+        $entityManager->flush();
 
-		return $userEntity;
-	}
+        return $userEntity;
+    }
 
-	/**
-	 * @return SecretQuestion
-	 */
-	protected function getSecretQuestionService(){
-		return $this->getServiceManager()->get('pserver_secret_question');
-	}
+    /**
+     * @return SecretQuestion
+     */
+    protected function getSecretQuestionService()
+    {
+        return $this->getServiceManager()->get( 'pserver_secret_question' );
+    }
+
+    /**
+     * @return \PServerCMS\Options\EntityOptions
+     */
+    protected function getEntityOptions()
+    {
+        return $this->getServiceManager()->get( 'pserver_entity_options' );
+    }
 }

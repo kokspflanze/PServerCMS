@@ -5,7 +5,6 @@ namespace PServerCMS\Service;
 
 use PServerCMS\Entity\Users;
 use PServerCMS\Helper\Format;
-use PServerCMS\Keys\Entity;
 
 class UserCodes extends InvokableBase {
 
@@ -60,7 +59,7 @@ class UserCodes extends InvokableBase {
 	 */
 	protected function getRepositoryManager(){
 		if( !$this->repositoryManager ){
-			$this->repositoryManager = $this->getEntityManager()->getRepository(Entity::UserCodes);
+			$this->repositoryManager = $this->getEntityManager()->getRepository( $this->getEntityOptions()->getUserCodes() );
 		}
 		return $this->repositoryManager;
 	}

@@ -3,7 +3,6 @@
 namespace PServerCMS\Controller;
 
 use PServerCMS\Entity\Usercodes;
-use PServerCMS\Keys\Entity;
 use Zend\Mvc\Controller\AbstractActionController;
 
 class AuthController extends \SmallUser\Controller\AuthController {
@@ -38,7 +37,7 @@ class AuthController extends \SmallUser\Controller\AuthController {
 	public function registerConfirmAction(){
 		$codeRoute = $this->params()->fromRoute('code');
 
-		$userCode = $this->getCode4Data($codeRoute, Usercodes::Type_Register);
+		$userCode = $this->getCode4Data($codeRoute, Usercodes::TYPE_REGISTER);
 		if(!$userCode){
 			return $this->forward()->dispatch('PServerCMS\Controller\Auth', array('action' => 'wrong-code'));
 		}
@@ -63,7 +62,7 @@ class AuthController extends \SmallUser\Controller\AuthController {
 	public function ipConfirmAction(){
 		$code = $this->params()->fromRoute('code');
 
-		$oCode = $this->getCode4Data($code, Usercodes::Type_ConfirmCountry);
+		$oCode = $this->getCode4Data($code, Usercodes::TYPE_CONFIRM_COUNTRY);
 		if(!$oCode){
 			return $this->forward()->dispatch('PServerCMS\Controller\Auth', array('action' => 'wrong-code'));
 		}
@@ -102,7 +101,7 @@ class AuthController extends \SmallUser\Controller\AuthController {
 	public function pwLostConfirmAction(){
 		$code = $this->params()->fromRoute('code');
 
-		$codeEntity = $this->getCode4Data($code, Usercodes::Type_LostPassword);
+		$codeEntity = $this->getCode4Data($code, Usercodes::TYPE_LOST_PASSWORD);
 		if(!$codeEntity){
 			return $this->forward()->dispatch('PServerCMS\Controller\Auth', array('action' => 'wrong-code'));
 		}
@@ -130,7 +129,7 @@ class AuthController extends \SmallUser\Controller\AuthController {
 	protected function getCode4Data($sCode, $sType){
 		$oEntityManager = $this->getEntityManager();
 		/** @var $oRepositoryCode \PServerCMS\Entity\Repository\Usercodes */
-		$oRepositoryCode = $oEntityManager->getRepository(Entity::UserCodes);
+		$oRepositoryCode = $oEntityManager->getRepository($this->getEntityOptions()->getUserCodes());
 		$oCode = $oRepositoryCode->getData4CodeType($sCode, $sType);
 
 		return $oCode;
@@ -140,5 +139,12 @@ class AuthController extends \SmallUser\Controller\AuthController {
 	 */
 	protected function getUserService(){
 		return parent::getUserService();
+	}
+
+	/**
+	 * @return \PServerCMS\Options\EntityOptions
+	 */
+	protected function getEntityOptions(){
+		return $this->getServiceLocator()->get('pserver_entity_options');
 	}
 }
