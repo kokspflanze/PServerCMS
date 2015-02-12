@@ -12,9 +12,15 @@ class PasswordFilter extends ProvidesEventsInputFilter {
 	protected $similarText;
 	protected $user;
 
-	public function __construct( SimilarText $similarText ){
+	public function __construct( ServiceLocatorInterface $serviceLocatorInterface ){
 
-		$this->setSimilarText($similarText);
+		/** @var \PServerCMS\Service\ConfigRead $configService */
+		$configService = $serviceLocatorInterface->get( 'pserver_configread_service' );
+		if($configService->get('pserver.password.secret_question')) {
+			$secretQuestion = $serviceLocatorInterface->get( 'pserver_secret_question' );
+			$similarText    = new \PServerCMS\Validator\SimilarText( $secretQuestion );
+			$this->setSimilarText( $similarText );
+		}
 
 		$this->add(array(
 			'name'       => 'password',

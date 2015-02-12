@@ -5,7 +5,6 @@ use SmallUser\Service\InvokableBase as UserBase;
 
 class InvokableBase extends UserBase
 {
-
     /** @var \Zend\Cache\Storage\StorageInterface */
     protected $cachingService;
     /** @var  CachingHelper */
@@ -16,23 +15,9 @@ class InvokableBase extends UserBase
     protected $configReadService;
     /** @var  UserBlock */
     protected $userBlockService;
-    /** @var array */
-    protected $config;
     /** @var \PServerCMS\Options\EntityOptions */
     protected $entityOptions;
 
-
-    /**
-     * TODO refactoring
-     * @return array
-     */
-    protected function getConfigData()
-    {
-        if (!$this->config) {
-            $this->config = $this->getServiceManager()->get( 'Config' );
-        }
-        return $this->config;
-    }
 
     /**
      * @return \Zend\Cache\Storage\StorageInterface

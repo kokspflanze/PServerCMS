@@ -49,37 +49,6 @@ return [
 					],
 				],
 			],
-            // The following is a route to simplify getting started creating
-            // new controllers and actions without needing to create a new
-            // module. Simply drop new controllers in, and you can access them
-            // using the path /p-server-cms/:controller/:action
-			/*
-            'p-server-cms' => [
-                'type'    => 'Literal',
-                'options' => [
-                    'route'    => '/p-server-cms',
-                    'defaults' => [
-                        '__NAMESPACE__' => 'PServerCMS\Controller',
-                        'controller'    => 'Index',
-                        'action'        => 'index',
-                    ],
-                ],
-                'may_terminate' => true,
-                'child_routes' => [
-                    'default' => [
-                        'type'    => 'Segment',
-                        'options' => [
-                            'route'    => '/[:controller[/:action]]',
-                            'constraints' => [
-                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                            ],
-                            'defaults' => [
-                            ],
-                        ],
-                    ],
-                ],
-            ],*/
         ],
     ],
     'service_manager' => [
@@ -236,7 +205,8 @@ return [
 			/*
 			 * set other pw for web as ingame
 			 */
-			'different-passwords' => true
+			'different-passwords' => true,
+            'secret_question' => false
 		],
 		'news' => [
 			'limit' => 5
@@ -250,7 +220,27 @@ return [
 		'blacklisted' => [
 			'email' => []
 		],
-		'entity' => []
+		'entity' => [
+			'available_countries' => 'PServerCMS\Entity\AvailableCountries',
+			'country_list'        => 'PServerCMS\Entity\Countrylist',
+			'donate_log'          => 'PServerCMS\Entity\Donatelog',
+			'download_list'       => 'PServerCMS\Entity\Downloadlist',
+			'ip_block'            => 'PServerCMS\Entity\Ipblock',
+			'login_failed'        => 'PServerCMS\Entity\Loginfaild',
+			'login_history'       => 'PServerCMS\Entity\Loginhistory',
+			'logs'                => 'PServerCMS\Entity\Logs',
+			'news'                => 'PServerCMS\Entity\News',
+			'page_info'           => 'PServerCMS\Entity\PageInfo',
+			'player_history'      => 'PServerCMS\Entity\PlayerHistory',
+			'secret_answer'       => 'PServerCMS\Entity\SecretAnswer',
+			'secret_question'     => 'PServerCMS\Entity\SecretQuestion',
+			'server_info'         => 'PServerCMS\Entity\ServerInfo',
+			'user_block'          => 'PServerCMS\Entity\Userblock',
+			'user_codes'          => 'PServerCMS\Entity\Usercodes',
+			'user_extension'      => 'PServerCMS\Entity\Userexstension',
+			'user_role'           => 'PServerCMS\Entity\UserRole',
+			'users'               => 'PServerCMS\Entity\Users'
+		]
 	],
 	'authenticationadapter' => [
 		'odm_default' => [

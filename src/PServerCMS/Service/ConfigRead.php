@@ -8,33 +8,34 @@ class ConfigRead extends InvokableBase {
 	 * Caching the Config String
      * @var array
      */
-    private $aCache = array();
+    private $cache = array();
 
     /**
-     * @param $sValue
-     * @param bool $mDefault
+     * @param $configString
+     * @param bool $default
+     *
      * @return mixed
      */
-    public function get( $sValue, $mDefault = false ){
+    public function get( $configString, $default = false ){
 
 		// Check if we have a cache
-        if(isset($this->aCache[$sValue])){
-            return $this->aCache[$sValue];
+        if(isset($this->cache[$configString])){
+            return $this->cache[$configString];
         }
 
-        $aValues = explode('.', $sValue);
-        $mResult = $this->getConfigData();
-        foreach($aValues as $sCurValue){
-            if(!isset($mResult[$sCurValue])){
-                $mResult = $mDefault;
+        $valueList = explode('.', $configString);
+        $config = $this->getServiceManager()->get( 'Config' );
+        foreach($valueList as $value){
+            if(!isset($config[$value])){
+                $config = $default;
                 break;
             }
-            $mResult = $mResult[$sCurValue];
+            $config = $config[$value];
         }
 
 		// save @ cache
-		$this->aCache[$sValue] = $mResult;
+		$this->cache[$configString] = $config;
 
-        return $mResult;
+        return $config;
     }
 }

@@ -20,12 +20,13 @@ class SimilarText extends AbstractValidator {
 		self::ERROR_NOT_SAME => "Secret Answer is not correct"
 	);
 
-
-
 	/** @var \PServerCMS\Service\SecretQuestion */
 	protected $secretQuestionService;
 
-	function __construct( \PServerCMS\Service\SecretQuestion $secretQuestionService ) {
+	/**
+	 * @param \PServerCMS\Service\SecretQuestion $secretQuestionService
+	 */
+	public function __construct( \PServerCMS\Service\SecretQuestion $secretQuestionService ) {
 		$this->setSecretQuestion($secretQuestionService);
 
 	}

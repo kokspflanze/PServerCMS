@@ -115,32 +115,38 @@ class RegisterFilter extends ProvidesEventsInputFilter {
 				),
 			),
 		));
-		$this->add(array(
-			'name'       => 'question',
-			'required'   => true,
-			'validators' => array(
-				array(
-					'name'    => 'InArray',
-					'options' => array(
-						'haystack' => $this->getSecretQuestionList(),
+
+
+		/** @var \PServerCMS\Service\ConfigRead $configService */
+		$configService = $serviceManager->get( 'pserver_configread_service' );
+		if($configService->get('pserver.password.secret_question')) {
+			$this->add( array(
+				'name'       => 'question',
+				'required'   => true,
+				'validators' => array(
+					array(
+						'name'    => 'InArray',
+						'options' => array(
+							'haystack' => $this->getSecretQuestionList(),
+						),
 					),
 				),
-			),
-		));
-		$this->add(array(
-			'name'       => 'answer',
-			'required'   => true,
-			'filters'    => array(array('name' => 'StringTrim')),
-			'validators' => array(
-				array(
-					'name'    => 'StringLength',
-					'options' => array(
-						'min' => 3,
-						'max' => 255,
+			) );
+			$this->add( array(
+				'name'       => 'answer',
+				'required'   => true,
+				'filters'    => array( array( 'name' => 'StringTrim' ) ),
+				'validators' => array(
+					array(
+						'name'    => 'StringLength',
+						'options' => array(
+							'min' => 3,
+							'max' => 255,
+						),
 					),
 				),
-			),
-		));
+			) );
+		}
 	}
 
 	/**

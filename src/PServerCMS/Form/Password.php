@@ -9,8 +9,11 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 
 class Password extends ProvidesEventsForm {
 
+	/** @var  ServiceLocatorInterface */
 	protected $serviceManager;
+	/** @var  Users */
 	protected $user;
+	/** @var  \Doctrine\ORM\EntityManager */
 	protected $entityManager;
 
 
@@ -58,7 +61,14 @@ class Password extends ProvidesEventsForm {
 		));
 	}
 
+	/**
+	 * @param Users $user
+	 */
 	public function addSecretQuestion(Users $user){
+		if(!$this->getServiceManager( 'pserver_configread_service' )->get('pserver.password.secret_question')){
+			return;
+		}
+
 		$this->setUser($user);
 		/** @var \PServerCMS\Entity\Repository\SecretAnswer $repositorySecretAnswer */
 		$repositorySecretAnswer = $this->getEntityManager()->getRepository($this->getEntityOptions()->getSecretAnswer());

@@ -47,6 +47,8 @@ class SecretQuestion extends InvokableBase {
 	 * @param $questionId
 	 *
 	 * @return null|\PServerCMS\Entity\Repository\SecretQuestion
+	 *
+	 * @TODO refactoring
 	 */
 	protected function getQuestion4Id( $questionId ){
 		$repository = $this->getEntityManager()->getRepository($this->getEntityOptions()->getSecretQuestion());

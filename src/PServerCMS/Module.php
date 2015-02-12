@@ -69,7 +69,7 @@ class Module
             'factories' => [
                 'pserver_user_register_form'  => function ( $sm ) {
                     /** @var $sm \Zend\ServiceManager\ServiceLocatorInterface */
-                    $form = new Form\Register( $sm->get( 'Doctrine\ORM\EntityManager' ) );
+                    $form = new Form\Register( $sm );
                     $form->setInputFilter( new Form\RegisterFilter( $sm ) );
                     return $form;
                 },
@@ -77,9 +77,7 @@ class Module
                     /** @var $sm \Zend\ServiceManager\ServiceLocatorInterface */
                     $form = new Form\Password( $sm );
                     $form->setInputFilter(
-                        new Form\PasswordFilter(
-                            new Validator\SimilarText( $sm->get( 'pserver_secret_question' ) )
-                        )
+                        new Form\PasswordFilter( $sm )
                     );
                     return $form;
                 },
