@@ -4,7 +4,8 @@ namespace PServerCMS\Service;
 
 use PServerCMS\Entity\Users;
 
-class SecretQuestion extends InvokableBase {
+class SecretQuestion extends InvokableBase
+{
 
 	/**
 	 * @param Users $user
@@ -13,13 +14,14 @@ class SecretQuestion extends InvokableBase {
 	 *
 	 * @return \PServerCMS\Entity\SecretAnswer
 	 */
-	public function setSecretAnswer( Users $user, $questionId, $answer ){
+	public function setSecretAnswer( Users $user, $questionId, $answer )
+    {
 		$class = $this->getEntityOptions()->getSecretAnswer();
 		/** @var \PServerCMS\Entity\SecretAnswer $secretAnswer */
 		$secretAnswer = new $class;
 		$secretAnswer->setUser($user)
 			->setAnswer(trim($answer))
-			->setQuestion($this->getQuestion4Id($questionId));
+			->setQuestion( $this->getQuestion4Id($questionId) );
 
 		$entity = $this->getEntityManager();
 		$entity->persist($secretAnswer);
@@ -34,12 +36,14 @@ class SecretQuestion extends InvokableBase {
 	 *
 	 * @return bool
 	 */
-	public function isAnswerAllowed( Users $user, $answer ){
-
+	public function isAnswerAllowed( Users $user, $answer )
+    {
 		$answerEntity = $this->getEntityManagerAnswer()->getAnswer4UserId($user->getId());
 
 		$realAnswer = strtolower(trim($answerEntity->getAnswer()));
 		$plainAnswer = strtolower(trim($answer));
+
+
 		return $realAnswer == $plainAnswer;
 	}
 
@@ -47,12 +51,14 @@ class SecretQuestion extends InvokableBase {
 	 * @param $questionId
 	 *
 	 * @return null|\PServerCMS\Entity\Repository\SecretQuestion
-	 *
-	 * @TODO refactoring
 	 */
-	protected function getQuestion4Id( $questionId ){
+	protected function getQuestion4Id( $questionId )
+    {
+        /** @var \PServerCMS\Entity\Repository\SecretQuestion $repository */
 		$repository = $this->getEntityManager()->getRepository($this->getEntityOptions()->getSecretQuestion());
-		return $repository->findOneBy(array('id' => $questionId));
+
+
+		return $repository->getQuestion4Id( $questionId );
 	}
 
 	/**

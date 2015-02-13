@@ -14,7 +14,7 @@ class CachingHelper extends InvokableBase {
 	 */
 	public function getItem( $cacheKey, \Closure $closure, $lifetime = null ){
 		$data = $this->getCachingService()->getItem($cacheKey);
-		if(!$data){
+		if($data === false){
 			$data = $closure();
 			if($lifetime > 0){
 				$this->cachingService->setOptions($this->getCachingService()->getOptions()->setTtl($lifetime));
@@ -25,6 +25,9 @@ class CachingHelper extends InvokableBase {
 		return $data;
 	}
 
+    /**
+     * @param $cacheKey
+     */
 	public function delItem( $cacheKey ){
 		$this->getCachingService()->removeItem($cacheKey);
 	}
