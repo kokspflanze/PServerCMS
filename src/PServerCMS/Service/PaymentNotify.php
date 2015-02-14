@@ -116,11 +116,11 @@ class PaymentNotify extends InvokableBase implements LogInterface {
 	protected function mapPaymentProvider2DonateType( Request $request ){
 		$result = '';
 		switch ($request->getProvider()) {
-			case Request::ProviderPaymentWall:
-				$result = Donatelog::TypePaymentWall;
+			case Request::PROVIDER_PAYMENT_WALL:
+				$result = Donatelog::TYPE_PAYMENT_WALL;
 				break;
-			case Request::ProviderSuperReward:
-				$result = Donatelog::TypeSuperReward;
+			case Request::PROVIDER_SUPER_REWARD:
+				$result = Donatelog::TYPE_SUPER_REWARD;
 				break;
 		}
 		return $result;

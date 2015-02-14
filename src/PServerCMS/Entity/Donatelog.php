@@ -12,11 +12,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Donatelog {
 
-	const TypePaymentWall = 'paymentwall';
-	const TypeSuperReward = 'superreward';
+	const TYPE_PAYMENT_WALL = 'paymentwall';
+	const TYPE_SUPER_REWARD = 'superreward';
 
-	const StatusSuccess = 1;
-	const StatusError = 1;
+	const STATUS_SUCCESS = 1;
+	const STATUS_ERROR = 0;
 
 	/**
 	 * @var integer

@@ -26,7 +26,7 @@ class DonateLog extends EntityRepository {
 			->andWhere('p.type = :type')
 			->setParameter('type', $type)
 			->andWhere('p.success = :success')
-			->setParameter('success', \PServerCMS\Entity\Donatelog::StatusSuccess)
+			->setParameter('success', \PServerCMS\Entity\Donatelog::STATUS_SUCCESS)
 			->setMaxResults(1)
 			->getQuery();
 
