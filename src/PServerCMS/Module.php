@@ -104,7 +104,19 @@ class Module
                     /** @var $sm \Zend\ServiceManager\ServiceLocatorInterface */
                     $config = $sm->get( 'Configuration' );
                     return new Options\EntityOptions( $config['pserver']['entity'] );
-                }
+                },
+                'zfcticketsystem_ticketsystem_new_form'   => function ( $sm ) {
+                    /** @var $sm \Zend\ServiceManager\ServiceLocatorInterface */
+                    $form = new \ZfcTicketSystem\Form\TicketSystem( $sm->get( 'Doctrine\ORM\EntityManager' ) );
+                    $form->setInputFilter( new Form\TicketSystemFilter( $sm ) );
+                    return $form;
+                },
+                'zfcticketsystem_ticketsystem_entry_form' => function ( $sm ) {
+                    /** @var $sm \Zend\ServiceManager\ServiceLocatorInterface */
+                    $form = new \ZfcTicketSystem\Form\TicketEntry();
+                    $form->setInputFilter( new Form\TicketEntryFilter( $sm ) );
+                    return $form;
+                },
             ],
         ];
     }
