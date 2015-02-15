@@ -16,7 +16,7 @@ php composer.phar require kokspflanze/p-server-cms
 ```
 
 Then add `ZfcTwig`, `ZfcUser`, `ZfcBase`, `DoctrineModule`, `DoctrineORMModule`, `PDODblibModule`, `BjyAuthorize`, `GameBackend`, `ZfcTicketSystem`,
-`PaymentAPI`, `SmallUser`, `PServerCMS`, `PServerAdmin` and `PServerCLI`
+`ZfcBBCode`, `PaymentAPI`, `SmallUser`, `PServerCMS`, `PServerAdmin` and `PServerCLI`
  to your `config/application.config.php` and create directory
 `data/cache`, `data/PaymentAPI` and make sure your application has write access to it.
 
