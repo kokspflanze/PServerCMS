@@ -7,3 +7,27 @@
 {% block content %}
 	{{ formWidget(form) }}
 {% endblock content %}
+
+{% block script %}
+	<link rel="stylesheet" href="{{ basePath() }}/minified/themes/modern.min.css" type="text/css" media="all" />
+	<script type="text/javascript" src="{{ basePath() }}/minified/jquery.sceditor.bbcode.min.js"></script>
+
+	<script type="text/javascript">
+		jQuery(function() {
+			// Replace all textarea's
+			// with SCEditor
+			jQuery("textarea").sceditor({
+				plugins: "bbcode",
+				toolbar: "bold,italic,underline|source,left,center,right,justify,size,color,bulletlist,orderedlist,code,horizontalrule,image,email,link,emoticon,youtube",
+				width: "98%",
+				height: "100px",
+				resizeWidth: false,
+				emoticonsRoot : "/minified/",
+				style: "{{ basePath() }}/minified/themes/modern.min.css",
+				locale: "no-NB",
+				bbcodeTrim: true
+			});
+			jQuery("textarea").sceditor("instance").sourceMode(true);
+		});
+	</script>
+{% endblock script %}
