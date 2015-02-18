@@ -3,7 +3,6 @@
 namespace PServerCMS\View\Helper;
 
 use Zend\Form\View\Helper\AbstractHelper;
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 class InvokerBase extends AbstractHelper {
@@ -36,7 +35,7 @@ class InvokerBase extends AbstractHelper {
 	/**
 	 * @return ServiceLocatorInterface
 	 */
-	public function getServiceLocator(){
+    protected function getServiceLocator(){
 		return $this->serviceLocator;
 	}
 
@@ -45,7 +44,7 @@ class InvokerBase extends AbstractHelper {
 	 *
 	 * @return $this
 	 */
-	public function setServiceLocator(ServiceLocatorInterface $serviceLocator){
+    protected function setServiceLocator(ServiceLocatorInterface $serviceLocator){
 		$this->serviceLocator = $serviceLocator;
 
 		return $this;

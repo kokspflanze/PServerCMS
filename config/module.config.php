@@ -170,6 +170,13 @@ return [
 				],
 			],
 		],
+        'configuration' => [
+            'orm_default' => [
+                'datetime_functions' => [
+                    'DATE' => 'DoctrineExtensions\Query\Mysql\Date'
+                ]
+            ]
+        ]
 	],
 	'pserver' => [
 		'register' => [

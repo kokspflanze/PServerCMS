@@ -13,20 +13,20 @@ class SideBarWidget extends InvokerBase {
 	 * @return string
 	 */
 	public function __invoke(){
-		$sTemplate = '';
+		$template = '';
 		if($this->getAuthService()->getIdentity()){
-			$oViewModel = new ViewModel(array(
+			$viewModel = new ViewModel(array(
 				'user' => $this->getAuthService()->getIdentity()
 			));
-			$oViewModel->setTemplate('helper/sidebarLoggedInWidget');
-			$sTemplate = $this->getView()->render($oViewModel);
+			$viewModel->setTemplate('helper/sidebarLoggedInWidget');
+			$template = $this->getView()->render($viewModel);
 		}
-		$oViewModel = new ViewModel(array(
+		$viewModel = new ViewModel(array(
 			'timer' => $this->getTimer(),
 			'serverInfo' => $this->getServerInfo()->getServerInfo()
 		));
-		$oViewModel->setTemplate('helper/sidebarWidget');
-		return $sTemplate.$this->getView()->render($oViewModel);
+		$viewModel->setTemplate('helper/sidebarWidget');
+		return sprintf('%s%s', $template, $this->getView()->render($viewModel));
 	}
 
 	/**

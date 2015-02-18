@@ -8,16 +8,25 @@ namespace PServerCMS\Helper;
  */
 class DateTimer
 {
-
     /**
-     * @param $iTimeStamp
+     * @param $timestamp
      *
      * @return \DateTime
      */
-    public static function getDateTime4TimeStamp( $iTimeStamp )
+    public static function getDateTime4TimeStamp( $timestamp )
     {
-        $oDateTime = new \DateTime();
-        $oDateTime->setTimestamp( $iTimeStamp );
-        return $oDateTime;
+        $dateTime = new \DateTime();
+        $dateTime->setTimestamp( $timestamp );
+        return $dateTime;
+    }
+
+    /**
+     * @param $timestamp
+     *
+     * @return int
+     */
+    public static function getZeroTimeStamp( $timestamp )
+    {
+        return strtotime( date( 'Y-m-d', $timestamp ) );
     }
 } 

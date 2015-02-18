@@ -3,33 +3,54 @@
 namespace PServerCMS\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use PServerCMS\Entity\Donatelog as Entity;
 
-class DonateLog extends EntityRepository {
+class DonateLog extends EntityRepository
+{
+    /**
+     * @param $transactionId
+     * @param $type
+     *
+     * @return bool
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function isDonateAlreadyAdded( $transactionId, $type )
+    {
+        if (!$transactionId) {
+            return false;
+        }
 
-	/**
-	 * @param $transactionId
-	 * @param $type
-	 *
-	 * @return bool
-	 * @throws \Doctrine\ORM\NonUniqueResultException
-	 */
-	public function isDonateAlreadyAdded( $transactionId, $type ) {
+        $query = $this->createQueryBuilder( 'p' )
+            ->select( 'p' )
+            ->where( 'p.transactionId = :transactionId' )
+            ->setParameter( 'transactionId', $transactionId )
+            ->andWhere( 'p.type = :type' )
+            ->setParameter( 'type', $type )
+            ->andWhere( 'p.success = :success' )
+            ->setParameter( 'success', Entity::STATUS_SUCCESS )
+            ->setMaxResults( 1 )
+            ->getQuery();
 
-		if(!$transactionId){
-			return false;
-		}
+        return (bool)$query->getOneOrNullResult();
+    }
 
-		$oQuery = $this->createQueryBuilder('p')
-			->select('p')
-			->where('p.transactionId = :transactionId')
-			->setParameter('transactionId', $transactionId)
-			->andWhere('p.type = :type')
-			->setParameter('type', $type)
-			->andWhere('p.success = :success')
-			->setParameter('success', \PServerCMS\Entity\Donatelog::STATUS_SUCCESS)
-			->setMaxResults(1)
-			->getQuery();
+    /**
+     * @param \DateTime $dateTime
+     *
+     * @return array
+     */
+    public function getDonateHistorySuccess( \DateTime $dateTime )
+    {
+        $query = $this->createQueryBuilder( 'p' )
+            ->select( 'SUM(p.coins) as coins, DATE(p.created) as date, p.type' )
+            ->where( 'p.success = :success' )
+            ->setParameter( 'success', Entity::STATUS_SUCCESS )
+            ->andWhere( 'p.created >= :created' )
+            ->setParameter( 'created', $dateTime )
+            ->groupBy('p.type, date')
+            ->orderBy('p.created', 'asc')
+            ->getQuery();
 
-		return (bool) $oQuery->getOneOrNullResult();
-	}
+        return $query->getResult();
+    }
 } 
