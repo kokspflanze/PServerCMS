@@ -29,4 +29,23 @@ class DateTimer
     {
         return strtotime( date( 'Y-m-d', $timestamp ) );
     }
+
+    /**
+     * @param \DateTime $beginDate
+     * @param \DateTime $endDate
+     *
+     * @return \DateTime[]
+     */
+    public static function getDateRange4Period( \DateTime $beginDate, \DateTime $endDate )
+    {
+        $result = [];
+        if( $beginDate < $endDate){
+            do{
+                $result[] = clone $beginDate;
+                $beginDate->setTimestamp($beginDate->getTimestamp()+60*60*24);
+            }while($beginDate <= $endDate);
+        }
+
+        return $result;
+    }
 } 

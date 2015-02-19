@@ -13,10 +13,29 @@ class Donate extends InvokableBase
      */
     public function getStatisticData( $lastDays = 10 )
     {
-        $timestamp = DateTimer::getZeroTimeStamp( time() ) - $lastDays * 60 * 60 * 24;
+        $timestamp = DateTimer::getZeroTimeStamp( time() ) - ($lastDays - 1) * 60 * 60 * 24;
         $dateTime  = DateTimer::getDateTime4TimeStamp( $timestamp );
 
-        return $this->getDonateLogEntity()->getDonateHistorySuccess( $dateTime );
+        $donateEntity = $this->getDonateLogEntity();
+        $typList = $donateEntity->getDonateTypes();
+        $donateHistory = $donateEntity->getDonateHistorySuccess($dateTime);
+        $result = [];
+
+        // set some default values
+        $range = DateTimer::getDateRange4Period($dateTime, new \DateTime());
+        foreach($range as $date){
+            foreach($typList as $type){
+                $result[$date->format('Y-m-d')][$type] = ['amount' => 0, 'coins' => 0];
+            }
+        }
+
+        if($donateHistory){
+            foreach($donateHistory as $donateData){
+                $result[$donateData['date']][$donateData['type']] = $donateData;
+            }
+        }
+
+        return $result;
     }
 
     /**
