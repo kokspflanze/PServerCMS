@@ -50,7 +50,7 @@ class User extends \SmallUser\Service\User
         $oEntityManager = $this->getEntityManager();
         /** @var Users $userEntity */
         $userEntity = $oForm->getData();
-        $userEntity->setCreateip( Ip::getIp() );
+        $userEntity->setCreateIp( Ip::getIp() );
         $userEntity->setPassword( $this->bcrypt( $userEntity->getPassword() ) );
 
         $oEntityManager->persist( $userEntity );

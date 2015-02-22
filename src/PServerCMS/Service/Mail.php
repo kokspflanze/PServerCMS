@@ -50,30 +50,30 @@ class Mail extends InvokableBase {
 
 	/**
 	 * @param Users $user
-	 * @param       $sCode
+	 * @param       $code
 	 */
-	public function lostPw( Users $user, $sCode ){
+	public function lostPw( Users $user, $code ){
 
 		$aParams = array(
 			'user' => $user,
-			'code' => $sCode
+			'code' => $code
 		);
 
 		$this->send(static::SUBJECT_KEY_PASSWORD_LOST, $user, $aParams);
 	}
 
     /**
-     * @param Users $oUser
-     * @param $sCode
+     * @param Users $user
+     * @param $code
      */
-    public function confirmCountry( Users $oUser, $sCode ){
+    public function confirmCountry( Users $user, $code ){
 
         $aParams = array(
-            'user' => $oUser,
-            'code' => $sCode
+            'user' => $user,
+            'code' => $code
         );
 
-        $this->send(static::SUBJECT_KEY_CONFIRM_COUNTRY, $oUser, $aParams);
+        $this->send(static::SUBJECT_KEY_CONFIRM_COUNTRY, $user, $aParams);
     }
 
 	/**

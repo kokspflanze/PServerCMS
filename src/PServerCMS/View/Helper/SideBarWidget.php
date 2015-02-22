@@ -34,25 +34,25 @@ class SideBarWidget extends InvokerBase {
 	 */
 	protected function getTimer(){
 		if(!$this->timerService){
-			$aConfig = $this->getConfigService();
-			$aTimerConfig = isset($aConfig['pserver']['timer'])?$aConfig['pserver']['timer']:array();
-			foreach($aTimerConfig as $aCurData){
-				$iTime = 0;
-				$sText = '';
-				if(!isset($aCurData['type'])){
-					if(isset($aCurData['days'])){
-						$iTime = Timer::getNextTimeDay( $aCurData['days'], $aCurData['hour'], $aCurData['min'] );
+			$config = $this->getConfigService();
+			$timerConfig = isset($config['pserver']['timer'])?$config['pserver']['timer']:array();
+			foreach($timerConfig as $data){
+				$time = 0;
+				$text = '';
+				if(!isset($data['type'])){
+					if(isset($data['days'])){
+						$time = Timer::getNextTimeDay( $data['days'], $data['hour'], $data['min'] );
 					}else{
-						$iTime = Timer::getNextTime( $aCurData['hours'],$aCurData['min'] );
+						$time = Timer::getNextTime( $data['hours'],$data['min'] );
 					}
 				}else{
-					$sText = $aCurData['time'];
+					$text = $data['time'];
 				}
 				$this->timerService[] = array(
-					'time' => $iTime,
-					'text' => $sText,
-					'name' => $aCurData['name'],
-					'icon' => $aCurData['icon']
+					'time' => $time,
+					'text' => $text,
+					'name' => $data['name'],
+					'icon' => $data['icon']
 				);
 			}
 		}

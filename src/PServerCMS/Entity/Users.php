@@ -206,7 +206,7 @@ class Users implements
 	 *
 	 * @return Users
 	 */
-	public function setCreateip( $createip ) {
+	public function setCreateIp( $createip ) {
 		$this->createip = $createip;
 
 		return $this;
@@ -217,7 +217,7 @@ class Users implements
 	 *
 	 * @return string
 	 */
-	public function getCreateip() {
+	public function getCreateIp() {
 		return $this->createip;
 	}
 
