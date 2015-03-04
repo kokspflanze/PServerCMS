@@ -36,19 +36,62 @@ return [
 					],
 				],
 			],
-			'user' => [
-				'type' => 'segment',
-				'options' => [
-					'route'    => '/panel/account[/:action].html',
-					'constraints' => [
-						'action'     => '[a-zA-Z-]+',
-					],
-					'defaults' => [
-						'controller'	=> 'PServerCMS\Controller\Account',
-						'action'		=> 'index',
-					],
-				],
-			],
+            'user' => [
+                'type' => 'segment',
+                'options' => [
+                    'route'    => '/panel/account[/:action].html',
+                    'constraints' => [
+                        'action'     => '[a-zA-Z-]+',
+                    ],
+                    'defaults' => [
+                        'controller'	=> 'PServerCMS\Controller\Account',
+                        'action'		=> 'index',
+                    ],
+                ],
+            ],
+            'ranking' => [
+                'type' => 'segment',
+                'options' => [
+                    'route'    => '/ranking[/:action[-:page]].html',
+                    'constraints' => [
+                        'action'     => '[a-zA-Z-]+',
+                        'page'       => '[0-9]+'
+                    ],
+                    'defaults' => [
+                        'controller'	=> 'PServerCMS\Controller\Ranking',
+                        'action'		=> 'topPlayer',
+                        'page'		    => '1',
+                    ],
+                ],
+            ],
+            'character' => [
+                'type' => 'segment',
+                'options' => [
+                    'route'    => '/character[/:action][-:id].html',
+                    'constraints' => [
+                        'action'    => '[a-zA-Z-]+',
+                        'id'        => '[0-9]+'
+                    ],
+                    'defaults' => [
+                        'controller'	=> 'PServerCMS\Controller\Character',
+                        'action'		=> 'index',
+                    ],
+                ],
+            ],
+            'guild' => [
+                'type' => 'segment',
+                'options' => [
+                    'route'    => '/guild[/:action[/:page]][-:id].html',
+                    'constraints' => [
+                        'action'    => '[a-zA-Z-]+',
+                        'id'        => '[0-9]+'
+                    ],
+                    'defaults' => [
+                        'controller'	=> 'PServerCMS\Controller\Guild',
+                        'action'		=> 'index',
+                    ],
+                ],
+            ],
         ],
     ],
     'service_manager' => [
@@ -88,7 +131,10 @@ return [
 			'pserver_cachinghelper_service'		=> 'PServerCMS\Service\CachingHelper',
 			'payment_api_log_service'			=> 'PServerCMS\Service\PaymentNotify',
 			'pserver_user_block_service'		=> 'PServerCMS\Service\UserBlock',
-			'pserver_secret_question'			=> 'PServerCMS\Service\SecretQuestion',
+            'pserver_secret_question'			=> 'PServerCMS\Service\SecretQuestion',
+            'pserver_ranking_service'			=> 'PServerCMS\Service\Ranking',
+            'pserver_character_service'			=> 'PServerCMS\Service\Character',
+            'pserver_guild_service'	    		=> 'PServerCMS\Service\Guild',
 		]
     ],
     'controllers' => [
@@ -97,7 +143,10 @@ return [
 			'SmallUser\Controller\Auth' => 'PServerCMS\Controller\AuthController',
 			'PServerCMS\Controller\Auth' => 'PServerCMS\Controller\AuthController',
 			'PServerCMS\Controller\Site' => 'PServerCMS\Controller\SiteController',
-			'PServerCMS\Controller\Account' => 'PServerCMS\Controller\AccountController',
+            'PServerCMS\Controller\Account' => 'PServerCMS\Controller\AccountController',
+            'PServerCMS\Controller\Ranking' => 'PServerCMS\Controller\RankingController',
+            'PServerCMS\Controller\Character' => 'PServerCMS\Controller\CharacterController',
+            'PServerCMS\Controller\Guild' => 'PServerCMS\Controller\GuildController',
         ],
     ],
     'view_manager' => [
@@ -122,6 +171,7 @@ return [
 			'zfc-ticket-system/index'		=> __DIR__ . '/../view/zfc-ticket-system/ticket-system/index.twig',
 			'small-user/login'				=> __DIR__ . '/../view/p-server-cms/auth/login.twig',
 			'small-user/logout-page'		=> __DIR__ . '/../view/p-server-cms/auth/logout-page.twig',
+            'p-server-cms/paginator'        => __DIR__ . '/../view/helper/paginator.phtml',
         ],
         'template_path_stack' => [
             __DIR__ . '/../view',

@@ -4,11 +4,13 @@ namespace PServerCMS\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 
-class IndexController extends AbstractActionController {
+class IndexController extends AbstractActionController
+{
 	/** @var \PServerCMS\Service\News */
 	protected $newsService;
 
-	public function indexAction() {
+	public function indexAction()
+    {
 		return array(
 			'aNews' => $this->getNewsService()->getActiveNews()
 		);
@@ -17,7 +19,8 @@ class IndexController extends AbstractActionController {
 	/**
 	 * @return \PServerCMS\Service\News
 	 */
-	protected function getNewsService(){
+	protected function getNewsService()
+    {
 		if (!$this->newsService) {
 			$this->newsService = $this->getServiceLocator()->get('pserver_news_service');
 		}

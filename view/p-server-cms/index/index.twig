@@ -35,7 +35,7 @@
 {% endblock breadcrumbs %}
 
 {% block title %}
-	News and Updates
+	{{ translate('News and Updates') }}
 {% endblock title %}
 
 {% block content %}
@@ -44,7 +44,7 @@
 			<h3>{{ aCurNews.getTitle }}</h3>
 			<div class="blog-post-tags">
 				<ul class="list-unstyled list-inline blog-info">
-					<li><i class="fa fa-calendar"></i> {{ aCurNews.getCreated|date('d.m.Y H:i') }}</li>
+					<li><i class="fa fa-calendar"></i> {{ aCurNews.getCreated.format('Y-m-d H:i') }}</li>
 				</ul>
 			</div>
 			<div class="blog-content-image">{{ aCurNews.getMemo|raw }}</div>

@@ -54,6 +54,13 @@
 				<ul class="nav navbar-nav navbar-right">
 					<li class="navigation {{ active('home')?'active':'' }}"><a href="{{ url('home') }}">{{ translate('Home') }}</a></li>
 					<li class="navigation {{ active('site-download')?'active':'' }}"><a href="{{ url('site-download') }}">Download</a></li>
+					<li class="navigation dropdown {{ active('ranking')?'active':'' }}">
+						<a data-toggle="dropdown" href="#">Ranking <span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+							<li {{ active('ranking', {'action' : 'top-player'})?'class="active"':'' }}><a href="{{ url('ranking',
+								{'action':'top-player'})	}}">TopPlayer</a></li>
+						</ul>
+					</li>
 					<li class="navigation dropdown {{ active('site-detail')?'active':'' }}">
 						<a data-toggle="dropdown" href="#">ServerInfo <span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
