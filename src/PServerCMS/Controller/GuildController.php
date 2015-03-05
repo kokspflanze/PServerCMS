@@ -7,16 +7,18 @@ use Zend\Mvc\Controller\AbstractActionController;
 
 class GuildController extends AbstractActionController
 {
-    public function indexAction()
+    public function detailAction()
     {
         $id = (int) $this->params()->fromRoute('id');
         $guild = $this->getGuildService()->getGuild4Id($id);
         if(!$guild){
             return $this->redirect()->toRoute('home');
         }
+        $page = (int) $this->params()->fromRoute('page');
 
         return [
-            'guild' => $guild
+            'guild' => $guild,
+            'member' => $this->getGuildService()->getGuildMember4GuildId($id, $page)
         ];
     }
 

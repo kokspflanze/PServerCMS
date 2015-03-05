@@ -81,14 +81,14 @@ return [
             'guild' => [
                 'type' => 'segment',
                 'options' => [
-                    'route'    => '/guild[/:action[/:page]][-:id].html',
+                    'route'    => '/guild[/:action][-:id][/page/:page].html',
                     'constraints' => [
                         'action'    => '[a-zA-Z-]+',
                         'id'        => '[0-9]+'
                     ],
                     'defaults' => [
                         'controller'	=> 'PServerCMS\Controller\Guild',
-                        'action'		=> 'index',
+                        'action'		=> 'detail',
                     ],
                 ],
             ],
