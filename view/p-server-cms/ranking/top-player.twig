@@ -16,7 +16,7 @@
 					<th>{{ translate('Level') }}</th>
 				</tr>
 			</thead>
-			{% set i = (ranking.getCurrentPageNumber() - 1) * ranking.getCurrentItemCount() + 1 %}
+			{% set i = (ranking.getCurrentPageNumber() - 1) * ranking.getDefaultItemCountPerPage() + 1 %}
 			{% for key, player in ranking %}
 				<tr>
 					<td>{{ i }}</td>

@@ -14,6 +14,20 @@ class GuildController extends AbstractActionController
         if(!$guild){
             return $this->redirect()->toRoute('home');
         }
+
+        return [
+            'guild' => $guild,
+            'member' => $this->getGuildService()->getGuildMember4GuildId($id)
+        ];
+    }
+
+    public function memberAction()
+    {
+        $id = (int) $this->params()->fromRoute('id');
+        $guild = $this->getGuildService()->getGuild4Id($id);
+        if(!$guild){
+            return $this->redirect()->toRoute('home');
+        }
         $page = (int) $this->params()->fromRoute('page');
 
         return [
