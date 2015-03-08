@@ -17,7 +17,8 @@ class CharacterController extends AbstractActionController
         }
 
         return [
-            'character' => $character
+            'character' => $character,
+            'inventory' => $this->getCharacterService()->getInventorySet4CharacterId($id)
         ];
     }
 
