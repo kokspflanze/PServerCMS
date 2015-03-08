@@ -135,7 +135,11 @@ return [
             'pserver_ranking_service'			=> 'PServerCMS\Service\Ranking',
             'pserver_character_service'			=> 'PServerCMS\Service\Character',
             'pserver_guild_service'	    		=> 'PServerCMS\Service\Guild',
-		]
+            'pserver_log_service'	    		=> 'PServerCMS\Service\Logs',
+		],
+        'aliases' => [
+            'translator' => 'MvcTranslator',
+        ],
     ],
     'controllers' => [
         'invokables' => [

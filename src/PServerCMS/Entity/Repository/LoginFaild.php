@@ -8,7 +8,8 @@ use PServerCMS\Helper\DateTimer;
 /**
  * LoginFaild
  */
-class LoginFaild extends EntityRepository {
+class LoginFaild extends EntityRepository
+{
 
 	/**
 	 * @param $sIP
@@ -16,7 +17,8 @@ class LoginFaild extends EntityRepository {
 	 *
 	 * @return int
 	 */
-	public function getNumberOfFailLogins4Ip( $sIP, $iTimeInterVal ) {
+	public function getNumberOfFailLogins4Ip( $sIP, $iTimeInterVal )
+    {
         $oQuery = $this->createQueryBuilder('p')
             ->select('p')
             ->where('p.ip = :ipString')

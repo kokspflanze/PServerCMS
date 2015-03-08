@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Logs
  *
  * @ORM\Table(name="logs", indexes={@ORM\Index(name="fk_logs_users1_idx", columns={"users_usrId"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="PServerCMS\Entity\Repository\Logs")
  */
 class Logs {
 	/**
@@ -18,7 +18,7 @@ class Logs {
 	 * @ORM\Id
 	 * @ORM\GeneratedValue(strategy="IDENTITY")
 	 */
-	private $lid;
+	private $id;
 
 	/**
 	 * @var string
@@ -60,8 +60,8 @@ class Logs {
 	 *
 	 * @return integer
 	 */
-	public function getLid() {
-		return $this->lid;
+	public function getId() {
+		return $this->id;
 	}
 
 	/**

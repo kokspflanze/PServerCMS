@@ -18,7 +18,6 @@ class InvokableBase extends UserBase
     /** @var \PServerCMS\Options\EntityOptions */
     protected $entityOptions;
 
-
     /**
      * @return \Zend\Cache\Storage\StorageInterface
      */
