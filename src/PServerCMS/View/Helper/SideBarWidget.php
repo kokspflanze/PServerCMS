@@ -5,14 +5,16 @@ namespace PServerCMS\View\Helper;
 use PServerCMS\Helper\Timer;
 use Zend\View\Model\ViewModel;
 
-class SideBarWidget extends InvokerBase {
+class SideBarWidget extends InvokerBase
+{
 	/** @var array */
 	protected $timerService;
 
 	/**
 	 * @return string
 	 */
-	public function __invoke(){
+	public function __invoke()
+    {
 		$template = '';
 		if($this->getAuthService()->getIdentity()){
 			$viewModel = new ViewModel(array(
@@ -32,7 +34,8 @@ class SideBarWidget extends InvokerBase {
 	/**
 	 * @return array
 	 */
-	protected function getTimer(){
+	protected function getTimer()
+    {
 		if(!$this->timerService){
 			$config = $this->getConfigService();
 			$timerConfig = isset($config['pserver']['timer'])?$config['pserver']['timer']:array();

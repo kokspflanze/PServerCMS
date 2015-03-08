@@ -9,6 +9,9 @@ use Zend\ServiceManager\AbstractPluginManager;
 
 class Module
 {
+    /**
+     * @param MvcEvent $e
+     */
     public function onBootstrap( MvcEvent $e )
     {
         $eventManager        = $e->getApplication()->getEventManager();
@@ -18,11 +21,17 @@ class Module
         ServiceManager::setInstance( $e->getApplication()->getServiceManager() );
     }
 
+    /**
+     * @return array
+     */
     public function getConfig()
     {
         return include __DIR__ . '/../../config/module.config.php';
     }
 
+    /**
+     * @return array
+     */
     public function getAutoloaderConfig()
     {
         return [
@@ -34,6 +43,9 @@ class Module
         ];
     }
 
+    /**
+     * @return array
+     */
     public function getViewHelperConfig()
     {
         return [
@@ -52,6 +64,12 @@ class Module
                 },
                 'active'        => function ( AbstractPluginManager $pluginManager ) {
                     return new View\Helper\Active( $pluginManager->getServiceLocator() );
+                },
+                'donateSum'     => function ( AbstractPluginManager $pluginManager ) {
+                    return new View\Helper\DonateSum( $pluginManager->getServiceLocator() );
+                },
+                'donateCounter' => function ( AbstractPluginManager $pluginManager ) {
+                    return new View\Helper\DonateCounter( $pluginManager->getServiceLocator() );
                 }
             ]
         ];

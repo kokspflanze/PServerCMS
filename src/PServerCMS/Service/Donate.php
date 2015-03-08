@@ -39,6 +39,39 @@ class Donate extends InvokableBase
     }
 
     /**
+     * @return int
+     */
+    public function getSumOfDonations()
+    {
+        $donateData = $this->getDonationDataSuccess();
+
+        return (int) $donateData['coins'];
+    }
+
+    /**
+     * @return int
+     */
+    public function getNumberOfDonations()
+    {
+        $donateData = $this->getDonationDataSuccess();
+
+        return (int) $donateData['amount'];
+    }
+
+    /**
+     * @return array
+     */
+    protected function getDonationDataSuccess(){
+        $timestamp = DateTimer::getZeroTimeStamp( time() );
+        $dateTime  = DateTimer::getDateTime4TimeStamp( $timestamp );
+
+        $donateEntity = $this->getDonateLogEntity();
+        $donateData = $donateEntity->getDonationDataSuccess($dateTime);
+
+        return $donateData;
+    }
+
+    /**
      * @return \PServerCMS\Entity\Repository\DonateLog
      */
     protected function getDonateLogEntity()

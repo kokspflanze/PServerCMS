@@ -55,6 +55,25 @@ class DonateLog extends EntityRepository
     }
 
     /**
+     * @param \DateTime $dateTime
+     *
+     * @return array
+     */
+    public function getDonationDataSuccess( \DateTime $dateTime )
+    {
+        $query = $this->createQueryBuilder( 'p' )
+            ->select( 'SUM(p.coins) as coins, COUNT(p.coins) as amount' )
+            ->where( 'p.success = :success' )
+            ->setParameter( 'success', Entity::STATUS_SUCCESS )
+            ->andWhere( 'p.created >= :created' )
+            ->setParameter( 'created', $dateTime )
+            ->orderBy('p.created', 'asc')
+            ->getQuery();
+
+        return $query->getOneOrNullResult();
+    }
+
+    /**
      * @return array
      */
     public function getDonateTypes(){
