@@ -15,13 +15,17 @@ php composer.phar require kokspflanze/p-server-cms
 # (When asked for a version, type `dev-master`)
 ```
 
-Then add `ZfcTwig`, `ZfcUser`, `ZfcBase`, `DoctrineModule`, `DoctrineORMModule`, `PDODblibModule`, `BjyAuthorize`, `GameBackend`, `ZfcTicketSystem`,
+Then add `ZfcTwig`, `ZfcUser`, `ZfcBase`, `ZfcDatagrid`, `DoctrineModule`, `DoctrineORMModule`, `PDODblibModule`, `BjyAuthorize`, `GameBackend`, `ZfcTicketSystem`,
 `ZfcBBCode`, `PaymentAPI`, `SmallUser`, `PServerCMS`, `PServerAdmin` and `PServerCLI`
  to your `config/application.config.php` and create directory
-`data/cache`, `data/PaymentAPI` and make sure your application has write access to it.
+`data/cache`, `data/PaymentAPI`, `data/DoctrineORMModule`, `data/ZfcDatagrid` and make sure your application has write access to it.
 
 Installation without composer is not officially supported and requires you to manually install all dependencies
 that are listed in `composer.json`
+
+## Example Application
+
+You can find an example application with some default styles and full configuration @ [kokspflanze/pserverCMSFull](https://github.com/kokspflanze/pserverCMSFull)
 
 ## CronTab settings
 
@@ -30,3 +34,7 @@ To improve the performance
 ```php
 * * * * * php /[install-path]/public/index.php player-history
 ```
+
+## Problems or improvements
+
+Please write an issue or create a pull-request @ GitHub
