@@ -65,7 +65,7 @@ class Password extends ProvidesEventsForm {
 	 * @param Users $user
 	 */
 	public function addSecretQuestion(Users $user){
-		if(!$this->getServiceManager( 'pserver_configread_service' )->get('pserver.password.secret_question')){
+		if(!$this->getServiceManager()->get('pserver_configread_service')->get('pserver.password.secret_question')){
 			return;
 		}
 
