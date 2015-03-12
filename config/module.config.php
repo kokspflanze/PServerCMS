@@ -92,6 +92,19 @@ return [
                     ],
                 ],
             ],
+            'panel_donate' => [
+                'type' => 'segment',
+                'options' => [
+                    'route'    => '/panel/donate[/:action].html',
+                    'constraints' => [
+                        'action'    => '[a-zA-Z-]+',
+                    ],
+                    'defaults' => [
+                        'controller'	=> 'PServerCMS\Controller\Donate',
+                        'action'		=> 'index',
+                    ],
+                ],
+            ],
         ],
     ],
     'service_manager' => [
@@ -151,6 +164,7 @@ return [
             'PServerCMS\Controller\Ranking' => 'PServerCMS\Controller\RankingController',
             'PServerCMS\Controller\Character' => 'PServerCMS\Controller\CharacterController',
             'PServerCMS\Controller\Guild' => 'PServerCMS\Controller\GuildController',
+            'PServerCMS\Controller\Donate' => 'PServerCMS\Controller\DonateController',
         ],
     ],
     'view_manager' => [

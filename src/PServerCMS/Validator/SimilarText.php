@@ -31,6 +31,7 @@ class SimilarText extends AbstractValidator
     {
         $this->setSecretQuestion( $secretQuestionService );
 
+        parent::__construct();
     }
 
     /**

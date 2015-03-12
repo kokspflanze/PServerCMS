@@ -6,18 +6,28 @@ use Zend\Mvc\Controller\AbstractActionController;
 
 class DonateController extends AbstractActionController
 {
-	public function indexAction()
+    /** @var \PServerCMS\Service\User */
+    protected $userService;
+
+    public function indexAction()
     {
+        /** @var \PServerCMS\Entity\Users $user */
+        $user = $this->getUserService()->getAuthService()->getIdentity();
 
-	}
+        return array(
+            'user' => $user
+        );
+    }
 
-	public function paymentWallAction()
+    /**
+     * @return \PServerCMS\Service\User
+     */
+    protected function getUserService()
     {
+        if (!$this->userService) {
+            $this->userService = $this->getServiceLocator()->get( 'small_user_service' );
+        }
 
-	}
-
-	public function superRewardAction()
-    {
-
-	}
+        return $this->userService;
+    }
 }

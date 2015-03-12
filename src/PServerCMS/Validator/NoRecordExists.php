@@ -4,6 +4,12 @@ namespace PServerCMS\Validator;
 
 class NoRecordExists extends AbstractRecord
 {
+    /**
+     * @param mixed $value
+     *
+     * @return bool
+     * @throws \Exception
+     */
     public function isValid( $value )
     {
         $valid = true;
