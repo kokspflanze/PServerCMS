@@ -5,17 +5,32 @@ namespace PServerCMS\Entity\Repository;
 use Doctrine\ORM\EntityRepository;
 
 
-class SecretAnswer extends EntityRepository {
-
+class SecretAnswer extends EntityRepository
+{
 	/**
 	 * @return \PServerCMS\Entity\SecretAnswer|null
 	 */
-	public function getAnswer4UserId( $userId ){
-		$oQuery = $this->createQueryBuilder('p')
+	public function getAnswer4UserId( $userId )
+    {
+		$query = $this->createQueryBuilder('p')
 			->select('p')
 			->where('p.user = :user')
 			->setParameter('user', $userId)
 			->getQuery();
-		return $oQuery->getOneOrNullResult();
+
+		return $query->getOneOrNullResult();
 	}
+
+    /**
+     * @param \PServerCMS\Entity\Users $user
+     */
+    public function deleteAnswer4User( $user )
+    {
+        $this->createQueryBuilder('p')
+            ->delete()
+            ->where('p.user = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->execute();
+    }
 } 
