@@ -87,6 +87,7 @@ class UserCodes extends InvokableBase {
         $i = 0;
         $entityManager = $this->getEntityManager();
         foreach ($codeList as $code) {
+            $entityManager->remove($code);
             // if we have a register-code, so we have to remove the user too
             if ($code->getType() == $code::TYPE_REGISTER) {
                 $user = $code->getUser();
@@ -101,7 +102,6 @@ class UserCodes extends InvokableBase {
 
                 $entityManager->remove( $user );
             }
-            $entityManager->remove($code);
             $entityManager->flush();
             ++$i;
         }
