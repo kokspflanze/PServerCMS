@@ -13,34 +13,41 @@ class UserCodes extends InvokableBase {
 	 */
 	protected $repositoryManager;
 
-	public function setCode4User( Users $oUserEntity, $sType, $iExpire = 0 ){
-		$oEntityManager = $this->getEntityManager();
+    /**
+     * @param Users $userEntity
+     * @param       $type
+     * @param int   $expire
+     *
+     * @return string
+     */
+	public function setCode4User( Users $userEntity, $type, $expire = 0 ){
+		$entityManager = $this->getEntityManager();
 
-		$this->getRepositoryManager()->deleteCodes4User($oUserEntity->getUsrid(), $sType);
+		$this->getRepositoryManager()->deleteCodes4User($userEntity->getUsrid(), $type);
 
 		do{
-			$bFound = false;
-			$sCode = Format::getCode();
-			if($this->getRepositoryManager()->findOneBy(array('code' => $sCode))){
-				$bFound = true;
+			$found = false;
+			$code = Format::getCode();
+			if($this->getRepositoryManager()->getCode($code)){
+				$found = true;
 			}
-		}while($bFound);
+		}while($found);
 
-		$oUserCodesEntity = new \PServerCMS\Entity\Usercodes();
-		$oUserCodesEntity
-			->setCode($sCode)
-			->setUser($oUserEntity)
-			->setType($sType);
+		$userCodesEntity = new \PServerCMS\Entity\Usercodes();
+		$userCodesEntity
+			->setCode($code)
+			->setUser($userEntity)
+			->setType($type);
 
-		if($iExpire){
-			$oDateTime = new \DateTime();
-			$oUserCodesEntity->setExpire($oDateTime->setTimestamp(time()+$iExpire));
+		if($expire){
+			$dateTime = new \DateTime();
+			$userCodesEntity->setExpire($dateTime->setTimestamp(time()+$expire));
 		}
 
-		$oEntityManager->persist($oUserCodesEntity);
-		$oEntityManager->flush();
+		$entityManager->persist($userCodesEntity);
+		$entityManager->flush();
 
-		return $sCode;
+		return $code;
 	}
 
 	/**
@@ -53,6 +60,48 @@ class UserCodes extends InvokableBase {
 		$entityManager->remove($userCode);
 		$entityManager->flush();
 	}
+
+    /**
+     * @param int $limit
+     *
+     * @return int
+     */
+    public function cleanExpireCodes( $limit = 100 )
+    {
+        $codeList = $this->getRepositoryManager()->getExpiredCodes($limit);
+        $result = 0;
+        if($codeList){
+            $result = $this->cleanExpireCodes4List($codeList);
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param \PServerCMS\Entity\Usercodes[] $codeList
+     *
+     * @return int
+     */
+    protected function cleanExpireCodes4List( array $codeList )
+    {
+        $i = 0;
+        $entityManager = $this->getEntityManager();
+        foreach($codeList as $code){
+            // if we have a register-code, so we have to remove the user too
+            if($code->getType() == $code::TYPE_REGISTER){
+                $user = $code->getUser();
+                /** @var \PServerCMS\Entity\Repository\Logs $logRepository */
+                $logRepository = $entityManager->getRepository($this->getEntityOptions()->getLogs());
+                $logRepository->setLogsNull4User($user);
+                $entityManager->remove($user);
+            }
+            $entityManager->remove($code);
+            $entityManager->flush();
+            ++$i;
+        }
+
+        return $i;
+    }
 
 	/**
 	 * @return \Doctrine\Common\Persistence\ObjectRepository|\PServerCMS\Entity\Repository\Usercodes

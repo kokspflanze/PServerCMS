@@ -33,6 +33,7 @@ To improve the performance
 
 ```php
 * * * * * php /[install-path]/public/index.php player-history
+*/5 * * * * php /[install-path]/public/index.php user-codes-cleanup
 ```
 
 ## Problems or improvements

@@ -7,13 +7,18 @@ use ZfcBase\InputFilter\ProvidesEventsInputFilter;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use PServerCMS\Validator\SimilarText;
 
-class PasswordFilter extends ProvidesEventsInputFilter {
-
+class PasswordFilter extends ProvidesEventsInputFilter
+{
+    /** @var  \PServerCMS\Validator\SimilarText */
 	protected $similarText;
+    /** @var  Users */
 	protected $user;
 
-	public function __construct( ServiceLocatorInterface $serviceLocatorInterface ){
-
+    /**
+     * @param ServiceLocatorInterface $serviceLocatorInterface
+     */
+	public function __construct( ServiceLocatorInterface $serviceLocatorInterface )
+    {
 		/** @var \PServerCMS\Service\ConfigRead $configService */
 		$configService = $serviceLocatorInterface->get( 'pserver_configread_service' );
 		if($configService->get('pserver.password.secret_question')) {
@@ -57,12 +62,18 @@ class PasswordFilter extends ProvidesEventsInputFilter {
 				),
 			),
 		));
-
 	}
 
+    /**
+     * @param Users $user
+     */
 	public function addAnswerValidation(Users $user){
 		$similarText = $this->getSimilarText();
-		$similarText->setUser($user);
+        if (!$similarText) {
+            return;
+        }
+
+        $similarText->setUser( $user );
 
 		$this->add(array(
 			'name'       => 'answer',
@@ -78,14 +89,16 @@ class PasswordFilter extends ProvidesEventsInputFilter {
 	/**
 	 * @param SimilarText $similarText
 	 */
-	protected function setSimilarText( SimilarText $similarText ){
+	protected function setSimilarText( SimilarText $similarText )
+    {
 		$this->similarText = $similarText;
 	}
 
 	/**
 	 * @return SimilarText
 	 */
-	protected function getSimilarText(){
+	protected function getSimilarText()
+    {
 		return $this->similarText;
 	}
 

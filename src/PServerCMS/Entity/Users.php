@@ -17,10 +17,11 @@ use Zend\Crypt\Password\Bcrypt;
  * @ORM\Entity(repositoryClass="PServerCMS\Entity\Repository\Users")
  */
 class Users implements
-	ProviderInterface, 
+	ProviderInterface,
 	UsersInterface,
 	UserInterface,
-	TicketUserInterface{
+	TicketUserInterface
+{
 	/**
 	 * @var integer
 	 *
