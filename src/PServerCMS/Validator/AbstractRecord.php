@@ -12,6 +12,7 @@ abstract class AbstractRecord extends AbstractValidator
      */
     const ERROR_NO_RECORD_FOUND = 'noRecordFound';
     const ERROR_RECORD_FOUND = 'recordFound';
+    const ERROR_NOT_ACTIVE = 'notActiveUser';
 
     /**
      * TODO better message
@@ -19,7 +20,8 @@ abstract class AbstractRecord extends AbstractValidator
      */
     protected $messageTemplates = [
         self::ERROR_NO_RECORD_FOUND => "No record matching the input was found",
-        self::ERROR_RECORD_FOUND    => "A record matching the input was found"
+        self::ERROR_RECORD_FOUND    => "A record matching the input was found",
+        self::ERROR_NOT_ACTIVE      => 'Your Account is not active, please confirm your email'
     ];
 
     /**
@@ -36,10 +38,10 @@ abstract class AbstractRecord extends AbstractValidator
      * Required options are:
      *  - key     Field to use, 'email' or 'username'
      */
-    public function __construct( ObjectRepository $objectRepository, $sKey )
+    public function __construct( ObjectRepository $objectRepository, $key )
     {
         $this->setObjectRepository( $objectRepository );
-        $this->setKey( $sKey );
+        $this->setKey( $key );
 
         parent::__construct();
     }
@@ -107,6 +109,12 @@ abstract class AbstractRecord extends AbstractValidator
 
             case 'username':
                 $result = $this->getObjectRepository()->findOneBy( array( 'username' => $value ) );
+                break;
+
+            case 'valid-user':
+                /** @var \PServerCMS\Entity\Repository\Users $repo */
+                $repo = $this->getObjectRepository();
+                $result = !(bool) $repo->isUserValid4UserName( $value );
                 break;
 
             case 'categoryId':

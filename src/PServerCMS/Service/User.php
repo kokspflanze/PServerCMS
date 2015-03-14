@@ -10,6 +10,7 @@ use PServerCMS\Entity\Repository\AvailableCountries as RepositoryAvailableCountr
 use PServerCMS\Entity\Repository\CountryList;
 use PServerCMS\Helper\DateTimer;
 use PServerCMS\Helper\Ip;
+use PServerCMS\Validator\AbstractRecord;
 use SmallUser\Entity\UsersInterface;
 use SmallUser\Mapper\HydratorUser;
 use Zend\Crypt\Password\Bcrypt;
@@ -31,6 +32,25 @@ class User extends \SmallUser\Service\User
     /** @var ConfigRead */
     protected $configReadService;
 
+
+    /**
+     * @param array $data
+     * @return bool
+     */
+    public function login( array $data )
+    {
+        $result = parent::login($data);
+        if (!$result) {
+            $form = $this->getLoginForm();
+            $error = $form->getMessages('username');
+            if($error && isset($error[AbstractRecord::ERROR_NOT_ACTIVE])){
+                $this->getFlashMessenger()->setNamespace(self::ErrorNameSpace)->addMessage($error[AbstractRecord::ERROR_NOT_ACTIVE]);
+            }
+        }
+
+        return $result;
+    }
+
     /**
      * @param array $data
      *
@@ -38,18 +58,17 @@ class User extends \SmallUser\Service\User
      */
     public function register( array $data )
     {
-
-        $oForm = $this->getRegisterForm();
-        $oForm->setHydrator( new HydratorUser() );
-        $oForm->bind( new Users() );
-        $oForm->setData( $data );
-        if (!$oForm->isValid()) {
+        $form = $this->getRegisterForm();
+        $form->setHydrator( new HydratorUser() );
+        $form->bind( new Users() );
+        $form->setData( $data );
+        if (!$form->isValid()) {
             return false;
         }
 
         $oEntityManager = $this->getEntityManager();
         /** @var Users $userEntity */
-        $userEntity = $oForm->getData();
+        $userEntity = $form->getData();
         $userEntity->setCreateIp( Ip::getIp() );
         $userEntity->setPassword( $this->bcrypt( $userEntity->getPassword() ) );
 
@@ -72,7 +91,6 @@ class User extends \SmallUser\Service\User
      */
     public function registerGameWithSamePassword( Usercodes $userCode )
     {
-
         $option = $this->getConfigService()->get( 'pserver.password.different-passwords' );
 
         // config is different pw-system
@@ -96,7 +114,6 @@ class User extends \SmallUser\Service\User
      */
     public function registerGameWithOtherPw( array $data, Usercodes $userCode )
     {
-
         $form = $this->getPasswordForm();
 
         $form->setData( $data );
@@ -124,7 +141,6 @@ class User extends \SmallUser\Service\User
      */
     public function registerGame( Users $user, $plainPassword = '' )
     {
-
         $gameBackend = $this->getGameBackendService();
 
         $backendId = $gameBackend->setUser( $user, $plainPassword );
@@ -217,10 +233,9 @@ class User extends \SmallUser\Service\User
 
         $data = $form->getData();
 
-        $entityManager = $this->getEntityManager();
-        $user          = $entityManager->getRepository( $this->getEntityOptions()->getUsers() )
-            ->findOneBy( array( 'username' => $data['username'] ) );
-
+        /** @var \PServerCMS\Entity\Repository\Users $userRepository */
+        $userRepository = $this->getEntityManager()->getRepository( $this->getEntityOptions()->getUsers() );
+        $user = $userRepository->getUser4UserName( $data['username'] );
 
         $code = $this->getUserCodesService()->setCode4User( $user, \PServerCMS\Entity\Usercodes::TYPE_LOST_PASSWORD );
 
@@ -231,7 +246,6 @@ class User extends \SmallUser\Service\User
 
     public function lostPwConfirm( array $data, Usercodes $userCode )
     {
-
         $form = $this->getPasswordForm();
         /** @var \PServerCMS\Form\PasswordFilter $filter */
         $filter = $form->getInputFilter();
@@ -289,10 +303,6 @@ class User extends \SmallUser\Service\User
     protected function isValidLogin( UsersInterface $user )
     {
         $result = true;
-        if (!(bool)$user->getUserRole()->getKeys()) {
-            $this->setFailedLoginMessage( 'Your Account is not active, please confirm your email' );
-            $result = false;
-        }
         if (!$this->isCountryAllowed( $user )) {
             $result = false;
         }

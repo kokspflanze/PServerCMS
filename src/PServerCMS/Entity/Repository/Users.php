@@ -24,4 +24,30 @@ class Users extends EntityRepository {
         return $query->getOneOrNullResult();
     }
 
+    /**
+     * @param $username
+     *
+     * @return null|\PServerCMS\Entity\Users
+     */
+    public function getUser4UserName( $username )
+    {
+        return $this->findOneBy( array( 'username' => $username ) );
+    }
+
+    /**
+     * @param $username
+     *
+     * @return bool
+     */
+    public function isUserValid4UserName( $username )
+    {
+        $result = false;
+        $user = $this->getUser4UserName($username);
+        if($user && $user->getRoles()){
+            $result = true;
+        }
+
+        return $result;
+    }
+
 }

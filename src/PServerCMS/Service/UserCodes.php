@@ -25,13 +25,13 @@ class UserCodes extends InvokableBase {
 
 		$this->getRepositoryManager()->deleteCodes4User($userEntity->getUsrid(), $type);
 
-		do{
-			$found = false;
-			$code = Format::getCode();
-			if($this->getRepositoryManager()->getCode($code)){
-				$found = true;
-			}
-		}while($found);
+        do {
+            $found = false;
+            $code  = Format::getCode();
+            if ($this->getRepositoryManager()->getCode( $code )) {
+                $found = true;
+            }
+        } while ($found);
 
 		$userCodesEntity = new \PServerCMS\Entity\Usercodes();
 		$userCodesEntity
@@ -39,15 +39,15 @@ class UserCodes extends InvokableBase {
 			->setUser($userEntity)
 			->setType($type);
 
-		if($expire){
-			$dateTime = new \DateTime();
-			$userCodesEntity->setExpire($dateTime->setTimestamp(time()+$expire));
-		}
+        if ($expire) {
+            $dateTime = new \DateTime();
+            $userCodesEntity->setExpire( $dateTime->setTimestamp( time() + $expire ) );
+        }
 
-		$entityManager->persist($userCodesEntity);
-		$entityManager->flush();
+        $entityManager->persist( $userCodesEntity );
+        $entityManager->flush();
 
-		return $code;
+        return $code;
 	}
 
 	/**
