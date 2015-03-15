@@ -35,10 +35,10 @@ abstract class AbstractRecord extends AbstractValidator
     protected $key;
 
     /**
-     * Required options are:
-     *  - key     Field to use, 'email' or 'username'
+     * @param ObjectRepository $objectRepository
+     * @param string           $key
      */
-    public function __construct( ObjectRepository $objectRepository, $key )
+    public function __construct( ObjectRepository $objectRepository, $key = '' )
     {
         $this->setObjectRepository( $objectRepository );
         $this->setKey( $key );
@@ -109,12 +109,6 @@ abstract class AbstractRecord extends AbstractValidator
 
             case 'username':
                 $result = $this->getObjectRepository()->findOneBy( array( 'username' => $value ) );
-                break;
-
-            case 'valid-user':
-                /** @var \PServerCMS\Entity\Repository\Users $repo */
-                $repo = $this->getObjectRepository();
-                $result = !(bool) $repo->isUserValid4UserName( $value );
                 break;
 
             case 'categoryId':

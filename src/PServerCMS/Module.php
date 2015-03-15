@@ -108,7 +108,7 @@ class Module
                     $form           = new Form\PwLost();
                     $form->setInputFilter(
                         new Form\PwLostFilter(
-                            new Validator\ValidUserExists( $repositoryUser, 'valid-user' )
+                            new Validator\ValidUserExists( $repositoryUser )
                         )
                     );
                     return $form;
@@ -144,7 +144,7 @@ class Module
                     $form = new \SmallUser\Form\Login();
                     $form->setInputFilter(
                         new Form\LoginFilter(
-                            new Validator\ValidUserExists( $repositoryUser, 'valid-user' )
+                            new Validator\ValidUserExists( $repositoryUser )
                         )
                     );
                     return $form;
