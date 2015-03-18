@@ -2,6 +2,7 @@
 	<h3>Server Info</h3>
 	<hr/>
 	<ul class="list-unstyled">
+		<li><b>PlayerOnline</b> <?= $this->playerHistory() ?></li>
 		<?php foreach($this->serverInfo as $curInfo): ?>
 			<?php /** @var \PServerCMS\Entity\ServerInfo $curInfo */ ?>
 			<li>

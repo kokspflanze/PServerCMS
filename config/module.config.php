@@ -248,7 +248,15 @@ return [
 	],
 	'pserver' => [
 		'register' => [
-			'role' => 'user'
+            /**
+             * role after register
+             */
+			'role' => 'user',
+            /**
+             * mail confirmation after register?
+             * WARNING for pw lost, we need a valid mail
+             */
+            'mail_confirmation' => false
 		],
 		'mail' => [
 			'from' => 'abcd@example.com',
@@ -281,7 +289,10 @@ return [
 			 * set other pw for web as ingame
 			 */
 			'different-passwords' => true,
-            'secret_question' => false
+            /**
+             * work with secret pw system, there is atm no admin view to handle the question =[
+             */
+            'secret_question' => false,
 		],
 		'news' => [
 			'limit' => 5

@@ -2,6 +2,10 @@
 
 {% block content %}
 
-	{{ translate('please confirm your email') }}
+	{% if mail_confirmation %}
+		{{ translate('please confirm your email') }}
+	{% else %}
+		{{ translate('success, you can now login') }}
+	{% endif %}
 
 {% endblock content %}

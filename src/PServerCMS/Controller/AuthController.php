@@ -11,6 +11,9 @@ class AuthController extends \SmallUser\Controller\AuthController
     protected $registerForm;
     protected $passwordForm;
 
+    /**
+     * @return array|\Zend\Http\Response
+     */
     public function registerAction()
     {
 
@@ -29,14 +32,22 @@ class AuthController extends \SmallUser\Controller\AuthController
             }
         }
 
-        return array( 'registerForm' => $form );
+        return [ 'registerForm' => $form ];
     }
 
+    /**
+     * @return array
+     */
     public function registerDoneAction()
     {
-        return array();
+        return [
+            'mail_confirmation' => $this->getUserService()->isRegisterMailConfirmationOption()
+        ];
     }
 
+    /**
+     * @return array|mixed|\Zend\Http\Response
+     */
     public function registerConfirmAction()
     {
         $codeRoute = $this->params()->fromRoute( 'code' );
@@ -60,7 +71,7 @@ class AuthController extends \SmallUser\Controller\AuthController
             }
         }
 
-        return array( 'registerForm' => $form );
+        return [ 'registerForm' => $form ];
     }
 
     public function ipConfirmAction()
@@ -77,12 +88,12 @@ class AuthController extends \SmallUser\Controller\AuthController
             return $this->redirect()->toRoute( 'small-user-auth', array( 'action' => 'ip-confirm-done' ) );
         }
 
-        return array();
+        return [];
     }
 
     public function ipConfirmDoneAction()
     {
-        return array();
+        return [];
     }
 
     public function pwLostAction()
@@ -98,12 +109,12 @@ class AuthController extends \SmallUser\Controller\AuthController
             }
         }
 
-        return array( 'pwLostForm' => $form );
+        return [ 'pwLostForm' => $form ];
     }
 
     public function pwLostDoneAction()
     {
-        return array();
+        return [];
     }
 
     public function pwLostConfirmAction()
@@ -124,17 +135,17 @@ class AuthController extends \SmallUser\Controller\AuthController
             }
         }
 
-        return array( 'pwLostForm' => $form );
+        return [ 'pwLostForm' => $form ];
     }
 
     public function pwLostConfirmDoneAction()
     {
-        return array();
+        return [];
     }
 
     public function wrongCodeAction()
     {
-        return array();
+        return [];
     }
 
     protected function getCode4Data( $code, $type )
