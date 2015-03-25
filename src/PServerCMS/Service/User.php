@@ -464,7 +464,7 @@ class User extends \SmallUser\Service\User
         $result = true;
 
         if ($ipAllowed) {
-            $message = sprintf( 'Your IP is blocked!, try it again %s', $ipAllowed->getExpire()->format( 'H:i:s' ) );
+            $message = sprintf( 'Your IP is blocked!, try it again @ %s', $ipAllowed->getExpire()->format( 'H:i:s' ) );
             $this->getFlashMessenger()->setNamespace( self::ErrorNameSpace )->addMessage( $message );
             $result = false;
         }

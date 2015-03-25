@@ -37,13 +37,15 @@ class Users extends EntityRepository {
     /**
      * @param $username
      *
-     * @return bool
+     * @return bool|null null for user not exists and bool for roles exists or not
      */
     public function isUserValid4UserName( $username )
     {
         $result = false;
         $user = $this->getUser4UserName($username);
-        if($user && $user->getRoles()){
+        if (!$user) {
+            $result = null;
+        } elseif ($user->getRoles() ){
             $result = true;
         }
 

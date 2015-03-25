@@ -18,9 +18,13 @@ class ValidUserExists extends AbstractRecord
         $this->setValue( $value );
 
         $result = $this->query( $value );
-        if ($result) {
+        if (!$result) {
             $valid = false;
-            $this->error( self::ERROR_NOT_ACTIVE );
+            if ($result === false) {
+                $this->error( self::ERROR_NOT_ACTIVE );
+            } else {
+                $this->error( self::ERROR_NO_RECORD_FOUND );
+            }
         }
 
         return $valid;
@@ -35,6 +39,6 @@ class ValidUserExists extends AbstractRecord
     {
         /** @var \PServerCMS\Entity\Repository\Users $repo */
         $repo = $this->getObjectRepository();
-        return !(bool) $repo->isUserValid4UserName( $value );
+        return $repo->isUserValid4UserName( $value );
     }
 }
