@@ -105,7 +105,7 @@ class Module
                     /** @var Options\EntityOptions $entityOptions */
                     $entityOptions = $sm->get( 'pserver_entity_options' );
                     $repositoryUser = $sm->get( 'Doctrine\ORM\EntityManager' )->getRepository( $entityOptions->getUsers() );
-                    $form           = new Form\PwLost();
+                    $form           = new Form\PwLost( $sm );
                     $form->setInputFilter(
                         new Form\PwLostFilter(
                             new Validator\ValidUserExists( $repositoryUser )

@@ -28,6 +28,7 @@
 		"kokspflanze/game-backend": "dev-master",
 	  	"kokspflanze/payment-api": "dev-master",
         "beberlei/DoctrineExtensions": "dev-master",
-        "thadafinser/zfc-datagrid": "dev-master"
+        "thadafinser/zfc-datagrid": "dev-master",
+        "san/san-captcha": "dev-master"
     }
 }

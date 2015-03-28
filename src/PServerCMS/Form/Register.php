@@ -6,6 +6,7 @@ use Zend\Form\Form;
 use Zend\Form\Element;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use ZfcBase\Form\ProvidesEventsForm;
+use Zend\Form\Element\Captcha;
 
 class Register extends ProvidesEventsForm {
 
@@ -110,6 +111,17 @@ class Register extends ProvidesEventsForm {
 				),
 			));
 		}
+
+        $captcha = new Captcha('captcha');
+        $captcha->setCaptcha($sm->get('SanCaptcha'))
+            ->setOptions([
+                'label' => 'Please verify you are human.',
+            ])
+            ->setAttributes([
+                'class' => 'form-control',
+                'type' => 'text'
+            ]);
+        $this->add($captcha);
 
 		$submitElement = new Element\Button('submit');
 		$submitElement
