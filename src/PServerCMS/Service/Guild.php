@@ -18,6 +18,16 @@ class Guild extends InvokableBase
     }
 
     /**
+     * @param $id
+     *
+     * @return \GameBackend\Entity\Game\GuildMemberInterface[]|null
+     */
+    public function getGuildMemberList4GuildId( $id )
+    {
+        return $this->getGameBackendService()->getGuildMember4GuildId($id);
+    }
+
+    /**
      * @param     $id
      * @param int $page
      *
@@ -25,13 +35,11 @@ class Guild extends InvokableBase
      */
     public function getGuildMember4GuildId( $id, $page = 1 )
     {
-        $guild = $this->getGameBackendService()->getGuild4Id($id);
+        $memberList = $this->getGuildMemberList4GuildId($id);
 
         $result = null;
-        if($guild){
-            /** @var \Doctrine\ORM\PersistentCollection $member */
-            $member = $guild->getMember();
-            $result = $this->getPaginator4QueryBuilder($member->toArray(), $page);
+        if($memberList){
+            $result = $this->getPaginator4QueryBuilder($memberList, $page);
         }
 
         return $result;

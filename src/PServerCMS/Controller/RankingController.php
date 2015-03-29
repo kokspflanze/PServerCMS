@@ -14,6 +14,13 @@ class RankingController extends AbstractActionController
         ];
     }
 
+    public function topGuildAction()
+    {
+        return [
+            'ranking' => $this->getRankingService()->getTopGuild( $this->params()->fromRoute('page') )
+        ];
+    }
+
     /**
      * @return \PServerCMS\Service\Ranking
      */

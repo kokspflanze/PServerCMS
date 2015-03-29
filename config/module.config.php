@@ -59,7 +59,7 @@ return [
                     ],
                     'defaults' => [
                         'controller'	=> 'PServerCMS\Controller\Ranking',
-                        'action'		=> 'topPlayer',
+                        'action'		=> 'top-player',
                         'page'		    => '1',
                     ],
                 ],

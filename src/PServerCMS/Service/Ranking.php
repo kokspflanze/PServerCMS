@@ -20,6 +20,17 @@ class Ranking extends InvokableBase
 
         return $this->getPaginator4QueryBuilder($topCharacter, $page);
     }
+    /**
+     * @param int $page
+     *
+     * @return Paginator|\GameBackend\Entity\Game\GuildInterface[]
+     */
+    public function getTopGuild( $page = 1 )
+    {
+        $topGuild = $this->getGameBackendService()->getTopGuild();
+
+        return $this->getPaginator4QueryBuilder($topGuild, $page);
+    }
 
     /**
      * @param     $queryBuilder

@@ -57,17 +57,29 @@
 					<li class="navigation dropdown {{ active('ranking')?'active':'' }}">
 						<a data-toggle="dropdown" href="#">Ranking <span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-							<li {{ active('ranking', {'action' : 'top-player'})?'class="active"':'' }}><a href="{{ url('ranking',
-								{'action':'top-player'})	}}">TopPlayer</a></li>
+							<li {{ active('ranking', {'action' : 'top-player'})?'class="active"':'' }}>
+								<a href="{{ url('ranking',{'action':'top-player'})	}}">TopPlayer</a>
+							</li>
+							<li {{ active('ranking', {'action' : 'top-guild'})?'class="active"':'' }}>
+								<a href="{{ url('ranking',{'action':'top-guild'})	}}">TopGuild</a>
+							</li>
 						</ul>
 					</li>
 					<li class="navigation dropdown {{ active('site-detail')?'active':'' }}">
 						<a data-toggle="dropdown" href="#">ServerInfo <span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-							<li {{ active('site-detail', {'type' : 'faq'})?'class="active"':'' }}><a href="{{ url('site-detail', {'type':'faq'}) }}">FAQ</a></li>
-							<li {{ active('site-detail', {'type' : 'rules'})?'class="active"':'' }}><a href="{{ url('site-detail', {'type':'rules'}) }}">Rules</a></li>
-							<li {{ active('site-detail', {'type' : 'guides'})?'class="active"':'' }}><a href="{{ url('site-detail', {'type':'guides'}) }}">Guides</a></li>
-							<li {{ active('site-detail', {'type' : 'events'})?'class="active"':'' }}><a href="{{ url('site-detail', {'type':'events'}) }}">Events</a></li>
+							<li {{ active('site-detail', {'type' : 'faq'})?'class="active"':'' }}>
+								<a href="{{ url('site-detail', {'type':'faq'}) }}">FAQ</a>
+							</li>
+							<li {{ active('site-detail', {'type' : 'rules'})?'class="active"':'' }}>
+								<a href="{{ url('site-detail', {'type':'rules'}) }}">Rules</a>
+							</li>
+							<li {{ active('site-detail', {'type' : 'guides'})?'class="active"':'' }}>
+								<a href="{{ url('site-detail', {'type':'guides'}) }}">Guides</a>
+							</li>
+							<li {{ active('site-detail', {'type' : 'events'})?'class="active"':'' }}>
+								<a href="{{ url('site-detail', {'type':'events'}) }}">Events</a>
+							</li>
 						</ul>
 					</li>
 					<li class="navigation"><a href="#">Forum</a></li>
