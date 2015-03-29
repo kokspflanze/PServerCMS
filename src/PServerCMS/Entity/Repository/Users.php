@@ -52,4 +52,16 @@ class Users extends EntityRepository {
         return $result;
     }
 
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function getUserListQueryBuilder()
+    {
+        $query = $this->createQueryBuilder('p')
+            ->select('p')
+            ->orderBy('p.created', 'desc');
+
+        return $query;
+    }
+
 }

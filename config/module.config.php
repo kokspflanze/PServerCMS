@@ -149,6 +149,7 @@ return [
             'pserver_character_service'			=> 'PServerCMS\Service\Character',
             'pserver_guild_service'	    		=> 'PServerCMS\Service\Guild',
             'pserver_log_service'	    		=> 'PServerCMS\Service\Logs',
+            'pserver_user_panel_service'	    => 'PServerCMS\Service\UserPanel',
 		],
         'aliases' => [
             'translator' => 'MvcTranslator',
