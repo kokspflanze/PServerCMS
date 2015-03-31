@@ -14,7 +14,7 @@ class AccountController extends AbstractActionController
     public function indexAction()
     {
 
-        /** @var \PServerCMS\Entity\Users $user */
+        /** @var \PServerCMS\Entity\UserInterface $user */
         $user = $this->getUserService()->getAuthService()->getIdentity();
 
         $form     = $this->getUserService()->getChangePwdForm();
@@ -47,7 +47,7 @@ class AccountController extends AbstractActionController
 
         }
 
-        $method = $this->params()->fromPost( 'which' ) == 'ingame' ? 'changeIngamePwd' : 'changeWebPwd';
+        $method = $this->params()->fromPost( 'which' ) == 'ingame' ? 'changeInGamePwd' : 'changeWebPwd';
         if ($this->getUserService()->$method( $this->params()->fromPost(), $user )) {
             $successKey = self::SUCCESS_NAME_SPACE;
             if ($this->params()->fromPost( 'which' ) == 'ingame') {

@@ -4,8 +4,8 @@ namespace PServerCMS\Service;
 
 use PaymentAPI\Provider\Request;
 use PaymentAPI\Service\LogInterface;
-use PServerCMS\Entity\Donatelog;
-use PServerCMS\Entity\Users;
+use PServerCMS\Entity\DonateLog;
+use PServerCMS\Entity\User;
 
 class PaymentNotify extends InvokableBase implements LogInterface
 {
@@ -72,7 +72,7 @@ class PaymentNotify extends InvokableBase implements LogInterface
 
     /**
      * @param Request $request
-     * @param Users   $user
+     * @param User   $user
      *
      * @return DonateLog
      */
@@ -84,7 +84,7 @@ class PaymentNotify extends InvokableBase implements LogInterface
             $data['errorMessage'] = $errorMessage;
         }
 
-        $donateEntity = new Donatelog();
+        $donateEntity = new DonateLog();
         $donateEntity->setTransactionId( $request->getTransactionId() )
             ->setCoins( $request->getAmount() )
             ->setIp( $request->getIp() )
@@ -101,7 +101,7 @@ class PaymentNotify extends InvokableBase implements LogInterface
 
     /**
      * @param Request $request
-     * @param Users   $user
+     * @param User   $user
      */
     protected function saveDonateLog( Request $request, $user, $errorMessage = '' )
     {
@@ -123,10 +123,10 @@ class PaymentNotify extends InvokableBase implements LogInterface
         $result = '';
         switch ($request->getProvider()) {
             case Request::PROVIDER_PAYMENT_WALL:
-                $result = Donatelog::TYPE_PAYMENT_WALL;
+                $result = DonateLog::TYPE_PAYMENT_WALL;
                 break;
             case Request::PROVIDER_SUPER_REWARD:
-                $result = Donatelog::TYPE_SUPER_REWARD;
+                $result = DonateLog::TYPE_SUPER_REWARD;
                 break;
         }
         return $result;

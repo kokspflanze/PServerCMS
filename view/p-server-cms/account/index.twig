@@ -7,24 +7,24 @@
 {% block content %}
 
 	{% if changeWebPwdForm %}
-    <div class="col-sm-6">
-        <h4>{{ translate('Change Web Password') }}</h4>
+		<div class="col-sm-6">
+			<h4>{{ translate('Change Web Password') }}</h4>
 
-		{% if errorsWeb %}
-			<div class="alert alert-danger" role="alert">
-				{% for error in errorsWeb %}
-					{{ error }}
-				{% endfor %}
-			</div>
-		{% elseif messagesWeb %}
-			<div class="alert alert-success" role="alert">
-				{% for message in messagesWeb %}
-					{{ message }}
-				{% endfor %}
-			</div>
-		{% endif %}
-        {{ formWidget(changeWebPwdForm) }}
-    </div>
+			{% if errorsWeb %}
+				<div class="alert alert-danger" role="alert">
+					{% for error in errorsWeb %}
+						{{ error }}
+					{% endfor %}
+				</div>
+			{% elseif messagesWeb %}
+				<div class="alert alert-success" role="alert">
+					{% for message in messagesWeb %}
+						{{ message }}
+					{% endfor %}
+				</div>
+			{% endif %}
+			{{ formWidget(changeWebPwdForm, 'helper/formNoLabelWidget') }}
+		</div>
 	{% endif %}
 
     <div class="col-sm-6">
@@ -42,6 +42,6 @@
 				{% endfor %}
 			</div>
 		{% endif %}
-        {{ formWidget(changeIngamePwdForm) }}
+        {{ formWidget(changeIngamePwdForm, 'helper/formNoLabelWidget') }}
     </div>
 {% endblock content %}

@@ -4,7 +4,7 @@ namespace PServerCMS\Validator;
 
 use Zend\Validator\AbstractValidator;
 use Zend\Validator\Exception;
-use PServerCMS\Entity\Users;
+use PServerCMS\Entity\User;
 
 class SimilarText extends AbstractValidator
 {
@@ -59,15 +59,15 @@ class SimilarText extends AbstractValidator
     }
 
     /**
-     * @param Users $user
+     * @param User $user
      */
-    public function setUser( Users $user )
+    public function setUser( User $user )
     {
         $this->user = $user;
     }
 
     /**
-     * @return Users
+     * @return User
      */
     public function getUser()
     {

@@ -3,7 +3,8 @@
 namespace PServerCMS\Service;
 
 use PServerAdmin\Mapper\HydratorNews;
-use PServerCMS\Entity\Users;
+use PServerCMS\Entity\User;
+use PServerCMS\Entity\UserInterface;
 use PServerCMS\Keys\Caching;
 
 class News extends InvokableBase {
@@ -46,11 +47,11 @@ class News extends InvokableBase {
 
 	/**
 	 * @param array $data
-	 * @param Users $user
+	 * @param UserInterface $user
 	 *
 	 * @return bool|\PServerCMS\Entity\News
 	 */
-	public function news( array $data, Users $user, $currentNews = null ){
+	public function news( array $data, UserInterface $user, $currentNews = null ){
 		if($currentNews == null){
 			$currentNews = new \PServerCMS\Entity\News();
 		}
@@ -65,7 +66,7 @@ class News extends InvokableBase {
 
 		/** @var \PServerCMS\Entity\News $news */
 		$news = $form->getData();
-		$news->setUser($this->getUser4Id($user->getUsrid()));
+		$news->setUser($this->getUser4Id($user->getId()));
 		
 		//\Zend\Debug\Debug::dump($user);die();
 

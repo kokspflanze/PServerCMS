@@ -1,18 +1,38 @@
 <div class="margin-bottom-15">
-	<h3><?php echo $this->escapeHtml($this->user->getUsername()) ?></h3>
+	<h3><?= $this->escapeHtml($this->user->getUsername()) ?></h3>
 	<hr/>
 	<ul class="list-unstyled">
 		<?php if($this->isAllowed('user')): ?>
-			<li><a href="<?php echo $this->url('user') ?>"><i class="glyphicon glyphicon-user"></i> Accountpanel</a></li>
+			<li>
+				<a href="<?= $this->url('user') ?>" class="btn btn-info btn-block">
+					<i class="glyphicon glyphicon-user"></i>
+					Accountpanel
+				</a>
+			</li>
 		<?php endif; ?>
 		<?php if($this->isAllowed('zfc-ticketsystem')): ?>
-            <li><a href="<?php echo $this->url('zfc-ticketsystem') ?>"><i class="fa fa-graduation-cap"></i> TicketSystem</a></li>
+            <li>
+				<a href="<?= $this->url('zfc-ticketsystem') ?>" class="btn btn-info btn-block">
+					<i class="fa fa-graduation-cap"></i>
+					TicketSystem
+				</a>
+			</li>
 		<?php endif; ?>
-        <?php if($this->isAllowed('admin_home')): ?>
-            <li><a href="<?php echo $this->url('admin_home') ?>"><i class="fa fa-graduation-cap"></i> Adminpanel</a></li>
-        <?php endif; ?>
         <?php if($this->isAllowed('panel_donate')): ?>
-            <li><a href="<?php echo $this->url('panel_donate') ?>"><i class="fa fa-usd"></i> Donate</a></li>
+            <li>
+				<a href="<?= $this->url('panel_donate') ?>" class="btn btn-info btn-block">
+					<i class="fa fa-usd"></i>
+					Donate
+				</a>
+			</li>
         <?php endif; ?>
+		<?php if($this->isAllowed('admin_home')): ?>
+		<li>
+			<a href="<?= $this->url('admin_home') ?>" class="btn btn-info btn-block">
+				<i class="fa fa-graduation-cap"></i>
+				Adminpanel
+			</a>
+		</li>
+		<?php endif; ?>
 	</ul>
 </div>

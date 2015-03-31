@@ -17,28 +17,24 @@ $form->setAttribute('class', 'form-horizontal');
 	 endif;
 	?>
     <div class="form-group">
-        <?php if (!$element instanceof Zend\Form\Element\Button && !$element instanceof Zend\Form\Element\Checkbox): ?>
-            <label class="col-sm-2 control-label"><?= $this->formLabel($element) ?></label>
-        <?php endif ?>
-
         <?php if ($element instanceof Zend\Form\Element\Button): ?>
-            <div class="col-sm-offset-2 col-sm-10">
+            <div class="col-sm-12">
                 <?= $this->formButton($element) ?>
             </div>
 		<?php elseif ($element instanceof Zend\Form\Element\Captcha): ?>
-			<div class="col-sm-10">
+			<div class="col-sm-12">
 				<?= $this->formCaptcha($element) . $this->pserverformerrors($element) ?>
 			</div>
 		<?php elseif ($element instanceof DoctrineModule\Form\Element\ObjectSelect || $element instanceof Zend\Form\Element\Select): ?>
-			<div class="col-sm-10">
+			<div class="col-sm-12">
 				<?= $this->formSelect($element) . $this->pserverformerrors($element) ?>
 			</div>
 		<?php elseif ($element instanceof Zend\Form\Element\Textarea): ?>
-			<div class="col-sm-10">
+			<div class="col-sm-12">
 				<?= $this->formTextarea($element) . $this->pserverformerrors($element) ?>
 			</div>
 		<?php elseif ($element instanceof Zend\Form\Element\Checkbox): ?>
-			<div class="col-sm-10 col-sm-offset-2">
+			<div class="col-sm-12">
 				<div class="checkbox">
 					<label>
 						<?= $this->formCheckbox($element) . $this->formLabel($element) . $this->pserverformerrors($element) ?>
@@ -46,7 +42,7 @@ $form->setAttribute('class', 'form-horizontal');
 				</div>
 			</div>
 		<?php else: ?>
-            <div class="col-sm-10">
+            <div class="col-sm-12">
                 <?= $this->formInput($element) . $this->pserverformerrors($element) ?>
             </div>
         <?php endif ?>

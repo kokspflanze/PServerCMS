@@ -3,15 +3,15 @@
 namespace PServerCMS\Service;
 
 
-use PServerCMS\Entity\Usercodes;
-use PServerCMS\Entity\Users;
+use PServerCMS\Entity\UserCodes;
+use PServerCMS\Entity\UserInterface;
+use PServerCMS\Entity\User as Entity;
 use PServerCMS\Entity\AvailableCountries;
 use PServerCMS\Entity\Repository\AvailableCountries as RepositoryAvailableCountries;
 use PServerCMS\Entity\Repository\CountryList;
 use PServerCMS\Helper\DateTimer;
 use PServerCMS\Helper\Ip;
 use PServerCMS\Validator\AbstractRecord;
-use SmallUser\Entity\UsersInterface;
 use SmallUser\Mapper\HydratorUser;
 use Zend\Crypt\Password\Bcrypt;
 
@@ -54,29 +54,29 @@ class User extends \SmallUser\Service\User
     /**
      * @param array $data
      *
-     * @return Users|bool
+     * @return UserInterface|bool
      */
     public function register( array $data )
     {
         $form = $this->getRegisterForm();
         $form->setHydrator( new HydratorUser() );
-        $form->bind( new Users() );
+        $form->bind( new Entity() );
         $form->setData( $data );
         if (!$form->isValid()) {
             return false;
         }
 
         $entityManager = $this->getEntityManager();
-        /** @var Users $userEntity */
+        /** @var Entity $userEntity */
         $userEntity = $form->getData();
         $userEntity->setCreateIp( Ip::getIp() );
-        $userEntity->setPassword( $this->bcrypt( $userEntity->getPassword() ) );
+        $userEntity->setPassword( $this->bCrypt( $userEntity->getPassword() ) );
 
         $entityManager->persist( $userEntity );
         $entityManager->flush();
 
         if ($this->isRegisterMailConfirmationOption()) {
-            $code = $this->getUserCodesService()->setCode4User( $userEntity, \PServerCMS\Entity\Usercodes::TYPE_REGISTER );
+            $code = $this->getUserCodesService()->setCode4User( $userEntity, UserCodes::TYPE_REGISTER );
 
             $this->getMailService()->register( $userEntity, $code );
         } else {
@@ -91,11 +91,11 @@ class User extends \SmallUser\Service\User
     }
 
     /**
-     * @param Usercodes $userCode
+     * @param UserCodes $userCode
      *
-     * @return Users
+     * @return User
      */
-    public function registerGameWithSamePassword( Usercodes $userCode )
+    public function registerGameWithSamePassword( UserCodes $userCode )
     {
         // config is different pw-system
         if ($this->isSamePasswordOption()) {
@@ -112,11 +112,11 @@ class User extends \SmallUser\Service\User
 
     /**
      * @param array     $data
-     * @param Usercodes $userCode
+     * @param UserCodes $userCode
      *
-     * @return Users|bool
+     * @return User|bool
      */
-    public function registerGameWithOtherPw( array $data, Usercodes $userCode )
+    public function registerGameWithOtherPw( array $data, UserCodes $userCode )
     {
         $form = $this->getPasswordForm();
 
@@ -139,11 +139,11 @@ class User extends \SmallUser\Service\User
 
     /**
      * @param array $data
-     * @param Users $user
+     * @param UserInterface $user
      *
-     * @return bool|null|Users
+     * @return bool|null|UserInterface
      */
-    public function changeWebPwd( array $data, Users $user )
+    public function changeWebPwd( array $data, UserInterface $user )
     {
         $user = $this->getUser4Id( $user->getId() );
 
@@ -163,11 +163,11 @@ class User extends \SmallUser\Service\User
 
     /**
      * @param array $data
-     * @param Users $user
+     * @param UserInterface $user
      *
      * @return bool
      */
-    public function changeIngamePwd( array $data, Users $user )
+    public function changeInGamePwd( array $data, UserInterface $user )
     {
         $user = $this->getUser4Id( $user->getId() );
         if (!$this->isPwdChangeAllowed( $data, $user, 'InGame' )) {
@@ -187,24 +187,24 @@ class User extends \SmallUser\Service\User
     /**
      * @param array $data
      *
-     * @return bool|null|Users
+     * @return bool|null|UserInterface
      */
     public function lostPw( array $data )
     {
         $form = $this->getPasswordLostForm();
-
         $form->setData( $data );
+
         if (!$form->isValid()) {
             return false;
         }
 
         $data = $form->getData();
 
-        /** @var \PServerCMS\Entity\Repository\Users $userRepository */
-        $userRepository = $this->getEntityManager()->getRepository( $this->getEntityOptions()->getUsers() );
+        /** @var \PServerCMS\Entity\Repository\User $userRepository */
+        $userRepository = $this->getEntityManager()->getRepository( $this->getEntityOptions()->getUser() );
         $user = $userRepository->getUser4UserName( $data['username'] );
 
-        $code = $this->getUserCodesService()->setCode4User( $user, \PServerCMS\Entity\Usercodes::TYPE_LOST_PASSWORD );
+        $code = $this->getUserCodesService()->setCode4User( $user, UserCodes::TYPE_LOST_PASSWORD );
 
         $this->getMailService()->lostPw( $user, $code );
 
@@ -213,11 +213,11 @@ class User extends \SmallUser\Service\User
 
     /**
      * @param array     $data
-     * @param Usercodes $userCode
+     * @param UserCodes $userCode
      *
-     * @return bool|Users
+     * @return bool|User
      */
-    public function lostPwConfirm( array $data, Usercodes $userCode )
+    public function lostPwConfirm( array $data, UserCodes $userCode )
     {
         $form = $this->getPasswordForm();
         /** @var \PServerCMS\Form\PasswordFilter $filter */
@@ -245,15 +245,15 @@ class User extends \SmallUser\Service\User
     }
 
     /**
-     * @param Usercodes $userCodes
+     * @param UserCodes $userCodes
      *
-     * @return Users
+     * @return UserInterface
      */
-    public function countryConfirm( Usercodes $userCodes )
+    public function countryConfirm( UserCodes $userCodes )
     {
         $entityManager = $this->getEntityManager();
 
-        /** @var Users $userEntity */
+        /** @var User $userEntity */
         $userEntity = $userCodes->getUser();
 
         /** @var CountryList $countryList */
@@ -274,12 +274,12 @@ class User extends \SmallUser\Service\User
     }
 
     /**
-     * @param Users  $user
+     * @param UserInterface  $user
      * @param string $plainPassword
      *
-     * @return Users
+     * @return User
      */
-    protected function registerGame( Users $user, $plainPassword = '' )
+    protected function registerGame( UserInterface $user, $plainPassword = '' )
     {
         $gameBackend = $this->getGameBackendService();
 
@@ -296,7 +296,6 @@ class User extends \SmallUser\Service\User
         $class = $this->getEntityOptions()->getAvailableCountries();
         /** @var \PServerCMS\Entity\AvailableCountries $availableCountries */
         $availableCountries = new $class;
-        $availableCountries->setActive( '1' );
         $availableCountries->setUser( $user );
         $availableCountries->setCntry( $countryList->getCountryCode4Ip( Ip::getIp() ) );
 
@@ -307,7 +306,7 @@ class User extends \SmallUser\Service\User
 
         // add the ROLE + Remove the Key
         $user->addUserRole( $roleEntity );
-        $roleEntity->addUsersUsrid( $user );
+        $roleEntity->addUser( $user );
         $entityManager->persist( $user );
         $entityManager->persist( $roleEntity );
         $entityManager->persist( $availableCountries );
@@ -317,11 +316,11 @@ class User extends \SmallUser\Service\User
     }
 
     /**
-     * @param Users $user
+     * @param UserInterface $user
      *
      * @return bool
      */
-    protected function isValidLogin( UsersInterface $user )
+    protected function isValidLogin( UserInterface $user )
     {
         $result = true;
         if (!$this->isCountryAllowed( $user )) {
@@ -330,15 +329,16 @@ class User extends \SmallUser\Service\User
         if ($this->isUserBlocked( $user )) {
             $result = false;
         }
+
         return $result;
     }
 
     /**
-     * @param Users $user
+     * @param UserInterface $user
      *
      * @return bool
      */
-    protected function isCountryAllowed( UsersInterface $user )
+    protected function isCountryAllowed( UserInterface $user )
     {
         $entityManager = $this->getEntityManager();
         $result = true;
@@ -348,26 +348,30 @@ class User extends \SmallUser\Service\User
         $country     = $countryList->getCountryCode4Ip( Ip::getIp() );
         /** @var RepositoryAvailableCountries $availableCountries */
         $availableCountries = $entityManager->getRepository( $this->getEntityOptions()->getAvailableCountries() );
-        if (!$availableCountries->isCountryAllowedForUser( $user->getUsrid(), $country )) {
-            $code = $this->getUserCodesService()->setCode4User( $user, \PServerCMS\Entity\Usercodes::TYPE_CONFIRM_COUNTRY );
+
+        if (!$availableCountries->isCountryAllowedForUser( $user->getId(), $country )) {
+            $code = $this->getUserCodesService()->setCode4User( $user, UserCodes::TYPE_CONFIRM_COUNTRY );
             $this->getMailService()->confirmCountry( $user, $code );
             $this->getFlashMessenger()->setNamespace( self::ErrorNameSpace )->addMessage( 'Please confirm your new ip with your email' );
             $result = false;
         }
+
         return $result;
     }
 
     /**
-     * @param Users $user
+     * @param UserInterface $user
      *
      * @return bool
      */
-    protected function isUserBlocked( UsersInterface $user )
+    protected function isUserBlocked( UserInterface $user )
     {
         $entityManager = $this->getEntityManager();
         /** @var \PServerCMS\Entity\Repository\UserBlock $repositoryUserBlock */
         $repositoryUserBlock = $entityManager->getRepository( $this->getEntityOptions()->getUserBlock() );
-        $userBlocked      = $repositoryUserBlock->isUserAllowed( $user->getUsrid() );
+        $userBlocked = $repositoryUserBlock->isUserAllowed( $user->getId() );
+        $result = false;
+
         if ($userBlocked) {
             $message = sprintf(
                 'You are blocked because %s !, try it again %s',
@@ -375,27 +379,29 @@ class User extends \SmallUser\Service\User
                 $userBlocked->getExpire()->format( 'H:i:s' )
             );
             $this->getFlashMessenger()->setNamespace( self::ErrorNameSpace )->addMessage($message);
-            return true;
+            $result = true;
         }
-        return false;
+
+        return $result;
     }
 
     /**
      * @param $userId
      *
-     * @return null|\PServerCMS\Entity\Users
+     * @return null|UserInterface
      */
     protected function getUser4Id( $userId )
     {
-        /** @var \PServerCMS\Entity\Repository\Users $userRepository */
-        $userRepository = $this->getEntityManager()->getRepository( $this->getEntityOptions()->getUsers() );
+        /** @var \PServerCMS\Entity\Repository\User $userRepository */
+        $userRepository = $this->getEntityManager()->getRepository( $this->getEntityOptions()->getUser() );
+
         return $userRepository->getUser4Id( $userId );
     }
 
     /**
-     * @param Users $user
+     * @param UserInterface $user
      */
-    protected function doLogin( UsersInterface $user )
+    protected function doLogin( UserInterface $user )
     {
         parent::doLogin( $user );
         $entityManager = $this->getEntityManager();
@@ -405,18 +411,18 @@ class User extends \SmallUser\Service\User
         $class = $this->getEntityOptions()->getLoginHistory();
         /** @var \PServerCMS\Entity\LoginHistory $loginHistory */
         $loginHistory = new $class();
-        $loginHistory->setUsersUsrid( $user );
+        $loginHistory->setUser( $user );
         $loginHistory->setIp( Ip::getIp() );
         $entityManager->persist( $loginHistory );
         $entityManager->flush();
     }
 
     /**
-     * @param UsersInterface $user
+     * @param UserInterface $user
      *
      * @return bool
      */
-    protected function handleInvalidLogin( UsersInterface $user )
+    protected function handleInvalidLogin( UserInterface $user )
     {
         $maxTries = $this->getConfigService()->get( 'pserver.login.exploit.try' );
         if (!$maxTries) {
@@ -428,7 +434,7 @@ class User extends \SmallUser\Service\User
          * Set LoginHistory
          */
         $class = $this->getEntityOptions()->getLoginFailed();
-        /** @var \PServerCMS\Entity\Loginfaild $loginFailed */
+        /** @var \PServerCMS\Entity\LoginFailed $loginFailed */
         $loginFailed = new $class();
         $loginFailed->setUsername( $user->getUsername() );
         $loginFailed->setIp( Ip::getIp() );
@@ -437,11 +443,11 @@ class User extends \SmallUser\Service\User
 
         $time = $this->getConfigService()->get( 'pserver.login.exploit.time' );
 
-        /** @var \PServerCMS\Entity\Repository\LoginFaild $repositoryLoginFailed */
+        /** @var \PServerCMS\Entity\Repository\LoginFailed $repositoryLoginFailed */
         $repositoryLoginFailed = $entityManager->getRepository( $class );
-        if ($repositoryLoginFailed->getNumberOfFailLogins4Ip( Ip::getIp(), $time ) >= $maxTries) {
+        if ($repositoryLoginFailed->getNumberOfFailLogin4Ip( Ip::getIp(), $time ) >= $maxTries) {
             $class = $this->getEntityOptions()->getIpBlock();
-            /** @var \PServerCMS\Entity\Ipblock $ipBlock */
+            /** @var \PServerCMS\Entity\IpBlock $ipBlock */
             $ipBlock = new $class();
             $ipBlock->setExpire( DateTimer::getDateTime4TimeStamp( time() + $time ) );
             $ipBlock->setIp( Ip::getIp() );
@@ -499,12 +505,13 @@ class User extends \SmallUser\Service\User
     /**
      * Login with a User
      *
-     * @param UsersInterface $user
+     * @param UserInterface $user
      */
-    public function doAuthentication( UsersInterface $user )
+    public function doAuthentication( UserInterface $user )
     {
-        $find    = array( $this->getUserEntityUserName() => $user->getUsername() );
-        $userNew = $this->getEntityManager()->getRepository( $this->getUserEntityClassName() )->findOneBy( $find );
+        /** @var \PServerCMS\Entity\Repository\User $repository */
+        $repository = $this->getEntityManager()->getRepository( $this->getUserEntityClassName() );
+        $userNew = $repository->getUser4UserName( $user->getUsername() );
 
         $authService = $this->getAuthService();
         // FIX: no roles after register
@@ -615,25 +622,25 @@ class User extends \SmallUser\Service\User
      *
      * @return string
      */
-    protected function bcrypt( $password )
+    protected function bCrypt( $password )
     {
         if (!$this->isSamePasswordOption()) {
             return $this->getGameBackendService()->hashPassword( $password );
         }
 
-        $bcrypt = new Bcrypt();
-        return $bcrypt->create( $password );
+        $bCrypt = new Bcrypt();
+        return $bCrypt->create( $password );
     }
 
     /**
      * @TODO better error handling
      *
      * @param array $data
-     * @param UsersInterface $user
+     * @param UserInterface $user
      *
      * @return bool
      */
-    protected function isPwdChangeAllowed( array $data, UsersInterface $user, $errorExtension )
+    protected function isPwdChangeAllowed( array $data, UserInterface $user, $errorExtension )
     {
         $form = $this->getChangePwdForm();
         $form->setData( $data );
@@ -657,19 +664,18 @@ class User extends \SmallUser\Service\User
     }
 
     /**
-     * @param $userEntity
+     * @param UserInterface $user
      * @param $password
      */
-    protected function setNewPasswordAtUser( $userEntity, $password )
+    protected function setNewPasswordAtUser( UserInterface $user, $password )
     {
         $entityManager = $this->getEntityManager();
-        /** @var Users $userEntity */
-        $userEntity->setPassword( $this->bcrypt( $password ) );
+        $user->setPassword( $this->bCrypt( $password ) );
 
-        $entityManager->persist( $userEntity );
+        $entityManager->persist( $user );
         $entityManager->flush();
 
-        return $userEntity;
+        return $user;
     }
 
     /**

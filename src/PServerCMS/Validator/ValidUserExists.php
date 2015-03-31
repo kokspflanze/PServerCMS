@@ -37,7 +37,7 @@ class ValidUserExists extends AbstractRecord
      */
     protected function query( $value )
     {
-        /** @var \PServerCMS\Entity\Repository\Users $repo */
+        /** @var \PServerCMS\Entity\Repository\User $repo */
         $repo = $this->getObjectRepository();
         return $repo->isUserValid4UserName( $value );
     }

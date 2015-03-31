@@ -2,7 +2,7 @@
 
 namespace PServerCMS\Form;
 
-use PServerCMS\Entity\Users;
+use PServerCMS\Entity\User;
 use ZfcBase\InputFilter\ProvidesEventsInputFilter;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use PServerCMS\Validator\SimilarText;
@@ -11,7 +11,7 @@ class PasswordFilter extends ProvidesEventsInputFilter
 {
     /** @var  \PServerCMS\Validator\SimilarText */
 	protected $similarText;
-    /** @var  Users */
+    /** @var  User */
 	protected $user;
 
     /**
@@ -65,9 +65,9 @@ class PasswordFilter extends ProvidesEventsInputFilter
 	}
 
     /**
-     * @param Users $user
+     * @param User $user
      */
-	public function addAnswerValidation(Users $user){
+	public function addAnswerValidation(User $user){
 		$similarText = $this->getSimilarText();
         if (!$similarText) {
             return;

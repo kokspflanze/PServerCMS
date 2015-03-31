@@ -22,7 +22,7 @@ class RegisterFilter extends ProvidesEventsInputFilter {
 		$this->setServiceManager($serviceManager);
 
 		/** @var $oRepositoryUser \Doctrine\Common\Persistence\ObjectRepository */
-		$oRepositoryUser = $serviceManager->get('Doctrine\ORM\EntityManager')->getRepository($this->getEntityOptions()->getUsers());
+		$oRepositoryUser = $serviceManager->get('Doctrine\ORM\EntityManager')->getRepository($this->getEntityOptions()->getUser());
 		$this->setUsernameValidator( new Validator\NoRecordExists( $oRepositoryUser, 'username' ) );
 		$this->setStriposValidator( new Validator\StriposExists($serviceManager, Validator\StriposExists::TYPE_EMAIL) );
 

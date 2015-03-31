@@ -3,8 +3,9 @@
 namespace PServerCMS\Service;
 
 
-use PServerCMS\Entity\Users;
+use PServerCMS\Entity\User;
 use PServerCMS\Helper\Format;
+use PServerCMS\Entity\UserCodes as Entity;
 
 class UserCodes extends InvokableBase {
 
@@ -14,16 +15,16 @@ class UserCodes extends InvokableBase {
 	protected $repositoryManager;
 
     /**
-     * @param Users $userEntity
+     * @param User $userEntity
      * @param       $type
      * @param int   $expire
      *
      * @return string
      */
-	public function setCode4User( Users $userEntity, $type, $expire = 0 ){
+	public function setCode4User( User $userEntity, $type, $expire = 0 ){
 		$entityManager = $this->getEntityManager();
 
-		$this->getRepositoryManager()->deleteCodes4User($userEntity->getUsrid(), $type);
+		$this->getRepositoryManager()->deleteCodes4User($userEntity->getId(), $type);
 
         do {
             $found = false;
@@ -33,9 +34,8 @@ class UserCodes extends InvokableBase {
             }
         } while ($found);
 
-		$userCodesEntity = new \PServerCMS\Entity\Usercodes();
-		$userCodesEntity
-			->setCode($code)
+		$userCodesEntity = new Entity();
+		$userCodesEntity->setCode($code)
 			->setUser($userEntity)
 			->setType($type);
 
@@ -53,9 +53,9 @@ class UserCodes extends InvokableBase {
 	/**
 	 * delete a userCode from database
 	 *
-	 * @param \PServerCMS\Entity\Usercodes $userCode
+	 * @param Entity $userCode
 	 */
-	public function deleteCode( \PServerCMS\Entity\Usercodes $userCode ){
+	public function deleteCode( Entity $userCode ){
 		$entityManager = $this->getEntityManager();
 		$entityManager->remove($userCode);
 		$entityManager->flush();
@@ -78,7 +78,7 @@ class UserCodes extends InvokableBase {
     }
 
     /**
-     * @param \PServerCMS\Entity\Usercodes[] $codeList
+     * @param Entity[] $codeList
      *
      * @return int
      */
@@ -110,12 +110,13 @@ class UserCodes extends InvokableBase {
     }
 
 	/**
-	 * @return \Doctrine\Common\Persistence\ObjectRepository|\PServerCMS\Entity\Repository\Usercodes
+	 * @return \Doctrine\Common\Persistence\ObjectRepository|\PServerCMS\Entity\Repository\UserCodes
 	 */
 	protected function getRepositoryManager(){
 		if( !$this->repositoryManager ){
 			$this->repositoryManager = $this->getEntityManager()->getRepository( $this->getEntityOptions()->getUserCodes() );
 		}
+
 		return $this->repositoryManager;
 	}
 

@@ -16,7 +16,7 @@ class ServerInfo extends InvokableBase {
 		$serverInfo = $this->getCachingHelperService()->getItem(Caching::SERVER_INFO, function() {
 			/** @var \PServerCMS\Entity\Repository\ServerInfo $repository */
 			$repository = $this->getEntityManager()->getRepository($this->getEntityOptions()->getServerInfo());
-			return $repository->getActiveInfos();
+			return $repository->getActiveInfoList();
 		});
 
 		return $serverInfo;
@@ -28,7 +28,8 @@ class ServerInfo extends InvokableBase {
 	public function getAllServerInfo(){
 		/** @var \PServerCMS\Entity\Repository\ServerInfo $repository */
 		$repository = $this->getEntityManager()->getRepository($this->getEntityOptions()->getServerInfo());
-		return $repository->getInfos();
+
+		return $repository->getInfoList();
 	}
 
 	/**
@@ -39,6 +40,7 @@ class ServerInfo extends InvokableBase {
 	public function getServerInfo4Id( $id ){
 		/** @var \PServerCMS\Entity\Repository\ServerInfo $repository */
 		$repository = $this->getEntityManager()->getRepository($this->getEntityOptions()->getServerInfo());
+
 		return $repository->getServerInfo4Id($id);
 	}
 
@@ -58,6 +60,7 @@ class ServerInfo extends InvokableBase {
 		$form->setHydrator(new HydratorServerInfo());
 		$form->bind($currentServerInfo);
 		$form->setData($data);
+
 		if(!$form->isValid()){
 			return false;
 		}
@@ -79,6 +82,7 @@ class ServerInfo extends InvokableBase {
 		if(!$this->serverInfoForm){
 			$this->serverInfoForm = $this->getServiceManager()->get('pserver_admin_server_info_form');
 		}
+
 		return $this->serverInfoForm;
 	}
 } 

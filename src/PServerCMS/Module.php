@@ -104,7 +104,7 @@ class Module
                     /** @var $repositoryUser \Doctrine\Common\Persistence\ObjectRepository */
                     /** @var Options\EntityOptions $entityOptions */
                     $entityOptions = $sm->get( 'pserver_entity_options' );
-                    $repositoryUser = $sm->get( 'Doctrine\ORM\EntityManager' )->getRepository( $entityOptions->getUsers() );
+                    $repositoryUser = $sm->get( 'Doctrine\ORM\EntityManager' )->getRepository( $entityOptions->getUser() );
                     $form           = new Form\PwLost( $sm );
                     $form->setInputFilter(
                         new Form\PwLostFilter(
@@ -140,7 +140,7 @@ class Module
                     /** @var $repositoryUser \Doctrine\Common\Persistence\ObjectRepository */
                     /** @var Options\EntityOptions $entityOptions */
                     $entityOptions = $sm->get( 'pserver_entity_options' );
-                    $repositoryUser = $sm->get( 'Doctrine\ORM\EntityManager' )->getRepository( $entityOptions->getUsers() );
+                    $repositoryUser = $sm->get( 'Doctrine\ORM\EntityManager' )->getRepository( $entityOptions->getUser() );
                     $form = new \SmallUser\Form\Login();
                     $form->setInputFilter(
                         new Form\LoginFilter(

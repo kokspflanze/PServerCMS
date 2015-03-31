@@ -2,8 +2,7 @@
 
 namespace PServerCMS\Controller;
 
-use PServerCMS\Entity\Usercodes;
-use Zend\Mvc\Controller\AbstractActionController;
+use PServerCMS\Entity\UserCodes;
 
 class AuthController extends \SmallUser\Controller\AuthController
 {
@@ -52,7 +51,7 @@ class AuthController extends \SmallUser\Controller\AuthController
     {
         $codeRoute = $this->params()->fromRoute( 'code' );
 
-        $userCode = $this->getCode4Data( $codeRoute, Usercodes::TYPE_REGISTER );
+        $userCode = $this->getCode4Data( $codeRoute, UserCodes::TYPE_REGISTER );
         if (!$userCode) {
             return $this->forward()->dispatch( 'PServerCMS\Controller\Auth', array( 'action' => 'wrong-code' ) );
         }
@@ -78,7 +77,7 @@ class AuthController extends \SmallUser\Controller\AuthController
     {
         $code = $this->params()->fromRoute( 'code' );
 
-        $oCode = $this->getCode4Data( $code, Usercodes::TYPE_CONFIRM_COUNTRY );
+        $oCode = $this->getCode4Data( $code, UserCodes::TYPE_CONFIRM_COUNTRY );
         if (!$oCode) {
             return $this->forward()->dispatch( 'PServerCMS\Controller\Auth', array( 'action' => 'wrong-code' ) );
         }
@@ -121,7 +120,7 @@ class AuthController extends \SmallUser\Controller\AuthController
     {
         $code = $this->params()->fromRoute( 'code' );
 
-        $codeEntity = $this->getCode4Data( $code, Usercodes::TYPE_LOST_PASSWORD );
+        $codeEntity = $this->getCode4Data( $code, UserCodes::TYPE_LOST_PASSWORD );
         if (!$codeEntity) {
             return $this->forward()->dispatch( 'PServerCMS\Controller\Auth', array( 'action' => 'wrong-code' ) );
         }
@@ -151,7 +150,7 @@ class AuthController extends \SmallUser\Controller\AuthController
     protected function getCode4Data( $code, $type )
     {
         $entityManager = $this->getEntityManager();
-        /** @var $repositoryCode \PServerCMS\Entity\Repository\Usercodes */
+        /** @var $repositoryCode \PServerCMS\Entity\Repository\UserCodes */
         $repositoryCode = $entityManager->getRepository( $this->getEntityOptions()->getUserCodes() );
         $codeEntity     = $repositoryCode->getData4CodeType( $code, $type );
 

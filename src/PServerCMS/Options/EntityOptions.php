@@ -17,32 +17,32 @@ class EntityOptions extends AbstractOptions
     /**
      * @var string
      */
-    protected $countryList = 'PServerCMS\Entity\Countrylist';
+    protected $countryList = 'PServerCMS\Entity\CountryList';
 
     /**
      * @var string
      */
-    protected $donateLog = 'PServerCMS\Entity\Donatelog';
+    protected $donateLog = 'PServerCMS\Entity\DonateLog';
 
     /**
      * @var string
      */
-    protected $downloadList = 'PServerCMS\Entity\Downloadlist';
+    protected $downloadList = 'PServerCMS\Entity\DownloadList';
 
     /**
      * @var string
      */
-    protected $ipBlock = 'PServerCMS\Entity\Ipblock';
+    protected $ipBlock = 'PServerCMS\Entity\IpBlock';
 
     /**
      * @var string
      */
-    protected $loginFailed = 'PServerCMS\Entity\Loginfaild';
+    protected $loginFailed = 'PServerCMS\Entity\LoginFailed';
 
     /**
      * @var string
      */
-    protected $loginHistory = 'PServerCMS\Entity\Loginhistory';
+    protected $loginHistory = 'PServerCMS\Entity\LoginHistory';
 
     /**
      * @var string
@@ -82,17 +82,17 @@ class EntityOptions extends AbstractOptions
     /**
      * @var string
      */
-    protected $userBlock = 'PServerCMS\Entity\Userblock';
+    protected $userBlock = 'PServerCMS\Entity\UserBlock';
 
     /**
      * @var string
      */
-    protected $userCodes = 'PServerCMS\Entity\Usercodes';
+    protected $userCodes = 'PServerCMS\Entity\UserCodes';
 
     /**
      * @var string
      */
-    protected $userExtension = 'PServerCMS\Entity\Userexstension';
+    protected $userExtension = 'PServerCMS\Entity\UserExtension';
 
     /**
      * @var string
@@ -102,7 +102,7 @@ class EntityOptions extends AbstractOptions
     /**
      * @var string
      */
-    protected $users = 'PServerCMS\Entity\Users';
+    protected $user = 'PServerCMS\Entity\User';
 
     /**
      * @return string
@@ -449,19 +449,19 @@ class EntityOptions extends AbstractOptions
     /**
      * @return string
      */
-    public function getUsers()
+    public function getUser()
     {
-        return $this->users;
+        return $this->user;
     }
 
     /**
-     * @param string $users
+     * @param string $user
      *
      * @return EntityOptions
      */
-    public function setUsers( $users )
+    public function setUser( $user )
     {
-        $this->users = $users;
+        $this->user = $user;
         return $this;
     }
 

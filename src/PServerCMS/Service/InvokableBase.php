@@ -57,12 +57,12 @@ class InvokableBase extends UserBase
     /**
      * @param $userId
      *
-     * @return null|\PServerCMS\Entity\Users
+     * @return null|\PServerCMS\Entity\UserInterface
      */
     protected function getUser4Id( $userId )
     {
-        /** @var \PServerCMS\Entity\Repository\Users $userRepository */
-        $userRepository = $this->getEntityManager()->getRepository( $this->getEntityOptions()->getUsers() );
+        /** @var \PServerCMS\Entity\Repository\User $userRepository */
+        $userRepository = $this->getEntityManager()->getRepository( $this->getEntityOptions()->getUser() );
         return $userRepository->getUser4Id( $userId );
     }
 

@@ -185,6 +185,7 @@ return [
 			'helper/sidebarWidget'			=> __DIR__ . '/../view/helper/sidebar.phtml',
 			'helper/sidebarLoggedInWidget'	=> __DIR__ . '/../view/helper/logged-in.phtml',
             'helper/formWidget'		        => __DIR__ . '/../view/helper/form.phtml',
+            'helper/formNoLabelWidget'		=> __DIR__ . '/../view/helper/form-no-label.phtml',
 			'zfc-ticket-system/new'			=> __DIR__ . '/../view/zfc-ticket-system/ticket-system/new.twig',
 			'zfc-ticket-system/view'		=> __DIR__ . '/../view/zfc-ticket-system/ticket-system/view.twig',
 			'zfc-ticket-system/index'		=> __DIR__ . '/../view/zfc-ticket-system/ticket-system/index.twig',
@@ -255,7 +256,7 @@ return [
 			'role' => 'user',
             /**
              * mail confirmation after register?
-             * WARNING for pw lost, we need a valid mail
+             * WARNING for pw lost|country, we need a valid mail
              */
             'mail_confirmation' => false
 		],
@@ -309,12 +310,12 @@ return [
 		],
 		'entity' => [
 			'available_countries' => 'PServerCMS\Entity\AvailableCountries',
-			'country_list'        => 'PServerCMS\Entity\Countrylist',
-			'donate_log'          => 'PServerCMS\Entity\Donatelog',
-			'download_list'       => 'PServerCMS\Entity\Downloadlist',
-			'ip_block'            => 'PServerCMS\Entity\Ipblock',
-			'login_failed'        => 'PServerCMS\Entity\Loginfaild',
-			'login_history'       => 'PServerCMS\Entity\Loginhistory',
+			'country_list'        => 'PServerCMS\Entity\CountryList',
+			'donate_log'          => 'PServerCMS\Entity\DonateLog',
+			'download_list'       => 'PServerCMS\Entity\DownloadList',
+			'ip_block'            => 'PServerCMS\Entity\IpBlock',
+			'login_failed'        => 'PServerCMS\Entity\LoginFailed',
+			'login_history'       => 'PServerCMS\Entity\LoginHistory',
 			'logs'                => 'PServerCMS\Entity\Logs',
 			'news'                => 'PServerCMS\Entity\News',
 			'page_info'           => 'PServerCMS\Entity\PageInfo',
@@ -322,25 +323,25 @@ return [
 			'secret_answer'       => 'PServerCMS\Entity\SecretAnswer',
 			'secret_question'     => 'PServerCMS\Entity\SecretQuestion',
 			'server_info'         => 'PServerCMS\Entity\ServerInfo',
-			'user_block'          => 'PServerCMS\Entity\Userblock',
-			'user_codes'          => 'PServerCMS\Entity\Usercodes',
-			'user_extension'      => 'PServerCMS\Entity\Userexstension',
+            'user'                => 'PServerCMS\Entity\User',
+			'user_block'          => 'PServerCMS\Entity\UserBlock',
+			'user_codes'          => 'PServerCMS\Entity\UserCodes',
+			'user_extension'      => 'PServerCMS\Entity\UserExtension',
 			'user_role'           => 'PServerCMS\Entity\UserRole',
-			'users'               => 'PServerCMS\Entity\Users'
 		]
 	],
 	'authenticationadapter' => [
 		'odm_default' => [
 			'objectManager' => 'doctrine.documentmanager.odm_default',
-			'identityClass' => 'PServerCMS\Entity\Users',
+			'identityClass' => 'PServerCMS\Entity\User',
 			'identityProperty' => 'username',
 			'credentialProperty' => 'password',
-			'credentialCallable' => 'PServerCMS\Entity\Users::hashPassword'
+			'credentialCallable' => 'PServerCMS\Entity\User::hashPassword'
 		],
 	],
 	'small-user' => [
 		'user_entity' => [
-			'class' => 'PServerCMS\Entity\Users'
+			'class' => 'PServerCMS\Entity\User'
 		]
 	],
 	'payment-api' => [

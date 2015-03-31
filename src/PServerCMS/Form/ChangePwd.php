@@ -17,9 +17,6 @@ class ChangePwd extends ProvidesEventsForm{
 
         $this->add(array(
             'name' => 'currentPassword',
-            'options' => array(
-                'label' => ' ',
-            ),
             'attributes' => array(
                 'class' => 'form-control',
                 'type' => 'password',
@@ -29,9 +26,6 @@ class ChangePwd extends ProvidesEventsForm{
 
         $this->add(array(
             'name' => 'password',
-            'options' => array(
-                'label' => ' ',
-            ),
             'attributes' => array(
                 'class' => 'form-control',
                 'type' => 'password',
@@ -41,9 +35,6 @@ class ChangePwd extends ProvidesEventsForm{
 
         $this->add(array(
             'name' => 'passwordVerify',
-            'options' => array(
-                'label' => ' ',
-            ),
             'attributes' => array(
                 'class' => 'form-control',
                 'type' => 'password',

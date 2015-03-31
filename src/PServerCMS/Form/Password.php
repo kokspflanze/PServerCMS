@@ -2,7 +2,7 @@
 
 namespace PServerCMS\Form;
 
-use PServerCMS\Entity\Users;
+use PServerCMS\Entity\User;
 use Zend\Form\Element;
 use ZfcBase\Form\ProvidesEventsForm;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -11,7 +11,7 @@ class Password extends ProvidesEventsForm {
 
 	/** @var  ServiceLocatorInterface */
 	protected $serviceManager;
-	/** @var  Users */
+	/** @var  User */
 	protected $user;
 	/** @var  \Doctrine\ORM\EntityManager */
 	protected $entityManager;
@@ -62,9 +62,9 @@ class Password extends ProvidesEventsForm {
 	}
 
 	/**
-	 * @param Users $user
+	 * @param User $user
 	 */
-	public function addSecretQuestion(Users $user){
+	public function addSecretQuestion(User $user){
 		if(!$this->getServiceManager()->get('pserver_configread_service')->get('pserver.password.secret_question')){
 			return;
 		}
@@ -103,14 +103,14 @@ class Password extends ProvidesEventsForm {
 	}
 
 	/**
-	 * @param Users $user
+	 * @param User $user
 	 */
-	public function setUser( Users $user ){
+	public function setUser( User $user ){
 		$this->user = $user;
 	}
 
 	/**
-	 * @return Users
+	 * @return User
 	 */
 	public function getUser(){
 		return $this->user;

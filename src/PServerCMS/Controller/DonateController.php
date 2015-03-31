@@ -11,7 +11,7 @@ class DonateController extends AbstractActionController
 
     public function indexAction()
     {
-        /** @var \PServerCMS\Entity\Users $user */
+        /** @var \PServerCMS\Entity\UserInterface $user */
         $user = $this->getUserService()->getAuthService()->getIdentity();
 
         return array(

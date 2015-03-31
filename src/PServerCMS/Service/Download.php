@@ -3,7 +3,7 @@
 namespace PServerCMS\Service;
 
 use PServerAdmin\Mapper\HydratorDownload;
-use PServerCMS\Entity\Downloadlist;
+use PServerCMS\Entity\DownloadList;
 use PServerCMS\Keys\Caching;
 
 class Download extends InvokableBase {
@@ -25,7 +25,7 @@ class Download extends InvokableBase {
 	}
 
 	/**
-	 * @return null|\PServerCMS\Entity\Downloadlist[]
+	 * @return null|\PServerCMS\Entity\DownloadList[]
 	 */
 	public function getDownloadList(){
 		/** @var \PServerCMS\Entity\Repository\DownloadList $repository */
@@ -43,11 +43,11 @@ class Download extends InvokableBase {
 	 * @param array $data
 	 * @param null  $currentDownload
 	 *
-	 * @return bool|Downloadlist
+	 * @return bool|DownloadList
 	 */
 	public function download( array $data, $currentDownload = null){
 		if($currentDownload == null){
-			$currentDownload = new Downloadlist();
+			$currentDownload = new DownloadList();
 		}
 
 		$form = $this->getDownloadForm();
@@ -58,7 +58,7 @@ class Download extends InvokableBase {
 			return false;
 		}
 
-		/** @var Downloadlist $download */
+		/** @var DownloadList $download */
 		$download = $form->getData();
 
 		$entity = $this->getEntityManager();

@@ -3,7 +3,7 @@
 namespace PServerCMS\Service;
 
 
-use PServerCMS\Entity\Users;
+use PServerCMS\Entity\User;
 use Zend\Mail\Transport\Smtp;
 use Zend\Mail\Transport\SmtpOptions;
 use Zend\Mime\Part;
@@ -35,10 +35,10 @@ class Mail extends InvokableBase {
 	/**
 	 * RegisterMail
 	 *
-	 * @param Users $user
+	 * @param User $user
 	 * @param       $code
 	 */
-	public function register( Users $user, $code ){
+	public function register( User $user, $code ){
 
 		$params = array(
 			'user' => $user,
@@ -49,10 +49,10 @@ class Mail extends InvokableBase {
 	}
 
 	/**
-	 * @param Users $user
+	 * @param User $user
 	 * @param       $code
 	 */
-	public function lostPw( Users $user, $code ){
+	public function lostPw( User $user, $code ){
 
 		$aParams = array(
 			'user' => $user,
@@ -63,10 +63,10 @@ class Mail extends InvokableBase {
 	}
 
     /**
-     * @param Users $user
+     * @param User $user
      * @param $code
      */
-    public function confirmCountry( Users $user, $code ){
+    public function confirmCountry( User $user, $code ){
 
         $aParams = array(
             'user' => $user,
@@ -78,10 +78,10 @@ class Mail extends InvokableBase {
 
 	/**
 	 * @param       $subjectKey
-	 * @param Users $user
+	 * @param User $user
 	 * @param       $params
 	 */
-	protected function send($subjectKey, Users $user, $params){
+	protected function send($subjectKey, User $user, $params){
 		// TODO TwigTemplateEngine
 		$renderer = $this->getViewRenderer();
 		/** @var \ZfcTwig\View\TwigResolver $oResolver */
@@ -123,7 +123,7 @@ class Mail extends InvokableBase {
 			$logEntity = new $class();
 			$logEntity->setTopic('mail_faild');
 			$logEntity->setMemo($e->getMessage());
-			$logEntity->setUsersUsrid($user);
+			$logEntity->setUser($user);
 			$entityManager->persist($logEntity);
 			$entityManager->flush();
 		}

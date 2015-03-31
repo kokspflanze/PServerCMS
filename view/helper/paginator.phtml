@@ -13,7 +13,7 @@
                 $url = sprintf( $format, $this->url($this->route, $params));
                 ?>
                 <li>
-                    <a href="<?php echo $url; ?>">
+                    <a href="<?= $url; ?>">
                         <<
                     </a>
                 </li>
@@ -33,13 +33,13 @@
                     $url = sprintf( $format, $this->url($this->route, $params));
                     ?>
                     <li>
-                        <a href="<?php echo $url; ?>">
-                            <?php echo $page; ?>
+                        <a href="<?= $url; ?>">
+                            <?= $page; ?>
                         </a>
                     </li>
                 <?php else: ?>
                     <li class="active">
-                        <a href="#"><?php echo $page; ?></a>
+                        <a href="#"><?= $page; ?></a>
                     </li>
                 <?php endif; ?>
             <?php endforeach; ?>
@@ -51,7 +51,7 @@
                 $url = sprintf( $format, $this->url($this->route, $params));
                 ?>
                 <li>
-                    <a href="<?php echo $url; ?>">
+                    <a href="<?= $url; ?>">
                         >>
                     </a>
                 </li>
