@@ -3,28 +3,11 @@
 
 namespace PServerCMS\Entity\Repository;
 
-use Doctrine\ORM\EntityRepository;
 use PServerCMS\Entity\UserInterface;
 
 
-class User extends EntityRepository {
-
-    /**
-     * @param $userId
-     *
-     * @return null|UserInterface
-     * @throws \Doctrine\ORM\NonUniqueResultException
-     */
-    public function getUser4Id( $userId )
-    {
-        $query = $this->createQueryBuilder('p')
-            ->select('p')
-            ->where('p.usrId = :usrid')
-            ->setParameter('usrid', $userId)
-            ->getQuery();
-        return $query->getOneOrNullResult();
-    }
-
+class User extends \SmallUser\Entity\Repository\User
+{
     /**
      * @param $username
      *

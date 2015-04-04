@@ -3,17 +3,8 @@
 
 namespace PServerCMS\Entity\Repository;
 
-use Doctrine\ORM\EntityRepository;
 
-class UserRole extends EntityRepository
+class UserRole extends \SmallUser\Entity\Repository\UserRole
 {
-    /**
-     * @param $name
-     *
-     * @return null|\PServerCMS\Entity\UserRole
-     */
-    public function getRole4Name( $name )
-    {
-        return $this->findOneBy( ['roleId' => $name] );
-    }
+
 }

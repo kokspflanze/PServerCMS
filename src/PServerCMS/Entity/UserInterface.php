@@ -4,16 +4,14 @@
 namespace PServerCMS\Entity;
 
 use GameBackend\Entity\User\UserInterface as GameUserInterface;
-use SmallUser\Entity\UsersInterface;
+use SmallUser\Entity\UserInterface as SmallUserInterface;
 use ZfcTicketSystem\Entity\UserInterface as TicketUserInterface;
-use BjyAuthorize\Provider\Role\ProviderInterface;
 use SmallUser\Entity\UserRoleInterface;
 
 interface UserInterface extends
     GameUserInterface,
-    UsersInterface,
-    TicketUserInterface,
-    ProviderInterface
+    SmallUserInterface,
+    TicketUserInterface
 {
     /**
      * @param $backendId

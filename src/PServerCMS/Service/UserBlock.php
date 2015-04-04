@@ -4,20 +4,20 @@ namespace PServerCMS\Service;
 
 
 use PServerCMS\Entity\Userblock as UserBlockEntity;
-use SmallUser\Entity\UsersInterface;
+use PServerCMS\Entity\UserInterface;
 
 class UserBlock extends InvokableBase {
 
 	/**
 	 * We want to block a user
-	 * @param UsersInterface $user
+	 * @param UserInterface $user
 	 * @param       $expire
 	 * @param       $reason
 	 *
 	 * @TODO Block @ GameBackend
 	 * @return bool
 	 */
-	public function blockUser( UsersInterface $user, $expire, $reason ){
+	public function blockUser( UserInterface $user, $expire, $reason ){
 		$class = $this->getEntityOptions()->getUserBlock();
 		/** @var UserBlockEntity $userBlock */
 		$userBlock = new $class;
