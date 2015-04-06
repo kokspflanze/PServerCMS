@@ -16,4 +16,14 @@ class UserPanel extends InvokableBase
 
         return $repository->getUserListQueryBuilder();
     }
+
+    /**
+     * @param $id
+     * @return null|\PServerCMS\Entity\UserInterface
+     */
+    public function getUser4Id( $id )
+    {
+        return parent::getUser4Id($id);
+    }
+
 }

@@ -17,6 +17,8 @@ class InvokableBase extends UserBase
     protected $userBlockService;
     /** @var \PServerCMS\Options\EntityOptions */
     protected $entityOptions;
+    /** @var  \SmallUser\Service\User */
+    protected $userService;
 
     /**
      * @return \Zend\Cache\Storage\StorageInterface
@@ -102,4 +104,15 @@ class InvokableBase extends UserBase
         return $this->entityOptions;
     }
 
+    /**
+     * @return \SmallUser\Service\User
+     */
+    protected function getUserService()
+    {
+        if (!$this->userService) {
+            $this->userService = $this->getServiceManager()->get( 'small_user_service' );
+        }
+
+        return $this->userService;
+    }
 } 

@@ -150,6 +150,7 @@ return [
             'pserver_guild_service'	    		=> 'PServerCMS\Service\Guild',
             'pserver_log_service'	    		=> 'PServerCMS\Service\Logs',
             'pserver_user_panel_service'	    => 'PServerCMS\Service\UserPanel',
+            'pserver_user_role_service'	        => 'PServerCMS\Service\UserRole',
 		],
         'aliases' => [
             'translator' => 'MvcTranslator',

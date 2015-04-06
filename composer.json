@@ -27,6 +27,8 @@
       "kokspflanze/zfc-ticket-system": "dev-master",
       "kokspflanze/small-user": "dev-master",
       "kokspflanze/game-backend": "dev-master",
+      "kokspflanze/p-server-admin": "dev-master",
+      "kokspflanze/p-server-cli": "dev-master",
       "kokspflanze/payment-api": "dev-master",
       "kokspflanze/zfc-bbcode": "~1.0",
       "beberlei/DoctrineExtensions": "dev-master",
