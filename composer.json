@@ -18,19 +18,21 @@
       "name": "Oliver",
       "email": "kokspflanze@gmx.de"
     }
-  ],
-  "require": {
-    "php": ">=5.4",
-    "twig/twig": "1.*",
-    "doctrine/doctrine-orm-module": "0.*",
-    "mabuzagu/pdo-dblib-module": "dev-master",
-    "kokspflanze/zfc-ticket-system": "dev-master",
-    "kokspflanze/small-user": "dev-master",
-    "kokspflanze/game-backend": "dev-master",
-    "kokspflanze/payment-api": "dev-master",
-    "beberlei/DoctrineExtensions": "dev-master",
-    "thadafinser/zfc-datagrid": "dev-master",
-    "san/san-captcha": "dev-master"
+    ],
+    "require": {
+      "php": ">=5.4",
+      "twig/twig": "1.*",
+      "doctrine/doctrine-orm-module": "0.*",
+      "mabuzagu/pdo-dblib-module": "dev-master",
+      "kokspflanze/zfc-ticket-system": "dev-master",
+      "kokspflanze/small-user": "dev-master",
+      "kokspflanze/game-backend": "dev-master",
+      "kokspflanze/payment-api": "dev-master",
+      "kokspflanze/zfc-bbcode": "~1.0",
+      "beberlei/DoctrineExtensions": "dev-master",
+      "thadafinser/zfc-datagrid": "dev-master",
+      "san/san-captcha": "dev-master",
+      "samclarke/sbb-code-parser": "dev-master"
   },
   "require-dev": {
     "phpunit/phpunit": "~4.0",

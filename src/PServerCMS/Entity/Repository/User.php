@@ -15,7 +15,13 @@ class User extends \SmallUser\Entity\Repository\User
      */
     public function getUser4UserName( $username )
     {
-        return $this->findOneBy( array( 'username' => $username ) );
+        $query = $this->createQueryBuilder('p')
+            ->select('p')
+            ->where('p.username = :username')
+            ->setParameter('username', $username)
+            ->getQuery();
+
+        return $query->getOneOrNullResult();
     }
 
     /**

@@ -6,7 +6,6 @@ namespace PServerCMS\Service;
 use PServerCMS\Entity\UserCodes;
 use PServerCMS\Entity\UserInterface;
 use PServerCMS\Entity\User as Entity;
-use PServerCMS\Entity\AvailableCountries;
 use PServerCMS\Entity\Repository\AvailableCountries as RepositoryAvailableCountries;
 use PServerCMS\Entity\Repository\CountryList;
 use PServerCMS\Helper\DateTimer;
@@ -81,6 +80,9 @@ class User extends \SmallUser\Service\User
             $this->getMailService()->register( $userEntity, $code );
         } else {
             $userEntity = $this->registerGame( $userEntity, $userEntity->getPassword() );
+            $this->setAvailableCountries4User($userEntity, Ip::getIp());
+            //valid identity after register with no mail
+            $this->doAuthentication($userEntity);
         }
 
         if ($this->isSecretQuestionOption()) {
@@ -93,18 +95,14 @@ class User extends \SmallUser\Service\User
     /**
      * @param UserCodes $userCode
      *
-     * @return User
+     * @return UserInterface|null
      */
     public function registerGameWithSamePassword( UserCodes $userCode )
     {
+        $user = null;
         // config is different pw-system
-        if ($this->isSamePasswordOption()) {
-            return null;
-        }
-
-        $user = $this->registerGame( $userCode->getUser() );
-        if ($user) {
-            $this->getUserCodesService()->deleteCode( $userCode );
+        if (!$this->isSamePasswordOption()) {
+            $user = $this->registerGameForm($userCode);
         }
 
         return $user;
@@ -114,7 +112,7 @@ class User extends \SmallUser\Service\User
      * @param array     $data
      * @param UserCodes $userCode
      *
-     * @return User|bool
+     * @return UserInterface|bool
      */
     public function registerGameWithOtherPw( array $data, UserCodes $userCode )
     {
@@ -127,11 +125,25 @@ class User extends \SmallUser\Service\User
 
         $data          = $form->getData();
         $plainPassword = $data['password'];
+        $user = $this->registerGameForm($userCode, $plainPassword);
 
+        return $user;
+    }
+
+    /**
+     * @param UserCodes $userCode
+     * @param null      $plainPassword
+     * @return UserInterface
+     */
+    public function registerGameForm( UserCodes $userCode, $plainPassword = null )
+    {
         $user = $this->registerGame( $userCode->getUser(), $plainPassword );
+        $this->setAvailableCountries4User($user, Ip::getIp());
 
         if ($user) {
             $this->getUserCodesService()->deleteCode( $userCode );
+            //user logged-in after confirmation
+            $this->doAuthentication($user);
         }
 
         return $user;
@@ -181,6 +193,7 @@ class User extends \SmallUser\Service\User
 
         $gameBackend = $this->getGameBackendService();
         $gameBackend->setUser( $user, $data['password'] );
+
         return $user;
     }
 
@@ -255,18 +268,8 @@ class User extends \SmallUser\Service\User
 
         /** @var User $userEntity */
         $userEntity = $userCodes->getUser();
+        $this->setAvailableCountries4User($userEntity, Ip::getIp());
 
-        /** @var CountryList $countryList */
-        $countryList = $entityManager->getRepository( $this->getEntityOptions()->getCountryList() );
-        $country     = $countryList->getCountryCode4Ip( Ip::getIp() );
-
-        /** @var AvailableCountries $availableCountries */
-        $class               = $this->getEntityOptions()->getAvailableCountries();
-        $availableCountries = new $class();
-        $availableCountries->setCntry( $country );
-        $availableCountries->setUser( $userEntity );
-
-        $entityManager->persist( $availableCountries );
         $entityManager->remove( $userCodes );
         $entityManager->flush();
 
@@ -277,7 +280,7 @@ class User extends \SmallUser\Service\User
      * @param UserInterface  $user
      * @param string $plainPassword
      *
-     * @return User
+     * @return UserInterface
      */
     protected function registerGame( UserInterface $user, $plainPassword = '' )
     {
@@ -291,14 +294,6 @@ class User extends \SmallUser\Service\User
         $entityManager->persist( $user );
         $entityManager->flush();
 
-        /** @var CountryList $countryList */
-        $countryList        = $entityManager->getRepository( $this->getEntityOptions()->getCountryList() );
-        $class = $this->getEntityOptions()->getAvailableCountries();
-        /** @var \PServerCMS\Entity\AvailableCountries $availableCountries */
-        $availableCountries = new $class;
-        $availableCountries->setUser( $user );
-        $availableCountries->setCntry( $countryList->getCountryCode4Ip( Ip::getIp() ) );
-
         /** @var \PServerCMS\Entity\Repository\UserRole $repositoryRole */
         $repositoryRole = $entityManager->getRepository( $this->getEntityOptions()->getUserRole() );
         $role           = $this->getConfigService()->get( 'pserver.register.role', 'user' );
@@ -309,10 +304,27 @@ class User extends \SmallUser\Service\User
         $roleEntity->addUser( $user );
         $entityManager->persist( $user );
         $entityManager->persist( $roleEntity );
-        $entityManager->persist( $availableCountries );
         $entityManager->flush();
 
         return $user;
+    }
+
+    /**
+     * @param UserInterface $user
+     * @param string        $ip
+     */
+    protected function setAvailableCountries4User( UserInterface $user, $ip)
+    {
+        $entityManager = $this->getEntityManager();
+        /** @var CountryList $countryList */
+        $countryList        = $entityManager->getRepository( $this->getEntityOptions()->getCountryList() );
+        $class = $this->getEntityOptions()->getAvailableCountries();
+        /** @var \PServerCMS\Entity\AvailableCountries $availableCountries */
+        $availableCountries = new $class;
+        $availableCountries->setUser( $user );
+        $availableCountries->setCntry( $countryList->getCountryCode4Ip( $ip ) );
+        $entityManager->persist( $availableCountries );
+        $entityManager->flush();
     }
 
     /**
@@ -425,6 +437,7 @@ class User extends \SmallUser\Service\User
     protected function handleInvalidLogin( UserInterface $user )
     {
         $maxTries = $this->getConfigService()->get( 'pserver.login.exploit.try' );
+
         if (!$maxTries) {
             return false;
         }
@@ -445,6 +458,7 @@ class User extends \SmallUser\Service\User
 
         /** @var \PServerCMS\Entity\Repository\LoginFailed $repositoryLoginFailed */
         $repositoryLoginFailed = $entityManager->getRepository( $class );
+
         if ($repositoryLoginFailed->getNumberOfFailLogin4Ip( Ip::getIp(), $time ) >= $maxTries) {
             $class = $this->getEntityOptions()->getIpBlock();
             /** @var \PServerCMS\Entity\IpBlock $ipBlock */
@@ -511,12 +525,17 @@ class User extends \SmallUser\Service\User
     {
         /** @var \PServerCMS\Entity\Repository\User $repository */
         $repository = $this->getEntityManager()->getRepository( $this->getUserEntityClassName() );
+
+        // fix if we have a proxy we don´t have a valid entity, so we have to clear before we can create a new select
+        $repository->clear();
+
         $userNew = $repository->getUser4UserName( $user->getUsername() );
 
         $authService = $this->getAuthService();
         // FIX: no roles after register
         $userNew->getUserRole();
         $userNew->getUserExtension();
+
         $authService->getStorage()->write( $userNew );
     }
 
@@ -629,6 +648,7 @@ class User extends \SmallUser\Service\User
         }
 
         $bCrypt = new Bcrypt();
+
         return $bCrypt->create( $password );
     }
 

@@ -76,7 +76,7 @@ class User implements UserInterface
 	/**
 	 * @var \Doctrine\Common\Collections\Collection|UserExtension[]
 	 *
-	 * @ORM\OneToMany(targetEntity="UserExtension", mappedBy="user_id")
+	 * @ORM\OneToMany(targetEntity="UserExtension", mappedBy="user")
 	 * @ORM\JoinColumn(name="usrId", referencedColumnName="userId")
 	 */
 	private $userExtension;

@@ -22,11 +22,12 @@ class UserExtension
 	private $id;
 
 	/**
-	 * @var integer
+	 * @var UserInterface
 	 *
-	 * @ORM\Column(name="user_id", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="userExtension")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="usrId")
 	 */
-	private $userId;
+	private $user;
 
 	/**
 	 * @var string
@@ -97,24 +98,24 @@ class UserExtension
 	}
 
 	/**
-	 * Set userId
-	 *
-	 * @param integer $userId
-	 *
+	 * Set user
+
+	 * @param UserInterface $user
+
 	 * @return UserExtension
 	 */
-	public function setUserId( $userId ) {
-		$this->userId = $userId;
+	public function setUser( UserInterface $user ) {
+		$this->user = $user;
 
-		return $this;
+        return $this;
 	}
 
 	/**
 	 * Get userId
 	 *
-	 * @return integer
+	 * @return UserInterface
 	 */
-	public function getUserId() {
-		return $this->userId;
+	public function getUser() {
+		return $this->user;
 	}
 }
