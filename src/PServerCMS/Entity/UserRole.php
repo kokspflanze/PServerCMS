@@ -2,9 +2,7 @@
 
 namespace PServerCMS\Entity;
 
-use BjyAuthorize\Acl\HierarchicalRoleInterface;
 use Doctrine\ORM\Mapping as ORM;
-use SmallUser\Entity\UserRoleInterface;
 
 /**
  * UserRole
@@ -12,9 +10,7 @@ use SmallUser\Entity\UserRoleInterface;
  * @ORM\Table(name="user_role", indexes={@ORM\Index(name="fk_users_role_users_role1_idx", columns={"parent_id"})})
  * @ORM\Entity(repositoryClass="PServerCMS\Entity\Repository\UserRole")
  */
-class UserRole implements
-    HierarchicalRoleInterface,
-    UserRoleInterface
+class UserRole implements UserRoleInterface
 {
 	/**
 	 * @var integer

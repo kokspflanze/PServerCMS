@@ -5,13 +5,10 @@ namespace PServerCMS\Entity;
 
 use GameBackend\Entity\User\UserInterface as GameUserInterface;
 use SmallUser\Entity\UserInterface as SmallUserInterface;
-use ZfcTicketSystem\Entity\UserInterface as TicketUserInterface;
-use SmallUser\Entity\UserRoleInterface;
 
 interface UserInterface extends
     GameUserInterface,
-    SmallUserInterface,
-    TicketUserInterface
+    SmallUserInterface
 {
     /**
      * @param $backendId
@@ -26,6 +23,13 @@ interface UserInterface extends
      * @return self
      */
     public function addUserRole( UserRoleInterface $userRole);
+
+    /**
+     * @param UserRoleInterface $userRole
+     *
+     * @return self
+     */
+    public function removeUserRole( UserRoleInterface $userRole);
 
     /**
      * @return \Doctrine\Common\Collections\Collection|UserRoleInterface[]

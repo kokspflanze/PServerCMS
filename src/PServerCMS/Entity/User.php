@@ -5,7 +5,6 @@ namespace PServerCMS\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use PServerCMS\Service\ServiceManager;
 use Zend\Crypt\Password\Bcrypt;
-use SmallUser\Entity\UserRoleInterface;
 
 /**
  * User
@@ -257,7 +256,7 @@ class User implements UserInterface
 	}
 
 	/**
-	 * @return \Zend\Permissions\Acl\Role\RoleInterface[]
+	 * @return UserRoleInterface[]
 	 */
 	public function getRoles() {
 		return $this->userRole->getValues();

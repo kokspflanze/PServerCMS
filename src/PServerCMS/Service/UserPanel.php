@@ -6,6 +6,8 @@ namespace PServerCMS\Service;
 
 class UserPanel extends InvokableBase
 {
+    const ErrorNameSpace = 'p-server-admin-user-panel';
+
     /**
      * @return \Doctrine\ORM\QueryBuilder
      */
