@@ -45,7 +45,7 @@ class Donate extends InvokableBase
     {
         $donateData = $this->getDonationDataSuccess();
 
-        return (int) $donateData['coins'];
+        return (int)$donateData['coins'];
     }
 
     /**
@@ -55,7 +55,17 @@ class Donate extends InvokableBase
     {
         $donateData = $this->getDonationDataSuccess();
 
-        return (int) $donateData['amount'];
+        return (int)$donateData['amount'];
+    }
+
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function getDonateQueryBuilder()
+    {
+        /** @var \PServerCMS\Entity\Repository\DonateLog $repository */
+        $repository = $this->getEntityManager()->getRepository($this->getEntityOptions()->getDonateLog());
+        return $repository->getDonateQueryBuilder();
     }
 
     /**

@@ -82,4 +82,15 @@ class DonateLog extends EntityRepository
             Entity::TYPE_SUPER_REWARD
         ];
     }
+
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function getDonateQueryBuilder()
+    {
+        return $this->createQueryBuilder('p')
+            ->select('p', 'user')
+            ->leftJoin('p.user', 'user')
+            ->orderBy('p.created', 'desc');
+    }
 } 
