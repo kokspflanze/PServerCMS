@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * LoginHistory
  *
  * @ORM\Table(name="login_history", indexes={@ORM\Index(name="fk_loginHistory_users1_idx", columns={"users_usrId"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="PServerCMS\Entity\Repository\LoginHistory")
  */
 class LoginHistory
 {

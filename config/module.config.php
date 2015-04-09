@@ -151,6 +151,7 @@ return [
             'pserver_log_service'	    		=> 'PServerCMS\Service\Logs',
             'pserver_user_panel_service'	    => 'PServerCMS\Service\UserPanel',
             'pserver_user_role_service'	        => 'PServerCMS\Service\UserRole',
+            'pserver_login_history_service'	    => 'PServerCMS\Service\LoginHistory',
 		],
         'aliases' => [
             'translator' => 'MvcTranslator',
