@@ -3,6 +3,7 @@
 namespace PServerCMS\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use PServerCMS\Entity\UserInterface;
 
 /**
  * IPBlock
@@ -10,13 +11,12 @@ use Doctrine\ORM\EntityRepository;
 class UserBlock extends EntityRepository
 {
     /**
-     * @param      $userId
-     * @param null $expireTime
-     *
+     * @param UserInterface $user
+     * @param null          $expireTime
      * @return null|\PServerCMS\Entity\UserBlock
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function isUserAllowed( $userId, $expireTime = null )
+    public function isUserAllowed( UserInterface $user, $expireTime = null )
     {
         if(!$expireTime){
             $expireTime = new \DateTime();
@@ -24,8 +24,8 @@ class UserBlock extends EntityRepository
 
         $query = $this->createQueryBuilder('p')
             ->select('p')
-            ->where('p.user = :userId')
-            ->setParameter('userId', $userId)
+            ->where('p.user = :user')
+            ->setParameter('user', $user )
             ->andWhere('p.expire >= :expireTime')
             ->setParameter('expireTime', $expireTime)
             ->orderBy('p.expire', 'desc')

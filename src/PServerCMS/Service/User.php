@@ -14,6 +14,11 @@ use PServerCMS\Validator\AbstractRecord;
 use SmallUser\Mapper\HydratorUser;
 use Zend\Crypt\Password\Bcrypt;
 
+/**
+ * Class User
+ * @package PServerCMS\Service
+ * @TODO refactoring
+ */
 class User extends \SmallUser\Service\User
 {
     /** @var \PServerCMS\Form\Register */
@@ -52,7 +57,6 @@ class User extends \SmallUser\Service\User
 
     /**
      * @param array $data
-     *
      * @return UserInterface|bool
      */
     public function register( array $data )
@@ -94,7 +98,6 @@ class User extends \SmallUser\Service\User
 
     /**
      * @param UserCodes $userCode
-     *
      * @return UserInterface|null
      */
     public function registerGameWithSamePassword( UserCodes $userCode )
@@ -111,7 +114,6 @@ class User extends \SmallUser\Service\User
     /**
      * @param array     $data
      * @param UserCodes $userCode
-     *
      * @return UserInterface|bool
      */
     public function registerGameWithOtherPw( array $data, UserCodes $userCode )
@@ -152,7 +154,6 @@ class User extends \SmallUser\Service\User
     /**
      * @param array $data
      * @param UserInterface $user
-     *
      * @return bool|null|UserInterface
      */
     public function changeWebPwd( array $data, UserInterface $user )
@@ -176,7 +177,6 @@ class User extends \SmallUser\Service\User
     /**
      * @param array $data
      * @param UserInterface $user
-     *
      * @return bool
      */
     public function changeInGamePwd( array $data, UserInterface $user )
@@ -199,7 +199,6 @@ class User extends \SmallUser\Service\User
 
     /**
      * @param array $data
-     *
      * @return bool|null|UserInterface
      */
     public function lostPw( array $data )
@@ -227,7 +226,6 @@ class User extends \SmallUser\Service\User
     /**
      * @param array     $data
      * @param UserCodes $userCode
-     *
      * @return bool|User
      */
     public function lostPwConfirm( array $data, UserCodes $userCode )
@@ -259,7 +257,6 @@ class User extends \SmallUser\Service\User
 
     /**
      * @param UserCodes $userCodes
-     *
      * @return UserInterface
      */
     public function countryConfirm( UserCodes $userCodes )
@@ -279,7 +276,6 @@ class User extends \SmallUser\Service\User
     /**
      * @param UserInterface  $user
      * @param string $plainPassword
-     *
      * @return UserInterface
      */
     protected function registerGame( UserInterface $user, $plainPassword = '' )
@@ -329,7 +325,6 @@ class User extends \SmallUser\Service\User
 
     /**
      * @param UserInterface $user
-     *
      * @return bool
      */
     protected function isValidLogin( UserInterface $user )
@@ -347,7 +342,6 @@ class User extends \SmallUser\Service\User
 
     /**
      * @param UserInterface $user
-     *
      * @return bool
      */
     protected function isCountryAllowed( UserInterface $user )
@@ -373,22 +367,18 @@ class User extends \SmallUser\Service\User
 
     /**
      * @param UserInterface $user
-     *
      * @return bool
      */
     protected function isUserBlocked( UserInterface $user )
     {
-        $entityManager = $this->getEntityManager();
-        /** @var \PServerCMS\Entity\Repository\UserBlock $repositoryUserBlock */
-        $repositoryUserBlock = $entityManager->getRepository( $this->getEntityOptions()->getUserBlock() );
-        $userBlocked = $repositoryUserBlock->isUserAllowed( $user->getId() );
+        $userBlocked = $this->getUserBlockService()->isUserBlocked($user);
         $result = false;
 
         if ($userBlocked) {
             $message = sprintf(
-                'You are blocked because %s !, try it again %s',
+                'You are blocked because %s!, try it again @ %s',
                 $userBlocked->getReason(),
-                $userBlocked->getExpire()->format( 'H:i:s' )
+                $userBlocked->getExpire()->format( 'Y-m-d H:i:s' )
             );
             $this->getFlashMessenger()->setNamespace( self::ErrorNameSpace )->addMessage($message);
             $result = true;
@@ -399,7 +389,6 @@ class User extends \SmallUser\Service\User
 
     /**
      * @param $userId
-     *
      * @return null|UserInterface
      */
     protected function getUser4Id( $userId )
@@ -431,7 +420,6 @@ class User extends \SmallUser\Service\User
 
     /**
      * @param UserInterface $user
-     *
      * @return bool
      */
     protected function handleInvalidLogin( UserInterface $user )
@@ -712,5 +700,13 @@ class User extends \SmallUser\Service\User
     protected function getEntityOptions()
     {
         return $this->getServiceManager()->get( 'pserver_entity_options' );
+    }
+
+    /**
+     * @return \PServerCMS\Service\UserBlock
+     */
+    protected function getUserBlockService()
+    {
+        return $this->getServiceManager()->get( 'pserver_user_block_service' );
     }
 }

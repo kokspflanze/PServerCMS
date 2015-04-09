@@ -73,7 +73,6 @@ class UserBlock
 	 * Set reason
 	 *
 	 * @param string $reason
-	 *
 	 * @return self
 	 */
 	public function setReason( $reason ) {
@@ -95,7 +94,6 @@ class UserBlock
 	 * Set expire
 	 *
 	 * @param $expire
-	 *
 	 * @return self
 	 */
 	public function setExpire( $expire ) {
@@ -120,7 +118,6 @@ class UserBlock
 	 * Set created
 	 *
 	 * @param \DateTime $created
-	 *
 	 * @return self
 	 */
 	public function setCreated( $created ) {
@@ -140,7 +137,6 @@ class UserBlock
 
 	/**
 	 * @param UserInterface $user
-	 *
 	 * @return $this
 	 */
 	public function setUser( UserInterface $user ){
@@ -151,7 +147,6 @@ class UserBlock
 
 	/**
 	 * @param UserInterface $user
-	 *
 	 * @return $this
 	 */
 	public function getUser(){
