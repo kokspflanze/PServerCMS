@@ -37,6 +37,11 @@ interface UserInterface extends
     public function getUserRole();
 
     /**
+     * @return UserRoleInterface[]
+     */
+    public function getRoles();
+
+    /**
      * @return \Doctrine\Common\Collections\Collection
      */
     public function getUserExtension();

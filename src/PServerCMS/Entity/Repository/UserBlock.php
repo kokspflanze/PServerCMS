@@ -34,4 +34,26 @@ class UserBlock extends EntityRepository
 
         return $query->getOneOrNullResult();
     }
+
+    /**
+     * @param UserInterface  $user
+     * @param \DateTime|null $dateTime
+     * @return mixed
+     */
+    public function removeBlock( UserInterface $user, $dateTime = null )
+    {
+        if(!$dateTime){
+            $dateTime = new \DateTime();
+        }
+
+        $query = $this->createQueryBuilder('p')
+            ->delete('PServerCMS\Entity\UserBlock','p')
+            ->where('p.user = :user')
+            ->setParameter('user', $user)
+            ->andWhere('p.expire >= :dateTime')
+            ->setParameter('dateTime', $dateTime)
+            ->getQuery();
+
+        return $query->execute();
+    }
 }

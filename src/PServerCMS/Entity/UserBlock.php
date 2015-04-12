@@ -96,9 +96,15 @@ class UserBlock
 	 * @param $expire
 	 * @return self
 	 */
-	public function setExpire( $expire ) {
-		if(!$expire instanceof \DateTime){
-			$expire = DateTimer::getDateTime4TimeStamp($expire);
+	public function setExpire( $expire )
+    {
+		if (!$expire instanceof \DateTime)
+        {
+            if (is_integer($expire)) {
+                $expire = DateTimer::getDateTime4TimeStamp($expire);
+            } else {
+                $expire = new \DateTime($expire);
+            }
 		}
 		$this->expire = $expire;
 

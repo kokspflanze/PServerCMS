@@ -2,6 +2,7 @@
 namespace PServerCMS\Service;
 
 use SmallUser\Service\InvokableBase as UserBase;
+use Zend\Form\FormInterface;
 
 class InvokableBase extends UserBase
 {
@@ -114,5 +115,19 @@ class InvokableBase extends UserBase
         }
 
         return $this->userService;
+    }
+
+    /**
+     * @param FormInterface $form
+     * @param $namespace
+     */
+    protected function addFormMessagesInFlashMessenger( FormInterface $form, $namespace)
+    {
+        $messages = $form->getMessages();
+        foreach ($messages as $elementMessages) {
+            foreach ($elementMessages as $message) {
+                $this->getFlashMessenger()->setNamespace( $namespace )->addMessage( $message );
+            }
+        }
     }
 } 

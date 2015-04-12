@@ -21,12 +21,7 @@ class UserRole extends InvokableBase
         $form->setData($data);
 
         if (!$form->isValid()) {
-            $messages = $form->getMessages();
-            foreach ($messages as $elementMessages) {
-                foreach ($elementMessages as $message) {
-                    $this->getFlashMessenger()->setNamespace( self::ErrorNameSpace )->addMessage( $message );
-                }
-            }
+            $this->addFormMessagesInFlashMessenger($form, self::ErrorNameSpace);
 
             return false;
         }
@@ -39,6 +34,8 @@ class UserRole extends InvokableBase
         if ($user) {
             $this->addRole4User($user, $roleId);
         }
+
+        return $user;
     }
 
     /**
@@ -68,6 +65,8 @@ class UserRole extends InvokableBase
         $this->getEntityManager()->persist($role);
         $this->getEntityManager()->persist($user);
         $this->getEntityManager()->flush();
+
+        return true;
     }
 
     /**
@@ -86,6 +85,7 @@ class UserRole extends InvokableBase
     protected function addRole4User( UserInterface $user, $roleId )
     {
         $result = false;
+
         if (!$this->isRoleAlreadyAdded($user, $roleId)) {
             $role = $this->getRoleEntity4Id($roleId);
             $role->addUser($user);
@@ -93,6 +93,7 @@ class UserRole extends InvokableBase
             $this->getEntityManager()->persist($role);
             $this->getEntityManager()->persist($user);
             $this->getEntityManager()->flush();
+            $result = true;
         }
 
         return $result;

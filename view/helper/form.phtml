@@ -29,6 +29,18 @@ $form->setAttribute('class', 'form-horizontal');
 			<div class="col-sm-10">
 				<?= $this->formCaptcha($element) . $this->pserverformerrors($element) ?>
 			</div>
+		<?php elseif ($element instanceof PServerCMS\Form\Element\DateTimeJQuery): ?>
+		<div class="col-sm-10">
+			<?= $this->formInput($element) . $this->pserverformerrors($element) ?>
+		</div>
+		<?php elseif ($element instanceof Zend\Form\Element\DateTimeLocal): ?>
+		<div class="col-sm-10">
+			<?= $this->formDateTimeLocal($element) . $this->pserverformerrors($element) ?>
+		</div>
+		<?php elseif ($element instanceof Zend\Form\Element\DateTime): ?>
+			<div class="col-sm-10">
+				<?= $this->formDateTime($element) . $this->pserverformerrors($element) ?>
+			</div>
 		<?php elseif ($element instanceof DoctrineModule\Form\Element\ObjectSelect || $element instanceof Zend\Form\Element\Select): ?>
 			<div class="col-sm-10">
 				<?= $this->formSelect($element) . $this->pserverformerrors($element) ?>

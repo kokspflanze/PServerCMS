@@ -27,6 +27,11 @@ that are listed in `composer.json`
 
 You can find an example application with some default styles and full configuration @ [kokspflanze/pserverCMSFull](https://github.com/kokspflanze/pserverCMSFull)
 
+## PHP Extensions
+
+- php5-curl
+- php5-intl
+
 ## CronTab settings
 
 To improve the performance

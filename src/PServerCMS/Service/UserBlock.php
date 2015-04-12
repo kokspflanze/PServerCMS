@@ -4,10 +4,43 @@ namespace PServerCMS\Service;
 
 
 use PServerCMS\Entity\Userblock as UserBlockEntity;
+use PServerAdmin\Mapper\HydratorUserBlock;
 use PServerCMS\Entity\UserInterface;
 
 class UserBlock extends InvokableBase
 {
+    const ErrorNameSpace = 'p-server-admin-user-panel';
+
+    /**
+     * @param $data
+     * @param $userId
+     * @return \PServerCMS\Entity\UserInterface
+     */
+    public function blockForm( $data, $userId )
+    {
+        $class = $this->getEntityOptions()->getUserBlock();
+        /** @var UserBlockEntity $userBlock */
+
+        $form = $this->getForm();
+        $form->setHydrator( new HydratorUserBlock() );
+        $form->bind( new $class );
+        $form->setData($data);
+
+        if (!$form->isValid()) {
+            return false;
+        }
+        /** @var UserBlockEntity $userBlockEntity */
+        $userBlockEntity = $form->getData();
+        $user = $this->getUser4Id($userId);
+
+        if ($user) {
+            $userBlockEntity->setUser($user);
+            $this->blockUserWithEntity($userBlockEntity);
+        }
+
+        return $user;
+    }
+
 	/**
 	 * We want to block a user
      *
@@ -15,7 +48,6 @@ class UserBlock extends InvokableBase
 	 * @param       $expire
 	 * @param       $reason
 	 * @return bool
-     * @TODO Block @ GameBackend
 	 */
 	public function blockUser( UserInterface $user, $expire, $reason )
     {
@@ -26,20 +58,28 @@ class UserBlock extends InvokableBase
 		$userBlock->setReason($reason);
 		$userBlock->setExpire($expire);
 
-		$entityManager = $this->getEntityManager();
-		$entityManager->persist($userBlock);
-		$entityManager->flush();
-
-		return true;
+		return $this->blockUserWithEntity($userBlock);
 	}
 
     /**
-     * @param UserInterface $user
-     * @TODO
+     * @param UserInterface|int $user
+     * @TODO unblock @GameServer
      */
-    public function removeBlock( UserInterface $user )
+    public function removeBlock( $user )
     {
+        if (!$user instanceof UserInterface) {
+            $user = $this->getUser4Id($user);
 
+            if (!$user) {
+                return false;
+            }
+        }
+
+        /** @var \PServerCMS\Entity\Repository\USerBlock $repository */
+        $repository = $this->getEntityManager()->getRepository($this->getEntityOptions()->getUserBlock());
+        $repository->removeBlock($user);
+
+        return true;
     }
 
     /**
@@ -54,4 +94,32 @@ class UserBlock extends InvokableBase
         return $repositoryUserBlock->isUserAllowed( $user );
     }
 
+    /**
+     * @return \PServerAdmin\Form\UserBlock
+     */
+    public function getForm()
+    {
+        return $this->getServiceManager()->get('pserver_admin_user_block_form');
+    }
+
+    /**
+     * @param UserBlockEntity $userblock
+     * @return bool
+     * @TODO Block @ GameBackend
+     */
+    protected function blockUserWithEntity( UserBlockEntity $userBlock )
+    {
+        // delete all old blocks
+        $this->removeBlock($userBlock->getUser());
+        $result = false;
+        
+        if ($userBlock->getExpire() > new \DateTime) {
+            $entityManager = $this->getEntityManager();
+            $entityManager->persist($userBlock);
+            $entityManager->flush();
+            $result = true;
+        }
+
+        return $result;
+    }
 } 
