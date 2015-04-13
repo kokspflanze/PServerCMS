@@ -123,6 +123,11 @@ class Module
                     $config = $sm->get( 'Configuration' );
                     return new Options\EntityOptions( $config['pserver']['entity'] );
                 },
+                'pserver_mail_options'         => function ( $sm ) {
+                    /** @var $sm \Zend\ServiceManager\ServiceLocatorInterface */
+                    $config = $sm->get( 'Configuration' );
+                    return new Options\MailOptions( $config['pserver']['mail'] );
+                },
                 'zfcticketsystem_ticketsystem_new_form'   => function ( $sm ) {
                     /** @var $sm \Zend\ServiceManager\ServiceLocatorInterface */
                     $form = new \ZfcTicketSystem\Form\TicketSystem( $sm->get( 'Doctrine\ORM\EntityManager' ) );

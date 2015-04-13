@@ -99,7 +99,6 @@ class Mail extends InvokableBase {
 		$subject = $this->getSubject4Key($subjectKey);
 
 		try{
-			set_time_limit(30);
 			// make a header as html
 			$html = new Part($bodyRender);
 			$html->type = "text/html";
@@ -108,8 +107,8 @@ class Mail extends InvokableBase {
 
 			$mail = new \Zend\Mail\Message();
 			$mail->setBody($body);
-			$config = $this->getMailConfig();
-			$mail->setFrom($config['from'], $config['fromName']);
+			$mailOptions = $this->getMailOptions();
+			$mail->setFrom($mailOptions->getFrom(), $mailOptions->getFromName());
 			$mail->setTo($user->getEmail());
 			$mail->setSubject($subject);
 
@@ -142,24 +141,11 @@ class Mail extends InvokableBase {
 	}
 
 	/**
-	 * @return array
-	 */
-	protected function getMailConfig() {
-		if (! $this->mailConfig) {
-			$config = $this->getServiceManager()->get('Config');
-			$this->mailConfig = $config['pserver']['mail'];
-		}
-
-		return $this->mailConfig;
-	}
-
-	/**
 	 * @return SmtpOptions
 	 */
 	public function getSMTPOptions(){
 		if (! $this->mailSMTPOptions) {
-			$aConfig = $this->getMailConfig();
-			$this->mailSMTPOptions = new SmtpOptions($aConfig['basic']);
+			$this->mailSMTPOptions = new SmtpOptions($this->getMailOptions()->getBasic());
 		}
 
 		return $this->mailSMTPOptions;
@@ -171,8 +157,8 @@ class Mail extends InvokableBase {
 	 * @return string
 	 */
 	public function getSubject4Key($key){
-		$config = $this->getMailConfig();
+		$subjectList = $this->getMailOptions()->getSubject();
 		// added fallback if the key not exists, in the config
-		return isset($config['subject'][$key])?$key:$config['subject'][$key];
+		return isset($subjectList[$key])?$key:$subjectList[$key];
 	}
 }

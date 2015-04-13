@@ -18,6 +18,8 @@ class InvokableBase extends UserBase
     protected $userBlockService;
     /** @var \PServerCMS\Options\EntityOptions */
     protected $entityOptions;
+    /** @var \PServerCMS\Options\MailOptions */
+    protected $mailOptions;
     /** @var  \SmallUser\Service\User */
     protected $userService;
 
@@ -103,6 +105,18 @@ class InvokableBase extends UserBase
         }
 
         return $this->entityOptions;
+    }
+
+    /**
+     * @return \PServerCMS\Options\MailOptions
+     */
+    protected function getMailOptions()
+    {
+        if (!$this->mailOptions) {
+            $this->mailOptions = $this->getServiceManager()->get( 'pserver_mail_options' );
+        }
+
+        return $this->mailOptions;
     }
 
     /**

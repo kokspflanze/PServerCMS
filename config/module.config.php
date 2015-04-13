@@ -264,7 +264,7 @@ return [
 		],
 		'mail' => [
 			'from' => 'abcd@example.com',
-			'fromName' => 'team',
+			'from_name' => 'team',
 			'subject' => [
 				'register' => 'RegisterMail',
 				'password' => 'LostPasswordMail',
