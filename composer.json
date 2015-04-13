@@ -10,7 +10,8 @@
   "homepage": "https://github.com/kokspflanze/PServerCMS",
   "autoload": {
     "psr-0": {
-      "PServerCMS\\": "src/"
+      "PServerCMS\\": "src/",
+      "PServerCMSTest\\": "tests/"
     }
   },
   "authors": [

@@ -1,5 +1,9 @@
 # PSeverCMS Module for Zend Framework 2
 
+Master
+[![Build Status](https://travis-ci.org/kokspflanze/PServerCMS.svg?branch=master)](https://travis-ci.org/kokspflanze/PServerCMS?branch=master)
+[![Coverage Status](https://coveralls.io/repos/kokspflanze/PServerCMS/badge.svg?branch=master)](https://coveralls.io/r/kokspflanze/PServerCMS?branch=master)
+
 ## SYSTEM REQUIREMENTS
 
 requires PHP 5.4 or later; we recommend using the

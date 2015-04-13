@@ -1,0 +1,28 @@
+<phpunit
+        bootstrap="./Bootstrap.php"
+        colors="true"
+        convertErrorsToExceptions="true"
+        convertNoticesToExceptions="true"
+        convertWarningsToExceptions="true"
+        verbose="true"
+        stopOnFailure="false"
+        stopOnError="false"
+        processIsolation="false"
+        backupGlobals="false"
+        syntaxCheck="true"
+        >
+    <php>
+        <server name='HTTP_HOST' value='' />
+        <server name="SERVER_NAME" value="http://foo.bar"/>
+        <server name="SERVER_PORT" value="80"/>
+        <server name="REMOTE_ADDR" value="127.1.2.3"/>
+    </php>
+    <testsuites>
+        <testsuite name="PServerCMS component test Suite">
+            <directory suffix="Test.php">.</directory>
+        </testsuite>
+    </testsuites>
+    <logging>
+        <log type="coverage-clover" target="../build/logs/clover.xml"/>
+    </logging>
+</phpunit>
