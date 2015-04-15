@@ -152,7 +152,7 @@ class UserTest extends TestBase
 
         $userService->expects($this->any())
             ->method('isSamePasswordOption')
-            ->will($this->returnValue(true));
+            ->will($this->returnValue(false));
 
         $this->serviceManager->setService('small_user_service', $userService);
 
@@ -184,7 +184,7 @@ class UserTest extends TestBase
 
         $userService->expects($this->any())
             ->method('isSamePasswordOption')
-            ->will($this->returnValue(false));
+            ->will($this->returnValue(true));
 
         $userService->expects($this->any())
             ->method('getGameBackendService')

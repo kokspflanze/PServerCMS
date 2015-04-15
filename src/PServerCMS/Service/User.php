@@ -105,7 +105,7 @@ class User extends \SmallUser\Service\User
     {
         $user = null;
         // config is different pw-system
-        if (!$this->isSamePasswordOption()) {
+        if ($this->isSamePasswordOption()) {
             $user = $this->registerGameForm($userCode);
         }
 
@@ -162,7 +162,7 @@ class User extends \SmallUser\Service\User
         $user = $this->getUser4Id( $user->getId() );
 
         // check if we use different pw system
-        if (!$this->isSamePasswordOption()) {
+        if ($this->isSamePasswordOption()) {
             return false;
         }
 
@@ -188,7 +188,7 @@ class User extends \SmallUser\Service\User
         }
 
         // check if we have to change it at web too
-        if (!$this->isSamePasswordOption()) {
+        if ($this->isSamePasswordOption()) {
             $user = $this->setNewPasswordAtUser( $user, $data['password'] );
         }
 
@@ -248,7 +248,7 @@ class User extends \SmallUser\Service\User
 
         $this->getUserCodesService()->deleteCode( $userCode );
 
-        if (!$this->isSamePasswordOption()) {
+        if ($this->isSamePasswordOption()) {
             $gameBackend = $this->getGameBackendService();
             $gameBackend->setUser( $userEntity, $sPlainPassword );
         }
@@ -554,7 +554,7 @@ class User extends \SmallUser\Service\User
      */
     public function isSamePasswordOption()
     {
-        return (bool)$this->getConfigService()->get( 'pserver.password.different-passwords' );
+        return !(bool)$this->getConfigService()->get( 'pserver.password.different-passwords' );
     }
 
     /**
@@ -632,13 +632,14 @@ class User extends \SmallUser\Service\User
      */
     protected function bCrypt( $password )
     {
-        if (!$this->isSamePasswordOption()) {
-            return $this->getGameBackendService()->hashPassword( $password );
+        if ($this->isSamePasswordOption()) {
+            $result = $this->getGameBackendService()->hashPassword( $password );
+        } else {
+            $bCrypt = new Bcrypt();
+            $result = $bCrypt->create( $password );
         }
 
-        $bCrypt = new Bcrypt();
-
-        return $bCrypt->create( $password );
+        return $result;
     }
 
     /**

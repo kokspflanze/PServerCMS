@@ -301,7 +301,7 @@ class User implements UserInterface
     {
         /** @var \PServerCMS\Service\User $userService */
         $userService = ServiceManager::getInstance()->get( 'small_user_service' );
-        if (!$userService->isSamePasswordOption()) {
+        if ($userService->isSamePasswordOption()) {
             return $userService->getGameBackendService()->isPasswordSame( $entity->getPassword(), $plaintext );
         }
 

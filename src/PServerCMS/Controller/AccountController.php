@@ -26,7 +26,7 @@ class AccountController extends AbstractActionController
         }
 
         $formChangeWebPwd = null;
-        if ($this->getUserService()->isSamePasswordOption()) {
+        if (!$this->getUserService()->isSamePasswordOption()) {
             $webPasswordForm  = clone $form;
             $formChangeWebPwd = $webPasswordForm->setWhich( 'web' );
         }
