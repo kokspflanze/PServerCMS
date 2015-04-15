@@ -4,6 +4,7 @@
 namespace PServerCMSTest\Util;
 
 use PHPUnit_Framework_TestCase as TestCase;
+use PServerCMS\Service\ServiceManager;
 
 class TestBase extends TestCase
 {
@@ -16,6 +17,7 @@ class TestBase extends TestCase
     {
         parent::setUp();
         $this->serviceManager = ServiceManagerFactory::getServiceManager();
+        ServiceManager::setInstance($this->serviceManager);
     }
 
     /**

@@ -4,10 +4,12 @@
 namespace PServerCMSTest\Entity;
 
 use PServerCMS\Entity\User;
+use PServerCMS\Entity\UserExtension;
 use PServerCMS\Entity\UserRole;
+use PServerCMSTest\Util\TestBase;
 use Zend\Crypt\Password\Bcrypt;
 
-class UserTest extends \PHPUnit_Framework_TestCase
+class UserTest extends TestBase
 {
     public function testConstruct()
     {
@@ -127,9 +129,32 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Zend\Permissions\Acl\Role\RoleInterface', $result[0]);
     }
 
-    public function testHashPassword()
+    public function testUserExtension()
     {
-        $this->markTestIncomplete('missing mock servicemanager');
+        $entity = new User();
+        $entityExtension = new UserExtension();
+
+        $entity->addUserExtension($entityExtension);
+        $entity->addUserExtension($entityExtension);
+
+        $this->assertEquals(2, count($entity->getUserExtension()));
+
+        $entity->removeUserExtension($entityExtension);
+
+        $this->assertEquals(1, count($entity->getUserExtension()));
+    }
+
+    public function testHashPasswordTrue()
+    {
+        $userService = $this->getMockBuilder('PServerCMS\Service\User')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $userService->expects($this->any())
+            ->method('isSamePasswordOption')
+            ->will($this->returnValue(true));
+
+        $this->serviceManager->setService('small_user_service', $userService);
 
         $entity = new User();
         $password = 'foobar';
@@ -139,6 +164,43 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $result = User::hashPassword($entity, $password);
 
         $this->assertTrue($result);
+    }
+
+    public function testHashPasswordFalse()
+    {
+        // We need a mocking of GameBackend =)
+        $gameService = $this->getMockBuilder('GameBackend\DataService\DataServiceInterface')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $gameService->expects($this->any())
+            ->method('isPasswordSame')
+            ->will($this->returnValue(false));
+
+        // Mock UserService
+        $userService = $this->getMockBuilder('PServerCMS\Service\User')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $userService->expects($this->any())
+            ->method('isSamePasswordOption')
+            ->will($this->returnValue(false));
+
+        $userService->expects($this->any())
+            ->method('getGameBackendService')
+            ->will($this->returnValue($gameService));
+
+
+        $this->serviceManager->setService('small_user_service', $userService);
+
+        $entity = new User();
+        $password = 'foobar';
+        $bCrypt = new Bcrypt();
+
+        $entity->setPassword($bCrypt->create( $password ));
+        $result = User::hashPassword($entity, $password);
+
+        $this->assertFalse($result);
     }
 
 

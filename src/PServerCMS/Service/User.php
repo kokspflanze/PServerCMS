@@ -5,6 +5,7 @@ namespace PServerCMS\Service;
 
 use PServerCMS\Entity\UserCodes;
 use PServerCMS\Entity\UserInterface;
+use SmallUser\Entity\UserInterface as SmallUserInterface;
 use PServerCMS\Entity\User as Entity;
 use PServerCMS\Entity\Repository\AvailableCountries as RepositoryAvailableCountries;
 use PServerCMS\Entity\Repository\CountryList;
@@ -324,10 +325,10 @@ class User extends \SmallUser\Service\User
     }
 
     /**
-     * @param UserInterface $user
+     * @param SmallUserInterface $user
      * @return bool
      */
-    protected function isValidLogin( UserInterface $user )
+    protected function isValidLogin( SmallUserInterface $user )
     {
         $result = true;
         if (!$this->isCountryAllowed( $user )) {
@@ -400,9 +401,9 @@ class User extends \SmallUser\Service\User
     }
 
     /**
-     * @param UserInterface $user
+     * @param SmallUserInterface $user
      */
-    protected function doLogin( UserInterface $user )
+    protected function doLogin( SmallUserInterface $user )
     {
         parent::doLogin( $user );
         $entityManager = $this->getEntityManager();
@@ -419,10 +420,10 @@ class User extends \SmallUser\Service\User
     }
 
     /**
-     * @param UserInterface $user
+     * @param SmallUserInterface $user
      * @return bool
      */
-    protected function handleInvalidLogin( UserInterface $user )
+    protected function handleInvalidLogin( SmallUserInterface $user )
     {
         $maxTries = $this->getConfigService()->get( 'pserver.login.exploit.try' );
 

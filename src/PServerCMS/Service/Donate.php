@@ -25,7 +25,10 @@ class Donate extends InvokableBase
         $range = DateTimer::getDateRange4Period($dateTime, new \DateTime());
         foreach($range as $date){
             foreach($typList as $type){
-                $result[$date->format('Y-m-d')][$type] = ['amount' => 0, 'coins' => 0];
+                $result[$date->format('Y-m-d')][$type] = [
+                    'amount' => 0,
+                    'coins' => 0
+                ];
             }
         }
 
