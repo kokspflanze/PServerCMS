@@ -63,7 +63,7 @@ class UserBlock extends InvokableBase
 
     /**
      * @param UserInterface|int $user
-     * @TODO unblock @GameServer
+     * @return boolean
      */
     public function removeBlock( $user )
     {
@@ -78,6 +78,8 @@ class UserBlock extends InvokableBase
         /** @var \PServerCMS\Entity\Repository\USerBlock $repository */
         $repository = $this->getEntityManager()->getRepository($this->getEntityOptions()->getUserBlock());
         $repository->removeBlock($user);
+
+        $this->getGameBackendService()->removeBlockUser($user);
 
         return true;
     }
@@ -103,9 +105,8 @@ class UserBlock extends InvokableBase
     }
 
     /**
-     * @param UserBlockEntity $userblock
+     * @param UserBlockEntity $userBlock
      * @return bool
-     * @TODO Block @ GameBackend
      */
     protected function blockUserWithEntity( UserBlockEntity $userBlock )
     {
@@ -118,6 +119,8 @@ class UserBlock extends InvokableBase
             $entityManager->persist($userBlock);
             $entityManager->flush();
             $result = true;
+
+            $this->getGameBackendService()->blockUser($userBlock->getUser(), $userBlock->getExpire(), $userBlock->getReason());
         }
 
         return $result;
