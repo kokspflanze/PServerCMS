@@ -2,6 +2,7 @@
 
 namespace PServerCMS\Service;
 
+use PServerCMS\Entity\UserInterface;
 use PServerCMS\Helper\DateTimer;
 
 class Donate extends InvokableBase
@@ -69,6 +70,17 @@ class Donate extends InvokableBase
         /** @var \PServerCMS\Entity\Repository\DonateLog $repository */
         $repository = $this->getEntityManager()->getRepository($this->getEntityOptions()->getDonateLog());
         return $repository->getDonateQueryBuilder();
+    }
+
+    /**
+     * @param UserInterface $user
+     * @return \PServerCMS\Entity\DonateLog[]
+     */
+    public function getDonateHistory4User( UserInterface $user )
+    {
+        /** @var \PServerCMS\Entity\Repository\DonateLog $repository */
+        $repository = $this->getEntityManager()->getRepository($this->getEntityOptions()->getDonateLog());
+        return $repository->getDonateHistory4User($user);
     }
 
     /**

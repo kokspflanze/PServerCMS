@@ -4,6 +4,7 @@ namespace PServerCMS\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use PServerCMS\Entity\DonateLog as Entity;
+use PServerCMS\Entity\UserInterface;
 
 class DonateLog extends EntityRepository
 {
@@ -92,5 +93,23 @@ class DonateLog extends EntityRepository
             ->select('p', 'user')
             ->leftJoin('p.user', 'user')
             ->orderBy('p.created', 'desc');
+    }
+
+    /**
+     * @param UserInterface $user
+     * @param int           $limit
+     * @return \PServerCMS\Entity\DonateLog[]
+     */
+    public function getDonateHistory4User( UserInterface $user, $limit = 10 )
+    {
+        $query = $this->createQueryBuilder('p')
+            ->select('p')
+            ->where('p.user = :user')
+            ->setParameter('user', $user)
+            ->orderBy('p.created', 'desc')
+            ->setMaxResults($limit)
+            ->getQuery();
+
+        return $query->getResult();
     }
 } 
