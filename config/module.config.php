@@ -105,6 +105,19 @@ return [
                     ],
                 ],
             ],
+            'panel_character' => [
+                'type' => 'segment',
+                'options' => [
+                    'route'    => '/panel/character[/:action].html',
+                    'constraints' => [
+                        'action'    => '[a-zA-Z-]+',
+                    ],
+                    'defaults' => [
+                        'controller'	=> 'PServerCMS\Controller\CharacterPanel',
+                        'action'		=> 'index',
+                    ],
+                ],
+            ],
         ],
     ],
     'service_manager' => [
@@ -166,6 +179,7 @@ return [
             'PServerCMS\Controller\Account' => 'PServerCMS\Controller\AccountController',
             'PServerCMS\Controller\Ranking' => 'PServerCMS\Controller\RankingController',
             'PServerCMS\Controller\Character' => 'PServerCMS\Controller\CharacterController',
+            'PServerCMS\Controller\CharacterPanel' => 'PServerCMS\Controller\CharacterPanelController',
             'PServerCMS\Controller\Guild' => 'PServerCMS\Controller\GuildController',
             'PServerCMS\Controller\Donate' => 'PServerCMS\Controller\DonateController',
         ],
