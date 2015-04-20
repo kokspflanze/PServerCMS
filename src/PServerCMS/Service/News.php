@@ -34,6 +34,16 @@ class News extends InvokableBase {
 		return $repository->getNews();
 	}
 
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function getNewsQueryQuilder()
+    {
+        /** @var \PServerCMS\Entity\Repository\News $repository */
+        $repository = $this->getEntityManager()->getRepository($this->getEntityOptions()->getNews());
+        return $repository->getQueryBuilder();
+    }
+
 	/**
 	 * @param $newsId
 	 *

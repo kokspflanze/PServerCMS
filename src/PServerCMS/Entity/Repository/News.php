@@ -32,18 +32,26 @@ class News extends EntityRepository
 		return $query->getResult();
 	}
 
-	/**
-	 * @return null|\PServerCMS\Entity\News[]
-	 */
-	public function getNews()
+    /**
+     * @return null|\PServerCMS\Entity\News[]
+     */
+    public function getNews()
     {
-		$query = $this->createQueryBuilder('p')
-			->select('p')
-			->orderBy('p.created','desc')
-			->getQuery();
+        return $this->getQueryBuilder()
+            ->getQuery()
+            ->getResult();
+    }
 
-		return $query->getResult();
-	}
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function getQueryBuilder()
+    {
+        return $this->createQueryBuilder('p')
+            ->select('p', 'user')
+            ->join('p.user', 'user')
+            ->orderBy('p.created','desc');
+    }
 
 	/**
 	 * @param $newsId
