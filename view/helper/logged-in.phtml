@@ -34,9 +34,9 @@
 				</a>
 			</li>
         <?php endif; ?>
-		<?php if($this->isAllowed('admin_home')): ?>
+		<?php if($this->isAllowed('PServerAdmin/home')): ?>
 		<li>
-			<a href="<?= $this->url('admin_home') ?>" class="btn btn-info btn-block">
+			<a href="<?= $this->url('PServerAdmin/home') ?>" class="btn btn-info btn-block">
 				<i class="fa fa-graduation-cap"></i>
 				<?= $this->translate('Adminpanel') ?>
 			</a>
