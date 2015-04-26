@@ -3,8 +3,8 @@
 return [
     'router' => [
         'routes' => [
-            'home' => [
-                'type' => 'Zend\Mvc\Router\Http\Literal',
+            'PServerCMS'  => [
+                'type'    => 'Zend\Mvc\Router\Http\Literal',
                 'options' => [
                     'route'    => '/',
                     'defaults' => [
@@ -12,109 +12,122 @@ return [
                         'action'     => 'index',
                     ],
                 ],
-            ],
-			'site-detail' => [
-				'type' => 'segment',
-				'options' => [
-					'route'    => '/detail-[:type].html',
-					'constraints' => [
-						'type'     => '[a-zA-Z]+',
-					],
-					'defaults' => [
-						'controller'	=> 'PServerCMS\Controller\Site',
-						'action'		=> 'page'
-					],
-				],
-			],
-			'site-download' => [
-				'type' => 'segment',
-				'options' => [
-					'route'    => '/download.html',
-					'defaults' => [
-						'controller'	=> 'PServerCMS\Controller\Site',
-						'action'		=> 'download'
-					],
-				],
-			],
-            'user' => [
-                'type' => 'segment',
-                'options' => [
-                    'route'    => '/panel/account[/:action].html',
-                    'constraints' => [
-                        'action'     => '[a-zA-Z-]+',
+                'may_terminate' => true,
+                'child_routes'  => [
+                    'home' => [
+                        'type' => 'segment',
+                        'options' => [
+                            'route'    => '',
+                            'defaults' => [
+                                'controller'	=> 'PServerCMS\Controller\Index',
+                                'action'		=> 'index'
+                            ],
+                        ],
                     ],
-                    'defaults' => [
-                        'controller'	=> 'PServerCMS\Controller\Account',
-                        'action'		=> 'index',
+                    'site-detail' => [
+                        'type' => 'segment',
+                        'options' => [
+                            'route'    => 'detail-[:type].html',
+                            'constraints' => [
+                                'type'     => '[a-zA-Z]+',
+                            ],
+                            'defaults' => [
+                                'controller'	=> 'PServerCMS\Controller\Site',
+                                'action'		=> 'page'
+                            ],
+                        ],
                     ],
-                ],
-            ],
-            'ranking' => [
-                'type' => 'segment',
-                'options' => [
-                    'route'    => '/ranking[/:action[-:page]].html',
-                    'constraints' => [
-                        'action'     => '[a-zA-Z-]+',
-                        'page'       => '[0-9]+'
+                    'site-download' => [
+                        'type' => 'segment',
+                        'options' => [
+                            'route'    => 'download.html',
+                            'defaults' => [
+                                'controller'	=> 'PServerCMS\Controller\Site',
+                                'action'		=> 'download'
+                            ],
+                        ],
                     ],
-                    'defaults' => [
-                        'controller'	=> 'PServerCMS\Controller\Ranking',
-                        'action'		=> 'top-player',
-                        'page'		    => '1',
+                    'user' => [
+                        'type' => 'segment',
+                        'options' => [
+                            'route'    => 'panel/account[/:action].html',
+                            'constraints' => [
+                                'action'     => '[a-zA-Z-]+',
+                            ],
+                            'defaults' => [
+                                'controller'	=> 'PServerCMS\Controller\Account',
+                                'action'		=> 'index',
+                            ],
+                        ],
                     ],
-                ],
-            ],
-            'character' => [
-                'type' => 'segment',
-                'options' => [
-                    'route'    => '/character[/:action][-:id].html',
-                    'constraints' => [
-                        'action'    => '[a-zA-Z-]+',
-                        'id'        => '[0-9]+'
+                    'ranking' => [
+                        'type' => 'segment',
+                        'options' => [
+                            'route'    => 'ranking[/:action[-:page]].html',
+                            'constraints' => [
+                                'action'     => '[a-zA-Z-]+',
+                                'page'       => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller'	=> 'PServerCMS\Controller\Ranking',
+                                'action'		=> 'top-player',
+                                'page'		    => '1',
+                            ],
+                        ],
                     ],
-                    'defaults' => [
-                        'controller'	=> 'PServerCMS\Controller\Character',
-                        'action'		=> 'index',
+                    'character' => [
+                        'type' => 'segment',
+                        'options' => [
+                            'route'    => 'character[/:action][-:id].html',
+                            'constraints' => [
+                                'action'    => '[a-zA-Z-]+',
+                                'id'        => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller'	=> 'PServerCMS\Controller\Character',
+                                'action'		=> 'index',
+                            ],
+                        ],
                     ],
-                ],
-            ],
-            'guild' => [
-                'type' => 'segment',
-                'options' => [
-                    'route'    => '/guild[/:action][-:id][/page/:page].html',
-                    'constraints' => [
-                        'action'    => '[a-zA-Z-]+',
-                        'id'        => '[0-9]+'
+                    'guild' => [
+                        'type' => 'segment',
+                        'options' => [
+                            'route'    => 'guild[/:action][-:id][/page/:page].html',
+                            'constraints' => [
+                                'action'    => '[a-zA-Z-]+',
+                                'id'        => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller'	=> 'PServerCMS\Controller\Guild',
+                                'action'		=> 'detail',
+                            ],
+                        ],
                     ],
-                    'defaults' => [
-                        'controller'	=> 'PServerCMS\Controller\Guild',
-                        'action'		=> 'detail',
+                    'panel_donate' => [
+                        'type' => 'segment',
+                        'options' => [
+                            'route'    => 'panel/donate[/:action].html',
+                            'constraints' => [
+                                'action'    => '[a-zA-Z-]+',
+                            ],
+                            'defaults' => [
+                                'controller'	=> 'PServerCMS\Controller\Donate',
+                                'action'		=> 'index',
+                            ],
+                        ],
                     ],
-                ],
-            ],
-            'panel_donate' => [
-                'type' => 'segment',
-                'options' => [
-                    'route'    => '/panel/donate[/:action].html',
-                    'constraints' => [
-                        'action'    => '[a-zA-Z-]+',
-                    ],
-                    'defaults' => [
-                        'controller'	=> 'PServerCMS\Controller\Donate',
-                        'action'		=> 'index',
-                    ],
-                ],
-            ],
-            'panel_character' => [
-                'type' => 'segment',
-                'options' => [
-                    'route'    => '/panel/character[/:action].html',
-                    'constraints' => [
-                        'action'    => '[a-zA-Z-]+',
-                    ],
-                    'defaults' => [
-                        'controller'	=> 'PServerCMS\Controller\CharacterPanel',
-                        'action'		=> 'index',
+                    'panel_character' => [
+                        'type' => 'segment',
+                        'options' => [
+                            'route'    => 'panel/character[/:action].html',
+                            'constraints' => [
+                                'action'    => '[a-zA-Z-]+',
+                            ],
+                            'defaults' => [
+                                'controller'	=> 'PServerCMS\Controller\CharacterPanel',
+                                'action'		=> 'index',
+                            ],
+                        ],
                     ],
                 ],
             ],
@@ -126,7 +139,7 @@ return [
             'Zend\Log\LoggerAbstractServiceFactory',
         ],
 		'factories' => [
-			'pserver_caching_service' => function($sm){
+			'pserver_caching_service' => function(){
 				$cache = \Zend\Cache\StorageFactory::factory([
 					'adapter' => 'filesystem',
 					'options' => [
@@ -358,7 +371,10 @@ return [
 	'small-user' => [
 		'user_entity' => [
 			'class' => 'PServerCMS\Entity\User'
-		]
+		],
+        'login' => [
+            'route' => 'PServerCMS/home'
+        ]
 	],
 	'payment-api' => [
 		'ban-time' => '946681200',

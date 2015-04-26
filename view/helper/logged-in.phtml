@@ -2,17 +2,17 @@
 	<h3><?= $this->escapeHtml($this->user->getUsername()) ?></h3>
 	<hr/>
 	<ul class="list-unstyled">
-		<?php if($this->isAllowed('panel_character')): ?>
+		<?php if($this->isAllowed('PServerCMS/panel_character')): ?>
 			<li>
-				<a href="<?= $this->url('panel_character') ?>" class="btn btn-info btn-block">
+				<a href="<?= $this->url('PServerCMS/panel_character') ?>" class="btn btn-info btn-block">
 					<i class="fa fa-diamond"></i>
 					<?= $this->translate('CharacterPanel') ?>
 				</a>
 			</li>
 		<?php endif; ?>
-		<?php if($this->isAllowed('user')): ?>
+		<?php if($this->isAllowed('PServerCMS/user')): ?>
 			<li>
-				<a href="<?= $this->url('user') ?>" class="btn btn-info btn-block">
+				<a href="<?= $this->url('PServerCMS/user') ?>" class="btn btn-info btn-block">
 					<i class="glyphicon glyphicon-user"></i>
 					<?= $this->translate('AccountPanel') ?>
 				</a>
@@ -26,9 +26,9 @@
 				</a>
 			</li>
 		<?php endif; ?>
-        <?php if($this->isAllowed('panel_donate')): ?>
+        <?php if($this->isAllowed('PServerCMS/panel_donate')): ?>
             <li>
-				<a href="<?= $this->url('panel_donate') ?>" class="btn btn-info btn-block">
+				<a href="<?= $this->url('PServerCMS/panel_donate') ?>" class="btn btn-info btn-block">
 					<i class="fa fa-usd"></i>
 					<?= $this->translate('Donate') ?>
 				</a>

@@ -12,7 +12,7 @@ class GuildController extends AbstractActionController
         $id = (int) $this->params()->fromRoute('id');
         $guild = $this->getGuildService()->getGuild4Id($id);
         if(!$guild){
-            return $this->redirect()->toRoute('home');
+            return $this->redirect()->toRoute('PServerCMS/home');
         }
 
         return [
@@ -26,7 +26,7 @@ class GuildController extends AbstractActionController
         $id = (int) $this->params()->fromRoute('id');
         $guild = $this->getGuildService()->getGuild4Id($id);
         if(!$guild){
-            return $this->redirect()->toRoute('home');
+            return $this->redirect()->toRoute('PServerCMS/home');
         }
         $page = (int) $this->params()->fromRoute('page');
 

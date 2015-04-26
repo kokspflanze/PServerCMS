@@ -57,7 +57,7 @@ class AccountController extends AbstractActionController
             }
             $this->flashMessenger()->setNamespace( $successKey )->addMessage( 'Success, password changed.' );
         }
-        return $this->redirect()->toUrl( $this->url()->fromRoute( 'user' ) );
+        return $this->redirect()->toUrl( $this->url()->fromRoute( 'PServerCMS/user' ) );
     }
 
     /**

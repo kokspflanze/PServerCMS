@@ -19,7 +19,7 @@
 			{% for key, guild in ranking %}
 				<tr>
 					<td>{{ i }}</td>
-					<td><a href="{{ url('guild', {'id':guild.getId()}) }}">{{ guild.getName() }}</a></td>
+					<td><a href="{{ url('PServerCMS/guild', {'id':guild.getId()}) }}">{{ guild.getName() }}</a></td>
 					<td>{{ guild.getLevel() }}</td>
 				</tr>
 				{% set i = i + 1 %}
@@ -27,6 +27,6 @@
 		</table>
 	</div>
 
-	{{ paginationControl(ranking, 'Sliding', 'p-server-cms/paginator', {'route' : 'ranking', 'params': {'action' : 'top-guild'}}) }}
+	{{ paginationControl(ranking, 'Sliding', 'p-server-cms/paginator', {'route' : 'PServerCMS/ranking', 'params': {'action' : 'top-guild'}}) }}
 
 {% endblock content %}

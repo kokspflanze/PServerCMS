@@ -12,8 +12,9 @@ class CharacterController extends AbstractActionController
     {
         $id = (int) $this->params()->fromRoute('id');
         $character = $this->getCharacterService()->getCharacter4Id($id);
+
         if(!$character){
-            return $this->redirect()->toRoute('home');
+            return $this->redirect()->toRoute('PServerCMS/home');
         }
 
         return [

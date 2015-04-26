@@ -20,11 +20,11 @@
 			{% for key, player in ranking %}
 				<tr>
 					<td>{{ i }}</td>
-					<td><a href="{{ url('character', {'id':player.getId()}) }}">{{ player.getName() }}</a></td>
+					<td><a href="{{ url('PServerCMS/character', {'id':player.getId()}) }}">{{ player.getName() }}</a></td>
 					<td>
 						{{
 							player.getGuild().getId()>0 ?
-								('<a href="'~url('guild', {'id': player.getGuild().getId()})~'">'~player.getGuild().getName()~'</a>')|raw
+								('<a href="'~url('PServerCMS/guild', {'id': player.getGuild().getId()})~'">'~player.getGuild().getName()~'</a>')|raw
 							:
 								''
 						}}
@@ -36,6 +36,6 @@
 		</table>
 	</div>
 
-	{{ paginationControl(ranking, 'Sliding', 'p-server-cms/paginator', {'route' : 'ranking'}) }}
+	{{ paginationControl(ranking, 'Sliding', 'p-server-cms/paginator', {'route' : 'PServerCMS/ranking'}) }}
 
 {% endblock content %}

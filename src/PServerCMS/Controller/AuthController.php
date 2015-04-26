@@ -18,7 +18,7 @@ class AuthController extends \SmallUser\Controller\AuthController
 
         //if already login, redirect to success page
         if ($this->getUserService()->getAuthService()->hasIdentity()) {
-            return $this->redirect()->toRoute( self::RouteLoggedIn );
+            return $this->redirect()->toRoute( $this->getLoggedInRoute() );
         }
 
         $form = $this->getUserService()->getRegisterForm();
@@ -66,7 +66,7 @@ class AuthController extends \SmallUser\Controller\AuthController
             }
             if ($user) {
                 //$this->getUserService()->doAuthentication($user);
-                return $this->redirect()->toRoute( 'home' );
+                return $this->redirect()->toRoute( $this->getLoggedInRoute() );
             }
         }
 

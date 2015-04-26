@@ -25,12 +25,12 @@
 <div class="top">
 	<div class="container">
 		<ul class="loginbar pull-right">
-			{% if isAllowed('auth','index') %}
+			{% if isAllowed('small-user-auth','index') %}
 				<li><a href="{{ url('small-user-auth',{'action':'register'}) }}">{{ translate('Register') }}</a></li>
 				<li><span class="strich">|</span></li>
 				<li><a href="{{ url('small-user-auth') }}">{{ translate('Login') }}</a></li>
 			{% endif %}
-			{% if isAllowed('auth','logout') %}
+			{% if isAllowed('small-user-auth','logout') %}
 				<li><a href="{{ url('small-user-auth',{'action':'logout'}) }}">{{ translate('Logout') }}</a></li>
 			{% endif %}
 		</ul>
@@ -48,37 +48,37 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="{{ url('home') }}"></a>
+				<a class="navbar-brand" href="{{ url('PServerCMS/home') }}"></a>
 			</div>
 			<div class="collapse navbar-collapse" id="navbar">
 				<ul class="nav navbar-nav navbar-right">
-					<li class="navigation {{ active('home')?'active':'' }}"><a href="{{ url('home') }}">{{ translate('Home') }}</a></li>
-					<li class="navigation {{ active('site-download')?'active':'' }}"><a href="{{ url('site-download') }}">Download</a></li>
-					<li class="navigation dropdown {{ active('ranking')?'active':'' }}">
+					<li class="navigation {{ active('PServerCMS/home')?'active':'' }}"><a href="{{ url('PServerCMS/home') }}">{{ translate('Home') }}</a></li>
+					<li class="navigation {{ active('PServerCMS/site-download')?'active':'' }}"><a href="{{ url('PServerCMS/site-download') }}">Download</a></li>
+					<li class="navigation dropdown {{ active('PServerCMS/ranking')?'active':'' }}">
 						<a data-toggle="dropdown" href="#">Ranking <span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-							<li {{ active('ranking', {'action' : 'top-player'})?'class="active"':'' }}>
-								<a href="{{ url('ranking',{'action':'top-player'})	}}">TopPlayer</a>
+							<li {{ active('PServerCMS/ranking', {'action' : 'top-player'})?'class="active"':'' }}>
+								<a href="{{ url('PServerCMS/ranking',{'action':'top-player'})	}}">TopPlayer</a>
 							</li>
-							<li {{ active('ranking', {'action' : 'top-guild'})?'class="active"':'' }}>
-								<a href="{{ url('ranking',{'action':'top-guild'})	}}">TopGuild</a>
+							<li {{ active('PServerCMS/ranking', {'action' : 'top-guild'})?'class="active"':'' }}>
+								<a href="{{ url('PServerCMS/ranking',{'action':'top-guild'})	}}">TopGuild</a>
 							</li>
 						</ul>
 					</li>
-					<li class="navigation dropdown {{ active('site-detail')?'active':'' }}">
+					<li class="navigation dropdown {{ active('PServerCMS/site-detail')?'active':'' }}">
 						<a data-toggle="dropdown" href="#">ServerInfo <span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-							<li {{ active('site-detail', {'type' : 'faq'})?'class="active"':'' }}>
-								<a href="{{ url('site-detail', {'type':'faq'}) }}">FAQ</a>
+							<li {{ active('PServerCMS/site-detail', {'type' : 'faq'})?'class="active"':'' }}>
+								<a href="{{ url('PServerCMS/site-detail', {'type':'faq'}) }}">FAQ</a>
 							</li>
-							<li {{ active('site-detail', {'type' : 'rules'})?'class="active"':'' }}>
-								<a href="{{ url('site-detail', {'type':'rules'}) }}">Rules</a>
+							<li {{ active('PServerCMS/site-detail', {'type' : 'rules'})?'class="active"':'' }}>
+								<a href="{{ url('PServerCMS/site-detail', {'type':'rules'}) }}">Rules</a>
 							</li>
-							<li {{ active('site-detail', {'type' : 'guides'})?'class="active"':'' }}>
-								<a href="{{ url('site-detail', {'type':'guides'}) }}">Guides</a>
+							<li {{ active('PServerCMS/site-detail', {'type' : 'guides'})?'class="active"':'' }}>
+								<a href="{{ url('PServerCMS/site-detail', {'type':'guides'}) }}">Guides</a>
 							</li>
-							<li {{ active('site-detail', {'type' : 'events'})?'class="active"':'' }}>
-								<a href="{{ url('site-detail', {'type':'events'}) }}">Events</a>
+							<li {{ active('PServerCMS/site-detail', {'type' : 'events'})?'class="active"':'' }}>
+								<a href="{{ url('PServerCMS/site-detail', {'type':'events'}) }}">Events</a>
 							</li>
 						</ul>
 					</li>
@@ -115,7 +115,7 @@
 </div>
 <div class="footer">
     <div class="container">
-        <a class="col-sm-3 margin-top-20" href="{{ url('home') }}"><img src="{{ basePath() }}/images/zf2-logo-mark.png" alt="..."></a>
+        <a class="col-sm-3 margin-top-20" href="{{ url('PServerCMS') }}"><img src="{{ basePath() }}/images/zf2-logo-mark.png" alt="..."></a>
         <div class="col-sm-3">
             <h3 class="footerheadlines">Test</h3>
             <ul class="list-unstyled">

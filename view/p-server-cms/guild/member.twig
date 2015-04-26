@@ -11,7 +11,7 @@
 		{% for key, player in member %}
 			<tr>
 				<td>{{ i }}</td>
-				<td><a href="{{ url('character', {'id':player.getCharacter().getId()}) }}">{{ player.getCharacter().getName() }}</a></td>
+				<td><a href="{{ url('PServerCMS/character', {'id':player.getCharacter().getId()}) }}">{{ player.getCharacter().getName() }}</a></td>
 				<td>{{ player.getLevel() }}</td>
 			</tr>
 			{% set i = i + 1 %}

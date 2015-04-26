@@ -15,7 +15,7 @@
 			{% if character.getGuild().getId() > 0 %}
 				<tr>
 					<th>{{ translate('Guild') }}</th>
-					<th><a href="{{ url('guild', {'id':character.getGuild().getId()}) }}">{{ character.getGuild().getName() }}</a></th>
+					<th><a href="{{ url('PServerCMS/guild', {'id':character.getGuild().getId()}) }}">{{ character.getGuild().getName() }}</a></th>
 				</tr>
 			{% endif %}
 			<tr>
