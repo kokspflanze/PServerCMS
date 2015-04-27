@@ -31,6 +31,7 @@
     "kokspflanze/p-server-admin": "dev-master",
     "kokspflanze/p-server-cli": "dev-master",
     "kokspflanze/payment-api": "dev-master",
+    "kokspflanze/p-server-ranking": "dev-master",
     "kokspflanze/zfc-bbcode": "~1.0",
     "beberlei/DoctrineExtensions": "dev-master",
     "thadafinser/zfc-datagrid": "dev-master",

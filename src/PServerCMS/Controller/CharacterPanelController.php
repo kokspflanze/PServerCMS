@@ -18,11 +18,11 @@ class CharacterPanelController extends AbstractActionController
     }
 
     /**
-     * @return \PServerCMS\Service\Character
+     * @return \PServerRanking\Service\Character
      */
     protected function getCharacterService()
     {
-        return $this->getServiceLocator()->get('pserver_character_service');
+        return $this->getServiceLocator()->get('pserverranking_character_service');
     }
 
     /**

@@ -8,22 +8,12 @@ return [
                 'options' => [
                     'route'    => '/',
                     'defaults' => [
-                        'controller' => 'PServerCMS\Controller\Index',
-                        'action'     => 'index',
+                        'controller'	=> 'PServerCMS\Controller\Index',
+                        'action'		=> 'index'
                     ],
                 ],
                 'may_terminate' => true,
                 'child_routes'  => [
-                    'home' => [
-                        'type' => 'segment',
-                        'options' => [
-                            'route'    => '',
-                            'defaults' => [
-                                'controller'	=> 'PServerCMS\Controller\Index',
-                                'action'		=> 'index'
-                            ],
-                        ],
-                    ],
                     'site-detail' => [
                         'type' => 'segment',
                         'options' => [
@@ -57,49 +47,6 @@ return [
                             'defaults' => [
                                 'controller'	=> 'PServerCMS\Controller\Account',
                                 'action'		=> 'index',
-                            ],
-                        ],
-                    ],
-                    'ranking' => [
-                        'type' => 'segment',
-                        'options' => [
-                            'route'    => 'ranking[/:action[-:page]].html',
-                            'constraints' => [
-                                'action'     => '[a-zA-Z-]+',
-                                'page'       => '[0-9]+'
-                            ],
-                            'defaults' => [
-                                'controller'	=> 'PServerCMS\Controller\Ranking',
-                                'action'		=> 'top-player',
-                                'page'		    => '1',
-                            ],
-                        ],
-                    ],
-                    'character' => [
-                        'type' => 'segment',
-                        'options' => [
-                            'route'    => 'character[/:action][-:id].html',
-                            'constraints' => [
-                                'action'    => '[a-zA-Z-]+',
-                                'id'        => '[0-9]+'
-                            ],
-                            'defaults' => [
-                                'controller'	=> 'PServerCMS\Controller\Character',
-                                'action'		=> 'index',
-                            ],
-                        ],
-                    ],
-                    'guild' => [
-                        'type' => 'segment',
-                        'options' => [
-                            'route'    => 'guild[/:action][-:id][/page/:page].html',
-                            'constraints' => [
-                                'action'    => '[a-zA-Z-]+',
-                                'id'        => '[0-9]+'
-                            ],
-                            'defaults' => [
-                                'controller'	=> 'PServerCMS\Controller\Guild',
-                                'action'		=> 'detail',
                             ],
                         ],
                     ],
@@ -190,10 +137,7 @@ return [
 			'PServerCMS\Controller\Auth' => 'PServerCMS\Controller\AuthController',
 			'PServerCMS\Controller\Site' => 'PServerCMS\Controller\SiteController',
             'PServerCMS\Controller\Account' => 'PServerCMS\Controller\AccountController',
-            'PServerCMS\Controller\Ranking' => 'PServerCMS\Controller\RankingController',
-            'PServerCMS\Controller\Character' => 'PServerCMS\Controller\CharacterController',
             'PServerCMS\Controller\CharacterPanel' => 'PServerCMS\Controller\CharacterPanelController',
-            'PServerCMS\Controller\Guild' => 'PServerCMS\Controller\GuildController',
             'PServerCMS\Controller\Donate' => 'PServerCMS\Controller\DonateController',
         ],
     ],
@@ -373,7 +317,7 @@ return [
 			'class' => 'PServerCMS\Entity\User'
 		],
         'login' => [
-            'route' => 'PServerCMS/home'
+            'route' => 'PServerCMS'
         ]
 	],
 	'payment-api' => [

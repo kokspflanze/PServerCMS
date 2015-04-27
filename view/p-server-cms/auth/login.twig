@@ -8,7 +8,7 @@
 
 	{% if aErrorMessages is not empty %}
 		<div class="alert alert-danger" role="alert">
-			<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+			<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">{{ translate('Close') }}</span></button>
 			{% for sError in aErrorMessages %}
 				{{ sError }}<br />
 			{% endfor %}
@@ -17,6 +17,6 @@
 
 	{{ formWidget(loginForm) }}
 
-	<a href="{{ url('small-user-auth',{'action':'pw-lost'}) }}">PW LOST</a>
+	<a href="{{ url('small-user-auth',{'action':'pw-lost'}) }}">{{ translate('PW LOST') }}</a>
 
 {% endblock content %}
