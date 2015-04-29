@@ -63,19 +63,6 @@ return [
                             ],
                         ],
                     ],
-                    'panel_character' => [
-                        'type' => 'segment',
-                        'options' => [
-                            'route'    => 'panel/character[/:action].html',
-                            'constraints' => [
-                                'action'    => '[a-zA-Z-]+',
-                            ],
-                            'defaults' => [
-                                'controller'	=> 'PServerCMS\Controller\CharacterPanel',
-                                'action'		=> 'index',
-                            ],
-                        ],
-                    ],
                 ],
             ],
         ],
@@ -118,9 +105,6 @@ return [
 			'payment_api_log_service'			=> 'PServerCMS\Service\PaymentNotify',
 			'pserver_user_block_service'		=> 'PServerCMS\Service\UserBlock',
             'pserver_secret_question'			=> 'PServerCMS\Service\SecretQuestion',
-            'pserver_ranking_service'			=> 'PServerCMS\Service\Ranking',
-            'pserver_character_service'			=> 'PServerCMS\Service\Character',
-            'pserver_guild_service'	    		=> 'PServerCMS\Service\Guild',
             'pserver_log_service'	    		=> 'PServerCMS\Service\Logs',
             'pserver_user_panel_service'	    => 'PServerCMS\Service\UserPanel',
             'pserver_user_role_service'	        => 'PServerCMS\Service\UserRole',
@@ -137,7 +121,6 @@ return [
 			'PServerCMS\Controller\Auth' => 'PServerCMS\Controller\AuthController',
 			'PServerCMS\Controller\Site' => 'PServerCMS\Controller\SiteController',
             'PServerCMS\Controller\Account' => 'PServerCMS\Controller\AccountController',
-            'PServerCMS\Controller\CharacterPanel' => 'PServerCMS\Controller\CharacterPanelController',
             'PServerCMS\Controller\Donate' => 'PServerCMS\Controller\DonateController',
         ],
     ],
