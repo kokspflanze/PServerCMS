@@ -2,7 +2,7 @@
 	<h3><?= $this->escapeHtml($this->user->getUsername()) ?></h3>
 	<hr/>
 	<ul class="list-unstyled">
-		<?php if($this->isAllowed('PServerCMS/panel_character')): ?>
+		<?php if($this->isAllowed('PServerPanel/character')): ?>
 			<li>
 				<a href="<?= $this->url('PServerPanel/character') ?>" class="btn btn-info btn-block">
 					<i class="fa fa-diamond"></i>

@@ -148,6 +148,7 @@ return [
 			'small-user/login'				=> __DIR__ . '/../view/p-server-cms/auth/login.twig',
 			'small-user/logout-page'		=> __DIR__ . '/../view/p-server-cms/auth/logout-page.twig',
             'p-server-cms/paginator'        => __DIR__ . '/../view/helper/paginator.phtml',
+            'p-server-cms/navigation'       => __DIR__ . '/../view/helper/navigation.phtml',
         ],
         'template_path_stack' => [
             __DIR__ . '/../view',
@@ -284,7 +285,91 @@ return [
 			'user_codes'          => 'PServerCMS\Entity\UserCodes',
 			'user_extension'      => 'PServerCMS\Entity\UserExtension',
 			'user_role'           => 'PServerCMS\Entity\UserRole',
-		]
+		],
+        'navigation' => [
+            'home' => [
+                'name' => 'Home',
+                'route' => [
+                    'name' => 'PServerCMS',
+                ],
+            ],
+            'download' => [
+                'name' => 'Download',
+                'route' => [
+                    'name' => 'PServerCMS/site-download',
+                ],
+            ],
+            'ranking' => [
+                'name' => 'Ranking',
+                'route' => [
+                    'name' => 'PServerRanking/ranking',
+                ],
+                'children' => [
+                    '1_position' => [
+                        'name'  => 'TopPlayer',
+                        'route' => [
+                            'name' => 'PServerRanking/ranking',
+                            'params' => [
+                                'action' => 'top-player',
+                            ]
+                        ],
+                    ],
+                    '2_position' => [
+                        'name'  => 'TopGuild',
+                        'route' => [
+                            'name' => 'PServerRanking/ranking',
+                            'params' => [
+                                'action' => 'top-guild',
+                            ]
+                        ],
+                    ],
+                ],
+            ],
+            'server-info' => [
+                'name' => 'ServerInfo',
+                'route' => [
+                    'name' => 'PServerCMS/site-detail',
+                ],
+                'children' => [
+                    '1_position' => [
+                        'name'  => 'FAQ',
+                        'route' => [
+                            'name' => 'PServerCMS/site-detail',
+                            'params' => [
+                                'type' => 'faq',
+                            ]
+                        ],
+                    ],
+                    '2_position' => [
+                        'name'  => 'Rules',
+                        'route' => [
+                            'name' => 'PServerCMS/site-detail',
+                            'params' => [
+                                'type' => 'rules',
+                            ]
+                        ],
+                    ],
+                    '3_position' => [
+                        'name'  => 'Guides',
+                        'route' => [
+                            'name' => 'PServerCMS/site-detail',
+                            'params' => [
+                                'type' => 'guides',
+                            ]
+                        ],
+                    ],
+                    '4_position' => [
+                        'name'  => 'Events',
+                        'route' => [
+                            'name' => 'PServerCMS/site-detail',
+                            'params' => [
+                                'type' => 'events',
+                            ]
+                        ],
+                    ],
+                ],
+            ],
+        ],
 	],
 	'authenticationadapter' => [
 		'odm_default' => [

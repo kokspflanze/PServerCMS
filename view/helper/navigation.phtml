@@ -1,0 +1,55 @@
+<nav class="navbar navbar-default" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+            <span class="sr-only"><?= $this->translate( 'Toggle navigation' ) ?></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="<?= $this->url( 'PServerCMS' ) ?>"></a>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="nav navbar-nav navbar-right">
+            <?php foreach($this->navigation as $entry):
+                $routeParams = isset($entry['route']['params'])?$entry['route']['params']:[];
+                $hasChildren = isset($entry['children']);
+                if ($this->isAllowed($entry['route']['name'])) :
+                    ?>
+                    <li class="
+                            navigation
+                            <?= $this->active($entry['route']['name'], $routeParams)?' active':'' ?>
+                            <?= $hasChildren?'dropdown':'' ?>
+                        ">
+                        <?php $url = $hasChildren?'#':$this->url($entry['route']['name'], $routeParams); ?>
+                        <a href="<?= $url ?>" <?= $hasChildren?'data-toggle="dropdown"':'' ?>>
+                            <?= $this->translate($entry['name']) ?> <?= $hasChildren?'<span class="caret"></span></a>':'' ?>
+                        </a>
+                        <?php
+                        // sub entries, alias children
+                        if ($hasChildren) :
+                            ?>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                <?php foreach ($entry['children'] as $childrenEntry) :
+                                    $routeParams = isset($childrenEntry['route']['params'])?$childrenEntry['route']['params']:[];
+                                    if ($this->isAllowed($childrenEntry['route']['name'])) :
+                                        ?>
+                                        <li class="<?= $this->active($childrenEntry['route']['name'], $routeParams)?'active':'' ?>">
+                                            <?php $url = $this->url($childrenEntry['route']['name'], $routeParams); ?>
+                                            <a href="<?= $url ?>">
+                                                <?= $this->translate($childrenEntry['name']) ?>
+                                            </a>
+                                        </li>
+                                    <?php
+                                    endif;
+                                endforeach;
+                                ?>
+                            </ul>
+                        <?php endif; ?>
+                    </li>
+                <?php
+                endif;
+            endforeach;
+            ?>
+        </ul>
+    </div>
+</nav>

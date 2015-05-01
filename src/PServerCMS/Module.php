@@ -70,7 +70,10 @@ class Module
                 },
                 'donateCounter' => function ( AbstractPluginManager $pluginManager ) {
                     return new View\Helper\DonateCounter( $pluginManager->getServiceLocator() );
-                }
+                },
+                'navigationWidgetPServerCMS' => function ( AbstractPluginManager $pluginManager ) {
+                    return new View\Helper\NavigationWidget( $pluginManager->getServiceLocator() );
+                },
             ]
         ];
     }

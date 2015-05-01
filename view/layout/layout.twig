@@ -40,52 +40,7 @@
 
 <div class="header">
     <div class="container">
-		<nav class="navbar navbar-default" role="navigation">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="{{ url('PServerCMS') }}"></a>
-			</div>
-			<div class="collapse navbar-collapse" id="navbar">
-				<ul class="nav navbar-nav navbar-right">
-					<li class="navigation {{ active('PServerCMS')?'active':'' }}"><a href="{{ url('PServerCMS') }}">{{ translate('Home') }}</a></li>
-					<li class="navigation {{ active('PServerCMS/site-download')?'active':'' }}"><a href="{{ url('PServerCMS/site-download') }}">Download</a></li>
-					<li class="navigation dropdown {{ active('PServerRanking/ranking')?'active':'' }}">
-						<a data-toggle="dropdown" href="#">Ranking <span class="caret"></span></a>
-						<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-							<li {{ active('PServerRanking/ranking', {'action' : 'top-player'})?'class="active"':'' }}>
-								<a href="{{ url('PServerRanking/ranking',{'action':'top-player'}) }}">TopPlayer</a>
-							</li>
-							<li {{ active('PServerRanking/ranking', {'action' : 'top-guild'})?'class="active"':'' }}>
-								<a href="{{ url('PServerRanking/ranking',{'action':'top-guild'}) }}">TopGuild</a>
-							</li>
-						</ul>
-					</li>
-					<li class="navigation dropdown {{ active('PServerCMS/site-detail')?'active':'' }}">
-						<a data-toggle="dropdown" href="#">ServerInfo <span class="caret"></span></a>
-						<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-							<li {{ active('PServerCMS/site-detail', {'type' : 'faq'})?'class="active"':'' }}>
-								<a href="{{ url('PServerCMS/site-detail', {'type':'faq'}) }}">FAQ</a>
-							</li>
-							<li {{ active('PServerCMS/site-detail', {'type' : 'rules'})?'class="active"':'' }}>
-								<a href="{{ url('PServerCMS/site-detail', {'type':'rules'}) }}">Rules</a>
-							</li>
-							<li {{ active('PServerCMS/site-detail', {'type' : 'guides'})?'class="active"':'' }}>
-								<a href="{{ url('PServerCMS/site-detail', {'type':'guides'}) }}">Guides</a>
-							</li>
-							<li {{ active('PServerCMS/site-detail', {'type' : 'events'})?'class="active"':'' }}>
-								<a href="{{ url('PServerCMS/site-detail', {'type':'events'}) }}">Events</a>
-							</li>
-						</ul>
-					</li>
-					<li class="navigation"><a href="#">Forum</a></li>
-				</ul>
-			</div>
-		</nav>
+		{{ navigationWidgetPServerCMS() }}
     </div>
 </div>
 
