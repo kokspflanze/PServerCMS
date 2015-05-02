@@ -193,7 +193,8 @@ return [
 			'orm_default' => [
 				'drivers' => [
 					'PServerCMS\Entity' => 'application_entities',
-					'SmallUser\Entity' => null
+                    'SmallUser\Entity' => null,
+                    'ZfcTicketSystem\Entity' => null
 				],
 			],
 		],
@@ -390,5 +391,13 @@ return [
 	],
 	'payment-api' => [
 		'ban-time' => '946681200',
-	]
+	],
+    'zfc-ticket-system' => [
+        'entity' => [
+            'ticket_category' => 'PServerCMS\Entity\TicketSystem\TicketCategory',
+            'ticket_entry' => 'PServerCMS\Entity\TicketSystem\TicketEntry',
+            'ticket_subject' => 'PServerCMS\Entity\TicketSystem\TicketSubject',
+            'user' => 'PServerCMS\Entity\User',
+        ],
+    ],
 ];

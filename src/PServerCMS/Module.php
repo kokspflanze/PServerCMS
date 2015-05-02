@@ -133,7 +133,7 @@ class Module
                 },
                 'zfcticketsystem_ticketsystem_new_form'   => function ( $sm ) {
                     /** @var $sm \Zend\ServiceManager\ServiceLocatorInterface */
-                    $form = new \ZfcTicketSystem\Form\TicketSystem( $sm->get( 'Doctrine\ORM\EntityManager' ) );
+                    $form = new \ZfcTicketSystem\Form\TicketSystem( $sm );
                     $form->setInputFilter( new Form\TicketSystemFilter( $sm ) );
                     return $form;
                 },
