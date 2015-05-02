@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="ticket_category")
  * @ORM\Entity(repositoryClass="ZfcTicketSystem\Entity\Repository\TicketCategory")
  */
-class TicketCategory
+class TicketCategory extends \ZfcTicketSystem\Entity\TicketCategory
 {
     /**
      * @var integer
