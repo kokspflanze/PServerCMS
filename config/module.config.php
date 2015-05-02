@@ -242,7 +242,13 @@ return [
             'exploit' => [
                 'time' => 900, //in seconds
                 'try' => 5
-            ]
+            ],
+            /**
+             * for more security we can check if the user login from a allowed country
+             * WARNING YOU HAVE TO FILL THE "available_countries" TABLE WITH IP COUNTRY MAPPING
+             * That is the reason why its default disabled
+             */
+            'country-check' => false
         ],
 		'password' => [
 			/*

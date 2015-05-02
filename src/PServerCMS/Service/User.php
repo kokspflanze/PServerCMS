@@ -312,6 +312,11 @@ class User extends \SmallUser\Service\User
      */
     protected function setAvailableCountries4User( UserInterface $user, $ip)
     {
+        // skip if the config say no check, so we don´t have to save the country in list
+        if ($this->isCountryCheckOption()) {
+            return;
+        }
+
         $entityManager = $this->getEntityManager();
         /** @var CountryList $countryList */
         $countryList        = $entityManager->getRepository( $this->getEntityOptions()->getCountryList() );
@@ -331,9 +336,11 @@ class User extends \SmallUser\Service\User
     protected function isValidLogin( SmallUserInterface $user )
     {
         $result = true;
-        if (!$this->isCountryAllowed( $user )) {
+
+        if ($this->isCountryCheckOption() && !$this->isCountryAllowed( $user )) {
             $result = false;
         }
+
         if ($this->isUserBlocked( $user )) {
             $result = false;
         }
@@ -347,8 +354,8 @@ class User extends \SmallUser\Service\User
      */
     protected function isCountryAllowed( UserInterface $user )
     {
-        $entityManager = $this->getEntityManager();
         $result = true;
+        $entityManager = $this->getEntityManager();
 
         /** @var CountryList $countryList */
         $countryList = $entityManager->getRepository( $this->getEntityOptions()->getCountryList() );
@@ -558,6 +565,15 @@ class User extends \SmallUser\Service\User
     }
 
     /**
+     * read from the config if system works for different pws @ web and in-game or with same
+     * @return boolean
+     */
+    public function isCountryCheckOption()
+    {
+        return (bool)$this->getConfigService()->get( 'pserver.login.country-check' );
+    }
+
+    /**
      * read from the config if system works for secret question
      * @return boolean
      */
@@ -676,6 +692,7 @@ class User extends \SmallUser\Service\User
     /**
      * @param UserInterface $user
      * @param $password
+     * @return UserInterface
      */
     protected function setNewPasswordAtUser( UserInterface $user, $password )
     {

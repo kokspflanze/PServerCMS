@@ -6,8 +6,7 @@ Master
 
 ## SYSTEM REQUIREMENTS
 
-requires PHP 5.4 or later; we recommend using the
-latest PHP version whenever possible.
+requires PHP 5.4 or later; we recommend using the latest PHP version whenever possible.
 
 ## INSTALLATION
 
@@ -68,6 +67,10 @@ You can find some screenshots @ [screenshot-directory](https://github.com/kokspf
 - CharacterPanel (to show current status of a character)
 - AdminPanel with UserPanel, DonateStatistic, view Logs, edit different parts in page
 - easy to change the web, admin and email layout
+
+## Online Example
+
+- [BlazeCF](http://blazecf.to/)
 
 ## PHP Extensions
 
