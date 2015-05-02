@@ -48,6 +48,10 @@ INSERT INTO `user_role` (`id`, `role_id`, `is_default`, `parent_id`) VALUES
 
 You can find an example application with some default styles and full configuration @ [kokspflanze/pserverCMSFull](https://github.com/kokspflanze/pserverCMSFull)
 
+![ScreenShot](https://raw.github.com/kokspflanze/PServerCMS/master/docs/screenshots/news.png)
+
+You can find some screenshots @ [screenshot-directory](https://github.com/kokspflanze/PServerCMS/blob/master/docs/screenshots)
+
 ## Features
 
 - News (modification in admin-panel)
@@ -63,6 +67,7 @@ You can find an example application with some default styles and full configurat
 - AccountPanel (to change the web/ingame password)
 - CharacterPanel (to show current status of a character)
 - AdminPanel with UserPanel, DonateStatistic, view Logs, edit different parts in page
+- easy to change the web, admin and email layout
 
 ## PHP Extensions
 
