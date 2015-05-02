@@ -11,6 +11,8 @@ latest PHP version whenever possible.
 
 ## INSTALLATION
 
+### Composer
+
 Installation of this module uses composer. For composer documentation, please refer to
 [getcomposer.org](http://getcomposer.org/).
 
@@ -27,9 +29,40 @@ Then add `ZfcTwig`, `ZfcBase`, `ZfcDatagrid`, `DoctrineModule`, `DoctrineORMModu
 Installation without composer is not officially supported and requires you to manually install all dependencies
 that are listed in `composer.json`
 
+### Generate the Database
+
+```sh
+php ./vendor/doctrine/doctrine-module/bin/doctrine-module orm:schema-tool:create
+```
+
+### Create the Roles
+
+```sql
+INSERT INTO `user_role` (`id`, `role_id`, `is_default`, `parent_id`) VALUES
+	(1, 'guest', NULL, NULL),
+	(2, 'user', NULL, NULL),
+	(3, 'admin', NULL, NULL);
+```
+
 ## Example Application
 
 You can find an example application with some default styles and full configuration @ [kokspflanze/pserverCMSFull](https://github.com/kokspflanze/pserverCMSFull)
+
+## Features
+
+- News (modification in admin-panel)
+- ServerInfo (modification in admin-panel) include PlayerOnline
+- ServerTimes (modification in config)
+- Download (modification in admin-panel)
+- Ranking (TopGuild|TopPlayer) with detail pages
+- ServerInfoPages (modification in admin-panel, possible to add more dynamic)
+- Register (with mail confirmation, 2 pw system, secret question [optional, you can change that option in config])
+- lost Password
+- Donate (PaymentWall and Superreward, in default added)
+- TicketSystem (with bb-code)
+- AccountPanel (to change the web/ingame password)
+- CharacterPanel (to show current status of a character)
+- AdminPanel with UserPanel, DonateStatistic, view Logs, edit different parts in page
 
 ## PHP Extensions
 

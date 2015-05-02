@@ -1,8 +1,8 @@
 <div>
-	<h3>Server Info</h3>
+	<h3><?= $this->translate('Server Info') ?></h3>
 	<hr/>
 	<ul class="list-unstyled">
-		<li><b>PlayerOnline</b> <?= $this->playerHistory() ?></li>
+		<li><b><?= $this->translate('PlayerOnline') ?></b> <?= $this->playerHistory() ?></li>
 		<?php if((bool)$this->serverInfo): ?>
 			<?php foreach($this->serverInfo as $curInfo): ?>
 				<?php /** @var \PServerCMS\Entity\ServerInfo $curInfo */ ?>
@@ -16,19 +16,19 @@
 	</ul>
 </div>
 <div class="margin-top-30">
-	<h3>Servertime</h3>
+	<h3><?= $this->translate('Servertime') ?></h3>
 	<hr/>
 	<ul class="list-unstyled">
-		<li><i class="fa fa-clock-o"></i> Timer: <span id="idTimerClock"><?php echo date('H:i:s') ?></span></li>
+		<li><i class="fa fa-clock-o"></i> <?= $this->translate('Timer') ?>: <span id="idTimerClock"><?php echo date('H:i:s') ?></span></li>
 		<?php $i=0; ?>
-		<?php if((bool)$this->timer): ?>
-			<?php foreach($this->timer as $curTimer): ?>
-				<li><i class="<?php echo $this->escapeHtml($curTimer['icon']) ?>"></i>
-					<?php echo $aCurTimer['name'] ?>:
-					<?php if($aCurTimer['time'] > 0){ ?>
-						<span class="timerCountdown" id="<?php echo 'idTimeCountdown_'.$i++; ?>" data-time="<?php echo $curTimer['time'] ?>"></span>
-					<?php }else{ ?>
-						<?php echo $this->escapeHtml($curTimer['text']) ?>
+		<?php if ((bool)$this->timer ): ?>
+			<?php foreach ($this->timer as $curTimer) : ?>
+				<li><i class="<?= $this->escapeHtml($curTimer['icon']) ?>"></i>
+					<?= $curTimer['name'] ?>:
+					<?php if ($curTimer['time'] > 0) { ?>
+						<span class="timerCountdown" id="<?php echo 'idTimeCountdown_'.$i++; ?>" data-time="<?= $curTimer['time'] ?>"></span>
+					<?php } else { ?>
+                        <?= $this->escapeHtml($curTimer['text']) ?>
 					<?php } ?>
 				</li>
 			<?php endforeach ?>
