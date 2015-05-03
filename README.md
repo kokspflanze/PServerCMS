@@ -68,10 +68,6 @@ You can find some screenshots @ [screenshot-directory](https://github.com/kokspf
 - AdminPanel with UserPanel, DonateStatistic, view Logs, edit different parts in page
 - easy to change the web, admin and email layout
 
-## Online Example
-
-- [BlazeCF](http://blazecf.to/)
-
 ## PHP Extensions
 
 - php5-curl

@@ -216,7 +216,14 @@ return [
              * mail confirmation after register?
              * WARNING for pw lost|country, we need a valid mail
              */
-            'mail_confirmation' => false
+            'mail_confirmation' => false,
+            /**
+             * With that feature it is possible to add the user from the game-database to the web-database
+             * Why we need a web-database with user information?
+             * Easy reason the system support different games, and we have create a central interface for the login,
+             * to add roles, create a history-log, 2 pw-system and and and
+             */
+            'dynamic-import' => true,
 		],
 		'mail' => [
 			'from' => 'abcd@example.com',
@@ -245,10 +252,10 @@ return [
             ],
             /**
              * for more security we can check if the user login from a allowed country
-             * WARNING YOU HAVE TO FILL THE "available_countries" TABLE WITH IP COUNTRY MAPPING
+             * WARNING YOU HAVE TO FILL THE "country_list" TABLE WITH IP COUNTRY MAPPING
              * That is the reason why its default disabled
              */
-            'country-check' => false
+            'country-check' => false,
         ],
 		'password' => [
 			/*
@@ -261,6 +268,9 @@ return [
             'secret_question' => false,
 		],
 		'news' => [
+            /**
+             * limit of the news entries of the first page
+             */
 			'limit' => 5
 		],
 		'pageinfotype' => [

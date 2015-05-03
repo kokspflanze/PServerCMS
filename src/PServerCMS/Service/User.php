@@ -291,6 +291,18 @@ class User extends \SmallUser\Service\User
         $entityManager->persist( $user );
         $entityManager->flush();
 
+        $user = $this->addDefaultRole($user);
+
+        return $user;
+    }
+
+    /**
+     * @param UserInterface $user
+     * @return UserInterface
+     */
+    protected function addDefaultRole( UserInterface $user )
+    {
+        $entityManager = $this->getEntityManager();
         /** @var \PServerCMS\Entity\Repository\UserRole $repositoryRole */
         $repositoryRole = $entityManager->getRepository( $this->getEntityOptions()->getUserRole() );
         $role           = $this->getConfigService()->get( 'pserver.register.role', 'user' );
@@ -310,7 +322,7 @@ class User extends \SmallUser\Service\User
      * @param UserInterface $user
      * @param string        $ip
      */
-    protected function setAvailableCountries4User( UserInterface $user, $ip)
+    protected function setAvailableCountries4User( UserInterface $user, $ip )
     {
         // skip if the config say no check, so we don´t have to save the country in list
         if ($this->isCountryCheckOption()) {
@@ -565,12 +577,20 @@ class User extends \SmallUser\Service\User
     }
 
     /**
-     * read from the config if system works for different pws @ web and in-game or with same
+     * read from the config if system works with the country check for login
      * @return boolean
      */
     public function isCountryCheckOption()
     {
         return (bool)$this->getConfigService()->get( 'pserver.login.country-check' );
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isRegisterDynamicImport()
+    {
+        return (bool)$this->getConfigService()->get( 'pserver.register.dynamic-import' );
     }
 
     /**
@@ -703,6 +723,40 @@ class User extends \SmallUser\Service\User
         $entityManager->flush();
 
         return $user;
+    }
+
+    /**
+     * @param UserInterface $user
+     * @return boolean
+     */
+    protected function handleAuth4UserLogin( UserInterface $user )
+    {
+        if ($this->isRegisterDynamicImport()) {
+            /** @var \PServerCMS\Entity\Repository\User $userRepository */
+            $userRepository = $this->getEntityManager()->getRepository( $this->getEntityOptions()->getUser() );
+            if (!$userRepository->getUser4UserName($user->getUsername())) {
+                if ($backendUser = $this->getGameBackendService()->getUser4Login($user)) {
+
+                    if (!$backendUser->getCreateIp()) {
+                        $backendUser->setCreateIp(IP::getIp());
+                    }
+
+                    $backendUser->setPassword( $this->bCrypt( $user->getPassword() ) );
+                    $entityManager = $this->getEntityManager();
+                    $entityManager->persist($backendUser);
+                    $entityManager->flush();
+
+                    $this->setAvailableCountries4User($backendUser, Ip::getIp());
+                    $this->addDefaultRole($backendUser);
+
+                    $this->doLogin($backendUser);
+
+                    return true;
+                }
+            }
+        }
+
+        return parent::handleAuth4UserLogin($user);
     }
 
     /**
