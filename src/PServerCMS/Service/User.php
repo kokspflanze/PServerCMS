@@ -749,7 +749,7 @@ class User extends \SmallUser\Service\User
                     $this->setAvailableCountries4User($backendUser, Ip::getIp());
                     $this->addDefaultRole($backendUser);
 
-                    $this->doLogin($backendUser);
+                    $this->doAuthentication($backendUser);
 
                     return true;
                 }
