@@ -4,6 +4,7 @@ namespace PServerCMS\Entity\TicketSystem;
 
 use SmallUser\Entity\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
+use ZfcTicketSystem\Entity\TicketSubject as ZfcTicketSubject;
 
 /**
  * TicketEntry
@@ -36,7 +37,7 @@ class TicketEntry extends \ZfcTicketSystem\Entity\TicketEntry
     private $user;
 
     /**
-     * @var TicketSubject
+     * @var ZfcTicketSubject
      * @ORM\ManyToOne(targetEntity="TicketSubject", inversedBy="ticketEntry")
      * @ORM\JoinColumn(name="ticket_subject", referencedColumnName="id")
      */
@@ -116,7 +117,7 @@ class TicketEntry extends \ZfcTicketSystem\Entity\TicketEntry
     }
 
     /**
-     * @return TicketSubject
+     * @return ZfcTicketSubject
      */
     public function getSubject()
     {
@@ -124,10 +125,10 @@ class TicketEntry extends \ZfcTicketSystem\Entity\TicketEntry
     }
 
     /**
-     * @param TicketSubject $subject
+     * @param ZfcTicketSubject $subject
      * @return TicketEntry
      */
-    public function setSubject( TicketSubject $subject )
+    public function setSubject( ZfcTicketSubject $subject )
     {
         $this->subject = $subject;
 

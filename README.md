@@ -37,10 +37,10 @@ php ./vendor/doctrine/doctrine-module/bin/doctrine-module orm:schema-tool:create
 ### Create the Roles
 
 ```sql
-INSERT INTO `user_role` (`id`, `role_id`, `is_default`, `parent_id`) VALUES
-	(1, 'guest', NULL, NULL),
-	(2, 'user', NULL, NULL),
-	(3, 'admin', NULL, NULL);
+INSERT INTO user_role (role_id, is_default, parent_id) VALUES
+    ('guest', NULL, NULL),
+    ('user', NULL, NULL),
+    ('admin', NULL, NULL);
 ```
 
 ## Example Application

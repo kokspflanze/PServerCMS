@@ -5,6 +5,8 @@ namespace PServerCMS\Entity\TicketSystem;
 use SmallUser\Entity\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use ZfcTicketSystem\Entity\TicketCategory as ZfcTicketCategory;
+use ZfcTicketSystem\Entity\TicketEntry as ZfcTicketEntry;
 
 /**
  * TicketSubject
@@ -47,7 +49,7 @@ class TicketSubject extends \ZfcTicketSystem\Entity\TicketSubject
     private $user;
 
     /**
-     * @var TicketCategory
+     * @var ZfcTicketCategory
      * @ORM\ManyToOne(targetEntity="TicketCategory")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="ticket_category", referencedColumnName="id")
@@ -56,7 +58,7 @@ class TicketSubject extends \ZfcTicketSystem\Entity\TicketSubject
     private $ticketCategory;
 
     /**
-     * @var TicketEntry
+     * @var  ZfcTicketEntry
      * @ORM\OneToMany(targetEntity="TicketEntry", mappedBy="subject")
      * @ORM\OrderBy({"created" = "desc"})
      */
@@ -167,10 +169,10 @@ class TicketSubject extends \ZfcTicketSystem\Entity\TicketSubject
 
     /**
      * Set ticketCategory
-     * @param TicketCategory $ticketCategory
+     * @param ZfcTicketCategory $ticketCategory
      * @return TicketSubject
      */
-    public function setTicketCategory( TicketCategory $ticketCategory = null )
+    public function setTicketCategory( ZfcTicketCategory $ticketCategory = null )
     {
         $this->ticketCategory = $ticketCategory;
 
@@ -179,7 +181,7 @@ class TicketSubject extends \ZfcTicketSystem\Entity\TicketSubject
 
     /**
      * Get ticketCategory
-     * @return TicketCategory
+     * @return ZfcTicketCategory
      */
     public function getTicketCategory()
     {
@@ -229,11 +231,11 @@ class TicketSubject extends \ZfcTicketSystem\Entity\TicketSubject
     }
 
     /**
-     * Set ticketCategory
-     * @param TicketEntry $ticketCategory
+     * Set ticketEntry
+     * @param  ZfcTicketEntry $ticketEntry
      * @return $this
      */
-    public function addTicketEntry( TicketEntry $ticketEntry = null )
+    public function addTicketEntry(  ZfcTicketEntry $ticketEntry = null )
     {
         $this->ticketEntry[] = $ticketEntry;
 
@@ -241,8 +243,8 @@ class TicketSubject extends \ZfcTicketSystem\Entity\TicketSubject
     }
 
     /**
-     * Get ticketCategory
-     * @return ArrayCollection|TicketEntry[]
+     * Get ticketEntry
+     * @return ArrayCollection| ZfcTicketEntry[]
      */
     public function getTicketEntry()
     {
