@@ -33,7 +33,7 @@ class TicketCategory extends \ZfcTicketSystem\Entity\TicketCategory
 
     /**
      * @var string
-     * @ORM\Column(name="active", type="string", nullable=false)
+     * @ORM\Column(name="active", type="string", length=1, nullable=false)
      */
     private $active;
 

@@ -42,7 +42,7 @@ class ServerInfo
 
     /**
      * @var string
-     * @ORM\Column(name="active", type="string", columnDefinition="ENUM('0', '1')", nullable=false)
+     * @ORM\Column(name="active", type="string", length=1, nullable=false)
      */
     private $active;
 
