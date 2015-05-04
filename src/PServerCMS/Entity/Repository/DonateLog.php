@@ -36,6 +36,7 @@ class DonateLog extends EntityRepository
     }
 
     /**
+     * @TODO does not work on mssql
      * @param \DateTime $dateTime
      *
      * @return array
@@ -56,6 +57,7 @@ class DonateLog extends EntityRepository
     }
 
     /**
+     * @TODO does not work on mssql
      * @param \DateTime $dateTime
      *
      * @return array

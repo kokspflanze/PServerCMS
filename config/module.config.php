@@ -280,7 +280,13 @@ return [
 			'events'
 		],
 		'blacklisted' => [
-			'email' => []
+			'email' => [
+                /**
+                 * example to block all emails ending with @foo.com and @bar.com, the @ will added automatic
+                 * 'foo.com', 'bar.com'
+                 */
+
+            ]
 		],
 		'entity' => [
 			'available_countries' => 'PServerCMS\Entity\AvailableCountries',

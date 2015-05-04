@@ -29,7 +29,7 @@ class User extends \SmallUser\Entity\Repository\User
         $user = $this->getUser4UserName($username);
         if (!$user) {
             $result = null;
-        } elseif ($user->getRoles() ){
+        } elseif ($user->getRoles()) {
             $result = true;
         }
 

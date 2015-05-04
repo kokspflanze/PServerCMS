@@ -21,10 +21,11 @@ class RegisterFilter extends ProvidesEventsInputFilter {
 
 		$this->setServiceManager($serviceManager);
 
-		/** @var $oRepositoryUser \Doctrine\Common\Persistence\ObjectRepository */
-		$oRepositoryUser = $serviceManager->get('Doctrine\ORM\EntityManager')->getRepository($this->getEntityOptions()->getUser());
-		$this->setUsernameValidator( new Validator\NoRecordExists( $oRepositoryUser, 'username' ) );
+		/** @var $repositoryUser \Doctrine\Common\Persistence\ObjectRepository */
+		$repositoryUser = $serviceManager->get('Doctrine\ORM\EntityManager')->getRepository($this->getEntityOptions()->getUser());
+		$this->setUsernameValidator( new Validator\NoRecordExists( $repositoryUser, 'username' ) );
 		$this->setStriposValidator( new Validator\StriposExists($serviceManager, Validator\StriposExists::TYPE_EMAIL) );
+        $userNameBackendNotExists = new Validator\UserNameBackendNotExists($serviceManager);
 
 		$this->add(array(
 			'name'       => 'username',
@@ -39,6 +40,7 @@ class RegisterFilter extends ProvidesEventsInputFilter {
 					),
 				),
 				$this->getUsernameValidator(),
+                $userNameBackendNotExists
 			),
 		));
 
@@ -179,6 +181,7 @@ class RegisterFilter extends ProvidesEventsInputFilter {
 		foreach($secretQuestion as $entry){
 			$result[] = $entry->getId();
 		}
+
 		return $result;
 	}
 
