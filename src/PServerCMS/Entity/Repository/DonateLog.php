@@ -57,7 +57,6 @@ class DonateLog extends EntityRepository
     }
 
     /**
-     * @TODO does not work on mssql
      * @param \DateTime $dateTime
      *
      * @return array
@@ -70,7 +69,6 @@ class DonateLog extends EntityRepository
             ->setParameter( 'success', Entity::STATUS_SUCCESS )
             ->andWhere( 'p.created >= :created' )
             ->setParameter( 'created', $dateTime )
-            ->orderBy('p.created', 'asc')
             ->getQuery();
 
         return $query->getOneOrNullResult();
