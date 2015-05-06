@@ -8,7 +8,7 @@ use Zend\Crypt\Password\Bcrypt;
 
 /**
  * User
- * @ORM\Table(name="`user`", uniqueConstraints={@ORM\UniqueConstraint(name="username_UNIQUE", columns={"username"})})
+ * @ORM\Table(name="`user`")
  * @ORM\Entity(repositoryClass="PServerCMS\Entity\Repository\User")
  */
 class User implements UserInterface
