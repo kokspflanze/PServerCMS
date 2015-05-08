@@ -85,7 +85,7 @@ return [
 							'throw_exceptions' => false
 						],
 						'serializer'
-					]
+					],
 				]);
 				return $cache;
 			},
@@ -188,7 +188,9 @@ return [
 			'application_entities' => [
 				'class' =>'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
 				'cache' => 'array',
-				'paths' => [__DIR__ . '/../src/PServerCMS/Entity']
+				'paths' => [
+                    __DIR__ . '/../src/PServerCMS/Entity'
+                ],
 			],
 			'orm_default' => [
 				'drivers' => [
@@ -204,8 +206,8 @@ return [
             'datetime' => [
                 'format' => [
                     'time' => 'Y-m-d H:i'
-                ]
-            ]
+                ],
+            ],
         ],
 		'register' => [
             /**
@@ -286,7 +288,7 @@ return [
                  * 'foo.com', 'bar.com'
                  */
 
-            ]
+            ],
 		],
 		'entity' => [
 			'available_countries' => 'PServerCMS\Entity\AvailableCountries',
@@ -334,7 +336,7 @@ return [
                             'name' => 'PServerRanking/ranking',
                             'params' => [
                                 'action' => 'top-player',
-                            ]
+                            ],
                         ],
                     ],
                     '2_position' => [
@@ -343,7 +345,7 @@ return [
                             'name' => 'PServerRanking/ranking',
                             'params' => [
                                 'action' => 'top-guild',
-                            ]
+                            ],
                         ],
                     ],
                 ],
@@ -360,7 +362,7 @@ return [
                             'name' => 'PServerCMS/site-detail',
                             'params' => [
                                 'type' => 'faq',
-                            ]
+                            ],
                         ],
                     ],
                     '2_position' => [
@@ -369,7 +371,7 @@ return [
                             'name' => 'PServerCMS/site-detail',
                             'params' => [
                                 'type' => 'rules',
-                            ]
+                            ],
                         ],
                     ],
                     '3_position' => [
@@ -378,7 +380,7 @@ return [
                             'name' => 'PServerCMS/site-detail',
                             'params' => [
                                 'type' => 'guides',
-                            ]
+                            ],
                         ],
                     ],
                     '4_position' => [
@@ -387,7 +389,7 @@ return [
                             'name' => 'PServerCMS/site-detail',
                             'params' => [
                                 'type' => 'events',
-                            ]
+                            ],
                         ],
                     ],
                 ],
@@ -409,7 +411,7 @@ return [
 		],
         'login' => [
             'route' => 'PServerCMS'
-        ]
+        ],
 	],
 	'payment-api' => [
 		'ban-time' => '946681200',
