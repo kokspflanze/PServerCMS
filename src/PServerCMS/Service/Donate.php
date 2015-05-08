@@ -24,8 +24,8 @@ class Donate extends InvokableBase
 
         // set some default values
         $range = DateTimer::getDateRange4Period($dateTime, new \DateTime());
-        foreach($range as $date){
-            foreach($typList as $type){
+        foreach ($range as $date) {
+            foreach ($typList as $type) {
                 $result[$date->format('Y-m-d')][$type] = [
                     'amount' => 0,
                     'coins' => 0
@@ -33,9 +33,12 @@ class Donate extends InvokableBase
             }
         }
 
-        if($donateHistory){
-            foreach($donateHistory as $donateData){
-                $result[$donateData['date']][$donateData['type']] = $donateData;
+        if ($donateHistory) {
+            foreach ($donateHistory as $donateData) {
+                /** @var \DateTime $date */
+                $date = $donateData['created'];
+                $result[$date->format('Y-m-d')][$donateData['type']]['amount'] += $donateData['amount'];
+                $result[$date->format('Y-m-d')][$donateData['type']]['coins'] += $donateData['coins'];
             }
         }
 

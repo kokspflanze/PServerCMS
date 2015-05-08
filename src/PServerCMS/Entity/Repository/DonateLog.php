@@ -36,7 +36,8 @@ class DonateLog extends EntityRepository
     }
 
     /**
-     * @TODO does not work on mssql
+     * Group date does not realy work on different DBMS, so we must do that in PHP
+     *
      * @param \DateTime $dateTime
      *
      * @return array
@@ -44,12 +45,14 @@ class DonateLog extends EntityRepository
     public function getDonateHistorySuccess( \DateTime $dateTime )
     {
         $query = $this->createQueryBuilder( 'p' )
-            ->select( 'SUM(p.coins) as coins, DATE(p.created) as date, p.type, COUNT(p.coins) as amount' )
+            ->select('
+                SUM(p.coins) as coins, p.type, COUNT(p.coins) as amount, p.created'
+            )
             ->where( 'p.success = :success' )
             ->setParameter( 'success', Entity::STATUS_SUCCESS )
             ->andWhere( 'p.created >= :created' )
             ->setParameter( 'created', $dateTime )
-            ->groupBy('p.type, date')
+            ->groupBy('p.type, p.created')
             ->orderBy('p.created', 'asc')
             ->getQuery();
 
