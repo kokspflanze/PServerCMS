@@ -74,6 +74,9 @@ class Module
                 'navigationWidgetPServerCMS' => function ( AbstractPluginManager $pluginManager ) {
                     return new View\Helper\NavigationWidget( $pluginManager->getServiceLocator() );
                 },
+                'dateTimeFormatTime' => function ( AbstractPluginManager $pluginManager ) {
+                    return new View\Helper\DateTimeFormat( $pluginManager->getServiceLocator() );
+                }
             ]
         ];
     }

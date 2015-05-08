@@ -200,6 +200,13 @@ return [
 		],
 	],
 	'pserver' => [
+        'general' => [
+            'datetime' => [
+                'format' => [
+                    'time' => 'Y-m-d H:i'
+                ]
+            ]
+        ],
 		'register' => [
             /**
              * role after register

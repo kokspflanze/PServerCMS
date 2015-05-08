@@ -398,7 +398,9 @@ class User extends \SmallUser\Service\User
             $message = sprintf(
                 'You are blocked because %s!, try it again @ %s',
                 $userBlocked->getReason(),
-                $userBlocked->getExpire()->format( 'Y-m-d H:i:s' )
+                $userBlocked->getExpire()->format(
+                    $this->getDateTimeFormatTime()
+                )
             );
             $this->getFlashMessenger()->setNamespace( self::ErrorNameSpace )->addMessage($message);
             $result = true;
@@ -609,6 +611,14 @@ class User extends \SmallUser\Service\User
     public function isRegisterMailConfirmationOption()
     {
         return (bool)$this->getConfigService()->get( 'pserver.register.mail_confirmation' );
+    }
+
+    /**
+     * @return string
+     */
+    public function getDateTimeFormatTime()
+    {
+        return $this->getConfigService()->get('pserver.general.datetime.format.time');
     }
 
     /**
