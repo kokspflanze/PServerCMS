@@ -12,6 +12,10 @@ class TestBase extends TestCase
     protected $serviceManager;
     /** @var  string */
     protected $className;
+    /** @var array  */
+    protected $mockedMethods = [];
+    /** @var  object */
+    protected $class;
 
     public function setUp()
     {
@@ -37,10 +41,20 @@ class TestBase extends TestCase
      */
     protected function getClass()
     {
-        /** @var \Zend\ServiceManager\ServiceManagerAwareInterface $class */
-        $class = new $this->className;
-        $class->setServiceManager($this->serviceManager);
+        if (!$this->class) {
+            /** @var \Zend\ServiceManager\ServiceManagerAwareInterface */
+            $this->class = new $this->className;
+            $this->class->setServiceManager($this->serviceManager);
+        }
 
-        return $class;
+        return $this->class;
+    }
+
+    /**
+     * @return array
+     */
+    protected function getMockedMethods()
+    {
+        return $this->mockedMethods;
     }
 }

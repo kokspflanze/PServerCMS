@@ -34,7 +34,7 @@ class DonateLog
 
     /**
      * @var string
-     * @ORM\Column(name="transaction_id", type="string", length=255, nullable=true)
+     * @ORM\Column(name="transaction_id", type="string", length=255, nullable=false)
      */
     private $transactionId = '';
 
@@ -98,7 +98,7 @@ class DonateLog
      */
     public function setTransactionId( $transactionId )
     {
-        $this->transactionId = $transactionId;
+        $this->transactionId = (string) $transactionId;
 
         return $this;
     }

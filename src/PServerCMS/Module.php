@@ -146,6 +146,20 @@ class Module
                     $form->setInputFilter( new Form\TicketEntryFilter( $sm ) );
                     return $form;
                 },
+                'small_user_login_form' => function( $sm ){
+                    /** @var $sm \Zend\ServiceManager\ServiceLocatorInterface */
+                    /** @var $repositoryUser \Doctrine\Common\Persistence\ObjectRepository */
+                    /** @var Options\EntityOptions $entityOptions */
+                    $entityOptions = $sm->get( 'pserver_entity_options' );
+                    $repositoryUser = $sm->get( 'Doctrine\ORM\EntityManager' )->getRepository( $entityOptions->getUser() );
+                    $form = new \SmallUser\Form\Login();
+                    $form->setInputFilter(
+                        new Form\LoginFilter(
+                            new Validator\ValidUserExists( $repositoryUser, 'NOT_ACTIVE' )
+                        )
+                    );
+                    return $form;
+                },
             ],
         ];
     }

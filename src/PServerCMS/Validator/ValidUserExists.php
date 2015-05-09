@@ -19,10 +19,11 @@ class ValidUserExists extends AbstractRecord
 
         $result = $this->query( $value );
         if (!$result) {
-            $valid = false;
             if ($result === false) {
+                $valid = false;
                 $this->error( self::ERROR_NOT_ACTIVE );
-            } else {
+            } elseif ($this->getKey() != 'NOT_ACTIVE') {
+                $valid = false;
                 $this->error( self::ERROR_NO_RECORD_FOUND );
             }
         }

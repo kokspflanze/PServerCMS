@@ -23,9 +23,9 @@ class User implements UserInterface
 
     /**
      * @var integer
-     * @ORM\Column(name="backendId", type="integer", nullable=true)
+     * @ORM\Column(name="backendId", type="integer", nullable=false)
      */
-    private $backendId;
+    private $backendId = 0;
 
     /**
      * @var string
