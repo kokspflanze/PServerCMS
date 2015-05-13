@@ -161,11 +161,15 @@ return [
             ],
         ],
     ],
-
+    /**
+     *  DB Connection-Setup
+     */
 	'doctrine' => [
 		'connection' => [
 			'orm_default' => [
-				'driverClass' => 'Doctrine\DBAL\Driver\PDOMySql\Driver',
+                // mssql db @ windows  => 'GameBackend\DBAL\Driver\PDOSqlsrv\Driver'
+                // mssql db @ linux  => 'GameBackend\DBAL\Driver\PDODblib\Driver',
+                'driverClass' =>'Doctrine\DBAL\Driver\PDOMySql\Driver',
 				'params' => [
 					'host'     => 'localhost',
 					'port'     => '3306',
@@ -177,6 +181,42 @@ return [
 					'enum' => 'string'
 				],
 			],
+            'orm_sro_account' => [
+                // mssql db @ windows  => 'GameBackend\DBAL\Driver\PDOSqlsrv\Driver'
+                // mssql db @ linux  => 'GameBackend\DBAL\Driver\PDODblib\Driver',
+                'driverClass' =>'GameBackend\DBAL\Driver\PDODblib\Driver',
+                'params' => [
+                    'host'     => 'local',
+                    'port'     => '1443',
+                    'user'     => 'foo',
+                    'password' => 'bar',
+                    'dbname'   => 'ACCOUNT',
+                ],
+            ],
+            'orm_sro_shard' => [
+                // mssql db @ windows  => 'GameBackend\DBAL\Driver\PDOSqlsrv\Driver'
+                // mssql db @ linux  => 'GameBackend\DBAL\Driver\PDODblib\Driver',
+                'driverClass' =>'GameBackend\DBAL\Driver\PDODblib\Driver',
+                'params' => [
+                    'host'     => 'local',
+                    'port'     => '1443',
+                    'user'     => 'foo',
+                    'password' => 'bar',
+                    'dbname'   => 'SHARD',
+                ],
+            ],
+            'orm_sro_log' => [
+                // mssql db @ windows  => 'GameBackend\DBAL\Driver\PDOSqlsrv\Driver'
+                // mssql db @ linux  => 'GameBackend\DBAL\Driver\PDODblib\Driver',
+                'driverClass' =>'GameBackend\DBAL\Driver\PDODblib\Driver',
+                'params' => [
+                    'host'     => 'local',
+                    'port'     => '1443',
+                    'user'     => 'foo',
+                    'password' => 'bar',
+                    'dbname'   => 'LOG',
+                ],
+            ],
 		],
 		'entitymanager' => [
 			'orm_default' => [
@@ -414,6 +454,32 @@ return [
         ],
 	],
 	'payment-api' => [
+        'payment-wall' => [
+            /**
+             * WhiteList-Ips for PaymentWall
+             */
+            'ip-white-list' => [
+                '174.36.92.186',
+                '174.36.96.66',
+                '174.36.92.187',
+                '174.36.92.192',
+                '174.37.14.28'
+            ],
+            /**
+             * SecretKey
+             */
+            'secret-key' => '',
+            /**
+             * ApiVersion, supported version atm 1,2,3
+             */
+            'version' => 3
+        ],
+        'super-reward' => [
+            /**
+             * SecretKey
+             */
+            'secret-key' => ''
+        ],
 		'ban-time' => '946681200',
 	],
     'zfc-ticket-system' => [

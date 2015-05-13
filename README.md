@@ -82,6 +82,13 @@ To improve the performance
 */5 * * * * php /[install-path]/public/index.php user-codes-cleanup
 ```
 
+## Donation
+
+- Paymentwall default link => `/payment-wall-response.html`
+- Superreward default link => `/super-reward-response.html`
+
+Please check the config with the key `payment-api` to setup the secret-keys, ban-time and more.
+
 ## Problems or improvements
 
 Please write an issue or create a pull-request @ GitHub
