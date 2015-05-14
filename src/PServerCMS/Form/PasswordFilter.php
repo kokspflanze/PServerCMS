@@ -36,7 +36,7 @@ class PasswordFilter extends ProvidesEventsInputFilter
 					'name'    => 'StringLength',
 					'options' => array(
 						'min' => 6,
-						'max' => 16,
+						'max' => 32,
 					),
 				),
 			),
@@ -51,7 +51,7 @@ class PasswordFilter extends ProvidesEventsInputFilter
 					'name'    => 'StringLength',
 					'options' => array(
 						'min' => 6,
-						'max' => 16,
+						'max' => 32,
 					),
 				),
 				array(

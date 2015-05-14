@@ -84,8 +84,8 @@ To improve the performance
 
 ## Donation
 
-- Paymentwall default link => `/payment-wall-response.html`
-- Superreward default link => `/super-reward-response.html`
+- Paymentwall default link => `/payment-api/payment-wall-response.html`
+- Superreward default link => `/payment-api/super-reward-response.html`
 
 Please check the config with the key `payment-api` to setup the secret-keys, ban-time and more.
 

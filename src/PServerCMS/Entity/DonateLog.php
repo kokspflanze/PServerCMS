@@ -70,6 +70,7 @@ class DonateLog
 
     /**
      * @var UserInterface
+     * @ORM\Column(nullable=true)
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="users_usrId", referencedColumnName="usrId")

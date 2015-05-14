@@ -91,7 +91,7 @@ class RegisterFilter extends ProvidesEventsInputFilter {
 					'name'    => 'StringLength',
 					'options' => array(
 						'min' => 6,
-						'max' => 16,
+						'max' => 32,
 					),
 				),
 			),
@@ -106,7 +106,7 @@ class RegisterFilter extends ProvidesEventsInputFilter {
 					'name'    => 'StringLength',
 					'options' => array(
 						'min' => 6,
-						'max' => 16,
+						'max' => 32,
 					),
 				),
 				array(
