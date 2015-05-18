@@ -187,7 +187,7 @@ return [
                 'driverClass' =>'GameBackend\DBAL\Driver\PDODblib\Driver',
                 'params' => [
                     'host'     => 'local',
-                    'port'     => '1443',
+                    'port'     => '1433',
                     'user'     => 'foo',
                     'password' => 'bar',
                     'dbname'   => 'ACCOUNT',
@@ -199,7 +199,7 @@ return [
                 'driverClass' =>'GameBackend\DBAL\Driver\PDODblib\Driver',
                 'params' => [
                     'host'     => 'local',
-                    'port'     => '1443',
+                    'port'     => '1433',
                     'user'     => 'foo',
                     'password' => 'bar',
                     'dbname'   => 'SHARD',
@@ -211,7 +211,7 @@ return [
                 'driverClass' =>'GameBackend\DBAL\Driver\PDODblib\Driver',
                 'params' => [
                     'host'     => 'local',
-                    'port'     => '1443',
+                    'port'     => '1433',
                     'user'     => 'foo',
                     'password' => 'bar',
                     'dbname'   => 'LOG',
