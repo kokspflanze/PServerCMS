@@ -542,9 +542,6 @@ class User extends \SmallUser\Service\User
         $userNew = $repository->getUser4UserName( $user->getUsername() );
 
         $authService = $this->getAuthService();
-        // FIX: no roles after register
-        $userNew->getUserRole();
-        $userNew->getUserExtension();
 
         $authService->getStorage()->write( $userNew );
     }

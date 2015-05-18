@@ -59,13 +59,13 @@ class User implements UserInterface
 
     /**
      * @var \Doctrine\Common\Collections\Collection|UserRole[]
-     * @ORM\ManyToMany(targetEntity="PServerCMS\Entity\UserRole", mappedBy="user")
+     * @ORM\ManyToMany(targetEntity="PServerCMS\Entity\UserRole", mappedBy="user", fetch="EAGER")
      */
     private $userRole;
 
     /**
      * @var \Doctrine\Common\Collections\Collection|UserExtension[]
-     * @ORM\OneToMany(targetEntity="UserExtension", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="UserExtension", mappedBy="user", fetch="EAGER")
      * @ORM\JoinColumn(name="usrId", referencedColumnName="userId")
      */
     private $userExtension;

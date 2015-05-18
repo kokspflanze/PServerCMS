@@ -28,7 +28,7 @@ class UserExtension
 
     /**
      * @var string
-     * @ORM\Column(name="key", type="string", length=255, nullable=false)
+     * @ORM\Column(name="`key`", type="string", length=255, nullable=false)
      */
     private $key;
 

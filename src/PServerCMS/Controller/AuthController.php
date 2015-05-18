@@ -31,7 +31,9 @@ class AuthController extends \SmallUser\Controller\AuthController
             }
         }
 
-        return [ 'registerForm' => $form ];
+        return [
+            'registerForm' => $form
+        ];
     }
 
     /**
@@ -70,7 +72,9 @@ class AuthController extends \SmallUser\Controller\AuthController
             }
         }
 
-        return [ 'registerForm' => $form ];
+        return [
+            'registerForm' => $form
+        ];
     }
 
     public function ipConfirmAction()
@@ -108,7 +112,9 @@ class AuthController extends \SmallUser\Controller\AuthController
             }
         }
 
-        return [ 'pwLostForm' => $form ];
+        return [
+            'pwLostForm' => $form
+        ];
     }
 
     public function pwLostDoneAction()
@@ -134,7 +140,9 @@ class AuthController extends \SmallUser\Controller\AuthController
             }
         }
 
-        return [ 'pwLostForm' => $form ];
+        return [
+            'pwLostForm' => $form
+        ];
     }
 
     public function pwLostConfirmDoneAction()
