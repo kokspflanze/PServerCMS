@@ -73,7 +73,7 @@ return [
             'Zend\Log\LoggerAbstractServiceFactory',
         ],
 		'factories' => [
-			'pserver_caching_service' => function(){
+			'pserver_caching_service' => function() {
 				$cache = \Zend\Cache\StorageFactory::factory([
 					'adapter' => 'filesystem',
 					'options' => [
@@ -247,6 +247,9 @@ return [
                 'format' => [
                     'time' => 'Y-m-d H:i'
                 ],
+            ],
+            'caching' => [
+                'enable' => false
             ],
         ],
 		'register' => [

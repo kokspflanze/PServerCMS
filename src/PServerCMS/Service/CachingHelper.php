@@ -3,7 +3,8 @@
 namespace PServerCMS\Service;
 
 
-class CachingHelper extends InvokableBase {
+class CachingHelper extends InvokableBase
+{
 
 	/**
 	 * @param          $cacheKey
@@ -12,12 +13,22 @@ class CachingHelper extends InvokableBase {
 	 *
 	 * @return mixed
 	 */
-	public function getItem( $cacheKey, \Closure $closure, $lifetime = null ){
+	public function getItem( $cacheKey, \Closure $closure, $lifetime = null )
+    {
+        // we have to check if we enable the caching in config
+        if (!$this->isCachingEnable()) {
+            return $closure();
+        }
+
 		$data = $this->getCachingService()->getItem($cacheKey);
-		if(!$data){
+		if (!$data) {
 			$data = $closure();
-			if($lifetime > 0){
-				$this->cachingService->setOptions($this->getCachingService()->getOptions()->setTtl($lifetime));
+			if ($lifetime > 0) {
+				$this->cachingService->setOptions(
+                    $this->getCachingService()
+                        ->getOptions()
+                        ->setTtl($lifetime)
+                );
 			}
 			$this->getCachingService()->setItem($cacheKey, $data);
 		}
@@ -28,8 +39,17 @@ class CachingHelper extends InvokableBase {
     /**
      * @param $cacheKey
      */
-	public function delItem( $cacheKey ){
+	public function delItem( $cacheKey )
+    {
 		$this->getCachingService()->removeItem($cacheKey);
 	}
+
+    /**
+     * @return bool
+     */
+    public function isCachingEnable()
+    {
+        return (bool) $this->getConfigService()->get('pserver.general.caching.enable');
+    }
 
 } 
