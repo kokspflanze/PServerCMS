@@ -14,7 +14,7 @@ class SecretQuestion extends InvokableBase
 	 *
 	 * @return \PServerCMS\Entity\SecretAnswer
 	 */
-	public function setSecretAnswer( U $user, $questionId, $answer )
+	public function setSecretAnswer( User $user, $questionId, $answer )
     {
 		$class = $this->getEntityOptions()->getSecretAnswer();
 		/** @var \PServerCMS\Entity\SecretAnswer $secretAnswer */
