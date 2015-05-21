@@ -6,15 +6,14 @@ use PServerAdmin\Mapper\HydratorDownload;
 use PServerCMS\Entity\DownloadList;
 use PServerCMS\Keys\Caching;
 
-class Download extends InvokableBase {
-	/** @var \PServerAdmin\Form\Download */
-	protected $downloadForm;
+class Download extends InvokableBase
+{
 
 	/**
 	 * @return \PServerCMS\Entity\DownloadList[]
 	 */
-	public function getActiveList(){
-
+	public function getActiveList()
+    {
 		$downloadInfo = $this->getCachingHelperService()->getItem(Caching::DOWNLOAD, function() {
 			/** @var \PServerCMS\Entity\Repository\DownloadList $repository */
 			$repository = $this->getEntityManager()->getRepository($this->getEntityOptions()->getDownloadList());
@@ -27,13 +26,19 @@ class Download extends InvokableBase {
 	/**
 	 * @return null|\PServerCMS\Entity\DownloadList[]
 	 */
-	public function getDownloadList(){
+	public function getDownloadList()
+    {
 		/** @var \PServerCMS\Entity\Repository\DownloadList $repository */
 		$repository = $this->getEntityManager()->getRepository($this->getEntityOptions()->getDownloadList());
 		return $repository->getDownloadList();
 	}
 
-	public function getDownload4Id( $id ){
+    /**
+     * @param $id
+     * @return null|DownloadList
+     */
+	public function getDownload4Id( $id )
+    {
 		/** @var \PServerCMS\Entity\Repository\DownloadList $repository */
 		$repository = $this->getEntityManager()->getRepository($this->getEntityOptions()->getDownloadList());
 		return $repository->getDownload4Id($id);
@@ -45,7 +50,8 @@ class Download extends InvokableBase {
 	 *
 	 * @return bool|DownloadList
 	 */
-	public function download( array $data, $currentDownload = null){
+	public function download( array $data, $currentDownload = null)
+    {
 		if($currentDownload == null){
 			$currentDownload = new DownloadList();
 		}
@@ -71,10 +77,8 @@ class Download extends InvokableBase {
 	/**
 	 * @return \PServerAdmin\Form\Download
 	 */
-	public function getDownloadForm(){
-		if(!$this->downloadForm){
-			$this->downloadForm = $this->getServiceManager()->get('pserver_admin_download_form');
-		}
-		return $this->downloadForm;
+	public function getDownloadForm()
+    {
+		return $this->getService('pserver_admin_download_form');
 	}
 } 

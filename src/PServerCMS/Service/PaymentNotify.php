@@ -36,8 +36,7 @@ class PaymentNotify extends InvokableBase implements LogInterface
         // save the message if gamebackend-service is unavailable
         $errorMessage = '';
         try {
-            $backend = $this->getGameBackendService();
-            $backend->setCoins( $user, $coins );
+            $this->getCoinService()->addCoins( $user, $coins );
         } catch( \Exception $e ) {
             $request->setStatus( $request::STATUS_ERROR );
             $errorMessage = $e->getMessage();
@@ -144,5 +143,13 @@ class PaymentNotify extends InvokableBase implements LogInterface
         /** @var \PServerCMS\Entity\Repository\DonateLog $donateEntity */
         $donateEntity = $this->getEntityManager()->getRepository( $this->getEntityOptions()->getDonateLog() );
         return $donateEntity->isDonateAlreadyAdded( $request->getTransactionId(), $this->mapPaymentProvider2DonateType( $request ) );
+    }
+
+    /**
+     * @return Coin
+     */
+    protected function getCoinService()
+    {
+        return $this->getService('pserver_coin_service');
     }
 }

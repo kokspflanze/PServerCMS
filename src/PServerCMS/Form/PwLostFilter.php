@@ -11,7 +11,8 @@ class PwLostFilter extends ProvidesEventsInputFilter
     protected $userValidator;
 
 
-	public function __construct( AbstractRecord $userValidator ){
+	public function __construct( AbstractRecord $userValidator )
+    {
         $this->setUserValidator( $userValidator );
 
 		$this->add(array(
@@ -33,7 +34,8 @@ class PwLostFilter extends ProvidesEventsInputFilter
     /**
      * @return AbstractRecord
      */
-    public function getUserValidator()	{
+    public function getUserValidator()
+    {
         return $this->userValidator;
     }
 
@@ -42,7 +44,8 @@ class PwLostFilter extends ProvidesEventsInputFilter
      *
      * @return $this
      */
-    public function setUserValidator($userValidator) {
+    public function setUserValidator($userValidator)
+    {
         $this->userValidator = $userValidator;
         return $this;
     }

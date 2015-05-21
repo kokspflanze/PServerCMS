@@ -8,9 +8,11 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 use ZfcBase\Form\ProvidesEventsForm;
 use Zend\Form\Element\Captcha;
 
-class PwLost extends ProvidesEventsForm {
+class PwLost extends ProvidesEventsForm
+{
 
-	public function __construct( ServiceLocatorInterface $sm ) {
+	public function __construct( ServiceLocatorInterface $sm )
+    {
 		parent::__construct();
 
 		$this->add(array(

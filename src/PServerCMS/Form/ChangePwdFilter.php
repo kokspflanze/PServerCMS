@@ -4,11 +4,11 @@ namespace PServerCMS\Form;
 
 use ZfcBase\InputFilter\ProvidesEventsInputFilter;
 
-class ChangePwdFilter extends ProvidesEventsInputFilter{
+class ChangePwdFilter extends ProvidesEventsInputFilter
+{
 
-
-    public function __construct(){
-
+    public function __construct()
+    {
         $this->add(array(
             'name'       => 'currentPassword',
             'required'   => true,

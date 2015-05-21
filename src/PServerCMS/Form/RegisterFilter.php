@@ -7,7 +7,8 @@ use PServerCMS\Validator\AbstractRecord;
 use PServerCMS\Validator;
 use Zend\ServiceManager\ServiceManager;
 
-class RegisterFilter extends ProvidesEventsInputFilter {
+class RegisterFilter extends ProvidesEventsInputFilter
+{
 	protected $serviceManager;
 	protected $entityManager;
 
@@ -17,7 +18,8 @@ class RegisterFilter extends ProvidesEventsInputFilter {
 	protected $striposValidator;
 
 
-	public function __construct( ServiceManager $serviceManager ){
+	public function __construct( ServiceManager $serviceManager )
+    {
 
 		$this->setServiceManager($serviceManager);
 

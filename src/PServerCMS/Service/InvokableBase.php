@@ -6,33 +6,15 @@ use Zend\Form\FormInterface;
 
 class InvokableBase extends UserBase
 {
-    /** @var \Zend\Cache\Storage\StorageInterface */
-    protected $cachingService;
-    /** @var  CachingHelper */
-    protected $cachingHelperService;
-    /** @var  \GameBackend\DataService\DataServiceInterface */
-    protected $gameBackendService;
-    /** @var  ConfigRead */
-    protected $configReadService;
-    /** @var  UserBlock */
-    protected $userBlockService;
-    /** @var \PServerCMS\Options\EntityOptions */
-    protected $entityOptions;
-    /** @var \PServerCMS\Options\MailOptions */
-    protected $mailOptions;
-    /** @var  \SmallUser\Service\User */
-    protected $userService;
+    /** @var  array|object */
+    protected $serviceCache;
 
     /**
      * @return \Zend\Cache\Storage\StorageInterface
      */
     protected function getCachingService()
     {
-        if (!$this->cachingService) {
-            $this->cachingService = $this->getServiceManager()->get( 'pserver_caching_service' );
-        }
-
-        return $this->cachingService;
+        return $this->getService('pserver_caching_service');
     }
 
     /**
@@ -40,11 +22,7 @@ class InvokableBase extends UserBase
      */
     protected function getCachingHelperService()
     {
-        if (!$this->cachingHelperService) {
-            $this->cachingHelperService = $this->getServiceManager()->get( 'pserver_cachinghelper_service' );
-        }
-
-        return $this->cachingHelperService;
+        return $this->getService('pserver_cachinghelper_service');
     }
 
     /**
@@ -52,11 +30,7 @@ class InvokableBase extends UserBase
      */
     protected function getGameBackendService()
     {
-        if (!$this->gameBackendService) {
-            $this->gameBackendService = $this->getServiceManager()->get( 'gamebackend_dataservice' );
-        }
-
-        return $this->gameBackendService;
+        return $this->getService('gamebackend_dataservice');
     }
 
     /**
@@ -76,11 +50,7 @@ class InvokableBase extends UserBase
      */
     protected function getConfigService()
     {
-        if (!$this->configReadService) {
-            $this->configReadService = $this->getServiceManager()->get( 'pserver_configread_service' );
-        }
-
-        return $this->configReadService;
+        return $this->getService('pserver_configread_service');
     }
 
     /**
@@ -88,11 +58,7 @@ class InvokableBase extends UserBase
      */
     protected function getUserBlockService()
     {
-        if (!$this->userBlockService) {
-            $this->userBlockService = $this->getServiceManager()->get( 'pserver_user_block_service' );
-        }
-
-        return $this->userBlockService;
+        return $this->getService('pserver_user_block_service');
     }
 
     /**
@@ -100,11 +66,7 @@ class InvokableBase extends UserBase
      */
     protected function getEntityOptions()
     {
-        if (!$this->entityOptions) {
-            $this->entityOptions = $this->getServiceManager()->get( 'pserver_entity_options' );
-        }
-
-        return $this->entityOptions;
+        return $this->getService('pserver_entity_options');
     }
 
     /**
@@ -112,11 +74,7 @@ class InvokableBase extends UserBase
      */
     protected function getMailOptions()
     {
-        if (!$this->mailOptions) {
-            $this->mailOptions = $this->getServiceManager()->get( 'pserver_mail_options' );
-        }
-
-        return $this->mailOptions;
+        return $this->getService('pserver_mail_options');
     }
 
     /**
@@ -124,11 +82,7 @@ class InvokableBase extends UserBase
      */
     protected function getUserService()
     {
-        if (!$this->userService) {
-            $this->userService = $this->getServiceManager()->get( 'small_user_service' );
-        }
-
-        return $this->userService;
+        return $this->getService('small_user_service');
     }
 
     /**
@@ -143,5 +97,18 @@ class InvokableBase extends UserBase
                 $this->getFlashMessenger()->setNamespace( $namespace )->addMessage( $message );
             }
         }
+    }
+
+    /**
+     * @param $serviceName
+     *
+     * @return array|object
+     */
+    protected function getService( $serviceName )
+    {
+        if (!isset( $this->serviceCache[$serviceName] )) {
+            $this->serviceCache[$serviceName] = $this->getServiceManager()->get( $serviceName );
+        }
+        return $this->serviceCache[$serviceName];
     }
 } 

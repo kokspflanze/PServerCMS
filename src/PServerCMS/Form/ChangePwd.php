@@ -5,9 +5,11 @@ namespace PServerCMS\Form;
 use Zend\Form\Element;
 use ZfcBase\Form\ProvidesEventsForm;
 
-class ChangePwd extends ProvidesEventsForm{
+class ChangePwd extends ProvidesEventsForm
+{
 
-    public function __construct(){
+    public function __construct()
+    {
         parent::__construct();
 
 		$this->add(array(
@@ -59,8 +61,8 @@ class ChangePwd extends ProvidesEventsForm{
      * @param $which
      * @return $this
      */
-    public function setWhich($which){
-        $bool = $this->hasAttribute('which');
+    public function setWhich($which)
+    {
         $hidden = new Element\Hidden('which');
         $hidden->setLabel(' ');
         $hidden->setValue($which);
