@@ -325,7 +325,7 @@ class User extends \SmallUser\Service\User
     protected function setAvailableCountries4User( UserInterface $user, $ip )
     {
         // skip if the config say no check, so we don´t have to save the country in list
-        if ($this->isCountryCheckOption()) {
+        if (!$this->isCountryCheckOption()) {
             return;
         }
 
