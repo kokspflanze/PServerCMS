@@ -34,13 +34,16 @@ class RegisterFilter extends ProvidesEventsInputFilter
 			'required'   => true,
 			'filters'    => array(array('name' => 'StringTrim')),
 			'validators' => array(
-				array(
-					'name'    => 'StringLength',
-					'options' => array(
-						'min' => 3,
-						'max' => 16,
-					),
-				),
+                array(
+                    'name'    => 'StringLength',
+                    'options' => array(
+                        'min' => 3,
+                        'max' => 16,
+                    ),
+                ),
+                array(
+                    'name'    => 'Alnum',
+                ),
 				$this->getUsernameValidator(),
                 $userNameBackendNotExists
 			),
