@@ -572,7 +572,10 @@ class User extends \SmallUser\Service\User
      */
     public function isSamePasswordOption()
     {
-        return !(bool)$this->getConfigService()->get( 'pserver.password.different-passwords' );
+        /** @var \PServerCMS\Options\PasswordOptions $options */
+        $options = $this->getServiceManager()->get('pserver_password_options');
+
+        return $options->isDifferentPasswords();
     }
 
     /**
@@ -598,7 +601,10 @@ class User extends \SmallUser\Service\User
      */
     public function isSecretQuestionOption()
     {
-        return (bool)$this->getConfigService()->get( 'pserver.password.secret_question' );
+        /** @var \PServerCMS\Options\PasswordOptions $options */
+        $options = $this->getServiceManager()->get('pserver_password_options');
+
+        return $options->isSecretQuestion();
     }
 
     /**

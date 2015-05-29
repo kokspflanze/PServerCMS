@@ -77,6 +77,8 @@ class RegisterFilter extends ProvidesEventsInputFilter
 			),
 		));
 
+        $passwordLengthOptions = $this->getPasswordOptions()->getLength();
+
 		$this->add(array(
 			'name'       => 'password',
 			'required'   => true,
@@ -85,8 +87,8 @@ class RegisterFilter extends ProvidesEventsInputFilter
 				array(
 					'name'    => 'StringLength',
 					'options' => array(
-						'min' => 6,
-						'max' => 32,
+                        'min' => $passwordLengthOptions['min'],
+                        'max' => $passwordLengthOptions['max'],
 					),
 				),
 			),
@@ -100,8 +102,8 @@ class RegisterFilter extends ProvidesEventsInputFilter
 				array(
 					'name'    => 'StringLength',
 					'options' => array(
-						'min' => 6,
-						'max' => 32,
+                        'min' => $passwordLengthOptions['min'],
+                        'max' => $passwordLengthOptions['max'],
 					),
 				),
 				array(
@@ -224,11 +226,19 @@ class RegisterFilter extends ProvidesEventsInputFilter
 		return $this->entityManager;
 	}
 
-	/**
-	 * @return \PServerCMS\Options\EntityOptions
-	 */
-	protected function getEntityOptions()
+    /**
+     * @return \PServerCMS\Options\EntityOptions
+     */
+    protected function getEntityOptions()
     {
-		return $this->getServiceManager()->get('pserver_entity_options');
-	}
+        return $this->getServiceManager()->get('pserver_entity_options');
+    }
+
+    /**
+     * @return \PServerCMS\Options\PasswordOptions
+     */
+    protected function getPasswordOptions()
+    {
+        return $this->getServiceManager()->get('pserver_password_options');
+    }
 } 

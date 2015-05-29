@@ -101,7 +101,7 @@ class UserBlock extends InvokableBase
      */
     public function getForm()
     {
-        return $this->getServiceManager()->get('pserver_admin_user_block_form');
+        return $this->getService('pserver_admin_user_block_form');
     }
 
     /**

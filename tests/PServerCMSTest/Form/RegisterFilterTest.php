@@ -57,6 +57,16 @@ class RegisterFilterTest extends TestBase
         ]);
 
         $this->assertTrue($class->isValid());
+
+        $class->setData([
+            'username' => 'fo dfgo',
+            'email' => 'fodfgo@travel.com',
+            'emailVerify' => 'fodfgo@travel.com',
+            'password' => 'fodfgo',
+            'passwordVerify' => 'fodfgo',
+        ]);
+
+        $this->assertFalse($class->isValid());
     }
 
     /**

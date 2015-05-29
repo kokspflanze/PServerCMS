@@ -6,6 +6,7 @@ use PServerCMS\Entity\User;
 use ZfcBase\InputFilter\ProvidesEventsInputFilter;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use PServerCMS\Validator\SimilarText;
+use Zend\ServiceManager\ServiceManager;
 
 class PasswordFilter extends ProvidesEventsInputFilter
 {
@@ -13,19 +14,24 @@ class PasswordFilter extends ProvidesEventsInputFilter
 	protected $similarText;
     /** @var  User */
 	protected $user;
+    protected $serviceManager;
 
     /**
      * @param ServiceLocatorInterface $serviceLocatorInterface
      */
 	public function __construct( ServiceLocatorInterface $serviceLocatorInterface )
     {
+        $this->setServiceManager($serviceLocatorInterface);
+
 		/** @var \PServerCMS\Service\ConfigRead $configService */
-		$configService = $serviceLocatorInterface->get( 'pserver_configread_service' );
+		$configService = $this->getServiceManager()->get( 'pserver_configread_service' );
 		if($configService->get('pserver.password.secret_question')) {
-			$secretQuestion = $serviceLocatorInterface->get( 'pserver_secret_question' );
+			$secretQuestion = $this->getServiceManager()->get( 'pserver_secret_question' );
 			$similarText    = new \PServerCMS\Validator\SimilarText( $secretQuestion );
 			$this->setSimilarText( $similarText );
 		}
+
+        $passwordLengthOptions = $this->getPasswordOptions()->getLength();
 
 		$this->add(array(
 			'name'       => 'password',
@@ -35,8 +41,8 @@ class PasswordFilter extends ProvidesEventsInputFilter
 				array(
 					'name'    => 'StringLength',
 					'options' => array(
-						'min' => 6,
-						'max' => 32,
+						'min' => $passwordLengthOptions['min'],
+						'max' => $passwordLengthOptions['max'],
 					),
 				),
 			),
@@ -50,8 +56,8 @@ class PasswordFilter extends ProvidesEventsInputFilter
 				array(
 					'name'    => 'StringLength',
 					'options' => array(
-						'min' => 6,
-						'max' => 32,
+                        'min' => $passwordLengthOptions['min'],
+                        'max' => $passwordLengthOptions['max'],
 					),
 				),
 				array(
@@ -63,6 +69,26 @@ class PasswordFilter extends ProvidesEventsInputFilter
 			),
 		));
 	}
+
+    /**
+     * @param ServiceManager $oServiceManager
+     *
+     * @return $this
+     */
+    public function setServiceManager( ServiceManager $oServiceManager )
+    {
+        $this->serviceManager = $oServiceManager;
+
+        return $this;
+    }
+
+    /**
+     * @return ServiceManager
+     */
+    protected function getServiceManager()
+    {
+        return $this->serviceManager;
+    }
 
     /**
      * @param User $user
@@ -102,4 +128,11 @@ class PasswordFilter extends ProvidesEventsInputFilter
 		return $this->similarText;
 	}
 
+    /**
+     * @return \PServerCMS\Options\PasswordOptions
+     */
+    protected function getPasswordOptions()
+    {
+        return $this->getServiceManager()->get('pserver_password_options');
+    }
 } 

@@ -7,14 +7,13 @@ use PServerCMS\Entity\User;
 use PServerCMS\Entity\UserInterface;
 use PServerCMS\Keys\Caching;
 
-class News extends InvokableBase {
-	/** @var \PServerAdmin\Form\News */
-	protected $newsForm;
-
+class News extends InvokableBase
+{
 	/**
 	 * @return \PServerCMS\Entity\News[]
 	 */
-	public function getActiveNews(){
+	public function getActiveNews()
+    {
 		$limit = $this->getConfigService()->get('pserver.news.limit', 5);
 		$newsInfo = $this->getCachingHelperService()->getItem(Caching::NEWS, function() use ($limit) {
 			/** @var \PServerCMS\Entity\Repository\News $repository */
@@ -28,7 +27,8 @@ class News extends InvokableBase {
 	/**
 	 * @return null|\PServerCMS\Entity\News[]
 	 */
-	public function getNews(){
+	public function getNews()
+    {
 		/** @var \PServerCMS\Entity\Repository\News $repository */
 		$repository = $this->getEntityManager()->getRepository($this->getEntityOptions()->getNews());
 		return $repository->getNews();
@@ -49,7 +49,8 @@ class News extends InvokableBase {
 	 *
 	 * @return null|\PServerCMS\Entity\News
 	 */
-	public function getNews4Id( $newsId ){
+	public function getNews4Id( $newsId )
+    {
 		/** @var \PServerCMS\Entity\Repository\News $repository */
 		$repository = $this->getEntityManager()->getRepository($this->getEntityOptions()->getNews());
 		return $repository->getNews4Id($newsId);
@@ -61,8 +62,9 @@ class News extends InvokableBase {
 	 *
 	 * @return bool|\PServerCMS\Entity\News
 	 */
-	public function news( array $data, UserInterface $user, $currentNews = null ){
-		if($currentNews == null){
+	public function news( array $data, UserInterface $user, $currentNews = null )
+    {
+		if (!$currentNews) {
 			$currentNews = new \PServerCMS\Entity\News();
 		}
 
@@ -70,7 +72,7 @@ class News extends InvokableBase {
 		$form->setHydrator(new HydratorNews());
 		$form->bind($currentNews);
 		$form->setData($data);
-		if(!$form->isValid()){
+		if (!$form->isValid()) {
 			return false;
 		}
 
@@ -91,11 +93,8 @@ class News extends InvokableBase {
 	/**
 	 * @return \PServerAdmin\Form\News
 	 */
-	public function getNewsForm(){
-		if (! $this->newsForm) {
-			$this->newsForm = $this->getServiceManager()->get('pserver_admin_news_form');
-		}
-
-		return $this->newsForm;
+	public function getNewsForm()
+    {
+		return $this->getService('pserver_admin_news_form');
 	}
 } 

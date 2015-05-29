@@ -3,12 +3,22 @@
 namespace PServerCMS\Form;
 
 use ZfcBase\InputFilter\ProvidesEventsInputFilter;
+use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\ServiceManager;
 
 class ChangePwdFilter extends ProvidesEventsInputFilter
 {
+    protected $serviceManager;
 
-    public function __construct()
+    /**
+     * @param ServiceLocatorInterface $serviceLocatorInterface
+     */
+    public function __construct( ServiceLocatorInterface $serviceLocatorInterface )
     {
+        $this->setServiceManager($serviceLocatorInterface);
+
+        $passwordLengthOptions = $this->getPasswordOptions()->getLength();
+
         $this->add(array(
             'name'       => 'currentPassword',
             'required'   => true,
@@ -17,12 +27,13 @@ class ChangePwdFilter extends ProvidesEventsInputFilter
                 array(
                     'name'    => 'StringLength',
                     'options' => array(
-                        'min' => 6,
-                        'max' => 32,
+                        'min' => $passwordLengthOptions['min'],
+                        'max' => $passwordLengthOptions['max'],
                     ),
                 ),
             ),
         ));
+
 		$this->add(array(
 			'name'       => 'password',
 			'required'   => true,
@@ -31,8 +42,8 @@ class ChangePwdFilter extends ProvidesEventsInputFilter
 				array(
 					'name'    => 'StringLength',
 					'options' => array(
-						'min' => 6,
-						'max' => 32,
+                        'min' => $passwordLengthOptions['min'],
+                        'max' => $passwordLengthOptions['max'],
 					),
 				),
 			),
@@ -46,8 +57,8 @@ class ChangePwdFilter extends ProvidesEventsInputFilter
 				array(
 					'name'    => 'StringLength',
 					'options' => array(
-						'min' => 6,
-						'max' => 32,
+                        'min' => $passwordLengthOptions['min'],
+                        'max' => $passwordLengthOptions['max'],
 					),
 				),
 				array(
@@ -58,5 +69,33 @@ class ChangePwdFilter extends ProvidesEventsInputFilter
 				),
 			),
 		));
+    }
+
+    /**
+     * @param ServiceManager $oServiceManager
+     *
+     * @return $this
+     */
+    public function setServiceManager( ServiceManager $oServiceManager )
+    {
+        $this->serviceManager = $oServiceManager;
+
+        return $this;
+    }
+
+    /**
+     * @return ServiceManager
+     */
+    protected function getServiceManager()
+    {
+        return $this->serviceManager;
+    }
+
+    /**
+     * @return \PServerCMS\Options\PasswordOptions
+     */
+    protected function getPasswordOptions()
+    {
+        return $this->getServiceManager()->get('pserver_password_options');
     }
 }

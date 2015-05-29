@@ -2,13 +2,12 @@
 
 namespace PServerCMS\Service;
 
-
 use PServerCMS\Entity\User;
 use PServerCMS\Helper\Format;
 use PServerCMS\Entity\UserCodes as Entity;
 
-class UserCodes extends InvokableBase {
-
+class UserCodes extends InvokableBase
+{
 	/**
 	 * @var \Doctrine\Common\Persistence\ObjectRepository
 	 */
@@ -21,7 +20,8 @@ class UserCodes extends InvokableBase {
      *
      * @return string
      */
-	public function setCode4User( User $userEntity, $type, $expire = 0 ){
+	public function setCode4User( User $userEntity, $type, $expire = 0 )
+    {
 		$entityManager = $this->getEntityManager();
 
 		$this->getRepositoryManager()->deleteCodes4User($userEntity->getId(), $type);
@@ -55,7 +55,8 @@ class UserCodes extends InvokableBase {
 	 *
 	 * @param Entity $userCode
 	 */
-	public function deleteCode( Entity $userCode ){
+	public function deleteCode( Entity $userCode )
+    {
 		$entityManager = $this->getEntityManager();
 		$entityManager->remove($userCode);
 		$entityManager->flush();
@@ -94,7 +95,7 @@ class UserCodes extends InvokableBase {
                 /** @var \PServerCMS\Entity\Repository\Logs $logRepository */
                 $logRepository = $entityManager->getRepository( $this->getEntityOptions()->getLogs() );
                 $logRepository->setLogsNull4User( $user );
-                if ($this->getServiceManager()->get( 'pserver_configread_service' )->get( 'pserver.password.secret_question' )) {
+                if ($this->getConfigService()->get( 'pserver.password.secret_question' )) {
                     /** @var \PServerCMS\Entity\Repository\SecretAnswer $answerRepository */
                     $answerRepository = $entityManager->getRepository( $this->getEntityOptions()->getSecretAnswer() );
                     $answerRepository->deleteAnswer4User($user);
@@ -112,7 +113,8 @@ class UserCodes extends InvokableBase {
 	/**
 	 * @return \Doctrine\Common\Persistence\ObjectRepository|\PServerCMS\Entity\Repository\UserCodes
 	 */
-	protected function getRepositoryManager(){
+	protected function getRepositoryManager()
+    {
 		if( !$this->repositoryManager ){
 			$this->repositoryManager = $this->getEntityManager()->getRepository( $this->getEntityOptions()->getUserCodes() );
 		}

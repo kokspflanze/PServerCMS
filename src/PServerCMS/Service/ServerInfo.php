@@ -5,14 +5,13 @@ namespace PServerCMS\Service;
 use PServerAdmin\Mapper\HydratorServerInfo;
 use PServerCMS\Keys\Caching;
 
-class ServerInfo extends InvokableBase {
-	/** @var \PServerAdmin\Form\ServerInfo */
-	protected $serverInfoForm;
-
-	/**
+class ServerInfo extends InvokableBase
+{
+    /**
 	 * @return null|\PServerCMS\Entity\ServerInfo[]
 	 */
-	public function getServerInfo(){
+	public function getServerInfo()
+    {
 		$serverInfo = $this->getCachingHelperService()->getItem(Caching::SERVER_INFO, function() {
 			/** @var \PServerCMS\Entity\Repository\ServerInfo $repository */
 			$repository = $this->getEntityManager()->getRepository($this->getEntityOptions()->getServerInfo());
@@ -25,7 +24,8 @@ class ServerInfo extends InvokableBase {
 	/**
 	 * @return null|\PServerCMS\Entity\ServerInfo[]
 	 */
-	public function getAllServerInfo(){
+	public function getAllServerInfo()
+    {
 		/** @var \PServerCMS\Entity\Repository\ServerInfo $repository */
 		$repository = $this->getEntityManager()->getRepository($this->getEntityOptions()->getServerInfo());
 
@@ -37,7 +37,8 @@ class ServerInfo extends InvokableBase {
 	 *
 	 * @return null|\PServerCMS\Entity\ServerInfo
 	 */
-	public function getServerInfo4Id( $id ){
+	public function getServerInfo4Id( $id )
+    {
 		/** @var \PServerCMS\Entity\Repository\ServerInfo $repository */
 		$repository = $this->getEntityManager()->getRepository($this->getEntityOptions()->getServerInfo());
 
@@ -50,8 +51,9 @@ class ServerInfo extends InvokableBase {
 	 *
 	 * @return bool|\PServerCMS\Entity\ServerInfo
 	 */
-	public function serverInfo( array $data, $currentServerInfo = null ){
-		if($currentServerInfo == null){
+	public function serverInfo( array $data, $currentServerInfo = null )
+    {
+		if ($currentServerInfo == null) {
 			$class = $this->getEntityOptions()->getServerInfo();
 			$currentServerInfo = new $class;
 		}
@@ -61,7 +63,7 @@ class ServerInfo extends InvokableBase {
 		$form->bind($currentServerInfo);
 		$form->setData($data);
 
-		if(!$form->isValid()){
+		if (!$form->isValid()) {
 			return false;
 		}
 
@@ -78,11 +80,8 @@ class ServerInfo extends InvokableBase {
 	/**
 	 * @return \PServerAdmin\Form\ServerInfo
 	 */
-	public function getServerInfoForm(){
-		if(!$this->serverInfoForm){
-			$this->serverInfoForm = $this->getServiceManager()->get('pserver_admin_server_info_form');
-		}
-
-		return $this->serverInfoForm;
+	public function getServerInfoForm()
+    {
+		return $this->getService('pserver_admin_server_info_form');
 	}
 } 

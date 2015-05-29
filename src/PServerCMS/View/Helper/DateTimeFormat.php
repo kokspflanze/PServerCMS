@@ -20,6 +20,9 @@ class DateTimeFormat extends InvokerBase
      */
     public function getConfigFormat()
     {
-        return $this->getConfigService()['pserver']['general']['datetime']['format']['time'];
+        /** @var \PServerCMS\Options\GeneralOptions $options */
+        $options = $this->getServiceLocator()->get('pserver_general_options');
+
+        return $options->getDatetime()['format']['time'];
     }
 }

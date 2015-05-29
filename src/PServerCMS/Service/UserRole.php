@@ -74,7 +74,7 @@ class UserRole extends InvokableBase
      */
     public function getForm()
     {
-        return $this->getServiceManager()->get('pserver_admin_user_role_form');
+        return $this->getService('pserver_admin_user_role_form');
     }
 
     /**

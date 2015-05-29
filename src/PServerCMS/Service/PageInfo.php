@@ -7,10 +7,6 @@ use PServerCMS\Keys\Caching;
 
 class PageInfo extends InvokableBase
 {
-
-    /** @var \PServerAdmin\Form\PageInfo */
-    protected $pageInfoForm;
-
     /**
      * @param $type
      *
@@ -70,11 +66,7 @@ class PageInfo extends InvokableBase
      */
     public function getPageInfoForm()
     {
-        if (!$this->pageInfoForm) {
-            $this->pageInfoForm = $this->getServiceManager()->get( 'pserver_admin_page_info_form' );
-        }
-
-        return $this->pageInfoForm;
+        return $this->getService('pserver_admin_page_info_form');
     }
 
 } 

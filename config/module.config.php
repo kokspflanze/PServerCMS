@@ -307,11 +307,18 @@ return [
 			/*
 			 * set other pw for web as ingame
 			 */
-			'different-passwords' => true,
+			'different_passwords' => true,
             /**
              * work with secret pw system, there is atm no admin view to handle the question =[
              */
             'secret_question' => false,
+            /**
+             * some games does not allowed so long password
+             */
+            'length' => [
+                'min' => 6,
+                'max' => 32
+            ],
 		],
 		'news' => [
             /**

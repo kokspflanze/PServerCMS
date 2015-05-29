@@ -24,7 +24,7 @@ class CachingHelper extends InvokableBase
 		if (!$data) {
 			$data = $closure();
 			if ($lifetime > 0) {
-				$this->cachingService->setOptions(
+                $this->getCachingService()->setOptions(
                     $this->getCachingService()
                         ->getOptions()
                         ->setTtl($lifetime)
@@ -49,7 +49,9 @@ class CachingHelper extends InvokableBase
      */
     public function isCachingEnable()
     {
-        return (bool) $this->getConfigService()->get('pserver.general.caching.enable');
+        /** @var \PServerCMS\Options\GeneralOptions $options */
+        $options = $this->getService('pserver_general_options');
+        return (bool) $options->getCache()['enable'];
     }
 
 } 
