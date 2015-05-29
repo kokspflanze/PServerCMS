@@ -12,22 +12,12 @@ class RegisterFilter extends ProvidesEventsInputFilter
 	protected $serviceManager;
 	protected $entityManager;
 
-	/** @var AbstractRecord */
-	protected $usernameValidator;
-	/** @var Validator\StriposExists */
-	protected $striposValidator;
-
-
+    /**
+     * @param ServiceManager $serviceManager
+     */
 	public function __construct( ServiceManager $serviceManager )
     {
-
 		$this->setServiceManager($serviceManager);
-
-		/** @var $repositoryUser \Doctrine\Common\Persistence\ObjectRepository */
-		$repositoryUser = $serviceManager->get('Doctrine\ORM\EntityManager')->getRepository($this->getEntityOptions()->getUser());
-		$this->setUsernameValidator( new Validator\NoRecordExists( $repositoryUser, 'username' ) );
-		$this->setStriposValidator( new Validator\StriposExists($serviceManager, Validator\StriposExists::TYPE_EMAIL) );
-        $userNameBackendNotExists = new Validator\UserNameBackendNotExists($serviceManager);
 
 		$this->add(array(
 			'name'       => 'username',
@@ -45,7 +35,7 @@ class RegisterFilter extends ProvidesEventsInputFilter
                     'name'    => 'Alnum',
                 ),
 				$this->getUsernameValidator(),
-                $userNameBackendNotExists
+                $this->getUserNameBackendNotExistsValidator()
 			),
 		));
 
@@ -161,7 +151,8 @@ class RegisterFilter extends ProvidesEventsInputFilter
 	 *
 	 * @return $this
 	 */
-	public function setServiceManager( ServiceManager $oServiceManager ) {
+	public function setServiceManager( ServiceManager $oServiceManager )
+    {
 		$this->serviceManager = $oServiceManager;
 
 		return $this;
@@ -170,14 +161,16 @@ class RegisterFilter extends ProvidesEventsInputFilter
 	/**
 	 * @return ServiceManager
 	 */
-	protected function getServiceManager() {
+	protected function getServiceManager()
+    {
 		return $this->serviceManager;
 	}
 
 	/**
 	 * @return array
 	 */
-	protected function getSecretQuestionList(){
+	protected function getSecretQuestionList()
+    {
 		/** @var \PServerCMS\Entity\Repository\SecretQuestion $secret */
 		$secret = $this->getEntityManager()->getRepository('PServerCMS\Entity\SecretQuestion');
 		$secretQuestion = $secret->getQuestions();
@@ -193,41 +186,37 @@ class RegisterFilter extends ProvidesEventsInputFilter
 	/**
 	 * @return AbstractRecord
 	 */
-	public function getUsernameValidator()	{
-		return $this->usernameValidator;
-	}
+	public function getUsernameValidator()
+    {
+        /** @var $repositoryUser \Doctrine\Common\Persistence\ObjectRepository */
+        $repositoryUser = $this->getServiceManager()
+            ->get('Doctrine\ORM\EntityManager')
+            ->getRepository($this->getEntityOptions()->getUser());
 
-	/**
-	 * @param AbstractRecord $usernameValidator
-	 *
-	 * @return $this
-	 */
-	public function setUsernameValidator($usernameValidator) {
-		$this->usernameValidator = $usernameValidator;
-		return $this;
+        return new Validator\NoRecordExists( $repositoryUser, 'username' );
 	}
 
 	/**
 	 * @return Validator\StriposExists
 	 */
-	public function getStriposValidator()	{
-		return $this->striposValidator;
+	public function getStriposValidator()
+    {
+        return new Validator\StriposExists($this->getServiceManager(), Validator\StriposExists::TYPE_EMAIL);
 	}
 
-	/**
-	 * @param Validator\StriposExists $striposValidator
-	 *
-	 * @return $this
-	 */
-	public function setStriposValidator($striposValidator) {
-		$this->striposValidator = $striposValidator;
-		return $this;
-	}
+    /**
+     * @return Validator\UserNameBackendNotExists
+     */
+    public function getUserNameBackendNotExistsValidator()
+    {
+        return new Validator\UserNameBackendNotExists($this->getServiceManager());
+    }
 
 	/**
 	 * @return \Doctrine\ORM\EntityManager
 	 */
-	protected function getEntityManager() {
+	protected function getEntityManager()
+    {
 		if (!$this->entityManager) {
 			$this->entityManager = $this->getServiceManager()->get('Doctrine\ORM\EntityManager');
 		}
@@ -238,7 +227,8 @@ class RegisterFilter extends ProvidesEventsInputFilter
 	/**
 	 * @return \PServerCMS\Options\EntityOptions
 	 */
-	protected function getEntityOptions(){
+	protected function getEntityOptions()
+    {
 		return $this->getServiceManager()->get('pserver_entity_options');
 	}
 } 

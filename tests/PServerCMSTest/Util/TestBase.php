@@ -12,9 +12,9 @@ class TestBase extends TestCase
     protected $serviceManager;
     /** @var  string */
     protected $className;
-    /** @var array  */
-    protected $mockedMethods = [];
-    /** @var  object */
+    /** @var array|null  */
+    protected $mockedMethodList = null;
+    /** @var  \PHPUnit_Framework_MockObject_MockObject */
     protected $class;
 
     public function setUp()
@@ -37,24 +37,30 @@ class TestBase extends TestCase
     }
 
     /**
-     * @return \Zend\ServiceManager\ServiceManagerAwareInterface
+     * @return \Zend\ServiceManager\ServiceManagerAwareInterface|\PHPUnit_Framework_MockObject_MockObject
      */
     protected function getClass()
     {
         if (!$this->class) {
-            /** @var \Zend\ServiceManager\ServiceManagerAwareInterface */
-            $this->class = new $this->className;
-            $this->class->setServiceManager($this->serviceManager);
+            /** @var \Zend\ServiceManager\ServiceManagerAwareInterface $class */
+            $class = $this->getMockBuilder($this->className)
+                ->disableOriginalConstructor()
+                ->setMethods($this->getMockedMethodList())
+                ->getMock();
+
+            $class->setServiceManager($this->serviceManager);
+
+            $this->class = $class;
         }
 
         return $this->class;
     }
 
     /**
-     * @return array
+     * @return array|null
      */
-    protected function getMockedMethods()
+    protected function getMockedMethodList()
     {
-        return $this->mockedMethods;
+        return $this->mockedMethodList;
     }
 }

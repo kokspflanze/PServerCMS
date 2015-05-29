@@ -11,7 +11,7 @@ class ValidUserExistsTest extends TestBase
 
     public function testIsValid()
     {
-        $this->mockedMethods = [
+        $this->mockedMethodList = [
             'query'
         ];
 
@@ -54,7 +54,7 @@ class ValidUserExistsTest extends TestBase
         if (!$this->class || $newInstance) {
             $this->class = $this->getMockBuilder($this->className)
                 ->disableOriginalConstructor()
-                ->setMethods($this->getMockedMethods())
+                ->setMethods($this->getMockedMethodList())
                 ->getMock();
         }
 
