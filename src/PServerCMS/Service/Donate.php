@@ -89,7 +89,8 @@ class Donate extends InvokableBase
     /**
      * @return array
      */
-    protected function getDonationDataSuccess(){
+    protected function getDonationDataSuccess()
+    {
         $timestamp = DateTimer::getZeroTimeStamp( time() );
         $dateTime  = DateTimer::getDateTime4TimeStamp( $timestamp );
 

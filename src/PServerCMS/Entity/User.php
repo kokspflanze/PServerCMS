@@ -238,10 +238,13 @@ class User implements UserInterface
     /**
      * Remove userRole
      * @param UserRoleInterface $userRole
+     * @return self
      */
     public function removeUserRole( UserRoleInterface $userRole )
     {
         $this->userRole->removeElement( $userRole );
+
+        return $this;
     }
 
     /**
@@ -264,7 +267,7 @@ class User implements UserInterface
     /**
      * Add userExtension
      * @param UserExtension $userExtension
-     * @return User
+     * @return self
      */
     public function addUserExtension( $userExtension )
     {
@@ -276,6 +279,7 @@ class User implements UserInterface
     /**
      * Remove userExtension
      * @param UserExtension $userExtension
+     * @return self
      */
     public function removeUserExtension( $userExtension )
     {
@@ -301,13 +305,8 @@ class User implements UserInterface
     {
         /** @var \PServerCMS\Service\User $userService */
         $userService = ServiceManager::getInstance()->get( 'small_user_service' );
-        if ($userService->isSamePasswordOption()) {
-            return $userService->getGameBackendService()->isPasswordSame( $entity->getPassword(), $plaintext );
-        }
 
-        $bcrypt = new Bcrypt();
-
-        return $bcrypt->verify( $plaintext, $entity->getPassword() );
+        return $userService->hashPassword($entity, $plaintext);
     }
 
 }

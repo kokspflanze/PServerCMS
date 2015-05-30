@@ -43,7 +43,6 @@ class SecretQuestion extends InvokableBase
 		$realAnswer = strtolower(trim($answerEntity->getAnswer()));
 		$plainAnswer = strtolower(trim($answer));
 
-
 		return $realAnswer == $plainAnswer;
 	}
 
@@ -57,14 +56,14 @@ class SecretQuestion extends InvokableBase
         /** @var \PServerCMS\Entity\Repository\SecretQuestion $repository */
 		$repository = $this->getEntityManager()->getRepository($this->getEntityOptions()->getSecretQuestion());
 
-
 		return $repository->getQuestion4Id( $questionId );
 	}
 
 	/**
 	 * @return null|\PServerCMS\Entity\Repository\SecretAnswer
 	 */
-	protected function getEntityManagerAnswer(){
+	protected function getEntityManagerAnswer()
+    {
 		return $this->getEntityManager()->getRepository($this->getEntityOptions()->getSecretAnswer());
 	}
 

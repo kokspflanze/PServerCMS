@@ -148,6 +148,7 @@ class UserTest extends TestBase
     {
         $userService = $this->getMockBuilder('PServerCMS\Service\User')
             ->disableOriginalConstructor()
+            ->setMethods(['isSamePasswordOption'])
             ->getMock();
 
         $userService->expects($this->any())
@@ -169,8 +170,9 @@ class UserTest extends TestBase
     public function testHashPasswordFalse()
     {
         // We need a mocking of GameBackend =)
-        $gameService = $this->getMockBuilder('GameBackend\DataService\DataServiceInterface')
+        $gameService = $this->getMockBuilder('GameBackend\DataService\Mocking')
             ->disableOriginalConstructor()
+            ->setMethods(['isPasswordSame'])
             ->getMock();
 
         $gameService->expects($this->any())
@@ -180,6 +182,7 @@ class UserTest extends TestBase
         // Mock UserService
         $userService = $this->getMockBuilder('PServerCMS\Service\User')
             ->disableOriginalConstructor()
+            ->setMethods(['isSamePasswordOption', 'getGameBackendService'])
             ->getMock();
 
         $userService->expects($this->any())

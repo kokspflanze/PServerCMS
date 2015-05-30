@@ -49,9 +49,7 @@ class CachingHelper extends InvokableBase
      */
     public function isCachingEnable()
     {
-        /** @var \PServerCMS\Options\GeneralOptions $options */
-        $options = $this->getService('pserver_general_options');
-        return (bool) $options->getCache()['enable'];
+        return (bool) $this->getGeneralOptions()->getCache()['enable'];
     }
 
 } 

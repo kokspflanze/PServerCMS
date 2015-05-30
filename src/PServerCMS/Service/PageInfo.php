@@ -27,7 +27,7 @@ class PageInfo extends InvokableBase
 
     /**
      * @param array $data
-     * @param null  $currentPageInfo
+     * @param string $type
      *
      * @return bool|\PServerCMS\Entity\PageInfo
      */

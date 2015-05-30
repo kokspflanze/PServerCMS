@@ -17,17 +17,6 @@ class Mail extends InvokableBase {
     const SUBJECT_KEY_CONFIRM_COUNTRY = 'country';
 
 	/**
-	 * @var \Zend\View\Renderer\PhpRenderer
-	 */
-	protected $viewRenderer;
-
-	/**
-	 * TODO Option
-	 * @var array
-	 */
-	protected $mailConfig;
-
-	/**
 	 * @var SmtpOptions
 	 */
 	protected $mailSMTPOptions;
@@ -38,8 +27,8 @@ class Mail extends InvokableBase {
 	 * @param User $user
 	 * @param       $code
 	 */
-	public function register( User $user, $code ){
-
+	public function register( User $user, $code )
+    {
 		$params = array(
 			'user' => $user,
 			'code' => $code
@@ -52,8 +41,8 @@ class Mail extends InvokableBase {
 	 * @param User $user
 	 * @param       $code
 	 */
-	public function lostPw( User $user, $code ){
-
+	public function lostPw( User $user, $code )
+    {
 		$aParams = array(
 			'user' => $user,
 			'code' => $code
@@ -66,8 +55,8 @@ class Mail extends InvokableBase {
      * @param User $user
      * @param $code
      */
-    public function confirmCountry( User $user, $code ){
-
+    public function confirmCountry( User $user, $code )
+    {
         $aParams = array(
             'user' => $user,
             'code' => $code
@@ -81,7 +70,8 @@ class Mail extends InvokableBase {
 	 * @param User $user
 	 * @param       $params
 	 */
-	protected function send($subjectKey, User $user, $params){
+	protected function send($subjectKey, User $user, $params)
+    {
 		// TODO TwigTemplateEngine
 		$renderer = $this->getViewRenderer();
 		/** @var \ZfcTwig\View\TwigResolver $oResolver */
@@ -131,19 +121,16 @@ class Mail extends InvokableBase {
 	/**
 	 * @return \Zend\View\Renderer\PhpRenderer
 	 */
-	public function getViewRenderer(){
-		if (! $this->viewRenderer) {
-			// $this->viewRenderer = $this->getServiceManager()->get('TwigViewRenderer');
-			$this->viewRenderer = $this->getServiceManager()->get('ViewRenderer');
-		}
-
-		return $this->viewRenderer;
+	public function getViewRenderer()
+    {
+		return $this->getService('ViewRenderer');
 	}
 
 	/**
 	 * @return SmtpOptions
 	 */
-	public function getSMTPOptions(){
+	public function getSMTPOptions()
+    {
 		if (! $this->mailSMTPOptions) {
 			$this->mailSMTPOptions = new SmtpOptions($this->getMailOptions()->getBasic());
 		}
@@ -156,7 +143,8 @@ class Mail extends InvokableBase {
 	 *
 	 * @return string
 	 */
-	public function getSubject4Key($key){
+	public function getSubject4Key($key)
+    {
 		$subjectList = $this->getMailOptions()->getSubject();
 		// added fallback if the key not exists, in the config
 		return isset($subjectList[$key])?$key:$subjectList[$key];

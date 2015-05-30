@@ -5,6 +5,7 @@ namespace PServerCMS\Service;
 
 use PServerCMS\Entity\UserCodes;
 use PServerCMS\Entity\UserInterface;
+use PServerCMS\Helper\HelperOptions;
 use SmallUser\Entity\UserInterface as SmallUserInterface;
 use PServerCMS\Entity\User as Entity;
 use PServerCMS\Entity\Repository\AvailableCountries as RepositoryAvailableCountries;
@@ -22,21 +23,7 @@ use Zend\Crypt\Password\Bcrypt;
  */
 class User extends \SmallUser\Service\User
 {
-    /** @var \PServerCMS\Form\Register */
-    protected $registerForm;
-    /** @var \PServerCMS\Service\Mail */
-    protected $mailService;
-    /** @var \PServerCMS\Service\UserCodes */
-    protected $userCodesService;
-    /** @var \PServerCMS\Form\Password */
-    protected $passwordForm;
-    /** @var \GameBackend\DataService\DataServiceInterface */
-    protected $gameBackendService;
-    /** @var \PServerCMS\Form\PwLost */
-    protected $passwordLostForm;
-    /** @var ConfigRead */
-    protected $configReadService;
-
+    use HelperOptions;
 
     /**
      * @param array $data
@@ -503,30 +490,6 @@ class User extends \SmallUser\Service\User
     }
 
     /**
-     * @return \PServerCMS\Form\Register
-     */
-    public function getRegisterForm()
-    {
-        if (!$this->registerForm) {
-            $this->registerForm = $this->getServiceManager()->get( 'pserver_user_register_form' );
-        }
-
-        return $this->registerForm;
-    }
-
-    /**
-     * @return \PServerCMS\Form\Password
-     */
-    public function getPasswordForm()
-    {
-        if (!$this->passwordForm) {
-            $this->passwordForm = $this->getServiceManager()->get( 'pserver_user_password_form' );
-        }
-
-        return $this->passwordForm;
-    }
-
-    /**
      * Login with a User
      *
      * @param UserInterface $user
@@ -546,16 +509,29 @@ class User extends \SmallUser\Service\User
         $authService->getStorage()->write( $userNew );
     }
 
+
+    /**
+     * @return \PServerCMS\Form\Register
+     */
+    public function getRegisterForm()
+    {
+        return $this->getService('pserver_user_register_form');
+    }
+
+    /**
+     * @return \PServerCMS\Form\Password
+     */
+    public function getPasswordForm()
+    {
+        return $this->getService('pserver_user_password_form');
+    }
+
     /**
      * @return \PServerCMS\Form\PwLost
      */
     public function getPasswordLostForm()
     {
-        if (!$this->passwordLostForm) {
-            $this->passwordLostForm = $this->getServiceManager()->get( 'pserver_user_pwlost_form' );
-        }
-
-        return $this->passwordLostForm;
+        return $this->getService('pserver_user_pwlost_form');
     }
 
     /**
@@ -563,7 +539,7 @@ class User extends \SmallUser\Service\User
      */
     public function getChangePwdForm()
     {
-        return $this->getServiceManager()->get( 'pserver_user_changepwd_form' );
+        return $this->getService('pserver_user_changepwd_form');
     }
 
     /**
@@ -572,10 +548,7 @@ class User extends \SmallUser\Service\User
      */
     public function isSamePasswordOption()
     {
-        /** @var \PServerCMS\Options\PasswordOptions $options */
-        $options = $this->getServiceManager()->get('pserver_password_options');
-
-        return $options->isDifferentPasswords();
+        return $this->getPasswordOptions()->isDifferentPasswords();
     }
 
     /**
@@ -601,10 +574,7 @@ class User extends \SmallUser\Service\User
      */
     public function isSecretQuestionOption()
     {
-        /** @var \PServerCMS\Options\PasswordOptions $options */
-        $options = $this->getServiceManager()->get('pserver_password_options');
-
-        return $options->isSecretQuestion();
+        return $this->getPasswordOptions()->isSecretQuestion();
     }
 
     /**
@@ -622,54 +592,6 @@ class User extends \SmallUser\Service\User
     public function getDateTimeFormatTime()
     {
         return $this->getConfigService()->get('pserver.general.datetime.format.time');
-    }
-
-    /**
-     * @return \GameBackend\DataService\DataServiceInterface
-     */
-    public function getGameBackendService()
-    {
-        if (!$this->gameBackendService) {
-            $this->gameBackendService = $this->getServiceManager()->get( 'gamebackend_dataservice' );
-        }
-
-        return $this->gameBackendService;
-    }
-
-    /**
-     * @return \PServerCMS\Service\Mail
-     */
-    protected function getMailService()
-    {
-        if (!$this->mailService) {
-            $this->mailService = $this->getServiceManager()->get( 'pserver_mail_service' );
-        }
-
-        return $this->mailService;
-    }
-
-    /**
-     * @return \PServerCMS\Service\UserCodes
-     */
-    protected function getUserCodesService()
-    {
-        if (!$this->userCodesService) {
-            $this->userCodesService = $this->getServiceManager()->get( 'pserver_usercodes_service' );
-        }
-
-        return $this->userCodesService;
-    }
-
-    /**
-     * @return ConfigRead
-     */
-    protected function getConfigService()
-    {
-        if (!$this->configReadService) {
-            $this->configReadService = $this->getServiceManager()->get( 'pserver_configread_service' );
-        }
-
-        return $this->configReadService;
     }
 
     /**
@@ -773,26 +695,18 @@ class User extends \SmallUser\Service\User
     }
 
     /**
-     * @return SecretQuestion
+     * @param UserInterface $entity
+     * @param string $plaintext
+     * @return bool
      */
-    protected function getSecretQuestionService()
+    public function hashPassword( UserInterface $entity, $plaintext )
     {
-        return $this->getServiceManager()->get( 'pserver_secret_question' );
-    }
+        if ($this->isSamePasswordOption()) {
+            return $this->getGameBackendService()->isPasswordSame( $entity->getPassword(), $plaintext );
+        }
 
-    /**
-     * @return \PServerCMS\Options\EntityOptions
-     */
-    protected function getEntityOptions()
-    {
-        return $this->getServiceManager()->get( 'pserver_entity_options' );
-    }
+        $bcrypt = new Bcrypt();
 
-    /**
-     * @return \PServerCMS\Service\UserBlock
-     */
-    protected function getUserBlockService()
-    {
-        return $this->getServiceManager()->get( 'pserver_user_block_service' );
+        return $bcrypt->verify( $plaintext, $entity->getPassword() );
     }
 }
