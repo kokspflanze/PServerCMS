@@ -2,12 +2,14 @@
 namespace PServerCMS\Service;
 
 use PServerCMS\Helper\HelperOptions;
+use PServerCMS\Helper\HelperService;
+use PServerCMS\Helper\HelperBasic;
 use SmallUser\Service\InvokableBase as UserBase;
 use Zend\Form\FormInterface;
 
 abstract class InvokableBase extends UserBase
 {
-    use HelperOptions;
+    use HelperService, HelperOptions, HelperBasic;
 
     /**
      * @param $userId

@@ -6,7 +6,6 @@ namespace PServerCMS\Helper;
 
 trait HelperOptions
 {
-    use HelperService;
 
     /**
      * @return \PServerCMS\Options\EntityOptions
@@ -39,4 +38,11 @@ trait HelperOptions
     {
         return $this->getService('pserver_general_options');
     }
+
+    /**
+     * @param $serviceName
+     *
+     * @return array|object
+     */
+    abstract function getService( $serviceName );
 }

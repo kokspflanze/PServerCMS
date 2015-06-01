@@ -6,6 +6,8 @@ namespace PServerCMS\Service;
 use PServerCMS\Entity\UserCodes;
 use PServerCMS\Entity\UserInterface;
 use PServerCMS\Helper\HelperOptions;
+use PServerCMS\Helper\HelperBasic;
+use PServerCMS\Helper\HelperService;
 use SmallUser\Entity\UserInterface as SmallUserInterface;
 use PServerCMS\Entity\User as Entity;
 use PServerCMS\Entity\Repository\AvailableCountries as RepositoryAvailableCountries;
@@ -23,7 +25,7 @@ use Zend\Crypt\Password\Bcrypt;
  */
 class User extends \SmallUser\Service\User
 {
-    use HelperOptions;
+    use HelperService, HelperOptions, HelperBasic;
 
     /**
      * @param array $data

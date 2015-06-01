@@ -3,30 +3,9 @@
 
 namespace PServerCMS\Helper;
 
-use Zend\ServiceManager\ServiceManager;
-use Zend\ServiceManager\ServiceLocatorInterface;
 
 trait HelperService
 {
-    /** @var  array */
-    protected $serviceCache;
-
-    /**
-     * @return ServiceLocatorInterface
-     */
-    abstract public function getServiceManager();
-
-    /**
-     * @param ServiceManager $serviceManager
-     *
-     * @return $this
-     */
-    public function setServiceManager( ServiceManager $serviceManager )
-    {
-        $this->serviceManager = $serviceManager;
-
-        return $this;
-    }
 
     /**
      * @return \Doctrine\ORM\EntityManager
@@ -129,11 +108,6 @@ trait HelperService
      *
      * @return array|object
      */
-    protected function getService( $serviceName )
-    {
-        if (!isset( $this->serviceCache[$serviceName] )) {
-            $this->serviceCache[$serviceName] = $this->getServiceManager()->get( $serviceName );
-        }
-        return $this->serviceCache[$serviceName];
-    }
+    abstract function getService( $serviceName );
+
 }
