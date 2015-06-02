@@ -1,15 +1,54 @@
 <?php
 namespace PServerCMS\Service;
 
+use PServerCMS\Helper\HelperForm;
 use PServerCMS\Helper\HelperOptions;
 use PServerCMS\Helper\HelperService;
 use PServerCMS\Helper\HelperBasic;
-use SmallUser\Service\InvokableBase as UserBase;
 use Zend\Form\FormInterface;
+use Zend\ServiceManager\ServiceManager as ZendServiceManager;
+use Zend\ServiceManager\ServiceManagerAwareInterface;
 
-abstract class InvokableBase extends UserBase
+abstract class InvokableBase implements ServiceManagerAwareInterface
 {
-    use HelperService, HelperOptions, HelperBasic;
+    use HelperService, HelperOptions, HelperForm, HelperBasic;
+
+    /** @var ZendServiceManager */
+    protected $serviceManager;
+    /** @var \Zend\Mvc\Controller\Plugin\FlashMessenger */
+    protected $flashMessenger;
+
+    /**
+     * @return ZendServiceManager
+     */
+    public function getServiceManager()
+    {
+        return $this->serviceManager;
+    }
+
+    /**
+     * @param ZendServiceManager $serviceManager
+     *
+     * @return $this
+     */
+    public function setServiceManager( ZendServiceManager $serviceManager )
+    {
+        $this->serviceManager = $serviceManager;
+
+        return $this;
+    }
+
+    /**
+     * @return \Zend\Mvc\Controller\Plugin\FlashMessenger
+     */
+    protected function getFlashMessenger()
+    {
+        if (!$this->flashMessenger) {
+            $this->flashMessenger = $this->getControllerPluginManager()->get( 'flashMessenger' );
+        }
+
+        return $this->flashMessenger;
+    }
 
     /**
      * @param $userId

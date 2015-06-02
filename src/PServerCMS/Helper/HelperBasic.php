@@ -3,7 +3,6 @@
 
 namespace PServerCMS\Helper;
 
-use Zend\ServiceManager\ServiceManager;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 trait HelperBasic
