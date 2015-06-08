@@ -551,7 +551,7 @@ class User extends \SmallUser\Service\User
      */
     public function isSamePasswordOption()
     {
-        return $this->getPasswordOptions()->isDifferentPasswords();
+        return !(bool) $this->getPasswordOptions()->isDifferentPasswords();
     }
 
     /**
