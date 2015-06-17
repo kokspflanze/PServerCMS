@@ -24,6 +24,14 @@ trait HelperService
     }
 
     /**
+     * @return \Zend\Authentication\AuthenticationService
+     */
+    public function getAuthService()
+    {
+        return $this->getService('small_user_auth_service');
+    }
+
+    /**
      * @return \Zend\Mvc\Controller\PluginManager
      */
     protected function getControllerPluginManager()
@@ -152,14 +160,6 @@ trait HelperService
     }
 
     /**
-     * @return \Zend\Authentication\AuthenticationService
-     */
-    protected function getAuthService()
-    {
-        return $this->getService('small_user_auth_service');
-    }
-
-    /**
      * @return \PServerCMS\Service\Logs
      */
     protected function getWebLogService()
@@ -173,6 +173,38 @@ trait HelperService
     protected function getDonateService()
     {
         return $this->getService('pserver_donate_service');
+    }
+
+    /**
+     * @return \PServerCMS\Service\UserPanel
+     */
+    protected function getUserPanelService()
+    {
+        return $this->getService('pserver_user_panel_service');
+    }
+
+    /**
+     * @return \PServerCMS\Service\LoginHistory
+     */
+    protected function getLoginHistoryService()
+    {
+        return $this->getService('pserver_login_history_service');
+    }
+
+    /**
+     * @return \PServerCMS\Service\Donate
+     */
+    protected function getDonateLogService()
+    {
+        return $this->getService('pserver_donate_service');
+    }
+
+    /**
+     * @return \PServerPanel\Service\Character
+     */
+    protected function getCharacterService()
+    {
+        return $this->getService('pserverpanel_character_service');
     }
 
     /**
