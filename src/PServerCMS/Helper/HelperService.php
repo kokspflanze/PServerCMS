@@ -136,6 +136,46 @@ trait HelperService
     }
 
     /**
+     * @return \PServerCMS\Service\UserRole
+     */
+    protected function getUserRoleService()
+    {
+        return $this->getService('pserver_user_role_service');
+    }
+
+    /**
+     * @return \PServerCMS\Service\ServerInfo
+     */
+    protected function getServerInfoService()
+    {
+        return $this->getService('pserver_server_info_service');
+    }
+
+    /**
+     * @return \Zend\Authentication\AuthenticationService
+     */
+    protected function getAuthService()
+    {
+        return $this->getService('small_user_auth_service');
+    }
+
+    /**
+     * @return \PServerCMS\Service\Logs
+     */
+    protected function getWebLogService()
+    {
+        return $this->getService('pserver_log_service');
+    }
+
+    /**
+     * @return \PServerCMS\Service\Donate
+     */
+    protected function getDonateService()
+    {
+        return $this->getService('pserver_donate_service');
+    }
+
+    /**
      * @param $serviceName
      *
      * @return array|object
