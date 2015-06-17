@@ -2,14 +2,13 @@
 
 namespace PServerCMS\Controller;
 
+use PServerCMS\Helper\HelperService;
+use PServerCMS\Helper\HelperServiceLocator;
 use Zend\Mvc\Controller\AbstractActionController;
 
 class SiteController extends AbstractActionController
 {
-    /** @var \PServerCMS\Service\Download */
-    protected $downloadService;
-    /** @var \PServerCMS\Service\PageInfo */
-    protected $pageInfoService;
+    use HelperServiceLocator, HelperService;
 
     /**
      * DownloadPage
@@ -37,27 +36,4 @@ class SiteController extends AbstractActionController
         );
     }
 
-    /**
-     * @return \PServerCMS\Service\Download
-     */
-    protected function getDownloadService()
-    {
-        if (!$this->downloadService) {
-            $this->downloadService = $this->getServiceLocator()->get( 'pserver_download_service' );
-        }
-
-        return $this->downloadService;
-    }
-
-    /**
-     * @return \PServerCMS\Service\PageInfo
-     */
-    protected function getPageInfoService()
-    {
-        if (!$this->pageInfoService) {
-            $this->pageInfoService = $this->getServiceLocator()->get( 'pserver_pageinfo_service' );
-        }
-
-        return $this->pageInfoService;
-    }
 } 

@@ -58,7 +58,7 @@ class ServerInfo extends InvokableBase
 			$currentServerInfo = new $class;
 		}
 
-		$form = $this->getServerInfoForm();
+		$form = $this->getAdminServerInfoForm();
 		$form->setHydrator(new HydratorServerInfo());
 		$form->bind($currentServerInfo);
 		$form->setData($data);
@@ -75,13 +75,5 @@ class ServerInfo extends InvokableBase
 		$entity->flush();
 
 		return $serverInfo;
-	}
-
-	/**
-	 * @return \PServerAdmin\Form\ServerInfo
-	 */
-	public function getServerInfoForm()
-    {
-		return $this->getService('pserver_admin_server_info_form');
 	}
 } 

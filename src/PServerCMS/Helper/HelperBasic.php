@@ -25,6 +25,7 @@ trait HelperBasic
         if (!isset( $this->serviceCache[$serviceName] )) {
             $this->serviceCache[$serviceName] = $this->getServiceManager()->get( $serviceName );
         }
+
         return $this->serviceCache[$serviceName];
     }
 

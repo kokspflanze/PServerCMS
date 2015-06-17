@@ -2,12 +2,13 @@
 
 namespace PServerCMS\Controller;
 
+use PServerCMS\Helper\HelperService;
+use PServerCMS\Helper\HelperServiceLocator;
 use Zend\Mvc\Controller\AbstractActionController;
 
 class DonateController extends AbstractActionController
 {
-    /** @var \PServerCMS\Service\User */
-    protected $userService;
+    use HelperServiceLocator, HelperService;
 
     public function indexAction()
     {
@@ -19,15 +20,4 @@ class DonateController extends AbstractActionController
         );
     }
 
-    /**
-     * @return \PServerCMS\Service\User
-     */
-    protected function getUserService()
-    {
-        if (!$this->userService) {
-            $this->userService = $this->getServiceLocator()->get( 'small_user_service' );
-        }
-
-        return $this->userService;
-    }
 }

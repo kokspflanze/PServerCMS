@@ -512,39 +512,6 @@ class User extends \SmallUser\Service\User
         $authService->getStorage()->write( $userNew );
     }
 
-
-    /**
-     * @return \PServerCMS\Form\Register
-     */
-    public function getRegisterForm()
-    {
-        return $this->getService('pserver_user_register_form');
-    }
-
-    /**
-     * @return \PServerCMS\Form\Password
-     */
-    public function getPasswordForm()
-    {
-        return $this->getService('pserver_user_password_form');
-    }
-
-    /**
-     * @return \PServerCMS\Form\PwLost
-     */
-    public function getPasswordLostForm()
-    {
-        return $this->getService('pserver_user_pwlost_form');
-    }
-
-    /**
-     * @return \PServerCMS\Form\ChangePwd
-     */
-    public function getChangePwdForm()
-    {
-        return $this->getService('pserver_user_changepwd_form');
-    }
-
     /**
      * read from the config if system works for different pws @ web and in-game or with same
      * @return boolean

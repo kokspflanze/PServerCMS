@@ -7,15 +7,14 @@ use PServerCMS\Entity\UserInterface;
 
 class Coin extends InvokableBase
 {
-
     /**
      * @param $data
-     * @param $user
+     * @param $userId
      * @return bool
      */
     public function addCoinsForm($data, $userId)
     {
-        $form = $this->getForm();
+        $form = $this->getAdminCoinForm();
         $form->setData($data);
 
         if(!$form->isValid()){
@@ -50,11 +49,4 @@ class Coin extends InvokableBase
         return $this->getGameBackendService()->setCoins($user, $amount);
     }
 
-    /**
-     * @return \ZfcBase\Form\ProvidesEventsForm
-     */
-    public function getForm()
-    {
-        return $this->getService('pserver_admin_coin_form');
-    }
 }

@@ -17,7 +17,7 @@ class UserRole extends InvokableBase
      */
     public function addRoleForm( $data, $userId )
     {
-        $form = $this->getForm();
+        $form = $this->getAdminUserRoleForm();
         $form->setData($data);
 
         if (!$form->isValid()) {
@@ -67,14 +67,6 @@ class UserRole extends InvokableBase
         $this->getEntityManager()->flush();
 
         return true;
-    }
-
-    /**
-     * @return \PServerAdmin\Form\UserRole
-     */
-    public function getForm()
-    {
-        return $this->getService('pserver_admin_user_role_form');
     }
 
     /**

@@ -3,12 +3,13 @@
 namespace PServerCMS\Controller;
 
 use PServerCMS\Entity\UserCodes;
+use PServerCMS\Helper\HelperOptions;
+use PServerCMS\Helper\HelperService;
+use PServerCMS\Helper\HelperServiceLocator;
 
 class AuthController extends \SmallUser\Controller\AuthController
 {
-    protected $passwordLostForm;
-    protected $registerForm;
-    protected $passwordForm;
+    use HelperServiceLocator, HelperService, HelperOptions;
 
     /**
      * @return array|\Zend\Http\Response
@@ -165,19 +166,4 @@ class AuthController extends \SmallUser\Controller\AuthController
         return $codeEntity;
     }
 
-    /**
-     * @return \PServerCMS\Service\User
-     */
-    protected function getUserService()
-    {
-        return parent::getUserService();
-    }
-
-    /**
-     * @return \PServerCMS\Options\EntityOptions
-     */
-    protected function getEntityOptions()
-    {
-        return $this->getServiceLocator()->get( 'pserver_entity_options' );
-    }
 }

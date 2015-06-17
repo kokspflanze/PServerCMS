@@ -2,12 +2,13 @@
 
 namespace PServerCMS\Controller;
 
+use PServerCMS\Helper\HelperService;
+use PServerCMS\Helper\HelperServiceLocator;
 use Zend\Mvc\Controller\AbstractActionController;
 
 class IndexController extends AbstractActionController
 {
-	/** @var \PServerCMS\Service\News */
-	protected $newsService;
+    use HelperServiceLocator, HelperService;
 
 	public function indexAction()
     {
@@ -16,15 +17,4 @@ class IndexController extends AbstractActionController
 		);
 	}
 
-	/**
-	 * @return \PServerCMS\Service\News
-	 */
-	protected function getNewsService()
-    {
-		if (!$this->newsService) {
-			$this->newsService = $this->getServiceLocator()->get('pserver_news_service');
-		}
-
-		return $this->newsService;
-	}
 }

@@ -21,7 +21,7 @@ class UserBlock extends InvokableBase
         $class = $this->getEntityOptions()->getUserBlock();
         /** @var UserBlockEntity $userBlock */
 
-        $form = $this->getForm();
+        $form = $this->getAdminUserBlockForm();
         $form->setHydrator( new HydratorUserBlock() );
         $form->bind( new $class );
         $form->setData($data);
@@ -94,14 +94,6 @@ class UserBlock extends InvokableBase
         /** @var \PServerCMS\Entity\Repository\UserBlock $repositoryUserBlock */
         $repositoryUserBlock = $entityManager->getRepository( $this->getEntityOptions()->getUserBlock() );
         return $repositoryUserBlock->isUserAllowed( $user );
-    }
-
-    /**
-     * @return \PServerAdmin\Form\UserBlock
-     */
-    public function getForm()
-    {
-        return $this->getService('pserver_admin_user_block_form');
     }
 
     /**

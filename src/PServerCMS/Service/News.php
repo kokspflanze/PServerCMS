@@ -68,7 +68,7 @@ class News extends InvokableBase
 			$currentNews = new \PServerCMS\Entity\News();
 		}
 
-		$form = $this->getNewsForm();
+		$form = $this->getAdminNewsForm();
 		$form->setHydrator(new HydratorNews());
 		$form->bind($currentNews);
 		$form->setData($data);
@@ -88,13 +88,5 @@ class News extends InvokableBase
 		$entity->flush();
 
 		return $news;
-	}
-
-	/**
-	 * @return \PServerAdmin\Form\News
-	 */
-	public function getNewsForm()
-    {
-		return $this->getService('pserver_admin_news_form');
 	}
 } 

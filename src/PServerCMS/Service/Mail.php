@@ -10,8 +10,8 @@ use Zend\Mime\Part;
 use Zend\Mime\Message as MimeMessage;
 use Zend\View\Model\ViewModel;
 
-class Mail extends InvokableBase {
-
+class Mail extends InvokableBase
+{
 	const SUBJECT_KEY_REGISTER = 'register';
 	const SUBJECT_KEY_PASSWORD_LOST = 'password';
     const SUBJECT_KEY_CONFIRM_COUNTRY = 'country';
@@ -43,12 +43,12 @@ class Mail extends InvokableBase {
 	 */
 	public function lostPw( User $user, $code )
     {
-		$aParams = array(
+		$params = array(
 			'user' => $user,
 			'code' => $code
 		);
 
-		$this->send(static::SUBJECT_KEY_PASSWORD_LOST, $user, $aParams);
+		$this->send(static::SUBJECT_KEY_PASSWORD_LOST, $user, $params);
 	}
 
     /**
@@ -57,12 +57,12 @@ class Mail extends InvokableBase {
      */
     public function confirmCountry( User $user, $code )
     {
-        $aParams = array(
+        $params = array(
             'user' => $user,
             'code' => $code
         );
 
-        $this->send(static::SUBJECT_KEY_CONFIRM_COUNTRY, $user, $aParams);
+        $this->send(static::SUBJECT_KEY_CONFIRM_COUNTRY, $user, $params);
     }
 
 	/**

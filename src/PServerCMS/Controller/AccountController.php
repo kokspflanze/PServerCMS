@@ -2,14 +2,17 @@
 
 namespace PServerCMS\Controller;
 
+use PServerCMS\Helper\HelperService;
+use PServerCMS\Helper\HelperServiceLocator;
 use PServerCMS\Service;
 use Zend\Mvc\Controller\AbstractActionController;
 
 class AccountController extends AbstractActionController
 {
+    use HelperServiceLocator, HelperService;
+
     const ERROR_NAME_SPACE = 'pserver-user-account-error';
     const SUCCESS_NAME_SPACE = 'pserver-user-account-success';
-    protected $userService;
 
     public function indexAction()
     {
@@ -60,15 +63,4 @@ class AccountController extends AbstractActionController
         return $this->redirect()->toUrl( $this->url()->fromRoute( 'PServerCMS/user' ) );
     }
 
-    /**
-     * @return \PServerCMS\Service\User
-     */
-    protected function getUserService()
-    {
-        if (!$this->userService) {
-            $this->userService = $this->getServiceLocator()->get( 'small_user_service' );
-        }
-
-        return $this->userService;
-    }
 }

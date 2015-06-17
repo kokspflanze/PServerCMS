@@ -9,13 +9,12 @@ use PServerCMS\Entity\User;
 
 class PaymentNotify extends InvokableBase implements LogInterface
 {
-
     /**
      * Method the add the reward
      *
      * @param Request $request
-     *
      * @return boolean
+     * @throws \Exception
      */
     public function success( Request $request )
     {
@@ -59,7 +58,6 @@ class PaymentNotify extends InvokableBase implements LogInterface
      *
      * @param Request    $request
      * @param \Exception $e
-     *
      * @return bool
      */
     public function error( Request $request, \Exception $e )
@@ -72,12 +70,10 @@ class PaymentNotify extends InvokableBase implements LogInterface
     /**
      * @param Request $request
      * @param User   $user
-     *
      * @return DonateLog
      */
     protected function getDonateLogEntity4Data( Request $request, $user, $errorMessage = '' )
     {
-
         $data = $request->toArray();
         if ($errorMessage) {
             $data['errorMessage'] = $errorMessage;
@@ -114,7 +110,6 @@ class PaymentNotify extends InvokableBase implements LogInterface
      * Helper to map the PaymentProvider 2 DonateType
      *
      * @param Request $request
-     *
      * @return string
      */
     protected function mapPaymentProvider2DonateType( Request $request )
@@ -128,6 +123,7 @@ class PaymentNotify extends InvokableBase implements LogInterface
                 $result = DonateLog::TYPE_SUPER_REWARD;
                 break;
         }
+
         return $result;
     }
 
@@ -135,21 +131,13 @@ class PaymentNotify extends InvokableBase implements LogInterface
      * check is donate already added, if the provider ask, more than 1 time, this only works with a transactionId
      *
      * @param Request $request
-     *
      * @return bool
      */
     protected function isDonateAlreadyAdded( Request $request )
     {
         /** @var \PServerCMS\Entity\Repository\DonateLog $donateEntity */
         $donateEntity = $this->getEntityManager()->getRepository( $this->getEntityOptions()->getDonateLog() );
-        return $donateEntity->isDonateAlreadyAdded( $request->getTransactionId(), $this->mapPaymentProvider2DonateType( $request ) );
-    }
 
-    /**
-     * @return Coin
-     */
-    protected function getCoinService()
-    {
-        return $this->getService('pserver_coin_service');
+        return $donateEntity->isDonateAlreadyAdded( $request->getTransactionId(), $this->mapPaymentProvider2DonateType( $request ) );
     }
 }

@@ -72,7 +72,7 @@ trait HelperService
     }
 
     /**
-     * @return \SmallUser\Service\User
+     * @return \PServerCMS\Service\User
      */
     protected function getUserService()
     {
@@ -101,6 +101,38 @@ trait HelperService
     protected function getSecretQuestionService()
     {
         return $this->getService('pserver_secret_question');
+    }
+
+    /**
+     * @return \PServerCMS\Service\Coin
+     */
+    protected function getCoinService()
+    {
+        return $this->getService('pserver_coin_service');
+    }
+
+    /**
+     * @return \PServerCMS\Service\Download
+     */
+    protected function getDownloadService()
+    {
+        return $this->getService('pserver_download_service');
+    }
+
+    /**
+     * @return \PServerCMS\Service\PageInfo
+     */
+    protected function getPageInfoService()
+    {
+        return $this->getService('pserver_pageinfo_service');
+    }
+
+    /**
+     * @return \PServerCMS\Service\News
+     */
+    protected function getNewsService()
+    {
+        return $this->getService('pserver_news_service');
     }
 
     /**

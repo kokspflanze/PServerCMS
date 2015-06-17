@@ -33,7 +33,7 @@ class PageInfo extends InvokableBase
      */
     public function pageInfo( array $data, $type )
     {
-        $form = $this->getPageInfoForm();
+        $form = $this->getAdminPageInfoForm();
         $form->setHydrator( new HydratorPageInfo() );
         $class = $this->getEntityOptions()->getPageInfo();
         $form->bind( new $class() );
@@ -59,14 +59,6 @@ class PageInfo extends InvokableBase
     public function getPossiblePageInfoTypes()
     {
         return $this->getConfigService()->get( 'pserver.pageinfotype', array() );
-    }
-
-    /**
-     * @return \PServerAdmin\Form\PageInfo
-     */
-    public function getPageInfoForm()
-    {
-        return $this->getService('pserver_admin_page_info_form');
     }
 
 } 

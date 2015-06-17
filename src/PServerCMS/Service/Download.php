@@ -8,7 +8,6 @@ use PServerCMS\Keys\Caching;
 
 class Download extends InvokableBase
 {
-
 	/**
 	 * @return \PServerCMS\Entity\DownloadList[]
 	 */
@@ -56,7 +55,7 @@ class Download extends InvokableBase
 			$currentDownload = new DownloadList();
 		}
 
-		$form = $this->getDownloadForm();
+		$form = $this->getAdminDownloadForm();
 		$form->setData($data);
 		$form->setHydrator(new HydratorDownload());
 		$form->bind($currentDownload);
@@ -72,13 +71,5 @@ class Download extends InvokableBase
 		$entity->flush();
 
 		return $download;
-	}
-
-	/**
-	 * @return \PServerAdmin\Form\Download
-	 */
-	public function getDownloadForm()
-    {
-		return $this->getService('pserver_admin_download_form');
 	}
 } 
