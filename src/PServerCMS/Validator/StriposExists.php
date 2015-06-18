@@ -2,12 +2,15 @@
 
 namespace PServerCMS\Validator;
 
+use PServerCMS\Helper\HelperBasic;
+use PServerCMS\Helper\HelperService;
 use Zend\Validator\AbstractValidator;
 use Zend\Validator\Exception;
 use Zend\ServiceManager\ServiceManager;
 
 class StriposExists extends AbstractValidator
 {
+    Use HelperBasic, HelperService;
 
     const TYPE_EMAIL = 'email';
 
@@ -57,7 +60,7 @@ class StriposExists extends AbstractValidator
     {
         $result = true;
         $this->setValue( $value );
-        $blackList = $this->getConfigHelper()->get( 'pserver.blacklisted.' . $this->getType(), false );
+        $blackList = $this->getConfigService()->get( 'pserver.blacklisted.' . $this->getType(), false );
         if (!$blackList) {
             return $result;
         }
@@ -89,7 +92,7 @@ class StriposExists extends AbstractValidator
     /**
      * @return ServiceManager
      */
-    protected function getServiceManager()
+    public function getServiceManager()
     {
         return $this->serviceManager;
     }
@@ -108,14 +111,6 @@ class StriposExists extends AbstractValidator
     protected function getType()
     {
         return $this->type;
-    }
-
-    /**
-     * @return \PServerCMS\Service\ConfigRead
-     */
-    protected function getConfigHelper()
-    {
-        return $this->getServiceManager()->get( 'pserver_configread_service' );
     }
 
     /**

@@ -3,11 +3,16 @@
 
 namespace PServerCMS\Validator;
 
+use PServerCMS\Helper\HelperBasic;
+use PServerCMS\Helper\HelperOptions;
+use PServerCMS\Helper\HelperService;
 use Zend\Validator\AbstractValidator;
 use Zend\ServiceManager\ServiceManager;
 
 class UserNameBackendNotExists extends AbstractValidator
 {
+    use HelperBasic, HelperService, HelperOptions;
+
     const ERROR_RECORD_FOUND = 'recordFound';
 
     /**
@@ -80,15 +85,11 @@ class UserNameBackendNotExists extends AbstractValidator
      */
     protected function query( $value )
     {
-        /** @var \GameBackend\DataService\DataServiceInterface $gameBackend */
-        $gameBackend = $this->getServiceManager()->get('gamebackend_dataservice');
-        /** @var \PServerCMS\Options\EntityOptions $entityOptions */
-        $entityOptions = $this->getServiceManager()->get('pserver_entity_options');
-        $class = $entityOptions->getUser();
+        $class = $this->getEntityOptions()->getUser();
         /** @var \PServerCMS\Entity\UserInterface $user */
         $user = new $class();
         $user->setUsername($value);
 
-        return $gameBackend->isUserNameExists( $user );
+        return $this->getGameBackendService()->isUserNameExists( $user );
     }
 }
