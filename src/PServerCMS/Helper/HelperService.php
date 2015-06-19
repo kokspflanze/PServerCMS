@@ -208,6 +208,14 @@ trait HelperService
     }
 
     /**
+     * @return \PServerCMS\Service\PlayerHistory
+     */
+    protected function getPlayerHistory()
+    {
+        return $this->getService('pserver_playerhistory_service');
+    }
+
+    /**
      * @param $serviceName
      *
      * @return array|object

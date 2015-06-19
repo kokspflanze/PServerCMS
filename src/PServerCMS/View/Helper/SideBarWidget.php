@@ -25,7 +25,7 @@ class SideBarWidget extends InvokerBase
 		}
 		$viewModel = new ViewModel(array(
 			'timer' => $this->getTimer(),
-			'serverInfo' => $this->getServerInfo()->getServerInfo()
+			'serverInfo' => $this->getServerInfoService()->getServerInfo()
 		));
 		$viewModel->setTemplate('helper/sidebarWidget');
 		return sprintf('%s%s', $template, $this->getView()->render($viewModel));
@@ -37,7 +37,7 @@ class SideBarWidget extends InvokerBase
 	protected function getTimer()
     {
 		if(!$this->timerService){
-			$config = $this->getConfigService();
+			$config = $this->getConfig();
 			$timerConfig = isset($config['pserver']['timer'])?$config['pserver']['timer']:array();
 			foreach($timerConfig as $data){
 				$time = 0;

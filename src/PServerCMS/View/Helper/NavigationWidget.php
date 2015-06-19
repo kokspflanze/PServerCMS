@@ -14,7 +14,7 @@ class NavigationWidget extends InvokerBase
     public function __invoke()
     {
         $viewModel = new ViewModel([
-            'navigation' => $this->getConfigService()['pserver']['navigation']
+            'navigation' => $this->getConfig()['pserver']['navigation']
         ]);
         $viewModel->setTemplate('p-server-cms/navigation');
 
