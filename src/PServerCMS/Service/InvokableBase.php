@@ -1,6 +1,7 @@
 <?php
 namespace PServerCMS\Service;
 
+use GameBackend\Helper\Service;
 use PServerCMS\Helper\HelperForm;
 use PServerCMS\Helper\HelperOptions;
 use PServerCMS\Helper\HelperService;
@@ -11,7 +12,7 @@ use Zend\ServiceManager\ServiceManagerAwareInterface;
 
 abstract class InvokableBase implements ServiceManagerAwareInterface
 {
-    use HelperService, HelperOptions, HelperForm, HelperBasic;
+    use HelperService, HelperOptions, Service, HelperForm, HelperBasic;
 
     /** @var ZendServiceManager */
     protected $serviceManager;

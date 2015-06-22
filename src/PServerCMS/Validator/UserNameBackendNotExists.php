@@ -3,6 +3,7 @@
 
 namespace PServerCMS\Validator;
 
+use GameBackend\Helper\Service;
 use PServerCMS\Helper\HelperBasic;
 use PServerCMS\Helper\HelperOptions;
 use PServerCMS\Helper\HelperService;
@@ -11,7 +12,7 @@ use Zend\ServiceManager\ServiceManager;
 
 class UserNameBackendNotExists extends AbstractValidator
 {
-    use HelperBasic, HelperService, HelperOptions;
+    use HelperBasic, HelperService, Service, HelperOptions;
 
     const ERROR_RECORD_FOUND = 'recordFound';
 

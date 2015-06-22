@@ -56,14 +56,6 @@ trait HelperService
     }
 
     /**
-     * @return \GameBackend\DataService\DataServiceInterface
-     */
-    protected function getGameBackendService()
-    {
-        return $this->getService('gamebackend_dataservice');
-    }
-
-    /**
      * @return \PServerCMS\Service\ConfigRead
      */
     protected function getConfigService()
@@ -197,14 +189,6 @@ trait HelperService
     protected function getDonateLogService()
     {
         return $this->getService('pserver_donate_service');
-    }
-
-    /**
-     * @return \PServerPanel\Service\Character
-     */
-    protected function getCharacterService()
-    {
-        return $this->getService('pserverpanel_character_service');
     }
 
     /**
