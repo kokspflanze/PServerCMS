@@ -250,7 +250,7 @@ return [
                     'time' => 'Y-m-d H:i'
                 ],
             ],
-            'caching' => [
+            'cache' => [
                 'enable' => false
             ],
         ],
