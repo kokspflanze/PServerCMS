@@ -16,7 +16,7 @@ class NewsWidget extends InvokerBase
         $viewModel = new ViewModel([
             'newsList' => $this->getNewsService()->getActiveNews()
         ]);
-        $viewModel->setTemplate('p-server-cms/newsWidget');
+        $viewModel->setTemplate('helper/newsWidget');
 
         return $this->getView()->render($viewModel);
     }
