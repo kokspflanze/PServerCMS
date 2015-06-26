@@ -76,7 +76,10 @@ class Module
                 },
                 'dateTimeFormatTime' => function ( AbstractPluginManager $pluginManager ) {
                     return new View\Helper\DateTimeFormat( $pluginManager->getServiceLocator() );
-                }
+                },
+                'newsWidget' => function ( AbstractPluginManager $pluginManager ) {
+                    return new View\Helper\NewsWidget( $pluginManager->getServiceLocator() );
+                },
             ]
         ];
     }

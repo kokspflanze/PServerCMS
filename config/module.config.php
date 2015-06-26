@@ -143,6 +143,7 @@ return [
 			'helper/sidebarLoggedInWidget'	=> __DIR__ . '/../view/helper/logged-in.phtml',
             'helper/formWidget'		        => __DIR__ . '/../view/helper/form.phtml',
             'helper/formNoLabelWidget'		=> __DIR__ . '/../view/helper/form-no-label.phtml',
+            'helper/newsWidget'             => __DIR__ . '/../view/helper/news-widget.phtml',
 			'zfc-ticket-system/new'			=> __DIR__ . '/../view/zfc-ticket-system/ticket-system/new.twig',
 			'zfc-ticket-system/view'		=> __DIR__ . '/../view/zfc-ticket-system/ticket-system/view.twig',
 			'zfc-ticket-system/index'		=> __DIR__ . '/../view/zfc-ticket-system/ticket-system/index.twig',
