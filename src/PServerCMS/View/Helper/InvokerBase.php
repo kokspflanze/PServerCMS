@@ -5,7 +5,7 @@ namespace PServerCMS\View\Helper;
 use PServerCMS\Helper\HelperOptions;
 use PServerCMS\Helper\HelperService;
 use PServerCMS\Helper\HelperServiceLocator;
-use Zend\Form\View\Helper\AbstractHelper;
+use Zend\View\Helper\AbstractHelper;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 class InvokerBase extends AbstractHelper
