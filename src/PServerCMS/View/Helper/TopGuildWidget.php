@@ -15,7 +15,7 @@ class TopGuildWidget extends InvokerBase
     {
         $guildList = $this->getCachingHelperService()->getItem('TopGuildWidget', function() use ($limit) {
             return $this->getRankingService()->getTopGuildEntityData($limit);
-        });
+        }, 360);
 
         $viewModel = new ViewModel([
             'guildList' => $guildList

@@ -15,7 +15,7 @@ class TopCharacterWidget extends InvokerBase
     {
         $characterList = $this->getCachingHelperService()->getItem('TopCharacterWidget', function() use ($limit) {
             return $this->getRankingService()->getTopCharacterEntityData($limit);
-        });
+        }, 360);
 
         $viewModel = new ViewModel([
             'characterList' => $characterList
