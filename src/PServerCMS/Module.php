@@ -80,6 +80,15 @@ class Module
                 'newsWidget' => function ( AbstractPluginManager $pluginManager ) {
                     return new View\Helper\NewsWidget( $pluginManager->getServiceLocator() );
                 },
+                'loggedInWidgetPServerCMS' => function ( AbstractPluginManager $pluginManager ) {
+                    return new View\Helper\LoggedInWidget( $pluginManager->getServiceLocator() );
+                },
+                'serverInfoWidgetPServerCMS' => function ( AbstractPluginManager $pluginManager ) {
+                    return new View\Helper\ServerInfoWidget( $pluginManager->getServiceLocator() );
+                },
+                'timerWidgetPServerCMS' => function ( AbstractPluginManager $pluginManager ) {
+                    return new View\Helper\TimerWidget( $pluginManager->getServiceLocator() );
+                },
             ]
         ];
     }
