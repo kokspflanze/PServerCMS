@@ -89,6 +89,12 @@ class Module
                 'timerWidgetPServerCMS' => function ( AbstractPluginManager $pluginManager ) {
                     return new View\Helper\TimerWidget( $pluginManager->getServiceLocator() );
                 },
+                'topCharacterWidgetPServerCMS' => function ( AbstractPluginManager $pluginManager ) {
+                    return new View\Helper\TopCharacterWidget( $pluginManager->getServiceLocator() );
+                },
+                'topGuildWidgetPServerCMS' => function ( AbstractPluginManager $pluginManager ) {
+                    return new View\Helper\TopGuildWidget( $pluginManager->getServiceLocator() );
+                },
             ]
         ];
     }

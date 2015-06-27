@@ -5,12 +5,13 @@ namespace PServerCMS\View\Helper;
 use PServerCMS\Helper\HelperOptions;
 use PServerCMS\Helper\HelperService;
 use PServerCMS\Helper\HelperServiceLocator;
+use PServerRanking\Helper\Service;
 use Zend\View\Helper\AbstractHelper;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 class InvokerBase extends AbstractHelper
 {
-    use HelperServiceLocator, HelperService, HelperOptions;
+    use HelperServiceLocator, HelperService, HelperOptions, Service;
 
     /** @var ServiceLocatorInterface */
     protected $serviceLocator;
