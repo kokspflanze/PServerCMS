@@ -3,6 +3,7 @@
 namespace PServerCMS\Service;
 
 
+use GameBackend\Helper\Service;
 use PServerCMS\Entity\UserCodes;
 use PServerCMS\Entity\UserInterface;
 use PServerCMS\Helper\HelperOptions;
@@ -26,7 +27,7 @@ use Zend\Crypt\Password\Bcrypt;
  */
 class User extends \SmallUser\Service\User
 {
-    use HelperService, HelperOptions, HelperForm, HelperBasic;
+    use HelperService, HelperOptions, HelperForm, HelperBasic, Service;
 
     /**
      * @param array $data
