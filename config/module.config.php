@@ -139,6 +139,7 @@ return [
 			'email/tpl/register'			=> __DIR__ . '/../view/email/tpl/register.phtml',
 			'email/tpl/password'			=> __DIR__ . '/../view/email/tpl/password.phtml',
             'email/tpl/country' 			=> __DIR__ . '/../view/email/tpl/country.phtml',
+            'email/tpl/secretLogin'			=> __DIR__ . '/../view/email/tpl/secret_login.phtml',
 			'helper/sidebarWidget'			=> __DIR__ . '/../view/helper/sidebar.phtml',
 			'helper/sidebarLoggedInWidget'	=> __DIR__ . '/../view/helper/logged-in.phtml',
             'helper/sidebarServerInfoWidget'=> __DIR__ . '/../view/helper/server-info.phtml',
@@ -283,6 +284,7 @@ return [
 				'register' => 'RegisterMail',
 				'password' => 'LostPasswordMail',
 				'country' => 'LoginIpMail',
+                'secretLogin' => 'SecretLoginMail'
 			],
 			'basic' => [
 				'name' => 'localhost',
@@ -306,7 +308,11 @@ return [
              * WARNING YOU HAVE TO FILL THE "country_list" TABLE WITH IP COUNTRY MAPPING
              * That is the reason why its default disabled
              */
-            'country-check' => false,
+            'country_check' => false,
+            /**
+             * set the list of roles, which must confirm, there mail after login
+             */
+            'secret_login_role_list' => [],
         ],
 		'password' => [
 			/*

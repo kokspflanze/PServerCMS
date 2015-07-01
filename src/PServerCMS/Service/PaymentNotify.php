@@ -18,7 +18,6 @@ class PaymentNotify extends InvokableBase implements LogInterface
      */
     public function success( Request $request )
     {
-
         $user = $this->getUser4Id( $request->getUserId() );
         if (!$user) {
             throw new \Exception( 'User not found' );
@@ -26,6 +25,10 @@ class PaymentNotify extends InvokableBase implements LogInterface
 
         // we already added add the reward, so skip this =)
         if ($this->isDonateAlreadyAdded( $request )) {
+            // better we save that message
+            $errorMessage = 'already added';
+            $this->saveDonateLog( $request, $user, $errorMessage );
+
             return true;
         }
 

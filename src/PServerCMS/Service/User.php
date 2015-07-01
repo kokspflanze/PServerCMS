@@ -316,7 +316,7 @@ class User extends \SmallUser\Service\User
     protected function setAvailableCountries4User( UserInterface $user, $ip )
     {
         // skip if the config say no check, so we don´t have to save the country in list
-        if (!$this->isCountryCheckOption()) {
+        if (!$this->getLoginOptions()->isCountryCheck()) {
             return;
         }
 
@@ -340,11 +340,15 @@ class User extends \SmallUser\Service\User
     {
         $result = true;
 
-        if ($this->isCountryCheckOption() && !$this->isCountryAllowed( $user )) {
+        if ($this->getLoginOptions()->isCountryCheck() && !$this->isCountryAllowed( $user )) {
             $result = false;
         }
 
-        if ($this->isUserBlocked( $user )) {
+        if ($result && $this->isUserBlocked( $user )) {
+            $result = false;
+        }
+
+        if ($result && $this->isSecretLogin( $user )) {
             $result = false;
         }
 
@@ -371,6 +375,36 @@ class User extends \SmallUser\Service\User
             $this->getMailService()->confirmCountry( $user, $code );
             $this->getFlashMessenger()->setNamespace( self::ErrorNameSpace )->addMessage( 'Please confirm your new ip with your email' );
             $result = false;
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param UserInterface $user
+     * @return bool
+     */
+    protected function isSecretLogin( UserInterface $user )
+    {
+        $result = false;
+        $secretLoginRoleList = $this->getLoginOptions()->getSecretLoginRoleList();
+
+        if ($secretLoginRoleList && $userRoles = $user->getRoles()) {
+            $secretLoginRoleList = array_map('strtolower', $secretLoginRoleList);
+            foreach ($userRoles as $userRole) {
+
+                if (in_array(strtolower($userRole->getRoleId()), $secretLoginRoleList)) {
+
+                    $code = $this->getUserCodesService()->setCode4User($user, UserCodes::TYPE_SECRET_LOGIN, 60);
+                    $this->getMailService()->secretLogin($user, $code);
+
+                    $this->getFlashMessenger()
+                        ->setNamespace( self::ErrorNameSpace )
+                        ->addMessage( 'Please confirm your secret-login with your email' );
+
+                    $result = true;
+                }
+            }
         }
 
         return $result;
@@ -437,7 +471,7 @@ class User extends \SmallUser\Service\User
      */
     protected function handleInvalidLogin( SmallUserInterface $user )
     {
-        $maxTries = $this->getConfigService()->get( 'pserver.login.exploit.try' );
+        $maxTries = $this->getLoginOptions()->getExploit()['try'];
 
         if (!$maxTries) {
             return false;
@@ -455,7 +489,7 @@ class User extends \SmallUser\Service\User
         $entityManager->persist( $loginFailed );
         $entityManager->flush();
 
-        $time = $this->getConfigService()->get( 'pserver.login.exploit.time' );
+        $time = $this->getLoginOptions()->getExploit()['time'];
 
         /** @var \PServerCMS\Entity\Repository\LoginFailed $repositoryLoginFailed */
         $repositoryLoginFailed = $entityManager->getRepository( $class );
@@ -504,9 +538,10 @@ class User extends \SmallUser\Service\User
         $repository = $this->getEntityManager()->getRepository( $this->getUserEntityClassName() );
 
         // fix if we have a proxy we don´t have a valid entity, so we have to clear before we can create a new select
+        $username = $user->getUsername();
         $repository->clear();
 
-        $userNew = $repository->getUser4UserName( $user->getUsername() );
+        $userNew = $repository->getUser4UserName( $username );
 
         $authService = $this->getAuthService();
 
@@ -520,15 +555,6 @@ class User extends \SmallUser\Service\User
     public function isSamePasswordOption()
     {
         return !(bool) $this->getPasswordOptions()->isDifferentPasswords();
-    }
-
-    /**
-     * read from the config if system works with the country check for login
-     * @return boolean
-     */
-    public function isCountryCheckOption()
-    {
-        return (bool)$this->getConfigService()->get( 'pserver.login.country-check' );
     }
 
     /**

@@ -15,6 +15,7 @@ class Mail extends InvokableBase
 	const SUBJECT_KEY_REGISTER = 'register';
 	const SUBJECT_KEY_PASSWORD_LOST = 'password';
     const SUBJECT_KEY_CONFIRM_COUNTRY = 'country';
+    const SUBJECT_KEY_SECRET_LOGIN = 'secretLogin';
 
 	/**
 	 * @var SmtpOptions
@@ -34,7 +35,7 @@ class Mail extends InvokableBase
 			'code' => $code
 		);
 
-		$this->send(static::SUBJECT_KEY_REGISTER, $user, $params);
+		$this->send(self::SUBJECT_KEY_REGISTER, $user, $params);
 	}
 
 	/**
@@ -48,7 +49,7 @@ class Mail extends InvokableBase
 			'code' => $code
 		);
 
-		$this->send(static::SUBJECT_KEY_PASSWORD_LOST, $user, $params);
+		$this->send(self::SUBJECT_KEY_PASSWORD_LOST, $user, $params);
 	}
 
     /**
@@ -62,7 +63,21 @@ class Mail extends InvokableBase
             'code' => $code
         );
 
-        $this->send(static::SUBJECT_KEY_CONFIRM_COUNTRY, $user, $params);
+        $this->send(self::SUBJECT_KEY_CONFIRM_COUNTRY, $user, $params);
+    }
+
+    /**
+     * @param User $user
+     * @param $code
+     */
+    public function secretLogin( User $user, $code )
+    {
+        $params = array(
+            'user' => $user,
+            'code' => $code
+        );
+
+        $this->send(self::SUBJECT_KEY_SECRET_LOGIN, $user, $params);
     }
 
 	/**

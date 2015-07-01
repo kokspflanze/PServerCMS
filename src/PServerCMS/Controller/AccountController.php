@@ -16,7 +16,6 @@ class AccountController extends AbstractActionController
 
     public function indexAction()
     {
-
         /** @var \PServerCMS\Entity\UserInterface $user */
         $user = $this->getUserService()->getAuthService()->getIdentity();
 
@@ -60,6 +59,7 @@ class AccountController extends AbstractActionController
             }
             $this->flashMessenger()->setNamespace( $successKey )->addMessage( 'Success, password changed.' );
         }
+
         return $this->redirect()->toUrl( $this->url()->fromRoute( 'PServerCMS/user' ) );
     }
 

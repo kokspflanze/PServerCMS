@@ -162,6 +162,11 @@ class Module
                     $config = $sm->get( 'Configuration' );
                     return new Options\PasswordOptions( $config['pserver']['password'] );
                 },
+                'pserver_login_options'         => function ( $sm ) {
+                    /** @var $sm \Zend\ServiceManager\ServiceLocatorInterface */
+                    $config = $sm->get( 'Configuration' );
+                    return new Options\LoginOptions( $config['pserver']['login'] );
+                },
                 'zfcticketsystem_ticketsystem_new_form'   => function ( $sm ) {
                     /** @var $sm \Zend\ServiceManager\ServiceLocatorInterface */
                     $form = new \ZfcTicketSystem\Form\TicketSystem( $sm );

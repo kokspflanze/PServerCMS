@@ -1,20 +1,21 @@
 {% extends 'layout/layout' %}
 
 {% block title %}
-	Download
+	{{ translate('Download') }}
 {% endblock title %}
 
 {% block content %}
-	{% for iKey, oCurDownload in downloadList %}
-		<a href="{{ oCurDownload.getLink }}" target="_blank">
+	{% for key, download in downloadList %}
+		<a href="{{ download.getLink }}" target="_blank">
 			<div class="col-md-3 col-sm-6">
 				<div class="servive-block-in">
-					<h4>{{ oCurDownload.getHoster }}</h4>
+					<h4>{{ download.getHoster }}</h4>
 					<div><i class="icon-lightbulb"></i></div>
 				</div>
 			</div>
 		</a>
 	{% else %}
-		<p class="text-center">.... uploading ....</p>
+		<p class="text-center">.... {{ translate('uploading') }} ....</p>
 	{% endfor %}
+	<div class="clearfix"></div>
 {% endblock content %}

@@ -40,6 +40,14 @@ trait HelperOptions
     }
 
     /**
+     * @return \PServerCMS\Options\LoginOptions
+     */
+    protected function getLoginOptions()
+    {
+        return $this->getService('pserver_login_options');
+    }
+
+    /**
      * @param $serviceName
      *
      * @return array|object

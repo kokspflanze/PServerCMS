@@ -146,6 +146,20 @@ class AuthController extends \SmallUser\Controller\AuthController
         ];
     }
 
+    public function secretLoginAction()
+    {
+        $code = $this->params()->fromRoute( 'code' );
+
+        $codeEntity = $this->getCode4Data( $code, UserCodes::TYPE_SECRET_LOGIN );
+        if (!$codeEntity) {
+            return $this->forward()->dispatch( 'PServerCMS\Controller\Auth', array( 'action' => 'wrong-code' ) );
+        }
+        $this->getUserService()->doAuthentication($codeEntity->getUser());
+        $this->getUserCodesService()->deleteCode($codeEntity);
+
+        return $this->redirect()->toRoute( $this->getLoggedInRoute() );
+    }
+
     public function pwLostConfirmDoneAction()
     {
         return [];
