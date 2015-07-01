@@ -60,6 +60,7 @@ You can find some screenshots @ [screenshot-directory](https://github.com/kokspf
 - Ranking (TopGuild|TopPlayer) with detail pages
 - ServerInfoPages (modification in admin-panel, possible to add more dynamic)
 - Register (with mail confirmation, 2 pw system, secret question [optional, you can change that option in config])
+- SecretLogin (you can define different roles, which has to confirm there mail before they can login)
 - lost Password
 - Donate (PaymentWall and Superreward, in default added)
 - TicketSystem (with bb-code)
