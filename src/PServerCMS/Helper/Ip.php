@@ -5,6 +5,7 @@ namespace PServerCMS\Helper;
 /**
  * Class Ip
  * @package PServerCMS\Helper
+ * @deprecated
  */
 class Ip extends \PaymentAPI\Helper\Ip
 {

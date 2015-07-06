@@ -3,7 +3,6 @@
 
 namespace PServerCMS\View\Helper;
 
-use PServerCMS\Helper\Timer;
 use Zend\View\Model\ViewModel;
 
 class TimerWidget extends InvokerBase
@@ -39,9 +38,9 @@ class TimerWidget extends InvokerBase
                     $text = '';
                     if(!isset($data['type'])){
                         if(isset($data['days'])){
-                            $time = Timer::getNextTimeDay( $data['days'], $data['hour'], $data['min'] );
+                            $time = $this->getTimerService()->getNextTimeDay( $data['days'], $data['hour'], $data['min'] );
                         }else{
-                            $time = Timer::getNextTime( $data['hours'],$data['min'] );
+                            $time = $this->getTimerService()->getNextTime( $data['hours'],$data['min'] );
                         }
                     }else{
                         $text = $data['time'];

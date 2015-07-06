@@ -200,6 +200,14 @@ trait HelperService
     }
 
     /**
+     * @return \PServerCMS\Service\Timer
+     */
+    protected function getTimerService()
+    {
+        return $this->getService('pserver_timer_service');
+    }
+
+    /**
      * @param $serviceName
      *
      * @return array|object
