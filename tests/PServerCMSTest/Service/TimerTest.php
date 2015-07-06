@@ -79,4 +79,39 @@ class TimerTest extends TestBase
 
         $this->assertEquals(1438380600, $result);
     }
+
+    public function testGetNextTimeDay()
+    {
+        $this->mockedMethodList = [
+            'getCurrentTimeStamp'
+        ];
+        /** @var \PServerCMS\Service\Timer|\PHPUnit_Framework_MockObject_MockObject $class */
+        $class = $this->getClass();
+
+        $class->expects($this->any())
+            ->method('getCurrentTimeStamp')
+            ->willReturn(1437082616);
+
+        $dayList = [
+            'Wednesday','Monday'
+        ];
+
+        $hour = 3;
+        $minute = 0;
+        $result = $class->getNextTimeDay($dayList, $hour, $minute);
+
+        $this->assertEquals(1437361200, $result);
+    }
+
+    public function testGetCurrentTimeStamp()
+    {
+        /** @var \PServerCMS\Service\Timer|\PHPUnit_Framework_MockObject_MockObject $class */
+        $class = $this->getClass();
+        $method = $this->getMethod('getCurrentTimeStamp');
+
+        $result = $method->invokeArgs($class, []);
+
+        $this->assertInternalType('integer', $result);
+        $this->assertNotEmpty($result);
+    }
 }

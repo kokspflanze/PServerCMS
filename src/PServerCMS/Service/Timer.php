@@ -28,15 +28,15 @@ class Timer extends InvokableBase
     public function getNextTimeDay( array $dayList, $hour, $minute )
     {
         $nextTime = PHP_INT_MAX;
-        $timeStamp = $this->getCurrentTimeStamp();
+        $currentTimeStamp = $this->getCurrentTimeStamp();
 
-        $nDate = date("n", $timeStamp);
-        $yDate = date("Y", $timeStamp);
-        $jDate = date("j", $timeStamp);
+        $nDate = date("n", $currentTimeStamp);
+        $yDate = date("Y", $currentTimeStamp);
+        $jDate = date("j", $currentTimeStamp);
 
         foreach ($dayList as $day) {
-            if (date( 'l', $timeStamp ) == $day) {
-                if ($timeStamp <= ( $time = mktime( $hour, $minute, 0, $nDate, $jDate, $yDate) )) {
+            if (date( 'l', $currentTimeStamp ) == $day) {
+                if ($currentTimeStamp <= ( $time = mktime( $hour, $minute, 0, $nDate, $jDate, $yDate) )) {
                     $nextTime = $time;
                     break;
                 }
@@ -45,9 +45,9 @@ class Timer extends InvokableBase
                 $hour,
                 $minute,
                 0,
-                date( 'n', strtotime('next ' . $day, $timeStamp) ),
-                date( 'j', strtotime( 'next ' . $day, $timeStamp ) ),
-                date( 'Y', strtotime( 'next ' . $day, $timeStamp ) )
+                date( 'n', strtotime('next ' . $day, $currentTimeStamp) ),
+                date( 'j', strtotime( 'next ' . $day, $currentTimeStamp ) ),
+                date( 'Y', strtotime( 'next ' . $day, $currentTimeStamp ) )
             );
             if ($nextTime > $timeStamp) {
                 $nextTime = $timeStamp;
