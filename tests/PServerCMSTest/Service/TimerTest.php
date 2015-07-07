@@ -93,7 +93,7 @@ class TimerTest extends TestBase
             ->willReturn(1437082616);
 
         $dayList = [
-            'Wednesday','Monday'
+            'Wednesday', 'Monday'
         ];
 
         $hour = 3;
