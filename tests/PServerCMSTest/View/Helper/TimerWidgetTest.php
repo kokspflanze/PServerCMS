@@ -3,9 +3,7 @@
 
 namespace PServerCMSTest\View\Helper;
 
-
 use PServerCMSTest\Util\TestBase;
-use Zend\View\Renderer\PhpRenderer;
 
 class TimerWidgetTest extends TestBase
 {

@@ -1,5 +1,5 @@
 <div class="margin-bottom-15">
-	<h3><?= $this->escapeHtml($this->user->getUsername()) ?></h3>
+	<h3><?= $this->escapeHtml($this->user->getUsername()) ?> [<?= $this->coins ?>]</h3>
 	<hr/>
 	<ul class="list-unstyled">
 		<?php if($this->isAllowed('PServerPanel/character')): ?>

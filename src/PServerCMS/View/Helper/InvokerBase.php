@@ -11,7 +11,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 
 class InvokerBase extends AbstractHelper
 {
-    use HelperServiceLocator, HelperService, HelperOptions, Service;
+    use HelperServiceLocator, HelperService, HelperOptions, Service, \GameBackend\Helper\Service;
 
     /** @var ServiceLocatorInterface */
     protected $serviceLocator;
