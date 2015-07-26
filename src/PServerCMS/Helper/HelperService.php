@@ -216,6 +216,14 @@ trait HelperService
     }
 
     /**
+     * @return \PServerPanel\Service\Vote
+     */
+    protected function getVoteService()
+    {
+        return $this->getService('pserverpanel_vote_service');
+    }
+
+    /**
      * @param $serviceName
      *
      * @return array|object
