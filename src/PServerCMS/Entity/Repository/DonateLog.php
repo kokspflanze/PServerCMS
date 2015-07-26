@@ -32,7 +32,7 @@ class DonateLog extends EntityRepository
             ->setMaxResults( 1 )
             ->getQuery();
 
-        return (bool)$query->getOneOrNullResult();
+        return (bool)$query->getOneOrNullResult($query::HYDRATE_SIMPLEOBJECT);
     }
 
     /**

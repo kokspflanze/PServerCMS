@@ -146,8 +146,7 @@ class UserBlock
     }
 
     /**
-     * @param UserInterface $user
-     * @return $this
+     * @return UserInterface
      */
     public function getUser()
     {

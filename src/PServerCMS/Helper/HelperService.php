@@ -208,6 +208,14 @@ trait HelperService
     }
 
     /**
+     * @return \PServerPanel\Service\Character
+     */
+    protected function getCharacterService()
+    {
+        return $this->getService('pserverpanel_character_service');
+    }
+
+    /**
      * @param $serviceName
      *
      * @return array|object

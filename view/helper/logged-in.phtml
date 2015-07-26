@@ -26,14 +26,22 @@
 				</a>
 			</li>
 		<?php endif; ?>
-        <?php if($this->isAllowed('PServerCMS/panel_donate')): ?>
-            <li>
+		<?php if($this->isAllowed('PServerCMS/panel_donate')): ?>
+			<li>
 				<a href="<?= $this->url('PServerCMS/panel_donate') ?>" class="btn btn-info btn-block">
 					<i class="fa fa-usd"></i>
 					<?= $this->translate('Donate') ?>
 				</a>
 			</li>
-        <?php endif; ?>
+		<?php endif; ?>
+		<?php if($this->isAllowed('PServerPanel/vote')): ?>
+			<li>
+				<a href="<?= $this->url('PServerPanel/vote') ?>" class="btn btn-info btn-block">
+					<i class="fa fa-gamepad"></i>
+					<?= $this->translate('Vote4Coins') ?>
+				</a>
+			</li>
+		<?php endif; ?>
 		<?php if($this->isAllowed('PServerAdmin/home')): ?>
 		<li>
 			<a href="<?= $this->url('PServerAdmin/home') ?>" class="btn btn-info btn-block">

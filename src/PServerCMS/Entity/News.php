@@ -35,8 +35,8 @@ class News
     private $memo;
 
     /**
-     * @var string
-     * @ORM\Column(name="active", type="string", nullable=false)
+     * @var int
+     * @ORM\Column(name="active", type="smallint", nullable=false)
      */
     private $active;
 
