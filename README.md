@@ -67,6 +67,7 @@ You can find some screenshots @ [screenshot-directory](https://github.com/kokspf
 - AccountPanel (to change the web/ingame password)
 - CharacterPanel (to show current status of a character)
 - AdminPanel with UserPanel, DonateStatistic, view Logs, edit different parts in page
+- Vote4Coins (modification in admin-panel)
 - easy to change the web, admin and email layout
 
 ## PHP Extensions
