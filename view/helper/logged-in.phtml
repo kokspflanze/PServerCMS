@@ -2,53 +2,17 @@
 	<h3><?= $this->escapeHtml($this->user->getUsername()) ?> [<?= $this->coins ?>]</h3>
 	<hr/>
 	<ul class="list-unstyled">
-		<?php if($this->isAllowed('PServerPanel/character')): ?>
-			<li>
-				<a href="<?= $this->url('PServerPanel/character') ?>" class="btn btn-info btn-block">
-					<i class="fa fa-diamond"></i>
-					<?= $this->translate('CharacterPanel') ?>
-				</a>
-			</li>
-		<?php endif; ?>
-		<?php if($this->isAllowed('PServerCMS/user')): ?>
-			<li>
-				<a href="<?= $this->url('PServerCMS/user') ?>" class="btn btn-info btn-block">
-					<i class="glyphicon glyphicon-user"></i>
-					<?= $this->translate('AccountPanel') ?>
-				</a>
-			</li>
-		<?php endif; ?>
-		<?php if($this->isAllowed('zfc-ticketsystem')): ?>
-            <li>
-				<a href="<?= $this->url('zfc-ticketsystem') ?>" class="btn btn-info btn-block">
-					<i class="fa fa-graduation-cap"></i>
-					<?= $this->translate('TicketSystem') ?>
-				</a>
-			</li>
-		<?php endif; ?>
-		<?php if($this->isAllowed('PServerCMS/panel_donate')): ?>
-			<li>
-				<a href="<?= $this->url('PServerCMS/panel_donate') ?>" class="btn btn-info btn-block">
-					<i class="fa fa-usd"></i>
-					<?= $this->translate('Donate') ?>
-				</a>
-			</li>
-		<?php endif; ?>
-		<?php if($this->isAllowed('PServerPanel/vote')): ?>
-			<li>
-				<a href="<?= $this->url('PServerPanel/vote') ?>" class="btn btn-info btn-block">
-					<i class="fa fa-gamepad"></i>
-					<?= $this->translate('Vote4Coins') ?>
-				</a>
-			</li>
-		<?php endif; ?>
-		<?php if($this->isAllowed('PServerAdmin/home')): ?>
-		<li>
-			<a href="<?= $this->url('PServerAdmin/home') ?>" class="btn btn-info btn-block">
-				<i class="fa fa-graduation-cap"></i>
-				<?= $this->translate('Adminpanel') ?>
-			</a>
-		</li>
-		<?php endif; ?>
+		<?php foreach($this->loggedIn as $entry):
+			$routeParams = isset($entry['route']['params'])?$entry['route']['params']:[];
+		?>
+			<?php if($this->isAllowed($entry['route']['name'], $routeParams)): ?>
+				<li>
+					<a href="<?= $this->url($entry['route']['name'], $routeParams) ?>" class="btn btn-info btn-block">
+						<i class="<?= $entry['class'] ?>"></i>
+						<?= $this->translate($entry['name']) ?>
+					</a>
+				</li>
+			<?php endif; ?>
+		<?php endforeach; ?>
 	</ul>
 </div>

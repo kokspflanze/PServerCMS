@@ -19,6 +19,7 @@ class LoggedInWidget extends InvokerBase
             $viewModel = new ViewModel([
                 'user' => $user,
                 'coins' => $this->getGameBackendService()->getCoins($user),
+                'loggedIn' => $this->getConfig()['pserver']['logged_in']
             ]);
             $viewModel->setTemplate('helper/sidebarLoggedInWidget');
             $template = $this->getView()->render($viewModel);

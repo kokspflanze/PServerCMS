@@ -458,6 +458,50 @@ return [
                 ],
             ],
         ],
+        'logged_in' => [
+            'character' => [
+                'name' => 'CharacterPanel',
+                'route' => [
+                    'name' => 'PServerPanel/character',
+                ],
+                'class' => 'fa fa-diamond'
+            ],
+            'account_panel' => [
+                'name' => 'AccountPanel',
+                'route' => [
+                    'name' => 'PServerCMS/user',
+                ],
+                'class' => 'glyphicon glyphicon-user'
+            ],
+            'ticket_system' => [
+                'name' => 'TicketSystem',
+                'route' => [
+                    'name' => 'zfc-ticketsystem',
+                ],
+                'class' => 'fa fa-graduation-cap'
+            ],
+            'donate' => [
+                'name' => 'Donate',
+                'route' => [
+                    'name' => 'PServerCMS/panel_donate',
+                ],
+                'class' => 'fa fa-usd'
+            ],
+            'vote4coins' => [
+                'name' => 'Vote4Coins',
+                'route' => [
+                    'name' => 'PServerPanel/vote',
+                ],
+                'class' => 'fa fa-gamepad'
+            ],
+            'admin_panel' => [
+                'name' => 'AdminPanel',
+                'route' => [
+                    'name' => 'PServerAdmin/home',
+                ],
+                'class' => 'fa fa-graduation-cap'
+            ],
+        ],
 	],
 	'authenticationadapter' => [
 		'odm_default' => [
