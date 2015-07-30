@@ -78,6 +78,7 @@ class TicketSubject extends \ZfcTicketSystem\Entity\TicketSubject
 
     public function __construct()
     {
+        parent::__construct();
         $this->type        = self::TYPE_NEW;
         $this->created     = new \DateTime();
         $this->lastEdit    = new \DateTime();

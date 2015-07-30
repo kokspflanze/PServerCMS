@@ -51,6 +51,7 @@ class TicketEntry extends \ZfcTicketSystem\Entity\TicketEntry
 
     public function __construct()
     {
+        parent::__construct();
         $this->created = new \DateTime();
     }
 

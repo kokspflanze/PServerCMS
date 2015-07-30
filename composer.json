@@ -22,6 +22,7 @@
   ],
   "require": {
     "php": ">=5.4",
+    "ext-intl" : "*",
     "twig/twig": "1.*",
     "doctrine/doctrine-orm-module": "0.*",
     "mabuzagu/pdo-dblib-module": "dev-master",
@@ -44,5 +45,8 @@
     "fabpot/php-cs-fixer": "~1.0",
     "satooshi/php-coveralls": "dev-master",
     "phpunit/phpcov": "~2.0"
+  },
+  "suggest" : {
+    "kokspflanze/p-server-sro": "*"
   }
 }
