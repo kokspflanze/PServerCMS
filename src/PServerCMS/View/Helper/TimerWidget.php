@@ -28,29 +28,31 @@ class TimerWidget extends InvokerBase
      */
     protected function getTimer()
     {
-        if(!$this->timerService){
+        if (!$this->timerService) {
             $config = $this->getConfig();
-            $timerConfig = isset($config['pserver']['timer'])?$config['pserver']['timer']:array();
+            $timerConfig = isset($config['pserver']['timer'])?$config['pserver']['timer']:[];
 
             if ($timerConfig) {
-                foreach($timerConfig as $data){
+                foreach ($timerConfig as $data) {
                     $time = 0;
                     $text = '';
-                    if(!isset($data['type'])){
-                        if(isset($data['days'])){
+
+                    if (!isset($data['type'])) {
+                        if (isset($data['days'])) {
                             $time = $this->getTimerService()->getNextTimeDay( $data['days'], $data['hour'], $data['min'] );
-                        }else{
-                            $time = $this->getTimerService()->getNextTime( $data['hours'],$data['min'] );
+                        } else {
+                            $time = $this->getTimerService()->getNextTime( $data['hours'], $data['min'] );
                         }
-                    }else{
+                    } else {
                         $text = $data['time'];
                     }
-                    $this->timerService[] = array(
+
+                    $this->timerService[] = [
                         'time' => $time,
                         'text' => $text,
                         'name' => $data['name'],
                         'icon' => $data['icon']
-                    );
+                    ];
                 }
             }
         }

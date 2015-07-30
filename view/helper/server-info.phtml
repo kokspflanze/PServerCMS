@@ -2,7 +2,7 @@
     <h3><?= $this->translate('Server Info') ?></h3>
     <hr/>
     <ul class="list-unstyled">
-        <li><b><?= $this->translate('PlayerOnline') ?></b> <?= $this->playerHistory() ?></li>
+        <li><b><?= $this->translate('PlayerOnline') ?></b> <?= $this->playerHistory(true) ?></li>
         <?php if((bool)$this->serverInfo): ?>
             <?php foreach($this->serverInfo as $curInfo): ?>
                 <?php /** @var \PServerCMS\Entity\ServerInfo $curInfo */ ?>

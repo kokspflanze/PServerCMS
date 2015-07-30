@@ -26,6 +26,11 @@ class GeneralOptions extends AbstractOptions
     ];
 
     /**
+     * @var int
+     */
+    protected $maxPlayer = 1000;
+
+    /**
      * @return array
      */
     public function getDatetime()
@@ -59,6 +64,25 @@ class GeneralOptions extends AbstractOptions
     public function setCache( array $cache )
     {
         $this->cache = $cache;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMaxPlayer()
+    {
+        return $this->maxPlayer;
+    }
+
+    /**
+     * @param int $maxPlayer
+     * @return GeneralOptions
+     */
+    public function setMaxPlayer( $maxPlayer )
+    {
+        $this->maxPlayer = $maxPlayer;
 
         return $this;
     }
