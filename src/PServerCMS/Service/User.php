@@ -65,7 +65,8 @@ class User extends \SmallUser\Service\User
         /** @var Entity $userEntity */
         $userEntity = $form->getData();
         $userEntity->setCreateIp( Ip::getIp() );
-        $userEntity->setPassword( $this->bCrypt( $userEntity->getPassword() ) );
+        $plainPassword = $userEntity->getPassword();
+        $userEntity->setPassword( $this->bCrypt( $plainPassword ) );
 
         $entityManager->persist( $userEntity );
         $entityManager->flush();
@@ -75,7 +76,7 @@ class User extends \SmallUser\Service\User
 
             $this->getMailService()->register( $userEntity, $code );
         } else {
-            $userEntity = $this->registerGame( $userEntity, $userEntity->getPassword() );
+            $userEntity = $this->registerGame( $userEntity, $plainPassword );
             $this->setAvailableCountries4User($userEntity, Ip::getIp());
             //valid identity after register with no mail
             $this->doAuthentication($userEntity);
