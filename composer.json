@@ -23,6 +23,8 @@
   "require": {
     "php": ">=5.4",
     "ext-intl" : "*",
+    "ext-gd" : "*",
+    "ext-curl" : "*",
     "twig/twig": "1.*",
     "doctrine/doctrine-orm-module": "0.*",
     "mabuzagu/pdo-dblib-module": "dev-master",

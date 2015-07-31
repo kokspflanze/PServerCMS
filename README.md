@@ -74,6 +74,7 @@ You can find some screenshots @ [screenshot-directory](https://github.com/kokspf
 
 - php5-curl
 - php5-intl
+- php5-gd
 
 ## CronTab settings
 
