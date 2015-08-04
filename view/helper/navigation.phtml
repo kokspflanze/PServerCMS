@@ -11,9 +11,25 @@
     <div class="collapse navbar-collapse" id="navbar">
         <ul class="nav navbar-nav navbar-right">
             <?php foreach($this->navigation as $entry):
+
+                // skip empty navigation section
+                if (!$entry) {
+                    continue;
+                }
+
                 $routeParams = isset($entry['route']['params'])?$entry['route']['params']:[];
                 $hasChildren = isset($entry['children']);
-                if ($this->isAllowed($entry['route']['name'])) :
+                $externalHref = isset($entry['external']);
+
+                if ($externalHref) {
+                    ?>
+                    <li class="navigation">
+                        <a href="<?= $externalHref ?>" target="_blank">
+                            <?= $this->translate($entry['name']) ?>
+                        </a>
+                    </li>
+                    <?php
+                } elseif ($this->isAllowed($entry['route']['name'])) {
                     ?>
                     <li class="
                             navigation
@@ -30,7 +46,14 @@
                             ?>
                             <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                                 <?php foreach ($entry['children'] as $childrenEntry) :
+
+                                    // skip empty section
+                                    if (!$childrenEntry) {
+                                        continue;
+                                    }
+
                                     $routeParams = isset($childrenEntry['route']['params'])?$childrenEntry['route']['params']:[];
+
                                     if ($this->isAllowed($childrenEntry['route']['name'])) :
                                         ?>
                                         <li class="<?= $this->active($childrenEntry['route']['name'], $routeParams)?'active':'' ?>">
@@ -47,7 +70,7 @@
                         <?php endif; ?>
                     </li>
                 <?php
-                endif;
+                }
             endforeach;
             ?>
         </ul>
