@@ -83,6 +83,9 @@ class Module
                 'loggedInWidgetPServerCMS' => function ( AbstractPluginManager $pluginManager ) {
                     return new View\Helper\LoggedInWidget( $pluginManager->getServiceLocator() );
                 },
+                'loginWidgetPServerCMS' => function ( AbstractPluginManager $pluginManager ) {
+                    return new View\Helper\LoginWidget( $pluginManager->getServiceLocator() );
+                },
                 'serverInfoWidgetPServerCMS' => function ( AbstractPluginManager $pluginManager ) {
                     return new View\Helper\ServerInfoWidget( $pluginManager->getServiceLocator() );
                 },

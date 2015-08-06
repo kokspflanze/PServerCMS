@@ -151,6 +151,7 @@ return [
             'helper/topCharacterWidget'     => __DIR__ . '/../view/helper/top-character.phtml',
             'helper/topGuildWidget'         => __DIR__ . '/../view/helper/top-guild.phtml',
             'helper/playerHistory'          => __DIR__ . '/../view/helper/player-history.phtml',
+            'helper/sidebarLoginWidget'     => __DIR__ . '/../view/helper/login-widget.phtml',
 			'zfc-ticket-system/new'			=> __DIR__ . '/../view/zfc-ticket-system/ticket-system/new.twig',
 			'zfc-ticket-system/view'		=> __DIR__ . '/../view/zfc-ticket-system/ticket-system/view.twig',
 			'zfc-ticket-system/index'		=> __DIR__ . '/../view/zfc-ticket-system/ticket-system/index.twig',
