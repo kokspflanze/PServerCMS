@@ -49,6 +49,6 @@
     "phpunit/phpcov": "~2.0"
   },
   "suggest" : {
-    "kokspflanze/p-server-sro": "*"
+    "kokspflanze/p-server-sro": "Its a extension for Silkroad, to provide more features for that game"
   }
 }
