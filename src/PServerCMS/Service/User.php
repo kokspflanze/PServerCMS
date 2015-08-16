@@ -660,10 +660,10 @@ class User extends \SmallUser\Service\User
     }
 
     /**
-     * @param UserInterface $user
+     * @param UserInterface|SmallUserInterface $user
      * @return boolean
      */
-    protected function handleAuth4UserLogin( UserInterface $user )
+    protected function handleAuth4UserLogin( SmallUserInterface $user )
     {
         if ($this->isRegisterDynamicImport()) {
             /** @var \PServerCMS\Entity\Repository\User $userRepository */
