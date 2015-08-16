@@ -13,4 +13,10 @@ interface UserRoleInterface extends SmallUserUserRoleInterface
      */
     public function getId();
 
+    /**
+     * @param UserInterface $user
+     * @return self
+     */
+    public function addUser(UserInterface $user);
+
 }

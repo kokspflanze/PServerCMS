@@ -256,7 +256,7 @@ class User extends \SmallUser\Service\User
     {
         $entityManager = $this->getEntityManager();
 
-        /** @var User $userEntity */
+        /** @var UserInterface $userEntity */
         $userEntity = $userCodes->getUser();
         $this->setAvailableCountries4User($userEntity, Ip::getIp());
 
@@ -264,6 +264,18 @@ class User extends \SmallUser\Service\User
         $entityManager->flush();
 
         return $userEntity;
+    }
+
+    /**
+     * @param $userId
+     * @return null|UserInterface
+     */
+    public function getUser4Id( $userId )
+    {
+        /** @var \PServerCMS\Entity\Repository\User $userRepository */
+        $userRepository = $this->getEntityManager()->getRepository( $this->getEntityOptions()->getUser() );
+
+        return $userRepository->getUser4Id( $userId );
     }
 
     /**
@@ -298,6 +310,7 @@ class User extends \SmallUser\Service\User
         /** @var \PServerCMS\Entity\Repository\UserRole $repositoryRole */
         $repositoryRole = $entityManager->getRepository( $this->getEntityOptions()->getUserRole() );
         $role           = $this->getConfigService()->get( 'pserver.register.role', 'user' );
+        /** @var \PServerCMS\Entity\UserRoleInterface $roleEntity */
         $roleEntity     = $repositoryRole->getRole4Name( $role );
 
         // add the ROLE + Remove the Key
@@ -334,7 +347,7 @@ class User extends \SmallUser\Service\User
     }
 
     /**
-     * @param SmallUserInterface $user
+     * @param SmallUserInterface|UserInterface $user
      * @return bool
      */
     protected function isValidLogin( SmallUserInterface $user )
@@ -433,18 +446,6 @@ class User extends \SmallUser\Service\User
         }
 
         return $result;
-    }
-
-    /**
-     * @param $userId
-     * @return null|UserInterface
-     */
-    protected function getUser4Id( $userId )
-    {
-        /** @var \PServerCMS\Entity\Repository\User $userRepository */
-        $userRepository = $this->getEntityManager()->getRepository( $this->getEntityOptions()->getUser() );
-
-        return $userRepository->getUser4Id( $userId );
     }
 
     /**
@@ -659,15 +660,16 @@ class User extends \SmallUser\Service\User
     }
 
     /**
-     * @param SmallUserInterface $user
+     * @param UserInterface $user
      * @return boolean
      */
-    protected function handleAuth4UserLogin( SmallUserInterface $user )
+    protected function handleAuth4UserLogin( UserInterface $user )
     {
         if ($this->isRegisterDynamicImport()) {
             /** @var \PServerCMS\Entity\Repository\User $userRepository */
             $userRepository = $this->getEntityManager()->getRepository( $this->getEntityOptions()->getUser() );
             if (!$userRepository->getUser4UserName($user->getUsername())) {
+                /** @var UserInterface $backendUser */
                 if ($backendUser = $this->getGameBackendService()->getUser4Login($user)) {
 
                     if (!$backendUser->getCreateIp()) {

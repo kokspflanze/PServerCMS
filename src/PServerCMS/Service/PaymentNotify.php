@@ -72,7 +72,8 @@ class PaymentNotify extends InvokableBase implements LogInterface
 
     /**
      * @param Request $request
-     * @param User   $user
+     * @param $user
+     * @param string $errorMessage
      * @return DonateLog
      */
     protected function getDonateLogEntity4Data( Request $request, $user, $errorMessage = '' )
@@ -99,7 +100,8 @@ class PaymentNotify extends InvokableBase implements LogInterface
 
     /**
      * @param Request $request
-     * @param User   $user
+     * @param $user
+     * @param string $errorMessage
      */
     protected function saveDonateLog( Request $request, $user, $errorMessage = '' )
     {

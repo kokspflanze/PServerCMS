@@ -5,14 +5,12 @@ namespace PServerCMS\Service;
 
 class CachingHelper extends InvokableBase
 {
-
-	/**
-	 * @param          $cacheKey
-	 * @param callable $closure
-	 * @param null     $lifetime
-	 *
-	 * @return mixed
-	 */
+    /**
+     * @param $cacheKey
+     * @param \Closure $closure
+     * @param null $lifetime
+     * @return mixed
+     */
 	public function getItem( $cacheKey, \Closure $closure, $lifetime = null )
     {
         // we have to check if we enable the caching in config

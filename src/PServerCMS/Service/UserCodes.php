@@ -2,7 +2,7 @@
 
 namespace PServerCMS\Service;
 
-use PServerCMS\Entity\User;
+use PServerCMS\Entity\UserInterface;
 use PServerCMS\Helper\Format;
 use PServerCMS\Entity\UserCodes as Entity;
 
@@ -14,13 +14,13 @@ class UserCodes extends InvokableBase
 	protected $repositoryManager;
 
     /**
-     * @param User $userEntity
+     * @param UserInterface $userEntity
      * @param       $type
      * @param int   $expire
      *
      * @return string
      */
-	public function setCode4User( User $userEntity, $type, $expire = 0 )
+	public function setCode4User( UserInterface $userEntity, $type, $expire = 0 )
     {
 		$entityManager = $this->getEntityManager();
 

@@ -57,11 +57,8 @@ abstract class AbstractRecord extends AbstractValidator
     }
 
     /**
-     * setMapper
-     *
-     * @param ObjectRepository $mapper
-     *
-     * @return AbstractRecord
+     * @param ObjectRepository $objectRepository
+     * @return self
      */
     public function setObjectRepository( ObjectRepository $objectRepository )
     {
@@ -81,9 +78,8 @@ abstract class AbstractRecord extends AbstractValidator
     }
 
     /**
-     * Set key.
-     *
-     * @param string $key
+     * @param $key
+     * @return self
      */
     public function setKey( $key )
     {
@@ -93,11 +89,9 @@ abstract class AbstractRecord extends AbstractValidator
     }
 
     /**
-     * Grab the user from the mapper
-     *
-     * @param string $value
-     *
-     * @return mixed
+     * @param $value
+     * @return object
+     * @throws \Exception
      */
     protected function query( $value )
     {

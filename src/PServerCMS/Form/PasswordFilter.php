@@ -2,17 +2,16 @@
 
 namespace PServerCMS\Form;
 
-use PServerCMS\Entity\User;
+use PServerCMS\Entity\UserInterface;
 use ZfcBase\InputFilter\ProvidesEventsInputFilter;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use PServerCMS\Validator\SimilarText;
-use Zend\ServiceManager\ServiceManager;
 
 class PasswordFilter extends ProvidesEventsInputFilter
 {
     /** @var  \PServerCMS\Validator\SimilarText */
 	protected $similarText;
-    /** @var  User */
+    /** @var  UserInterface */
 	protected $user;
     protected $serviceManager;
 
@@ -26,6 +25,7 @@ class PasswordFilter extends ProvidesEventsInputFilter
 		/** @var \PServerCMS\Service\ConfigRead $configService */
 		$configService = $this->getServiceManager()->get( 'pserver_configread_service' );
 		if($configService->get('pserver.password.secret_question')) {
+			/** @var \PServerCMS\Service\SecretQuestion $secretQuestion */
 			$secretQuestion = $this->getServiceManager()->get( 'pserver_secret_question' );
 			$similarText    = new \PServerCMS\Validator\SimilarText( $secretQuestion );
 			$this->setSimilarText( $similarText );
@@ -71,11 +71,11 @@ class PasswordFilter extends ProvidesEventsInputFilter
 	}
 
     /**
-     * @param ServiceManager $oServiceManager
+     * @param ServiceLocatorInterface $oServiceManager
      *
      * @return $this
      */
-    public function setServiceManager( ServiceManager $oServiceManager )
+    public function setServiceManager( ServiceLocatorInterface $oServiceManager )
     {
         $this->serviceManager = $oServiceManager;
 
@@ -83,7 +83,7 @@ class PasswordFilter extends ProvidesEventsInputFilter
     }
 
     /**
-     * @return ServiceManager
+     * @return ServiceLocatorInterface
      */
     protected function getServiceManager()
     {
@@ -91,9 +91,10 @@ class PasswordFilter extends ProvidesEventsInputFilter
     }
 
     /**
-     * @param User $user
+     * @param UserInterface $user
      */
-	public function addAnswerValidation(User $user){
+	public function addAnswerValidation(UserInterface $user)
+	{
 		$similarText = $this->getSimilarText();
         if (!$similarText) {
             return;

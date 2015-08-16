@@ -3,12 +3,13 @@
 namespace PServerCMS\Service;
 
 
-use PServerCMS\Entity\User;
+use PServerCMS\Entity\UserInterface;
 use Zend\Mail\Transport\Smtp;
 use Zend\Mail\Transport\SmtpOptions;
 use Zend\Mime\Part;
 use Zend\Mime\Message as MimeMessage;
 use Zend\View\Model\ViewModel;
+use Zend\Mail\Message;
 
 class Mail extends InvokableBase
 {
@@ -25,10 +26,10 @@ class Mail extends InvokableBase
 	/**
 	 * RegisterMail
 	 *
-	 * @param User $user
+	 * @param UserInterface $user
 	 * @param       $code
 	 */
-	public function register( User $user, $code )
+	public function register( UserInterface $user, $code )
     {
 		$params = array(
 			'user' => $user,
@@ -39,10 +40,10 @@ class Mail extends InvokableBase
 	}
 
 	/**
-	 * @param User $user
+	 * @param UserInterface $user
 	 * @param       $code
 	 */
-	public function lostPw( User $user, $code )
+	public function lostPw( UserInterface $user, $code )
     {
 		$params = array(
 			'user' => $user,
@@ -53,10 +54,10 @@ class Mail extends InvokableBase
 	}
 
     /**
-     * @param User $user
+     * @param UserInterface $user
      * @param $code
      */
-    public function confirmCountry( User $user, $code )
+    public function confirmCountry( UserInterface $user, $code )
     {
         $params = array(
             'user' => $user,
@@ -67,10 +68,10 @@ class Mail extends InvokableBase
     }
 
     /**
-     * @param User $user
+     * @param UserInterface $user
      * @param $code
      */
-    public function secretLogin( User $user, $code )
+    public function secretLogin( UserInterface $user, $code )
     {
         $params = array(
             'user' => $user,
@@ -81,15 +82,14 @@ class Mail extends InvokableBase
     }
 
 	/**
-	 * @param       $subjectKey
-	 * @param User $user
-	 * @param       $params
+	 * @param $subjectKey
+	 * @param UserInterface $user
+	 * @param $params
 	 */
-	protected function send($subjectKey, User $user, $params)
+	protected function send($subjectKey, UserInterface $user, $params)
     {
 		// TODO TwigTemplateEngine
 		$renderer = $this->getViewRenderer();
-		/** @var \ZfcTwig\View\TwigResolver $oResolver */
 		//$oResolver = $this->getServiceManager()->get('ZfcTwig\View\TwigResolver');
 		//$oResolver->resolve(__DIR__ . '/../../../view');
 		//$oRenderer->setResolver($oResolver);
@@ -110,7 +110,7 @@ class Mail extends InvokableBase
 			$body = new MimeMessage();
 			$body->setParts(array($html));
 
-			$mail = new \Zend\Mail\Message();
+			$mail = new Message();
 			$mail->setBody($body);
 			$mailOptions = $this->getMailOptions();
 			$mail->setFrom($mailOptions->getFrom(), $mailOptions->getFromName());

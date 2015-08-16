@@ -3,7 +3,6 @@
 namespace PServerCMS\Service;
 
 use PServerAdmin\Mapper\HydratorNews;
-use PServerCMS\Entity\User;
 use PServerCMS\Entity\UserInterface;
 use PServerCMS\Keys\Caching;
 
@@ -59,7 +58,7 @@ class News extends InvokableBase
 	/**
 	 * @param array $data
 	 * @param UserInterface $user
-	 *
+	 * @param null $currentNews
 	 * @return bool|\PServerCMS\Entity\News
 	 */
 	public function news( array $data, UserInterface $user, $currentNews = null )
