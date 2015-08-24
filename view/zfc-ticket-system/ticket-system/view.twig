@@ -7,7 +7,7 @@
 {% block content %}
 	{{ formWidget(form) }}
 	{% for key, curEntry in entry %}
-		<label>{{ curEntry.getUser.getUsername }} <small>{{ dateTimeFormatTime(curEntry.getCreated) }}</small></label><br/>
+		<label>{{ getUserAlias(curEntry.getUser) }} <small>{{ dateTimeFormatTime(curEntry.getCreated) }}</small></label><br/>
 		{{ bbCodeParser(curEntry.getMemo()) }}<br />
 	{% endfor %}
 {% endblock content %}
