@@ -5,7 +5,7 @@
 		<?php foreach($this->loggedIn as $entry):
 			$routeParams = isset($entry['route']['params'])?$entry['route']['params']:[];
 		?>
-			<?php if($this->isAllowed($entry['route']['name'], $routeParams)): ?>
+			<?php if($this->isAllowed($entry['route']['name'])): ?>
 				<li>
 					<a href="<?= $this->url($entry['route']['name'], $routeParams) ?>" class="btn btn-info btn-block">
 						<i class="<?= $entry['class'] ?>"></i>
