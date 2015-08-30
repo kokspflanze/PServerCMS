@@ -27,9 +27,9 @@
 							<i class="fa fa-edit"></i>
 							{{ translate('View') }}
 						</a>
-						{% if (ticketSubject.getTyp != 2) %}
+						{% if (ticketSubject.getType != 2) %}
 							<a href="{{ url('zfc-ticketsystem', {'id':ticketSubject.getId, 'action':'close-ticket'}) }}" class="btn btn-warning btn-sm">
-								<i class="fa fa-times"></i> Close
+								<i class="fa fa-times"></i> {{ translate('Close') }}
 							</a>
 						{% endif %}
 					</td>
