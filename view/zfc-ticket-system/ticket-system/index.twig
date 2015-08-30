@@ -5,9 +5,6 @@
 {% endblock title %}
 
 {% block content %}
-
-	{% set typeList = {0:'new',1:'open',2:'closed'} %}
-
 	<a href="{{ url('zfc-ticketsystem', {'action':'new'}) }}" class="btn btn-primary"><i class="fa fa-plus"></i> {{ translate('new ticket') }}</a>
 	<div class="clearfix"></div>
 	<div class="table-responsive margin-top-10">
@@ -23,13 +20,18 @@
 				<tr>
 					<td>{{ ticketSubject.getSubject }}</td>
 					<td>{{ ticketSubject.getTicketCategory.getSubject }}</td>
-					<td>{{ typeList[ticketSubject.getType] }}</td>
+					<td>{{ ticketStatus(ticketSubject.getType) }}</td>
 					<td>{{ dateTimeFormatTime(ticketSubject.getLastEdit) }}</td>
 					<td>
 						<a href="{{ url('zfc-ticketsystem', {'id':ticketSubject.getId, 'action':'view'}) }}" class="btn btn-warning btn-sm">
 							<i class="fa fa-edit"></i>
 							{{ translate('View') }}
 						</a>
+						{% if (ticketSubject.getTyp != 2) %}
+							<a href="{{ url('zfc-ticketsystem', {'id':ticketSubject.getId, 'action':'close-ticket'}) }}" class="btn btn-warning btn-sm">
+								<i class="fa fa-times"></i> Close
+							</a>
+						{% endif %}
 					</td>
 				</tr>
 			{% endfor %}
