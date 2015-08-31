@@ -43,6 +43,7 @@ class SecretQuestion extends InvokableBase
     {
 		$answerEntity = $this->getEntityManagerAnswer()->getAnswer4UserId($user->getId());
 
+		// @TODO better workflow, with ZendFilter
 		$realAnswer = strtolower(trim($answerEntity->getAnswer()));
 		$plainAnswer = strtolower(trim($answer));
 
@@ -56,7 +57,6 @@ class SecretQuestion extends InvokableBase
 	{
 		return $this->getQuestionRepository()->getQuestionQueryBuilder();
 	}
-
 
 	/**
 	 * @param array $data
@@ -95,7 +95,7 @@ class SecretQuestion extends InvokableBase
 	 *
 	 * @return null|\PServerCMS\Entity\SecretQuestion
 	 */
-	protected function getQuestion4Id( $questionId )
+	public function getQuestion4Id( $questionId )
     {
 		return $this->getQuestionRepository()->getQuestion4Id( $questionId );
 	}

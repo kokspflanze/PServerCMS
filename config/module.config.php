@@ -524,25 +524,12 @@ return [
         ],
 	],
 	'payment-api' => [
+        // more config params check https://github.com/kokspflanze/PaymentAPI/blob/master/config/module.config.php
         'payment-wall' => [
-            /**
-             * WhiteList-Ips for PaymentWall
-             */
-            'ip-white-list' => [
-                '174.36.92.186',
-                '174.36.96.66',
-                '174.36.92.187',
-                '174.36.92.192',
-                '174.37.14.28'
-            ],
             /**
              * SecretKey
              */
             'secret-key' => '',
-            /**
-             * ApiVersion, supported version atm 1,2,3
-             */
-            'version' => 3
         ],
         'super-reward' => [
             /**
