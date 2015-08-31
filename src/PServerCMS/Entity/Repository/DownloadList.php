@@ -50,4 +50,19 @@ class DownloadList extends EntityRepository
 
 		return $query->getOneOrNullResult();
 	}
+
+	/**
+	 * @param $downloadId
+	 * @return mixed
+	 */
+	public function deleteDownloadEntry($downloadId)
+	{
+		$query = $this->createQueryBuilder('p')
+			->delete($this->getEntityName(), 'p')
+			->where('p.id = :id')
+			->setParameter('id', $downloadId)
+			->getQuery();
+
+		return $query->execute();
+	}
 }

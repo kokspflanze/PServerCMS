@@ -37,4 +37,13 @@ class SecretQuestion extends EntityRepository
 
         return $query->getOneOrNullResult();
     }
+
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function getQuestionQueryBuilder()
+    {
+        return $this->createQueryBuilder( 'p' )
+            ->select( 'p' );
+    }
 } 

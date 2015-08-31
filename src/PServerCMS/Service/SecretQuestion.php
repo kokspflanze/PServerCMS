@@ -2,7 +2,9 @@
 
 namespace PServerCMS\Service;
 
+use PServerAdmin\Mapper\HydratorSecretQuestion;
 use PServerCMS\Entity\UserInterface;
+use PServerCMS\Entity\SecretQuestion as Entity;
 
 class SecretQuestion extends InvokableBase
 {
@@ -19,6 +21,7 @@ class SecretQuestion extends InvokableBase
 		$class = $this->getEntityOptions()->getSecretAnswer();
 		/** @var \PServerCMS\Entity\SecretAnswer $secretAnswer */
 		$secretAnswer = new $class;
+
 		$secretAnswer->setUser($user)
 			->setAnswer(trim($answer))
 			->setQuestion( $this->getQuestion4Id($questionId) );
@@ -43,7 +46,48 @@ class SecretQuestion extends InvokableBase
 		$realAnswer = strtolower(trim($answerEntity->getAnswer()));
 		$plainAnswer = strtolower(trim($answer));
 
-		return $realAnswer == $plainAnswer;
+		return $realAnswer === $plainAnswer;
+	}
+
+	/**
+	 * @return \Doctrine\ORM\QueryBuilder
+	 */
+	public function getQuestionQueryBuilder()
+	{
+		return $this->getQuestionRepository()->getQuestionQueryBuilder();
+	}
+
+
+	/**
+	 * @param array $data
+	 * @param null|Entity $currentSecretQuestion
+	 *
+	 * @return bool|Entity
+	 */
+	public function secretQuestion(array $data, $currentSecretQuestion = null)
+	{
+		if ($currentSecretQuestion == null) {
+			$class = $this->getEntityOptions()->getSecretQuestion();
+			/** @var Entity $currentSecretQuestion */
+			$currentSecretQuestion = new $class;
+		}
+
+		$form = $this->getAdminSecretQuestionForm();
+		$form->setData($data);
+		$form->setHydrator(new HydratorSecretQuestion());
+		$form->bind($currentSecretQuestion);
+		if (!$form->isValid()) {
+			return false;
+		}
+
+		/** @var Entity $secretQuestion */
+		$secretQuestion = $form->getData();
+
+		$entity = $this->getEntityManager();
+		$entity->persist($secretQuestion);
+		$entity->flush();
+
+		return $secretQuestion;
 	}
 
 	/**
@@ -53,10 +97,7 @@ class SecretQuestion extends InvokableBase
 	 */
 	protected function getQuestion4Id( $questionId )
     {
-        /** @var \PServerCMS\Entity\Repository\SecretQuestion $repository */
-		$repository = $this->getEntityManager()->getRepository($this->getEntityOptions()->getSecretQuestion());
-
-		return $repository->getQuestion4Id( $questionId );
+		return $this->getQuestionRepository()->getQuestion4Id( $questionId );
 	}
 
 	/**
@@ -65,6 +106,14 @@ class SecretQuestion extends InvokableBase
 	protected function getEntityManagerAnswer()
     {
 		return $this->getEntityManager()->getRepository($this->getEntityOptions()->getSecretAnswer());
+	}
+
+	/**
+	 * @return \PServerCMS\Entity\Repository\SecretQuestion $repository
+	 */
+	protected function getQuestionRepository()
+	{
+		return $this->getEntityManager()->getRepository($this->getEntityOptions()->getSecretQuestion());
 	}
 
 } 

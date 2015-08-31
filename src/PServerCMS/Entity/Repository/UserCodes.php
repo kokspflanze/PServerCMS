@@ -40,7 +40,7 @@ class UserCodes extends EntityRepository
 	public function deleteCodes4User($userId, $type)
     {
 		$query = $this->createQueryBuilder('p')
-			->delete('PServerCMS\Entity\UserCodes','p')
+			->delete($this->getEntityName(), 'p')
 			->where('p.user = :user_id')
 			->setParameter('user_id', $userId)
 			->andWhere('p.type = :type')
@@ -57,7 +57,7 @@ class UserCodes extends EntityRepository
      */
     public function getCode( $code )
     {
-        return $this->findOneBy(array('code' => $code));
+        return $this->findOneBy(['code' => $code]);
     }
 
     /**

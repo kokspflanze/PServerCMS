@@ -14,9 +14,7 @@ class Download extends InvokableBase
 	public function getActiveList()
     {
 		$downloadInfo = $this->getCachingHelperService()->getItem(Caching::DOWNLOAD, function() {
-			/** @var \PServerCMS\Entity\Repository\DownloadList $repository */
-			$repository = $this->getEntityManager()->getRepository($this->getEntityOptions()->getDownloadList());
-			return $repository->getActiveDownloadList();
+			return $this->getDownloadRepository()->getActiveDownloadList();
 		});
 
 		return $downloadInfo;
@@ -27,9 +25,7 @@ class Download extends InvokableBase
 	 */
 	public function getDownloadList()
     {
-		/** @var \PServerCMS\Entity\Repository\DownloadList $repository */
-		$repository = $this->getEntityManager()->getRepository($this->getEntityOptions()->getDownloadList());
-		return $repository->getDownloadList();
+		return $this->getDownloadRepository()->getDownloadList();
 	}
 
     /**
@@ -38,28 +34,28 @@ class Download extends InvokableBase
      */
 	public function getDownload4Id( $id )
     {
-		/** @var \PServerCMS\Entity\Repository\DownloadList $repository */
-		$repository = $this->getEntityManager()->getRepository($this->getEntityOptions()->getDownloadList());
-		return $repository->getDownload4Id($id);
+		return $this->getDownloadRepository()->getDownload4Id($id);
 	}
 
 	/**
 	 * @param array $data
-	 * @param null  $currentDownload
+	 * @param null|DownloadList $currentDownload
 	 *
 	 * @return bool|DownloadList
 	 */
 	public function download( array $data, $currentDownload = null)
     {
-		if($currentDownload == null){
-			$currentDownload = new DownloadList();
+		if ($currentDownload == null) {
+			$class = $this->getEntityOptions()->getDownloadList();
+			/** @var DownloadList $currentDownload */
+			$currentDownload = new $class;
 		}
 
 		$form = $this->getAdminDownloadForm();
 		$form->setData($data);
 		$form->setHydrator(new HydratorDownload());
 		$form->bind($currentDownload);
-		if(!$form->isValid()){
+		if (!$form->isValid()) {
 			return false;
 		}
 
@@ -72,4 +68,22 @@ class Download extends InvokableBase
 
 		return $download;
 	}
+
+	/**
+	 * @param DownloadList $downloadEntry
+	 * @return mixed
+	 */
+	public function deleteDownloadEntry(DownloadList $downloadEntry)
+	{
+		return $this->getDownloadRepository()->deleteDownloadEntry($downloadEntry->getId());
+	}
+
+	/**
+	 * @return \PServerCMS\Entity\Repository\DownloadList
+	 */
+	protected function getDownloadRepository()
+	{
+		return $this->getEntityManager()->getRepository($this->getEntityOptions()->getDownloadList());;
+	}
+
 } 

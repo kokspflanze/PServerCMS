@@ -56,6 +56,14 @@ trait HelperForm
     }
 
     /**
+     * @return \PServerAdmin\Form\SecretQuestion
+     */
+    public function getAdminSecretQuestionForm()
+    {
+        return $this->getService('pserver_admin_secret_question_form');
+    }
+
+    /**
      * @return \PServerAdmin\Form\UserRole
      */
     public function getAdminUserRoleForm()
