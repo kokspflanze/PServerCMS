@@ -38,8 +38,7 @@
     "kokspflanze/p-server-panel": "dev-master",
     "kokspflanze/zfc-bbcode": "~1.0",
     "thadafinser/zfc-datagrid": "dev-master",
-    "san/san-captcha": "dev-master",
-    "samclarke/sbb-code-parser": "dev-master"
+    "san/san-captcha": "dev-master"
   },
   "require-dev": {
     "phpunit/phpunit": "~4.0",
