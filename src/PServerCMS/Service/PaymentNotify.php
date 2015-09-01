@@ -5,7 +5,6 @@ namespace PServerCMS\Service;
 use PaymentAPI\Provider\Request;
 use PaymentAPI\Service\LogInterface;
 use PServerCMS\Entity\DonateLog;
-use PServerCMS\Entity\User;
 
 class PaymentNotify extends InvokableBase implements LogInterface
 {
@@ -24,7 +23,7 @@ class PaymentNotify extends InvokableBase implements LogInterface
         }
 
         // we already added add the reward, so skip this =)
-        if ($this->isDonateAlreadyAdded( $request )) {
+        if ($this->isStatusSuccess($request) && $this->isDonateAlreadyAdded($request)) {
             // better we save that message
             $errorMessage = 'already added';
             $this->saveDonateLog( $request, $user, $errorMessage );
@@ -33,7 +32,7 @@ class PaymentNotify extends InvokableBase implements LogInterface
         }
 
         // check if donate should add coins or remove
-        $coins = $request->getStatus() == $request::STATUS_SUCCESS ? abs( $request->getAmount() ) : -$request->getAmount();
+        $coins = $this->isStatusSuccess($request) ? abs( $request->getAmount() ) : -$request->getAmount();
 
         // save the message if gamebackend-service is unavailable
         $errorMessage = '';
@@ -144,5 +143,14 @@ class PaymentNotify extends InvokableBase implements LogInterface
         $donateEntity = $this->getEntityManager()->getRepository( $this->getEntityOptions()->getDonateLog() );
 
         return $donateEntity->isDonateAlreadyAdded( $request->getTransactionId(), $this->mapPaymentProvider2DonateType( $request ) );
+    }
+
+    /**
+     * @param Request $request
+     * @return bool
+     */
+    public function isStatusSuccess(Request $request)
+    {
+        return $request->getStatus() == $request::STATUS_SUCCESS;
     }
 }

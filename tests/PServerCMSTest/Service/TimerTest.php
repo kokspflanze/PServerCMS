@@ -11,6 +11,12 @@ class TimerTest extends TestBase
     /** @var  string */
     protected $className = '\PServerCMS\Service\Timer';
 
+    public function setUp()
+    {
+        parent::setUp();
+        date_default_timezone_set('UTC');
+    }
+
     public function testGetNextTimeSameDay()
     {
         $this->mockedMethodList = [
