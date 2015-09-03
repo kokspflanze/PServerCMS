@@ -33,7 +33,7 @@
     "kokspflanze/game-backend": "dev-master",
     "kokspflanze/p-server-admin": "dev-master",
     "kokspflanze/p-server-cli": "dev-master",
-    "kokspflanze/payment-api": "dev-master",
+    "kokspflanze/payment-api": "0.*",
     "kokspflanze/p-server-ranking": "dev-master",
     "kokspflanze/p-server-panel": "dev-master",
     "kokspflanze/zfc-bbcode": "~1.0",

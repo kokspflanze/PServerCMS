@@ -547,4 +547,11 @@ return [
             'user' => 'PServerCMS\Entity\User',
         ],
     ],
+    'ZfcDatagrid' => [
+        'settings' => [
+            'export' => [
+                'enabled' => false,
+            ],
+        ],
+    ],
 ];
