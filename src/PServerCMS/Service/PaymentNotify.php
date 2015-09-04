@@ -32,7 +32,8 @@ class PaymentNotify extends InvokableBase implements LogInterface
         }
 
         // check if donate should add coins or remove
-        $coins = $this->isStatusSuccess($request) ? abs( $request->getAmount() ) : -$request->getAmount();
+        $request->setAmount(abs($request->getAmount()));
+        $coins = $this->isStatusSuccess($request) ? $request->getAmount() : -$request->getAmount();
 
         // save the message if gamebackend-service is unavailable
         $errorMessage = '';
@@ -43,7 +44,7 @@ class PaymentNotify extends InvokableBase implements LogInterface
             $errorMessage = $e->getMessage();
         }
 
-        if ($request->getStatus() == $request::STATUS_CHARGE_BACK) {
+        if ($request->isReasonToBan()) {
             $expire = (int)$this->getConfigService()->get( 'payment-api.ban-time', 0 ) + time();
             $reason = 'Donate - ChargeBack';
 
