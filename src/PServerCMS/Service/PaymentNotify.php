@@ -34,6 +34,7 @@ class PaymentNotify extends InvokableBase implements LogInterface
         // check if donate should add coins or remove
         $request->setAmount(abs($request->getAmount()));
         $coins = $this->isStatusSuccess($request) ? $request->getAmount() : -$request->getAmount();
+        $request->setAmount($coins);
 
         // save the message if gamebackend-service is unavailable
         $errorMessage = '';
