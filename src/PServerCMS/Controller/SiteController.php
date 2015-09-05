@@ -15,9 +15,9 @@ class SiteController extends AbstractActionController
      */
     public function downloadAction()
     {
-        return array(
+        return [
             'downloadList' => $this->getDownloadService()->getActiveList()
-        );
+        ];
     }
 
     /**
@@ -31,9 +31,9 @@ class SiteController extends AbstractActionController
             return $this->redirect()->toRoute( 'PServerCMS' );
         }
 
-        return array(
+        return [
             'pageInfo' => $pageInfo
-        );
+        ];
     }
 
 } 

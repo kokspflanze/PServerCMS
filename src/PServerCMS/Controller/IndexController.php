@@ -12,9 +12,9 @@ class IndexController extends AbstractActionController
 
 	public function indexAction()
     {
-		return array(
+		return [
 			'aNews' => $this->getNewsService()->getActiveNews()
-		);
+		];
 	}
 
 }

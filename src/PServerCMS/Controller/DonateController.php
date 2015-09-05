@@ -15,9 +15,9 @@ class DonateController extends AbstractActionController
         /** @var \PServerCMS\Entity\UserInterface $user */
         $user = $this->getUserService()->getAuthService()->getIdentity();
 
-        return array(
+        return [
             'user' => $user
-        );
+        ];
     }
 
 }

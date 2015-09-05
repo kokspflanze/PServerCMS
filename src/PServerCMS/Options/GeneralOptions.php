@@ -31,6 +31,18 @@ class GeneralOptions extends AbstractOptions
     protected $maxPlayer = 1000;
 
     /**
+     * @var array
+     */
+    protected $imagePlayer = [
+        'font_color' => [
+            0,0,0
+        ],
+        'background_color' => [
+            237 ,237, 237
+        ],
+    ];
+
+    /**
      * @return array
      */
     public function getDatetime()
@@ -84,6 +96,24 @@ class GeneralOptions extends AbstractOptions
     {
         $this->maxPlayer = $maxPlayer;
 
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getImagePlayer()
+    {
+        return $this->imagePlayer;
+    }
+
+    /**
+     * @param array $imagePlayer
+     * @return $this
+     */
+    public function setImagePlayer($imagePlayer)
+    {
+        $this->imagePlayer = $imagePlayer;
         return $this;
     }
 

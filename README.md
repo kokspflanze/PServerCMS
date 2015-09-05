@@ -70,6 +70,7 @@ You can find some screenshots @ [screenshot-directory](https://github.com/kokspf
 - AdminPanel with UserPanel, DonateStatistic, view Logs, edit different parts in page
 - Vote4Coins (modification in admin-panel)
 - RoleSystem, its possible to add more roles with different permissions
+- show current online player as an image for threads `/info/online-player.png`
 - easy to change the web, admin and email layout
 
 ## PHP Extensions

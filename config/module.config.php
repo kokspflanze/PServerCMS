@@ -63,6 +63,19 @@ return [
                             ],
                         ],
                     ],
+                    'info' => [
+                        'type' => 'segment',
+                        'options' => [
+                            'route'    => 'info[/:action].png',
+                            'constraints' => [
+                                'action'    => '[a-zA-Z-]+',
+                            ],
+                            'defaults' => [
+                                'controller'	=> 'PServerCMS\Controller\Info',
+                                'action'		=> 'index',
+                            ],
+                        ],
+                    ],
                 ],
             ],
         ],
@@ -124,6 +137,7 @@ return [
 			'PServerCMS\Controller\Site' => 'PServerCMS\Controller\SiteController',
             'PServerCMS\Controller\Account' => 'PServerCMS\Controller\AccountController',
             'PServerCMS\Controller\Donate' => 'PServerCMS\Controller\DonateController',
+            'PServerCMS\Controller\Info' => 'PServerCMS\Controller\InfoController',
         ],
     ],
     'view_manager' => [
@@ -261,7 +275,15 @@ return [
             'cache' => [
                 'enable' => false
             ],
-            'max_player' => 1000
+            'max_player' => 1000,
+            'image_player' => [
+                'font_color' => [
+                    0,0,0
+                ],
+                'background_color' => [
+                    237 ,237, 237
+                ],
+            ],
         ],
 		'register' => [
             /**

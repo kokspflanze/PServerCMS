@@ -38,14 +38,14 @@ class AccountController extends AbstractActionController
 
         $request = $this->getRequest();
         if (!$request->isPost()) {
-            return array(
+            return [
                 'changeWebPwdForm'    => $formChangeWebPwd,
                 'changeIngamePwdForm' => $formChangeIngamePwd,
                 'messagesWeb'         => $this->flashmessenger()->getMessagesFromNamespace( self::SUCCESS_NAME_SPACE . 'Web' ),
                 'messagesInGame'      => $this->flashmessenger()->getMessagesFromNamespace( self::SUCCESS_NAME_SPACE . 'InGame' ),
                 'errorsWeb'           => $this->flashmessenger()->getMessagesFromNamespace( self::ERROR_NAME_SPACE . 'Web' ),
                 'errorsInGame'        => $this->flashmessenger()->getMessagesFromNamespace( self::ERROR_NAME_SPACE . 'InGame' )
-            );
+            ];
 
         }
 
