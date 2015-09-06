@@ -24,11 +24,7 @@ class PaymentNotify extends InvokableBase implements LogInterface
 
         // we already added add the reward, so skip this =)
         if ($this->isStatusSuccess($request) && $this->isDonateAlreadyAdded($request)) {
-            // better we save that message
-            $errorMessage = 'already added';
-            $this->saveDonateLog( $request, $user, $errorMessage );
-
-            return true;
+            throw new \Exception( 'already added' );
         }
 
         // check if donate should add coins or remove
