@@ -14,8 +14,8 @@ class TicketSystemFilter extends \ZfcTicketSystem\Form\TicketSystemFilter
     public function __construct( ServiceLocatorInterface $sm )
     {
         parent::__construct( $sm );
+
         $memo = $this->get( 'memo' );
-        /** @var \Zend\Validator\ValidatorChain $validatorChain */
         $validatorChain = $memo->getValidatorChain();
         $validatorChain->attach( new BBCodeValid( $sm ) );
 

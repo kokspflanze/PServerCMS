@@ -170,6 +170,11 @@ class Module
                     $config = $sm->get( 'Configuration' );
                     return new Options\LoginOptions( $config['pserver']['login'] );
                 },
+                'pserver_register_options'         => function ( $sm ) {
+                    /** @var $sm \Zend\ServiceManager\ServiceLocatorInterface */
+                    $config = $sm->get( 'Configuration' );
+                    return new Options\RegisterOptions( $config['pserver']['register'] );
+                },
                 'zfcticketsystem_ticketsystem_new_form'   => function ( $sm ) {
                     /** @var $sm \Zend\ServiceManager\ServiceLocatorInterface */
                     $form = new \ZfcTicketSystem\Form\TicketSystem( $sm );

@@ -14,9 +14,9 @@ class DateTimeJQuery extends DateTimeLocal
      *
      * @var array
      */
-    protected $attributes = array(
+    protected $attributes = [
         'type' => 'text',
-    );
+    ];
 
     /**
      * {@inheritDoc}

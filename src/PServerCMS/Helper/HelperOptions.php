@@ -48,6 +48,14 @@ trait HelperOptions
     }
 
     /**
+     * @return \PServerCMS\Options\RegisterOptions
+     */
+    protected function getRegisterOptions()
+    {
+        return $this->getService('pserver_register_options');
+    }
+
+    /**
      * @param $serviceName
      *
      * @return array|object

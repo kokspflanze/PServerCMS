@@ -2,6 +2,9 @@
 
 namespace PServerCMS\Form;
 
+use PServerCMS\Helper\HelperBasic;
+use PServerCMS\Helper\HelperOptions;
+use PServerCMS\Helper\HelperService;
 use ZfcBase\InputFilter\ProvidesEventsInputFilter;
 use PServerCMS\Validator\AbstractRecord;
 use PServerCMS\Validator;
@@ -9,8 +12,10 @@ use Zend\ServiceManager\ServiceManager;
 
 class RegisterFilter extends ProvidesEventsInputFilter
 {
+	use HelperOptions, HelperBasic, HelperService;
+
+	/** @var ServiceManager */
 	protected $serviceManager;
-	protected $entityManager;
 
     /**
      * @param ServiceManager $serviceManager
@@ -55,6 +60,14 @@ class RegisterFilter extends ProvidesEventsInputFilter
 				$this->getStriposValidator()
 			),
 		));
+
+		if (!$this->getRegisterOptions()->isDuplicateEmail()) {
+			$element = $this->get('email');
+			/** @var \Zend\Validator\ValidatorChain $chain */
+			$chain = $element->getValidatorChain();
+			$chain->attach($this->getEmailValidator());
+			$element->setValidatorChain($chain);
+		}
 
 		$this->add(array(
 			'name'       => 'emailVerify',
@@ -149,13 +162,13 @@ class RegisterFilter extends ProvidesEventsInputFilter
 	}
 
 	/**
-	 * @param ServiceManager $oServiceManager
+	 * @param ServiceManager $serviceManager
 	 *
 	 * @return $this
 	 */
-	public function setServiceManager( ServiceManager $oServiceManager )
+	public function setServiceManager( ServiceManager $serviceManager )
     {
-		$this->serviceManager = $oServiceManager;
+		$this->serviceManager = $serviceManager;
 
 		return $this;
 	}
@@ -163,7 +176,7 @@ class RegisterFilter extends ProvidesEventsInputFilter
 	/**
 	 * @return ServiceManager
 	 */
-	protected function getServiceManager()
+	public function getServiceManager()
     {
 		return $this->serviceManager;
 	}
@@ -189,13 +202,26 @@ class RegisterFilter extends ProvidesEventsInputFilter
 	 * @return AbstractRecord
 	 */
 	public function getUsernameValidator()
-    {
-        /** @var $repositoryUser \Doctrine\Common\Persistence\ObjectRepository */
-        $repositoryUser = $this->getServiceManager()
-            ->get('Doctrine\ORM\EntityManager')
-            ->getRepository($this->getEntityOptions()->getUser());
+	{
+		/** @var $repositoryUser \Doctrine\Common\Persistence\ObjectRepository */
+		$repositoryUser = $this->getServiceManager()
+			->get('Doctrine\ORM\EntityManager')
+			->getRepository($this->getEntityOptions()->getUser());
 
-        return new Validator\NoRecordExists( $repositoryUser, 'username' );
+		return new Validator\NoRecordExists( $repositoryUser, 'username' );
+	}
+
+	/**
+	 * @return AbstractRecord
+	 */
+	public function getEmailValidator()
+	{
+		/** @var $repositoryUser \Doctrine\Common\Persistence\ObjectRepository */
+		$repositoryUser = $this->getServiceManager()
+			->get('Doctrine\ORM\EntityManager')
+			->getRepository($this->getEntityOptions()->getUser());
+
+		return new Validator\NoRecordExists( $repositoryUser, 'email' );
 	}
 
 	/**
@@ -214,31 +240,5 @@ class RegisterFilter extends ProvidesEventsInputFilter
         return new Validator\UserNameBackendNotExists($this->getServiceManager());
     }
 
-	/**
-	 * @return \Doctrine\ORM\EntityManager
-	 */
-	protected function getEntityManager()
-    {
-		if (!$this->entityManager) {
-			$this->entityManager = $this->getServiceManager()->get('Doctrine\ORM\EntityManager');
-		}
 
-		return $this->entityManager;
-	}
-
-    /**
-     * @return \PServerCMS\Options\EntityOptions
-     */
-    protected function getEntityOptions()
-    {
-        return $this->getServiceManager()->get('pserver_entity_options');
-    }
-
-    /**
-     * @return \PServerCMS\Options\PasswordOptions
-     */
-    protected function getPasswordOptions()
-    {
-        return $this->getServiceManager()->get('pserver_password_options');
-    }
 } 

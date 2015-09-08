@@ -14,7 +14,6 @@ class LoginFilter extends \SmallUser\Form\LoginFilter
         parent::__construct();
 
         $element = $this->get('username');
-        /** @var \Zend\Validator\ValidatorChain $chain */
         $chain = $element->getValidatorChain();
         $chain->attach($userValidator);
         $element->setValidatorChain($chain);

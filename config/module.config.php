@@ -302,6 +302,11 @@ return [
              * to add roles, create a history-log, 2 pw-system and and and
              */
             'dynamic-import' => true,
+            /**
+             * its allowed to use more as 1 time a email-address on different accounts
+             * warning it can come to duplicate emails with the dynamic import feature
+             */
+            'duplicate_email' => true
 		],
 		'mail' => [
 			'from' => 'abcd@example.com',

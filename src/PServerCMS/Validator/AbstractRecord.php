@@ -98,15 +98,15 @@ abstract class AbstractRecord extends AbstractValidator
 
         switch ($this->getKey()) {
             case 'email':
-                $result = $this->getObjectRepository()->findOneBy( array( 'email' => $value ) );
+                $result = $this->getObjectRepository()->findOneBy( ['email' => $value] );
                 break;
 
             case 'username':
-                $result = $this->getObjectRepository()->findOneBy( array( 'username' => $value ) );
+                $result = $this->getObjectRepository()->findOneBy( ['username' => $value] );
                 break;
 
             case 'categoryId':
-                $result = $this->getObjectRepository()->findOneBy( array( 'categoryid' => $value, 'active' => '1' ) );
+                $result = $this->getObjectRepository()->findOneBy( ['categoryid' => $value, 'active' => '1'] );
                 break;
 
             default:

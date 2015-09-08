@@ -67,7 +67,7 @@ class SimilarText extends AbstractValidator
     }
 
     /**
-     * @return User
+     * @return UserInterface
      */
     public function getUser()
     {

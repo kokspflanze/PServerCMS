@@ -10,7 +10,7 @@ use Zend\ServiceManager\ServiceManager;
 
 class StriposExists extends AbstractValidator
 {
-    Use HelperBasic, HelperService;
+    use HelperBasic, HelperService;
 
     const TYPE_EMAIL = 'email';
 
@@ -61,6 +61,7 @@ class StriposExists extends AbstractValidator
         $result = true;
         $this->setValue( $value );
         $blackList = $this->getConfigService()->get( 'pserver.blacklisted.' . $this->getType(), false );
+
         if (!$blackList) {
             return $result;
         }

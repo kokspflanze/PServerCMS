@@ -8,7 +8,7 @@ class ConfigRead extends InvokableBase
 	 * Caching the Config String
      * @var array
      */
-    private $cache = array();
+    private $cache = [];
 
     /**
      * @param $configString
