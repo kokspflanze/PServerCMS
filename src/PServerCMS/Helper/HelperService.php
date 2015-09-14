@@ -224,6 +224,14 @@ trait HelperService
     }
 
     /**
+     * @return \PServerCMS\Service\Ip
+     */
+    protected function getIpService()
+    {
+        return $this->getService('payment_api_ip_service');
+    }
+
+    /**
      * @param $serviceName
      *
      * @return array|object

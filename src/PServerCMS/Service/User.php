@@ -15,7 +15,6 @@ use PServerCMS\Entity\User as Entity;
 use PServerCMS\Entity\Repository\AvailableCountries as RepositoryAvailableCountries;
 use PServerCMS\Entity\Repository\CountryList;
 use PServerCMS\Helper\DateTimer;
-use PServerCMS\Helper\Ip;
 use PServerCMS\Validator\AbstractRecord;
 use SmallUser\Mapper\HydratorUser;
 use Zend\Crypt\Password\Bcrypt;
@@ -64,7 +63,7 @@ class User extends \SmallUser\Service\User
         $entityManager = $this->getEntityManager();
         /** @var Entity $userEntity */
         $userEntity = $form->getData();
-        $userEntity->setCreateIp( Ip::getIp() );
+        $userEntity->setCreateIp( $this->getIpService()->getIp() );
         $plainPassword = $userEntity->getPassword();
         $userEntity->setPassword( $this->bCrypt( $plainPassword ) );
 
@@ -77,7 +76,7 @@ class User extends \SmallUser\Service\User
             $this->getMailService()->register( $userEntity, $code );
         } else {
             $userEntity = $this->registerGame( $userEntity, $plainPassword );
-            $this->setAvailableCountries4User($userEntity, Ip::getIp());
+            $this->setAvailableCountries4User($userEntity, $this->getIpService()->getIp());
             //valid identity after register with no mail
             $this->doAuthentication($userEntity);
         }
@@ -133,7 +132,7 @@ class User extends \SmallUser\Service\User
     public function registerGameForm( UserCodes $userCode, $plainPassword = null )
     {
         $user = $this->registerGame( $userCode->getUser(), $plainPassword );
-        $this->setAvailableCountries4User($user, Ip::getIp());
+        $this->setAvailableCountries4User($user, $this->getIpService()->getIp());
 
         if ($user) {
             $this->getUserCodesService()->deleteCode( $userCode );
@@ -258,7 +257,7 @@ class User extends \SmallUser\Service\User
 
         /** @var UserInterface $userEntity */
         $userEntity = $userCodes->getUser();
-        $this->setAvailableCountries4User($userEntity, Ip::getIp());
+        $this->setAvailableCountries4User($userEntity, $this->getIpService()->getIp());
 
         $entityManager->remove( $userCodes );
         $entityManager->flush();
@@ -341,7 +340,7 @@ class User extends \SmallUser\Service\User
         /** @var \PServerCMS\Entity\AvailableCountries $availableCountries */
         $availableCountries = new $class;
         $availableCountries->setUser( $user );
-        $availableCountries->setCntry( $countryList->getCountryCode4Ip( $ip ) );
+        $availableCountries->setCntry( $countryList->getCountryCode4Ip( $this->getIpService()->getIp2Decimal($ip) ) );
         $entityManager->persist( $availableCountries );
         $entityManager->flush();
     }
@@ -380,7 +379,7 @@ class User extends \SmallUser\Service\User
 
         /** @var CountryList $countryList */
         $countryList = $entityManager->getRepository( $this->getEntityOptions()->getCountryList() );
-        $country     = $countryList->getCountryCode4Ip( Ip::getIp() );
+        $country     = $countryList->getCountryCode4Ip( $this->getIpService()->getIp2Decimal() );
         /** @var RepositoryAvailableCountries $availableCountries */
         $availableCountries = $entityManager->getRepository( $this->getEntityOptions()->getAvailableCountries() );
 
@@ -462,7 +461,7 @@ class User extends \SmallUser\Service\User
         /** @var \PServerCMS\Entity\LoginHistory $loginHistory */
         $loginHistory = new $class();
         $loginHistory->setUser( $user );
-        $loginHistory->setIp( Ip::getIp() );
+        $loginHistory->setIp( $this->getIpService()->getIp() );
         $entityManager->persist( $loginHistory );
         $entityManager->flush();
     }
@@ -487,7 +486,7 @@ class User extends \SmallUser\Service\User
         /** @var \PServerCMS\Entity\LoginFailed $loginFailed */
         $loginFailed = new $class();
         $loginFailed->setUsername( $user->getUsername() );
-        $loginFailed->setIp( Ip::getIp() );
+        $loginFailed->setIp( $this->getIpService()->getIp() );
         $entityManager->persist( $loginFailed );
         $entityManager->flush();
 
@@ -496,12 +495,12 @@ class User extends \SmallUser\Service\User
         /** @var \PServerCMS\Entity\Repository\LoginFailed $repositoryLoginFailed */
         $repositoryLoginFailed = $entityManager->getRepository( $class );
 
-        if ($repositoryLoginFailed->getNumberOfFailLogin4Ip( Ip::getIp(), $time ) >= $maxTries) {
+        if ($repositoryLoginFailed->getNumberOfFailLogin4Ip( $this->getIpService()->getIp(), $time ) >= $maxTries) {
             $class = $this->getEntityOptions()->getIpBlock();
             /** @var \PServerCMS\Entity\IpBlock $ipBlock */
             $ipBlock = new $class();
             $ipBlock->setExpire( DateTimer::getDateTime4TimeStamp( time() + $time ) );
-            $ipBlock->setIp( Ip::getIp() );
+            $ipBlock->setIp( $this->getIpService()->getIp() );
             $entityManager->persist( $ipBlock );
             $entityManager->flush();
         }
@@ -517,7 +516,7 @@ class User extends \SmallUser\Service\User
         $entityManager = $this->getEntityManager();
         /** @var \PServerCMS\Entity\Repository\IPBlock $repositoryIPBlock */
         $repositoryIPBlock = $entityManager->getRepository( $this->getEntityOptions()->getIpBlock() );
-        $ipAllowed         = $repositoryIPBlock->isIPAllowed( Ip::getIp() );
+        $ipAllowed         = $repositoryIPBlock->isIPAllowed( $this->getIpService()->getIp() );
         $result = true;
 
         if ($ipAllowed) {
@@ -673,7 +672,7 @@ class User extends \SmallUser\Service\User
                 if ($backendUser = $this->getGameBackendService()->getUser4Login($user)) {
 
                     if (!$backendUser->getCreateIp()) {
-                        $backendUser->setCreateIp(IP::getIp());
+                        $backendUser->setCreateIp($this->getIpService()->getIp());
                     }
 
                     $backendUser->setPassword( $this->bCrypt( $user->getPassword() ) );
@@ -681,7 +680,7 @@ class User extends \SmallUser\Service\User
                     $entityManager->persist($backendUser);
                     $entityManager->flush();
 
-                    $this->setAvailableCountries4User($backendUser, Ip::getIp());
+                    $this->setAvailableCountries4User($backendUser, $this->getIpService()->getIp());
                     $this->addDefaultRole($backendUser);
 
                     $this->doAuthentication($backendUser);

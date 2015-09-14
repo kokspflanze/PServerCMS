@@ -3,7 +3,6 @@
 namespace PServerCMS\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use PServerCMS\Helper\Ip;
 
 /**
  * Class CountryList
@@ -13,17 +12,17 @@ class CountryList extends EntityRepository
 {
 
     /**
-     * @param $ip
+     * @param int $decimalIp
      *
      * @return \PServerCMS\Entity\CountryList
      */
-    public function getCountryCode4Ip( $ip )
+    public function getCountryCode4Ip( $decimalIp )
     {
         $query  = $this->createQueryBuilder('p')
             ->select('p')
-            ->where('p.ipMin <= :sIp')
-            ->andWhere('p.ipMax >= :sIp')
-            ->setParameter('sIp', Ip::getIp2Decimal($ip))
+            ->where('p.ipMin <= :ip')
+            ->andWhere('p.ipMax >= :ip')
+            ->setParameter('ip', $decimalIp)
             ->getQuery();
 
         /** @var \PServerCMS\Entity\CountryList $result */

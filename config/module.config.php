@@ -124,6 +124,7 @@ return [
             'pserver_login_history_service'	    => 'PServerCMS\Service\LoginHistory',
             'pserver_coin_service'	            => 'PServerCMS\Service\Coin',
             'pserver_timer_service'	            => 'PServerCMS\Service\Timer',
+            'payment_api_ip_service'	        => 'PServerCMS\Service\Ip',
 		],
         'aliases' => [
             'translator' => 'MvcTranslator',
