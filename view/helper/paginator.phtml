@@ -1,6 +1,7 @@
 <?php
     $params = isset($this->params)?$this->params:array();
-    $format = isset($this->ajax)?'#"onclick="paginatorAjax(\''.$this->ajax.'\',\'%s\')"':'%s';
+    $format = isset($this->ajax)?'paginatorAjax(\''.$this->ajax.'\',\'%s\')':'%s';
+    $button = isset($this->ajax)?'<a onclick="%s" >%s</a>':'<a href="%s">%s</a>';
 ?>
 
 <?php if ($this->pageCount): ?>
@@ -10,18 +11,14 @@
             <?php if (isset($this->previous)): ?>
                 <?php
                 $params['page'] = $this->previous;
-                $url = sprintf( $format, $this->url($this->route, $params));
+                $url = sprintf($format, $this->url($this->route, $params));
                 ?>
                 <li>
-                    <a href="<?= $url; ?>">
-                        <<
-                    </a>
+                    <?= sprintf($button, $url, '<<') ?>
                 </li>
             <?php else: ?>
                 <li class="disabled">
-                    <a href="#">
-                        <<
-                    </a>
+                    <?= sprintf($button, '#', '<<') ?>
                 </li>
             <?php endif; ?>
 
@@ -30,16 +27,14 @@
                 <?php if ($page != $this->current): ?>
                     <?php
                     $params['page'] = $page;
-                    $url = sprintf( $format, $this->url($this->route, $params));
+                    $url = sprintf($format, $this->url($this->route, $params));
                     ?>
                     <li>
-                        <a href="<?= $url; ?>">
-                            <?= $page; ?>
-                        </a>
+                        <?= sprintf($button, $url, $page) ?>
                     </li>
                 <?php else: ?>
                     <li class="active">
-                        <a href="#"><?= $page; ?></a>
+                        <?= sprintf($button, '#', $page) ?>
                     </li>
                 <?php endif; ?>
             <?php endforeach; ?>
@@ -48,18 +43,14 @@
             <?php if (isset($this->next)): ?>
                 <?php
                 $params['page'] = $this->next;
-                $url = sprintf( $format, $this->url($this->route, $params));
+                $url = sprintf($format, $this->url($this->route, $params));
                 ?>
                 <li>
-                    <a href="<?= $url; ?>">
-                        >>
-                    </a>
+                    <?= sprintf($button, $url, '>>') ?>
                 </li>
             <?php else: ?>
                 <li class="disabled">
-                    <a href="#">
-                        >>
-                    </a>
+                    <?= sprintf($button, '#', '>>') ?>
                 </li>
             <?php endif; ?>
         </ul>
