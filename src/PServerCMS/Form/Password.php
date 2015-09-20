@@ -2,22 +2,23 @@
 
 namespace PServerCMS\Form;
 
-use PServerCMS\Entity\User;
+use PServerCMS\Entity\UserInterface;
 use Zend\Form\Element;
 use ZfcBase\Form\ProvidesEventsForm;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 class Password extends ProvidesEventsForm
 {
-
 	/** @var  ServiceLocatorInterface */
 	protected $serviceManager;
-	/** @var  User */
+	/** @var  UserInterface */
 	protected $user;
 	/** @var  \Doctrine\ORM\EntityManager */
 	protected $entityManager;
 
-
+	/**
+	 * @param ServiceLocatorInterface $serviceLocatorInterface
+	 */
 	public function __construct( ServiceLocatorInterface $serviceLocatorInterface )
     {
 		parent::__construct();
@@ -64,11 +65,11 @@ class Password extends ProvidesEventsForm
 	}
 
 	/**
-	 * @param User $user
+	 * @param UserInterface $user
 	 */
-	public function addSecretQuestion(User $user)
+	public function addSecretQuestion(UserInterface $user)
     {
-		if (!$this->getServiceManager()->get('pserver_configread_service')->get('pserver.password.secret_question')) {
+		if (!$this->getPasswordOptions()->isSecretQuestion()) {
 			return;
 		}
 
@@ -106,15 +107,15 @@ class Password extends ProvidesEventsForm
 	}
 
 	/**
-	 * @param User $user
+	 * @param UserInterface $user
 	 */
-	public function setUser( User $user )
+	public function setUser( UserInterface $user )
     {
 		$this->user = $user;
 	}
 
 	/**
-	 * @return User
+	 * @return UserInterface
 	 */
 	public function getUser()
     {
@@ -122,13 +123,13 @@ class Password extends ProvidesEventsForm
 	}
 
 	/**
-	 * @param ServiceLocatorInterface $oServiceManager
+	 * @param ServiceLocatorInterface $serviceManager
 	 *
 	 * @return $this
 	 */
-	protected function setServiceManager( ServiceLocatorInterface $oServiceManager )
+	protected function setServiceManager( ServiceLocatorInterface $serviceManager )
     {
-		$this->serviceManager = $oServiceManager;
+		$this->serviceManager = $serviceManager;
 
 		return $this;
 	}
@@ -159,5 +160,13 @@ class Password extends ProvidesEventsForm
 	protected function getEntityOptions()
     {
 		return $this->getServiceManager()->get('pserver_entity_options');
+	}
+
+	/**
+	 * @return \PServerCMS\Options\PasswordOptions
+	 */
+	public function getPasswordOptions()
+	{
+		return $this->getServiceManager()->get('pserver_password_options');
 	}
 } 

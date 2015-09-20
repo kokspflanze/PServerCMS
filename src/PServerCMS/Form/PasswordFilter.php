@@ -13,6 +13,7 @@ class PasswordFilter extends ProvidesEventsInputFilter
 	protected $similarText;
     /** @var  UserInterface */
 	protected $user;
+	/** @var  ServiceLocatorInterface */
     protected $serviceManager;
 
     /**
@@ -22,11 +23,9 @@ class PasswordFilter extends ProvidesEventsInputFilter
     {
         $this->setServiceManager($serviceLocatorInterface);
 
-		/** @var \PServerCMS\Service\ConfigRead $configService */
-		$configService = $this->getServiceManager()->get( 'pserver_configread_service' );
-		if($configService->get('pserver.password.secret_question')) {
+		if ($this->getPasswordOptions()->isSecretQuestion()) {
 			/** @var \PServerCMS\Service\SecretQuestion $secretQuestion */
-			$secretQuestion = $this->getServiceManager()->get( 'pserver_secret_question' );
+			$secretQuestion = $this->getServiceManager()->get('pserver_secret_question');
 			$similarText    = new \PServerCMS\Validator\SimilarText( $secretQuestion );
 			$this->setSimilarText( $similarText );
 		}

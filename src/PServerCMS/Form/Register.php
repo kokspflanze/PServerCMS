@@ -81,13 +81,17 @@ class Register extends ProvidesEventsForm
 
 		/** @var \PServerCMS\Service\ConfigRead $configService */
 		$configService = $sm->get( 'pserver_configread_service' );
-		if($configService->get('pserver.password.secret_question')){
+		if ($configService->get('pserver.password.secret_question')) {
+
+			/** @var \PServerCMS\Options\EntityOptions $entityOptions */
+			$entityOptions = $sm->get('pserver_entity_options');
+
 			$this->add(array(
 				'name' => 'question',
 				'type' => 'DoctrineModule\Form\Element\ObjectSelect',
 				'options' => array(
 					'object_manager'=> $sm->get( 'Doctrine\ORM\EntityManager' ),
-					'target_class'  => 'PServerCMS\Entity\SecretQuestion',
+					'target_class'  => $entityOptions->getSecretQuestion(),
 					'property'		=> 'question',
 					'label'			=> 'SecretQuestion',
 					'empty_option'  => '-- select --',

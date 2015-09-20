@@ -232,16 +232,16 @@ class User extends \SmallUser\Service\User
         }
 
         $data           = $form->getData();
-        $sPlainPassword = $data['password'];
+        $plainPassword = $data['password'];
         $userEntity     = $userCode->getUser();
 
-        $this->setNewPasswordAtUser( $userEntity, $sPlainPassword );
+        $this->setNewPasswordAtUser( $userEntity, $plainPassword );
 
         $this->getUserCodesService()->deleteCode( $userCode );
 
         if ($this->isSamePasswordOption()) {
             $gameBackend = $this->getGameBackendService();
-            $gameBackend->setUser( $userEntity, $sPlainPassword );
+            $gameBackend->setUser( $userEntity, $plainPassword );
         }
 
         return $userEntity;

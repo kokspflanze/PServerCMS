@@ -7,6 +7,7 @@ use Zend\Form\Element\DateTimeLocal;
 
 class DateTimeJQuery extends DateTimeLocal
 {
+    /** @var string */
     const DATETIME_LOCAL_FORMAT = 'Y-m-d';
 
     /**
@@ -18,9 +19,7 @@ class DateTimeJQuery extends DateTimeLocal
         'type' => 'text',
     ];
 
-    /**
-     * {@inheritDoc}
-     */
+    /** @var string */
     protected $format = self::DATETIME_LOCAL_FORMAT;
 
 }

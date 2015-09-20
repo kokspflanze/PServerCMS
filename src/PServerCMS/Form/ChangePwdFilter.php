@@ -8,6 +8,7 @@ use Zend\ServiceManager\ServiceManager;
 
 class ChangePwdFilter extends ProvidesEventsInputFilter
 {
+    /** @var  ServiceLocatorInterface */
     protected $serviceManager;
 
     /**
@@ -72,11 +73,11 @@ class ChangePwdFilter extends ProvidesEventsInputFilter
     }
 
     /**
-     * @param ServiceManager $oServiceManager
+     * @param ServiceLocatorInterface $oServiceManager
      *
      * @return $this
      */
-    public function setServiceManager( ServiceManager $oServiceManager )
+    public function setServiceManager( ServiceLocatorInterface $oServiceManager )
     {
         $this->serviceManager = $oServiceManager;
 
@@ -84,7 +85,7 @@ class ChangePwdFilter extends ProvidesEventsInputFilter
     }
 
     /**
-     * @return ServiceManager
+     * @return ServiceLocatorInterface
      */
     protected function getServiceManager()
     {

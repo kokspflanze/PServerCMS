@@ -10,7 +10,9 @@ class PwLostFilter extends ProvidesEventsInputFilter
     /** @var  AbstractRecord */
     protected $userValidator;
 
-
+    /**
+     * @param AbstractRecord $userValidator
+     */
 	public function __construct( AbstractRecord $userValidator )
     {
         $this->setUserValidator( $userValidator );
