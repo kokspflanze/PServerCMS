@@ -8,7 +8,7 @@ class FormWidget extends InvokerBase
 {
     /**
      * @param $form
-     *
+     * @param string $template
      * @return string
      */
     public function __invoke( $form, $template = 'helper/formWidget' )
