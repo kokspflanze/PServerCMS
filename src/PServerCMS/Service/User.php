@@ -408,7 +408,7 @@ class User extends \SmallUser\Service\User
 
                 if (in_array(strtolower($userRole->getRoleId()), $secretLoginRoleList)) {
 
-                    $code = $this->getUserCodesService()->setCode4User($user, UserCodes::TYPE_SECRET_LOGIN, 60);
+                    $code = $this->getUserCodesService()->setCode4User($user, UserCodes::TYPE_SECRET_LOGIN);
                     $this->getMailService()->secretLogin($user, $code);
 
                     $this->getFlashMessenger()

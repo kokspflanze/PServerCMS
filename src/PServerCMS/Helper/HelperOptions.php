@@ -56,6 +56,14 @@ trait HelperOptions
     }
 
     /**
+     * @return \PServerCMS\Options\UserCodeOptions
+     */
+    protected function getUserCodeOptions()
+    {
+        return $this->getService('pserver_user_code_options');
+    }
+
+    /**
      * @param $serviceName
      *
      * @return array|object

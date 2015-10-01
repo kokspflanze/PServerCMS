@@ -363,6 +363,18 @@ return [
                 'max' => 32
             ],
 		],
+        'user_code' => [
+            'expire' => [
+                /**
+                 * null means we use the general value
+                 */
+                'general' => 86400,
+                'register' => null,
+                'password' => null,
+                'country' => null,
+                'secret_login' => 60
+            ]
+        ],
 		'news' => [
             /**
              * limit of the news entries of the first page
