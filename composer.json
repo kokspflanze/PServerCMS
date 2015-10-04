@@ -32,7 +32,7 @@
     "kokspflanze/small-user": "dev-master",
     "kokspflanze/game-backend": "dev-master",
     "kokspflanze/p-server-admin": "dev-master",
-    "kokspflanze/p-server-cli": "dev-master",
+    "kokspflanze/p-server-cli": "0.*",
     "kokspflanze/payment-api": "0.*",
     "kokspflanze/p-server-ranking": "dev-master",
     "kokspflanze/p-server-panel": "dev-master",
