@@ -183,7 +183,7 @@ class Module
                 'pserver_validation_options' => function ($sm) {
                     /** @var $sm \Zend\ServiceManager\ServiceLocatorInterface */
                     $config = $sm->get('Configuration');
-                    return new Options\RegisterOptions($config['pserver']['validation']);
+                    return new Options\ValidationOptions($config['pserver']['validation']);
                 },
                 'zfcticketsystem_ticketsystem_new_form' => function ($sm) {
                     /** @var $sm \Zend\ServiceManager\ServiceLocatorInterface */
