@@ -56,6 +56,14 @@ trait HelperOptions
     }
 
     /**
+     * @return \PServerCMS\Options\ValidationOptions
+     */
+    protected function getValidationOptions()
+    {
+        return $this->getService('pserver_validation_options');
+    }
+
+    /**
      * @return \PServerCMS\Options\UserCodeOptions
      */
     protected function getUserCodeOptions()

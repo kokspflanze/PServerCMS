@@ -24,6 +24,8 @@ class RegisterFilter extends ProvidesEventsInputFilter
     {
 		$this->setServiceManager($serviceManager);
 
+		$validationUsernameOptions = $this->getValidationOptions()->getUsername();
+
 		$this->add(array(
 			'name'       => 'username',
 			'required'   => true,
@@ -32,8 +34,8 @@ class RegisterFilter extends ProvidesEventsInputFilter
                 array(
                     'name'    => 'StringLength',
                     'options' => array(
-                        'min' => 3,
-                        'max' => 16,
+                        'min' => $validationUsernameOptions['length']['min'],
+                        'max' => $validationUsernameOptions['length']['max'],
                     ),
                 ),
                 array(

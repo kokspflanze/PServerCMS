@@ -363,6 +363,14 @@ return [
                 'max' => 32
             ],
 		],
+        'validation' => [
+            'username' => [
+                'length' => [
+                    'min' => 3,
+                    'max' => 16
+                ],
+            ],
+        ],
         'user_code' => [
             'expire' => [
                 /**
