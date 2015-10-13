@@ -43,6 +43,10 @@ class SecretQuestion extends InvokableBase
     {
 		$answerEntity = $this->getEntityManagerAnswer()->getAnswer4UserId($user->getId());
 
+		if (!$answerEntity) {
+			return true;
+		}
+
 		// @TODO better workflow, with ZendFilter
 		$realAnswer = strtolower(trim($answerEntity->getAnswer()));
 		$plainAnswer = strtolower(trim($answer));

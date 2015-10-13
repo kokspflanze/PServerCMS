@@ -78,6 +78,10 @@ class Password extends ProvidesEventsForm
 		$repositorySecretAnswer = $this->getEntityManager()->getRepository($this->getEntityOptions()->getSecretAnswer());
 		$answer = $repositorySecretAnswer->getAnswer4UserId($this->getUser()->getId());
 
+		if (!$answer) {
+			return;
+		}
+
 		$this->add(array(
 			'name' => 'question',
 			'options' => array(

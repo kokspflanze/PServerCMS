@@ -26,8 +26,8 @@ class PasswordFilter extends ProvidesEventsInputFilter
 		if ($this->getPasswordOptions()->isSecretQuestion()) {
 			/** @var \PServerCMS\Service\SecretQuestion $secretQuestion */
 			$secretQuestion = $this->getServiceManager()->get('pserver_secret_question');
-			$similarText    = new \PServerCMS\Validator\SimilarText( $secretQuestion );
-			$this->setSimilarText( $similarText );
+			$similarText    = new \PServerCMS\Validator\SimilarText($secretQuestion);
+			$this->setSimilarText($similarText);
 		}
 
         $passwordLengthOptions = $this->getPasswordOptions()->getLength();
