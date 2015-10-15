@@ -225,7 +225,9 @@ class User extends \SmallUser\Service\User
         $form = $this->getPasswordForm();
         /** @var \PServerCMS\Form\PasswordFilter $filter */
         $filter = $form->getInputFilter();
-        $filter->addAnswerValidation( $userCode->getUser() );
+        if ($this->getEntityManagerAnswer()->getAnswer4UserId($userCode->getUser()->getId())) {
+            $filter->addAnswerValidation( $userCode->getUser() );
+        }
         $form->setData( $data );
         if (!$form->isValid()) {
             return false;
@@ -691,6 +693,14 @@ class User extends \SmallUser\Service\User
         }
 
         return parent::handleAuth4UserLogin($user);
+    }
+
+    /**
+     * @return null|\PServerCMS\Entity\Repository\SecretAnswer
+     */
+    protected function getEntityManagerAnswer()
+    {
+        return $this->getEntityManager()->getRepository($this->getEntityOptions()->getSecretAnswer());
     }
 
     /**
