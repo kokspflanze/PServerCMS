@@ -11,14 +11,14 @@ class Active extends InvokerBase
      *
      * @return bool
      */
-    public function __invoke( $routeKey, $params = array() )
+    public function __invoke($routeKey, $params = [])
     {
-        $router  = $this->getRouterService();
+        $router = $this->getRouterService();
         $request = $this->getRequestService();
 
-        $routeMatch = $router->match( $request );
+        $routeMatch = $router->match($request);
 
-        if (is_null( $routeMatch )) {
+        if (is_null($routeMatch)) {
             return false;
         }
 
@@ -26,9 +26,9 @@ class Active extends InvokerBase
             return false;
         }
 
-        if (is_array( $params ) || $params instanceof \Traversable) {
+        if (is_array($params) || $params instanceof \Traversable) {
             foreach ($params as $key => $param) {
-                if ($router->match( $request )->getParam( $key ) != $param) {
+                if ($router->match($request)->getParam($key) != $param) {
                     return false;
                 }
             }

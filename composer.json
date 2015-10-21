@@ -38,7 +38,6 @@
     "kokspflanze/p-server-panel": "dev-master",
     "zf-commons/zfc-twig": "dev-master",
     "kokspflanze/zfc-bbcode": "~1.0",
-    "thadafinser/zfc-datagrid": "dev-master",
     "san/san-captcha": "dev-master"
   },
   "require-dev": {
