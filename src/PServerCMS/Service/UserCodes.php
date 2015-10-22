@@ -96,6 +96,7 @@ class UserCodes extends InvokableBase
     {
         $i = 0;
         $entityManager = $this->getEntityManager();
+
         foreach ($codeList as $code) {
             $entityManager->remove($code);
             // if we have a register-code, so we have to remove the user too
@@ -104,7 +105,13 @@ class UserCodes extends InvokableBase
                 /** @var \PServerCMS\Entity\Repository\Logs $logRepository */
                 $logRepository = $entityManager->getRepository($this->getEntityOptions()->getLogs());
                 $logRepository->setLogsNull4User($user);
-                if ($this->getConfigService()->get('pserver.password.secret_question')) {
+
+                /** @var \PServerCMS\Entity\Repository\UserExtension $extensionRepository */
+                $extensionRepository = $entityManager->getRepository($this->getEntityOptions()->getUserExtension());
+                $extensionRepository->deleteExtension($user);
+
+                // secret question
+                if ($this->getPasswordOptions()->isSecretQuestion()) {
                     /** @var \PServerCMS\Entity\Repository\SecretAnswer $answerRepository */
                     $answerRepository = $entityManager->getRepository($this->getEntityOptions()->getSecretAnswer());
                     $answerRepository->deleteAnswer4User($user);

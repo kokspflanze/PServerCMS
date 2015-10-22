@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * UserExtension
  * @ORM\Table(name="user_extension", indexes={@ORM\Index(name="fk_userExtension_users1_idx", columns={"user_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="PServerCMS\Entity\Repository\UserExtension")
  */
 class UserExtension
 {
