@@ -2,7 +2,6 @@
 
 namespace PServerCMS\Form;
 
-use Zend\Form\Form;
 use Zend\Form\Element;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use ZfcBase\Form\ProvidesEventsForm;
@@ -127,7 +126,10 @@ class Register extends ProvidesEventsForm
                 'class' => 'form-control',
                 'type' => 'text'
             ]);
-        $this->add($captcha);
+
+        $this->add($captcha, array(
+			'priority' => -90,
+		));
 
 		$submitElement = new Element\Button('submit');
 		$submitElement
