@@ -9,17 +9,23 @@ use PServerCMS\Entity\UserInterface;
 
 class UserExtension extends EntityRepository
 {
-
     /**
      * @param UserInterface $user
+     * @param string $key
      */
-    public function deleteExtension(UserInterface $user)
+    public function deleteExtension(UserInterface $user, $key = null)
     {
-        $this->createQueryBuilder('p')
+        $query = $this->createQueryBuilder('p')
             ->delete()
             ->where('p.user = :user')
-            ->setParameter('user', $user)
-            ->getQuery()
+            ->setParameter('user', $user);
+
+        if ($key) {
+            $query->where('p.key = :key')
+                ->setParameter('key', $key);
+        }
+
+        $query->getQuery()
             ->execute();
     }
 }
