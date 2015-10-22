@@ -21,7 +21,7 @@ class UserExtension extends EntityRepository
             ->setParameter('user', $user);
 
         if ($key) {
-            $query->where('p.key = :key')
+            $query->andWhere('p.key = :key')
                 ->setParameter('key', $key);
         }
 
