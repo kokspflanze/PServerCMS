@@ -12,10 +12,10 @@ class Donate extends InvokableBase
      *
      * @return array
      */
-    public function getStatisticData( $lastDays = 10 )
+    public function getStatisticData($lastDays = 10)
     {
-        $timestamp = DateTimer::getZeroTimeStamp( time() ) - ($lastDays - 1) * 60 * 60 * 24;
-        $dateTime  = DateTimer::getDateTime4TimeStamp( $timestamp );
+        $timestamp = DateTimer::getZeroTimeStamp(strtotime('-' . $lastDays - 1 . ' days'));
+        $dateTime = DateTimer::getDateTime4TimeStamp($timestamp);
 
         $donateEntity = $this->getDonateLogEntity();
         $typList = $donateEntity->getDonateTypes();
@@ -79,7 +79,7 @@ class Donate extends InvokableBase
      * @param UserInterface $user
      * @return \PServerCMS\Entity\DonateLog[]
      */
-    public function getDonateHistory4User( UserInterface $user )
+    public function getDonateHistory4User(UserInterface $user)
     {
         /** @var \PServerCMS\Entity\Repository\DonateLog $repository */
         $repository = $this->getEntityManager()->getRepository($this->getEntityOptions()->getDonateLog());
@@ -91,8 +91,8 @@ class Donate extends InvokableBase
      */
     protected function getDonationDataSuccess()
     {
-        $timestamp = DateTimer::getZeroTimeStamp( time() );
-        $dateTime  = DateTimer::getDateTime4TimeStamp( $timestamp );
+        $timestamp = DateTimer::getZeroTimeStamp(time());
+        $dateTime = DateTimer::getDateTime4TimeStamp($timestamp);
 
         $donateEntity = $this->getDonateLogEntity();
         $donateData = $donateEntity->getDonationDataSuccess($dateTime);
@@ -105,7 +105,7 @@ class Donate extends InvokableBase
      */
     protected function getDonateLogEntity()
     {
-        return $this->getEntityManager()->getRepository( $this->getEntityOptions()->getDonateLog() );
+        return $this->getEntityManager()->getRepository($this->getEntityOptions()->getDonateLog());
     }
 
 } 
