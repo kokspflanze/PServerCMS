@@ -13,7 +13,7 @@ class User extends \SmallUser\Entity\Repository\User
      *
      * @return null|UserInterface
      */
-    public function getUser4UserName( $username )
+    public function getUser4UserName($username)
     {
         return $this->findOneBy(['username' => $username]);
     }
@@ -23,7 +23,7 @@ class User extends \SmallUser\Entity\Repository\User
      *
      * @return bool|null null for user not exists and bool for roles exists or not
      */
-    public function isUserValid4UserName( $username )
+    public function isUserValid4UserName($username)
     {
         $result = false;
         $user = $this->getUser4UserName($username);
