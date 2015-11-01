@@ -27,7 +27,12 @@ class PlayerHistory extends InvokableBase
      */
     public function setCurrentPlayer($extraPlayer = 0)
     {
-        $player = $this->getGameBackendService()->getCurrentPlayerNumber();
+        try {
+            $player = $this->getGameBackendService()->getCurrentPlayerNumber();
+        } catch (\Exception $e) {
+            $player = 0;
+        }
+
         if ($player > 0) {
             $player += $extraPlayer;
         }
