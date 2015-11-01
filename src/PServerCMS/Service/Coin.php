@@ -38,6 +38,10 @@ class Coin extends InvokableBase
                 ->setSuccess($donateEntity::STATUS_SUCCESS)
                 ->setType($donateEntity::TYPE_INTERNAL)
                 ->setUser($user);
+
+            $entityManager = $this->getEntityManager();
+            $entityManager->persist($donateEntity);
+            $entityManager->flush();
         }
 
         return true;
