@@ -15,16 +15,16 @@ class PaymentNotify extends InvokableBase implements LogInterface
      * @return boolean
      * @throws \Exception
      */
-    public function success( Request $request )
+    public function success(Request $request)
     {
-        $user = $this->getUser4Id( $request->getUserId() );
+        $user = $this->getUser4Id($request->getUserId());
         if (!$user) {
-            throw new \Exception( 'User not found' );
+            throw new \Exception('User not found');
         }
 
         // we already added add the reward, so skip this =)
         if ($this->isStatusSuccess($request) && $this->isDonateAlreadyAdded($request)) {
-            throw new \Exception( 'already added' );
+            throw new \Exception('already added');
         }
 
         // check if donate should add coins or remove
@@ -35,20 +35,20 @@ class PaymentNotify extends InvokableBase implements LogInterface
         // save the message if gamebackend-service is unavailable
         $errorMessage = '';
         try {
-            $this->getCoinService()->addCoins( $user, $coins );
-        } catch( \Exception $e ) {
-            $request->setStatus( $request::STATUS_ERROR );
+            $this->getCoinService()->addCoins($user, $coins);
+        } catch (\Exception $e) {
+            $request->setStatus($request::STATUS_ERROR);
             $errorMessage = $e->getMessage();
         }
 
         if ($request->isReasonToBan()) {
-            $expire = (int)$this->getConfigService()->get( 'payment-api.ban-time', 0 ) + time();
+            $expire = (int)$this->getConfigService()->get('payment-api.ban-time', 0) + time();
             $reason = 'Donate - ChargeBack';
 
-            $this->getUserBlockService()->blockUser( $user, $expire, $reason );
+            $this->getUserBlockService()->blockUser($user, $expire, $reason);
         }
 
-        $this->saveDonateLog( $request, $user, $errorMessage );
+        $this->saveDonateLog($request, $user, $errorMessage);
 
         return true;
     }
@@ -56,15 +56,15 @@ class PaymentNotify extends InvokableBase implements LogInterface
     /**
      * Method to log the error
      *
-     * @param Request    $request
+     * @param Request $request
      * @param \Exception $e
      * @return bool
      */
-    public function error( Request $request, \Exception $e )
+    public function error(Request $request, \Exception $e)
     {
-        $user = $this->getUser4Id( $request->getUserId() );
+        $user = $this->getUser4Id($request->getUserId());
 
-        $this->saveDonateLog( $request, $user, $e->getMessage() );
+        $this->saveDonateLog($request, $user, $e->getMessage());
     }
 
     /**
@@ -73,23 +73,25 @@ class PaymentNotify extends InvokableBase implements LogInterface
      * @param string $errorMessage
      * @return DonateLog
      */
-    protected function getDonateLogEntity4Data( Request $request, $user, $errorMessage = '' )
+    protected function getDonateLogEntity4Data(Request $request, $user, $errorMessage = '')
     {
         $data = $request->toArray();
         if ($errorMessage) {
             $data['errorMessage'] = $errorMessage;
         }
 
-        $donateEntity = new DonateLog();
-        $donateEntity->setTransactionId( $request->getTransactionId() )
-            ->setCoins( $request->getAmount() )
-            ->setIp( $request->getIp() )
-            ->setSuccess( $request->getStatus() )
-            ->setType( $this->mapPaymentProvider2DonateType( $request ) )
-            ->setDesc( json_encode( $data ) );
+        $class = $this->getEntityOptions()->getDonateLog();
+        /** @var DonateLog $donateEntity */
+        $donateEntity = new $class;
+        $donateEntity->setTransactionId($request->getTransactionId())
+            ->setCoins($request->getAmount())
+            ->setIp($request->getIp())
+            ->setSuccess($request->getStatus())
+            ->setType($this->mapPaymentProvider2DonateType($request))
+            ->setDesc(json_encode($data));
 
         if ($user) {
-            $donateEntity->setUser( $user );
+            $donateEntity->setUser($user);
         }
 
         return $donateEntity;
@@ -100,11 +102,11 @@ class PaymentNotify extends InvokableBase implements LogInterface
      * @param $user
      * @param string $errorMessage
      */
-    protected function saveDonateLog( Request $request, $user, $errorMessage = '' )
+    protected function saveDonateLog(Request $request, $user, $errorMessage = '')
     {
-        $donateLog     = $this->getDonateLogEntity4Data( $request, $user, $errorMessage );
+        $donateLog = $this->getDonateLogEntity4Data($request, $user, $errorMessage);
         $entityManager = $this->getEntityManager();
-        $entityManager->persist( $donateLog );
+        $entityManager->persist($donateLog);
         $entityManager->flush();
     }
 
@@ -114,7 +116,7 @@ class PaymentNotify extends InvokableBase implements LogInterface
      * @param Request $request
      * @return string
      */
-    protected function mapPaymentProvider2DonateType( Request $request )
+    protected function mapPaymentProvider2DonateType(Request $request)
     {
         $result = '';
         switch ($request->getProvider()) {
@@ -135,12 +137,13 @@ class PaymentNotify extends InvokableBase implements LogInterface
      * @param Request $request
      * @return bool
      */
-    protected function isDonateAlreadyAdded( Request $request )
+    protected function isDonateAlreadyAdded(Request $request)
     {
         /** @var \PServerCMS\Entity\Repository\DonateLog $donateEntity */
-        $donateEntity = $this->getEntityManager()->getRepository( $this->getEntityOptions()->getDonateLog() );
+        $donateEntity = $this->getEntityManager()->getRepository($this->getEntityOptions()->getDonateLog());
 
-        return $donateEntity->isDonateAlreadyAdded( $request->getTransactionId(), $this->mapPaymentProvider2DonateType( $request ) );
+        return $donateEntity->isDonateAlreadyAdded($request->getTransactionId(),
+            $this->mapPaymentProvider2DonateType($request));
     }
 
     /**

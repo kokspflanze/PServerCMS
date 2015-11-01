@@ -83,7 +83,8 @@ class DonateLog extends EntityRepository
     public function getDonateTypes(){
         return [
             Entity::TYPE_PAYMENT_WALL,
-            Entity::TYPE_SUPER_REWARD
+            Entity::TYPE_SUPER_REWARD,
+            Entity::TYPE_INTERNAL
         ];
     }
 
