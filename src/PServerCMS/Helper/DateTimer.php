@@ -43,7 +43,7 @@ class DateTimer
         if ($beginDate < $endDate) {
             do {
                 $result[] = clone $beginDate;
-                $beginDate->setTimestamp($beginDate->getTimestamp()+60*60*24);
+                $beginDate->modify('+1 day');
             } while ($beginDate <= $endDate);
         }
 
