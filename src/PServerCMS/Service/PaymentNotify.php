@@ -3,6 +3,7 @@
 namespace PServerCMS\Service;
 
 use PaymentAPI\Provider\Request;
+use PaymentAPI\Service\AlreadyAddedException;
 use PaymentAPI\Service\LogInterface;
 use PServerCMS\Entity\DonateLog;
 
@@ -24,7 +25,8 @@ class PaymentNotify extends InvokableBase implements LogInterface
 
         // we already added add the reward, so skip this =)
         if ($this->isStatusSuccess($request) && $this->isDonateAlreadyAdded($request)) {
-            throw new \Exception('already added');
+            // no exception, or the other side spam the service ...
+            throw new AlreadyAddedException('already added');
         }
 
         // check if donate should add coins or remove
