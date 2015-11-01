@@ -151,6 +151,7 @@ return [
             'layout/layout'					=> __DIR__ . '/../view/layout/layout.twig',
             'p-server-cms/index/index'		=> __DIR__ . '/../view/p-server-cms/index/index.phtml',
             'error/404'						=> __DIR__ . '/../view/error/404.phtml',
+            'error/403'						=> __DIR__ . '/../view/error/403.twig',
             'error/index'					=> __DIR__ . '/../view/error/index.phtml',
 			'email/tpl/register'			=> __DIR__ . '/../view/email/tpl/register.phtml',
 			'email/tpl/password'			=> __DIR__ . '/../view/email/tpl/password.phtml',

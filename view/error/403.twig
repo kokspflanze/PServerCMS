@@ -1,0 +1,11 @@
+{% extends 'layout/layout' %}
+
+
+{% block title %}
+    {{ translate('403 - Forbidden') }}
+{% endblock title %}
+
+{% block content %}
+    <h1>{{ translate('403 Forbidden') }}</h1>
+    <p>{{ translate('You are not authorized.') }}</p>
+{% endblock content %}
