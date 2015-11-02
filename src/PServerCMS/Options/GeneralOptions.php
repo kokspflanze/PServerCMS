@@ -35,12 +35,21 @@ class GeneralOptions extends AbstractOptions
      */
     protected $imagePlayer = [
         'font_color' => [
-            0,0,0
+            0,
+            0,
+            0
         ],
         'background_color' => [
-            237 ,237, 237
+            237,
+            237,
+            237
         ],
     ];
+
+    /**
+     * @var bool
+     */
+    protected $ticketAnswerMail = false;
 
     /**
      * @return array
@@ -54,7 +63,7 @@ class GeneralOptions extends AbstractOptions
      * @param array $datetime
      * @return GeneralOptions
      */
-    public function setDatetime( array $datetime )
+    public function setDatetime(array $datetime)
     {
         $this->datetime = $datetime;
 
@@ -73,7 +82,7 @@ class GeneralOptions extends AbstractOptions
      * @param array $cache
      * @return GeneralOptions
      */
-    public function setCache( array $cache )
+    public function setCache(array $cache)
     {
         $this->cache = $cache;
 
@@ -92,7 +101,7 @@ class GeneralOptions extends AbstractOptions
      * @param int $maxPlayer
      * @return GeneralOptions
      */
-    public function setMaxPlayer( $maxPlayer )
+    public function setMaxPlayer($maxPlayer)
     {
         $this->maxPlayer = $maxPlayer;
 
@@ -114,6 +123,24 @@ class GeneralOptions extends AbstractOptions
     public function setImagePlayer($imagePlayer)
     {
         $this->imagePlayer = $imagePlayer;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isTicketAnswerMail()
+    {
+        return $this->ticketAnswerMail;
+    }
+
+    /**
+     * @param boolean $ticketAnswerMail
+     * @return $this
+     */
+    public function setTicketAnswerMail($ticketAnswerMail)
+    {
+        $this->ticketAnswerMail = $ticketAnswerMail;
         return $this;
     }
 

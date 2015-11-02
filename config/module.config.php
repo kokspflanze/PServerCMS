@@ -3,76 +3,76 @@
 return [
     'router' => [
         'routes' => [
-            'PServerCMS'  => [
-                'type'    => 'Zend\Mvc\Router\Http\Literal',
+            'PServerCMS' => [
+                'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => [
-                    'route'    => '/',
+                    'route' => '/',
                     'defaults' => [
-                        'controller'	=> 'PServerCMS\Controller\Index',
-                        'action'		=> 'index'
+                        'controller' => 'PServerCMS\Controller\Index',
+                        'action' => 'index'
                     ],
                 ],
                 'may_terminate' => true,
-                'child_routes'  => [
+                'child_routes' => [
                     'site-detail' => [
                         'type' => 'segment',
                         'options' => [
-                            'route'    => 'detail-[:type].html',
+                            'route' => 'detail-[:type].html',
                             'constraints' => [
-                                'type'     => '[a-zA-Z]+',
+                                'type' => '[a-zA-Z]+',
                             ],
                             'defaults' => [
-                                'controller'	=> 'PServerCMS\Controller\Site',
-                                'action'		=> 'page'
+                                'controller' => 'PServerCMS\Controller\Site',
+                                'action' => 'page'
                             ],
                         ],
                     ],
                     'site-download' => [
                         'type' => 'segment',
                         'options' => [
-                            'route'    => 'download.html',
+                            'route' => 'download.html',
                             'defaults' => [
-                                'controller'	=> 'PServerCMS\Controller\Site',
-                                'action'		=> 'download'
+                                'controller' => 'PServerCMS\Controller\Site',
+                                'action' => 'download'
                             ],
                         ],
                     ],
                     'user' => [
                         'type' => 'segment',
                         'options' => [
-                            'route'    => 'panel/account[/:action].html',
+                            'route' => 'panel/account[/:action].html',
                             'constraints' => [
-                                'action'     => '[a-zA-Z-]+',
+                                'action' => '[a-zA-Z-]+',
                             ],
                             'defaults' => [
-                                'controller'	=> 'PServerCMS\Controller\Account',
-                                'action'		=> 'index',
+                                'controller' => 'PServerCMS\Controller\Account',
+                                'action' => 'index',
                             ],
                         ],
                     ],
                     'panel_donate' => [
                         'type' => 'segment',
                         'options' => [
-                            'route'    => 'panel/donate[/:action].html',
+                            'route' => 'panel/donate[/:action].html',
                             'constraints' => [
-                                'action'    => '[a-zA-Z-]+',
+                                'action' => '[a-zA-Z-]+',
                             ],
                             'defaults' => [
-                                'controller'	=> 'PServerCMS\Controller\Donate',
-                                'action'		=> 'index',
+                                'controller' => 'PServerCMS\Controller\Donate',
+                                'action' => 'index',
                             ],
                         ],
                     ],
                     'info' => [
                         'type' => 'segment',
                         'options' => [
-                            'route'    => 'info[/:action].png',
+                            'route' => 'info[/:action].png',
                             'constraints' => [
-                                'action'    => '[a-zA-Z-]+',
+                                'action' => '[a-zA-Z-]+',
                             ],
                             'defaults' => [
-                                'controller'	=> 'PServerCMS\Controller\Info',
-                                'action'		=> 'index',
+                                'controller' => 'PServerCMS\Controller\Info',
+                                'action' => 'index',
                             ],
                         ],
                     ],
@@ -85,57 +85,58 @@ return [
             'Zend\Cache\Service\StorageCacheAbstractServiceFactory',
             'Zend\Log\LoggerAbstractServiceFactory',
         ],
-		'factories' => [
-			'pserver_caching_service' => function() {
-				$cache = \Zend\Cache\StorageFactory::factory([
-					'adapter' => 'filesystem',
-					'options' => [
-						'cache_dir' => __DIR__ . '/../../../../data/cache',
-						'ttl' => 86400
-					],
-					'plugins' => [
-						'exception_handler' => [
-							'throw_exceptions' => false
-						],
-						'serializer'
-					],
-				]);
-				return $cache;
-			},
-		],
-		'invokables' => [
-			'small_user_service'				=> 'PServerCMS\Service\User',
-			'pserver_mail_service'				=> 'PServerCMS\Service\Mail',
-			'pserver_download_service'			=> 'PServerCMS\Service\Download',
-			'pserver_server_info_service'		=> 'PServerCMS\Service\ServerInfo',
-			'pserver_news_service'				=> 'PServerCMS\Service\News',
-			'pserver_usercodes_service'			=> 'PServerCMS\Service\UserCodes',
-			'pserver_configread_service'		=> 'PServerCMS\Service\ConfigRead',
-			'pserver_pageinfo_service'			=> 'PServerCMS\Service\PageInfo',
-			'pserver_playerhistory_service'		=> 'PServerCMS\Service\PlayerHistory',
-			'pserver_donate_service'			=> 'PServerCMS\Service\Donate',
-			'pserver_cachinghelper_service'		=> 'PServerCMS\Service\CachingHelper',
-			'payment_api_log_service'			=> 'PServerCMS\Service\PaymentNotify',
-			'pserver_user_block_service'		=> 'PServerCMS\Service\UserBlock',
-            'pserver_secret_question'			=> 'PServerCMS\Service\SecretQuestion',
-            'pserver_log_service'	    		=> 'PServerCMS\Service\Logs',
-            'pserver_user_panel_service'	    => 'PServerCMS\Service\UserPanel',
-            'pserver_user_role_service'	        => 'PServerCMS\Service\UserRole',
-            'pserver_login_history_service'	    => 'PServerCMS\Service\LoginHistory',
-            'pserver_coin_service'	            => 'PServerCMS\Service\Coin',
-            'pserver_timer_service'	            => 'PServerCMS\Service\Timer',
-            'payment_api_ip_service'	        => 'PServerCMS\Service\Ip',
-		],
+        'factories' => [
+            'pserver_caching_service' => function () {
+                $cache = \Zend\Cache\StorageFactory::factory([
+                    'adapter' => 'filesystem',
+                    'options' => [
+                        'cache_dir' => __DIR__ . '/../../../../data/cache',
+                        'ttl' => 86400
+                    ],
+                    'plugins' => [
+                        'exception_handler' => [
+                            'throw_exceptions' => false
+                        ],
+                        'serializer'
+                    ],
+                ]);
+                return $cache;
+            },
+        ],
+        'invokables' => [
+            'small_user_service' => 'PServerCMS\Service\User',
+            'pserver_mail_service' => 'PServerCMS\Service\Mail',
+            'pserver_download_service' => 'PServerCMS\Service\Download',
+            'pserver_server_info_service' => 'PServerCMS\Service\ServerInfo',
+            'pserver_news_service' => 'PServerCMS\Service\News',
+            'pserver_usercodes_service' => 'PServerCMS\Service\UserCodes',
+            'pserver_configread_service' => 'PServerCMS\Service\ConfigRead',
+            'pserver_pageinfo_service' => 'PServerCMS\Service\PageInfo',
+            'pserver_playerhistory_service' => 'PServerCMS\Service\PlayerHistory',
+            'pserver_donate_service' => 'PServerCMS\Service\Donate',
+            'pserver_cachinghelper_service' => 'PServerCMS\Service\CachingHelper',
+            'payment_api_log_service' => 'PServerCMS\Service\PaymentNotify',
+            'pserver_user_block_service' => 'PServerCMS\Service\UserBlock',
+            'pserver_secret_question' => 'PServerCMS\Service\SecretQuestion',
+            'pserver_log_service' => 'PServerCMS\Service\Logs',
+            'pserver_user_panel_service' => 'PServerCMS\Service\UserPanel',
+            'pserver_user_role_service' => 'PServerCMS\Service\UserRole',
+            'pserver_login_history_service' => 'PServerCMS\Service\LoginHistory',
+            'pserver_coin_service' => 'PServerCMS\Service\Coin',
+            'pserver_timer_service' => 'PServerCMS\Service\Timer',
+            'payment_api_ip_service' => 'PServerCMS\Service\Ip',
+            'zfcticketsystem_ticketsystem_service' => 'PServerCMS\Service\TicketSystem',
+        ],
         'aliases' => [
             'translator' => 'MvcTranslator',
         ],
     ],
     'controllers' => [
         'invokables' => [
-			'PServerCMS\Controller\Index' => 'PServerCMS\Controller\IndexController',
-			'SmallUser\Controller\Auth' => 'PServerCMS\Controller\AuthController',
-			'PServerCMS\Controller\Auth' => 'PServerCMS\Controller\AuthController',
-			'PServerCMS\Controller\Site' => 'PServerCMS\Controller\SiteController',
+            'PServerCMS\Controller\Index' => 'PServerCMS\Controller\IndexController',
+            'SmallUser\Controller\Auth' => 'PServerCMS\Controller\AuthController',
+            'PServerCMS\Controller\Auth' => 'PServerCMS\Controller\AuthController',
+            'PServerCMS\Controller\Site' => 'PServerCMS\Controller\SiteController',
             'PServerCMS\Controller\Account' => 'PServerCMS\Controller\AccountController',
             'PServerCMS\Controller\Donate' => 'PServerCMS\Controller\DonateController',
             'PServerCMS\Controller\Info' => 'PServerCMS\Controller\InfoController',
@@ -143,38 +144,39 @@ return [
     ],
     'view_manager' => [
         'display_not_found_reason' => true,
-        'display_exceptions'       => true,
-        'doctype'                  => 'HTML5',
-        'not_found_template'       => 'error/404',
-        'exception_template'       => 'error/index',
+        'display_exceptions' => true,
+        'doctype' => 'HTML5',
+        'not_found_template' => 'error/404',
+        'exception_template' => 'error/index',
         'template_map' => [
-            'layout/layout'					=> __DIR__ . '/../view/layout/layout.twig',
-            'p-server-cms/index/index'		=> __DIR__ . '/../view/p-server-cms/index/index.phtml',
-            'error/404'						=> __DIR__ . '/../view/error/404.phtml',
-            'error/403'						=> __DIR__ . '/../view/error/403.twig',
-            'error/index'					=> __DIR__ . '/../view/error/index.phtml',
-			'email/tpl/register'			=> __DIR__ . '/../view/email/tpl/register.phtml',
-			'email/tpl/password'			=> __DIR__ . '/../view/email/tpl/password.phtml',
-            'email/tpl/country' 			=> __DIR__ . '/../view/email/tpl/country.phtml',
-            'email/tpl/secretLogin'			=> __DIR__ . '/../view/email/tpl/secret_login.phtml',
-			'helper/sidebarWidget'			=> __DIR__ . '/../view/helper/sidebar.phtml',
-			'helper/sidebarLoggedInWidget'	=> __DIR__ . '/../view/helper/logged-in.phtml',
-            'helper/sidebarServerInfoWidget'=> __DIR__ . '/../view/helper/server-info.phtml',
-            'helper/formWidget'		        => __DIR__ . '/../view/helper/form.phtml',
-            'helper/formNoLabelWidget'		=> __DIR__ . '/../view/helper/form-no-label.phtml',
-            'helper/newsWidget'             => __DIR__ . '/../view/helper/news-widget.phtml',
-            'helper/sidebarTimerWidget'     => __DIR__ . '/../view/helper/timer.phtml',
-            'helper/topCharacterWidget'     => __DIR__ . '/../view/helper/top-character.phtml',
-            'helper/topGuildWidget'         => __DIR__ . '/../view/helper/top-guild.phtml',
-            'helper/playerHistory'          => __DIR__ . '/../view/helper/player-history.phtml',
-            'helper/sidebarLoginWidget'     => __DIR__ . '/../view/helper/login-widget.phtml',
-			'zfc-ticket-system/new'			=> __DIR__ . '/../view/zfc-ticket-system/ticket-system/new.twig',
-			'zfc-ticket-system/view'		=> __DIR__ . '/../view/zfc-ticket-system/ticket-system/view.twig',
-			'zfc-ticket-system/index'		=> __DIR__ . '/../view/zfc-ticket-system/ticket-system/index.twig',
-			'small-user/login'				=> __DIR__ . '/../view/p-server-cms/auth/login.twig',
-			'small-user/logout-page'		=> __DIR__ . '/../view/p-server-cms/auth/logout-page.twig',
-            'p-server-cms/paginator'        => __DIR__ . '/../view/helper/paginator.phtml',
-            'p-server-cms/navigation'       => __DIR__ . '/../view/helper/navigation.phtml',
+            'layout/layout' => __DIR__ . '/../view/layout/layout.twig',
+            'p-server-cms/index/index' => __DIR__ . '/../view/p-server-cms/index/index.phtml',
+            'error/404' => __DIR__ . '/../view/error/404.phtml',
+            'error/403' => __DIR__ . '/../view/error/403.twig',
+            'error/index' => __DIR__ . '/../view/error/index.phtml',
+            'email/tpl/register' => __DIR__ . '/../view/email/tpl/register.phtml',
+            'email/tpl/password' => __DIR__ . '/../view/email/tpl/password.phtml',
+            'email/tpl/country' => __DIR__ . '/../view/email/tpl/country.phtml',
+            'email/tpl/secretLogin' => __DIR__ . '/../view/email/tpl/secret_login.phtml',
+            'email/tpl/ticketAnswer' => __DIR__ . '/../view/email/tpl/ticket_answer.phtml',
+            'helper/sidebarWidget' => __DIR__ . '/../view/helper/sidebar.phtml',
+            'helper/sidebarLoggedInWidget' => __DIR__ . '/../view/helper/logged-in.phtml',
+            'helper/sidebarServerInfoWidget' => __DIR__ . '/../view/helper/server-info.phtml',
+            'helper/formWidget' => __DIR__ . '/../view/helper/form.phtml',
+            'helper/formNoLabelWidget' => __DIR__ . '/../view/helper/form-no-label.phtml',
+            'helper/newsWidget' => __DIR__ . '/../view/helper/news-widget.phtml',
+            'helper/sidebarTimerWidget' => __DIR__ . '/../view/helper/timer.phtml',
+            'helper/topCharacterWidget' => __DIR__ . '/../view/helper/top-character.phtml',
+            'helper/topGuildWidget' => __DIR__ . '/../view/helper/top-guild.phtml',
+            'helper/playerHistory' => __DIR__ . '/../view/helper/player-history.phtml',
+            'helper/sidebarLoginWidget' => __DIR__ . '/../view/helper/login-widget.phtml',
+            'zfc-ticket-system/new' => __DIR__ . '/../view/zfc-ticket-system/ticket-system/new.twig',
+            'zfc-ticket-system/view' => __DIR__ . '/../view/zfc-ticket-system/ticket-system/view.twig',
+            'zfc-ticket-system/index' => __DIR__ . '/../view/zfc-ticket-system/ticket-system/index.twig',
+            'small-user/login' => __DIR__ . '/../view/p-server-cms/auth/login.twig',
+            'small-user/logout-page' => __DIR__ . '/../view/p-server-cms/auth/logout-page.twig',
+            'p-server-cms/paginator' => __DIR__ . '/../view/helper/paginator.phtml',
+            'p-server-cms/navigation' => __DIR__ . '/../view/helper/navigation.phtml',
         ],
         'template_path_stack' => [
             __DIR__ . '/../view',
@@ -190,84 +192,84 @@ return [
     /**
      *  DB Connection-Setup
      */
-	'doctrine' => [
-		'connection' => [
-			'orm_default' => [
+    'doctrine' => [
+        'connection' => [
+            'orm_default' => [
                 // mssql db @ windows  => 'GameBackend\DBAL\Driver\PDOSqlsrv\Driver'
                 // mssql db @ linux  => 'GameBackend\DBAL\Driver\PDODblib\Driver',
-                'driverClass' =>'Doctrine\DBAL\Driver\PDOMySql\Driver',
-				'params' => [
-					'host'     => 'localhost',
-					'port'     => '3306',
-					'user'     => 'username',
-					'password' => 'password',
-					'dbname'   => 'dbname',
-				],
-				'doctrine_type_mappings' => [
-					'enum' => 'string'
-				],
-			],
+                'driverClass' => 'Doctrine\DBAL\Driver\PDOMySql\Driver',
+                'params' => [
+                    'host' => 'localhost',
+                    'port' => '3306',
+                    'user' => 'username',
+                    'password' => 'password',
+                    'dbname' => 'dbname',
+                ],
+                'doctrine_type_mappings' => [
+                    'enum' => 'string'
+                ],
+            ],
             'orm_sro_account' => [
                 // mssql db @ windows  => 'GameBackend\DBAL\Driver\PDOSqlsrv\Driver'
                 // mssql db @ linux  => 'GameBackend\DBAL\Driver\PDODblib\Driver',
-                'driverClass' =>'GameBackend\DBAL\Driver\PDODblib\Driver',
+                'driverClass' => 'GameBackend\DBAL\Driver\PDODblib\Driver',
                 'params' => [
-                    'host'     => 'local',
-                    'port'     => '1433',
-                    'user'     => 'foo',
+                    'host' => 'local',
+                    'port' => '1433',
+                    'user' => 'foo',
                     'password' => 'bar',
-                    'dbname'   => 'ACCOUNT',
+                    'dbname' => 'ACCOUNT',
                 ],
             ],
             'orm_sro_shard' => [
                 // mssql db @ windows  => 'GameBackend\DBAL\Driver\PDOSqlsrv\Driver'
                 // mssql db @ linux  => 'GameBackend\DBAL\Driver\PDODblib\Driver',
-                'driverClass' =>'GameBackend\DBAL\Driver\PDODblib\Driver',
+                'driverClass' => 'GameBackend\DBAL\Driver\PDODblib\Driver',
                 'params' => [
-                    'host'     => 'local',
-                    'port'     => '1433',
-                    'user'     => 'foo',
+                    'host' => 'local',
+                    'port' => '1433',
+                    'user' => 'foo',
                     'password' => 'bar',
-                    'dbname'   => 'SHARD',
+                    'dbname' => 'SHARD',
                 ],
             ],
             'orm_sro_log' => [
                 // mssql db @ windows  => 'GameBackend\DBAL\Driver\PDOSqlsrv\Driver'
                 // mssql db @ linux  => 'GameBackend\DBAL\Driver\PDODblib\Driver',
-                'driverClass' =>'GameBackend\DBAL\Driver\PDODblib\Driver',
+                'driverClass' => 'GameBackend\DBAL\Driver\PDODblib\Driver',
                 'params' => [
-                    'host'     => 'local',
-                    'port'     => '1433',
-                    'user'     => 'foo',
+                    'host' => 'local',
+                    'port' => '1433',
+                    'user' => 'foo',
                     'password' => 'bar',
-                    'dbname'   => 'LOG',
+                    'dbname' => 'LOG',
                 ],
             ],
-		],
-		'entitymanager' => [
-			'orm_default' => [
-				'connection'    => 'orm_default',
-				'configuration' => 'orm_default'
-			],
-		],
-		'driver' => [
-			'application_entities' => [
-				'class' =>'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
-				'cache' => 'array',
-				'paths' => [
+        ],
+        'entitymanager' => [
+            'orm_default' => [
+                'connection' => 'orm_default',
+                'configuration' => 'orm_default'
+            ],
+        ],
+        'driver' => [
+            'application_entities' => [
+                'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
+                'cache' => 'array',
+                'paths' => [
                     __DIR__ . '/../src/PServerCMS/Entity'
                 ],
-			],
-			'orm_default' => [
-				'drivers' => [
-					'PServerCMS\Entity' => 'application_entities',
+            ],
+            'orm_default' => [
+                'drivers' => [
+                    'PServerCMS\Entity' => 'application_entities',
                     'SmallUser\Entity' => null,
                     'ZfcTicketSystem\Entity' => null
-				],
-			],
-		],
-	],
-	'pserver' => [
+                ],
+            ],
+        ],
+    ],
+    'pserver' => [
         'general' => [
             'datetime' => [
                 'format' => [
@@ -280,21 +282,30 @@ return [
             'max_player' => 1000,
             'image_player' => [
                 'font_color' => [
-                    0,0,0
+                    0,
+                    0,
+                    0
                 ],
                 'background_color' => [
-                    237 ,237, 237
+                    237,
+                    237,
+                    237
                 ],
             ],
+            /**
+             * send a mail to the ticket owner
+             * after new entry in admin panel
+             */
+            'ticket_answer_mail' => false
         ],
-		'register' => [
+        'register' => [
             /**
              * role after register
              */
-			'role' => 'user',
+            'role' => 'user',
             /**
              * mail confirmation after register?
-             * WARNING for pw lost|country, we need a valid mail
+             * WARNING for pw lost|country|ticket answer, we need a valid mail
              */
             'mail_confirmation' => false,
             /**
@@ -309,28 +320,29 @@ return [
              * warning it can come to duplicate emails with the dynamic import feature
              */
             'duplicate_email' => true
-		],
-		'mail' => [
-			'from' => 'abcd@example.com',
-			'from_name' => 'team',
-			'subject' => [
-				'register' => 'RegisterMail',
-				'password' => 'LostPasswordMail',
-				'country' => 'LoginIpMail',
-                'secretLogin' => 'SecretLoginMail'
-			],
-			'basic' => [
-				'name' => 'localhost',
-				'host' => 'smtp.example.com',
-				'port'=> 587,
-				'connection_class' => 'login',
-				'connection_config' => [
-					'username' => 'put your username',
-					'password' => 'put your password',
-					'ssl'=> 'tls',
-				],
-			],
-		],
+        ],
+        'mail' => [
+            'from' => 'abcd@example.com',
+            'from_name' => 'team',
+            'subject' => [
+                'register' => 'RegisterMail',
+                'password' => 'LostPasswordMail',
+                'country' => 'LoginIpMail',
+                'secretLogin' => 'SecretLoginMail',
+                'ticketAnswer' => 'TicketAnswer',
+            ],
+            'basic' => [
+                'name' => 'localhost',
+                'host' => 'smtp.example.com',
+                'port' => 587,
+                'connection_class' => 'login',
+                'connection_config' => [
+                    'username' => 'put your username',
+                    'password' => 'put your password',
+                    'ssl' => 'tls',
+                ],
+            ],
+        ],
         'login' => [
             'exploit' => [
                 'time' => 900, //in seconds
@@ -347,11 +359,11 @@ return [
              */
             'secret_login_role_list' => [],
         ],
-		'password' => [
-			/*
-			 * set other pw for web as ingame
-			 */
-			'different_passwords' => true,
+        'password' => [
+            /*
+             * set other pw for web as ingame
+             */
+            'different_passwords' => true,
             /**
              * work with secret pw system, there is atm no admin view to handle the question =[
              */
@@ -363,7 +375,7 @@ return [
                 'min' => 6,
                 'max' => 32
             ],
-		],
+        ],
         'validation' => [
             'username' => [
                 'length' => [
@@ -384,48 +396,48 @@ return [
                 'secret_login' => 60
             ]
         ],
-		'news' => [
+        'news' => [
             /**
              * limit of the news entries of the first page
              */
-			'limit' => 5
-		],
-		'pageinfotype' => [
-			'faq',
-			'rules',
-			'guides',
-			'events'
-		],
-		'blacklisted' => [
-			'email' => [
+            'limit' => 5
+        ],
+        'pageinfotype' => [
+            'faq',
+            'rules',
+            'guides',
+            'events'
+        ],
+        'blacklisted' => [
+            'email' => [
                 /**
                  * example to block all emails ending with @foo.com and @bar.com, the @ will added automatic
                  * 'foo.com', 'bar.com'
                  */
 
             ],
-		],
-		'entity' => [
-			'available_countries' => 'PServerCMS\Entity\AvailableCountries',
-			'country_list'        => 'PServerCMS\Entity\CountryList',
-			'donate_log'          => 'PServerCMS\Entity\DonateLog',
-			'download_list'       => 'PServerCMS\Entity\DownloadList',
-			'ip_block'            => 'PServerCMS\Entity\IpBlock',
-			'login_failed'        => 'PServerCMS\Entity\LoginFailed',
-			'login_history'       => 'PServerCMS\Entity\LoginHistory',
-			'logs'                => 'PServerCMS\Entity\Logs',
-			'news'                => 'PServerCMS\Entity\News',
-			'page_info'           => 'PServerCMS\Entity\PageInfo',
-			'player_history'      => 'PServerCMS\Entity\PlayerHistory',
-			'secret_answer'       => 'PServerCMS\Entity\SecretAnswer',
-			'secret_question'     => 'PServerCMS\Entity\SecretQuestion',
-			'server_info'         => 'PServerCMS\Entity\ServerInfo',
-            'user'                => 'PServerCMS\Entity\User',
-			'user_block'          => 'PServerCMS\Entity\UserBlock',
-			'user_codes'          => 'PServerCMS\Entity\UserCodes',
-			'user_extension'      => 'PServerCMS\Entity\UserExtension',
-			'user_role'           => 'PServerCMS\Entity\UserRole',
-		],
+        ],
+        'entity' => [
+            'available_countries' => 'PServerCMS\Entity\AvailableCountries',
+            'country_list' => 'PServerCMS\Entity\CountryList',
+            'donate_log' => 'PServerCMS\Entity\DonateLog',
+            'download_list' => 'PServerCMS\Entity\DownloadList',
+            'ip_block' => 'PServerCMS\Entity\IpBlock',
+            'login_failed' => 'PServerCMS\Entity\LoginFailed',
+            'login_history' => 'PServerCMS\Entity\LoginHistory',
+            'logs' => 'PServerCMS\Entity\Logs',
+            'news' => 'PServerCMS\Entity\News',
+            'page_info' => 'PServerCMS\Entity\PageInfo',
+            'player_history' => 'PServerCMS\Entity\PlayerHistory',
+            'secret_answer' => 'PServerCMS\Entity\SecretAnswer',
+            'secret_question' => 'PServerCMS\Entity\SecretQuestion',
+            'server_info' => 'PServerCMS\Entity\ServerInfo',
+            'user' => 'PServerCMS\Entity\User',
+            'user_block' => 'PServerCMS\Entity\UserBlock',
+            'user_codes' => 'PServerCMS\Entity\UserCodes',
+            'user_extension' => 'PServerCMS\Entity\UserExtension',
+            'user_role' => 'PServerCMS\Entity\UserRole',
+        ],
         'navigation' => [
             'home' => [
                 'name' => 'Home',
@@ -446,7 +458,7 @@ return [
                 ],
                 'children' => [
                     '1_position' => [
-                        'name'  => 'TopPlayer',
+                        'name' => 'TopPlayer',
                         'route' => [
                             'name' => 'PServerRanking/ranking',
                             'params' => [
@@ -455,7 +467,7 @@ return [
                         ],
                     ],
                     '2_position' => [
-                        'name'  => 'TopGuild',
+                        'name' => 'TopGuild',
                         'route' => [
                             'name' => 'PServerRanking/ranking',
                             'params' => [
@@ -472,7 +484,7 @@ return [
                 ],
                 'children' => [
                     '1_position' => [
-                        'name'  => 'FAQ',
+                        'name' => 'FAQ',
                         'route' => [
                             'name' => 'PServerCMS/site-detail',
                             'params' => [
@@ -481,7 +493,7 @@ return [
                         ],
                     ],
                     '2_position' => [
-                        'name'  => 'Rules',
+                        'name' => 'Rules',
                         'route' => [
                             'name' => 'PServerCMS/site-detail',
                             'params' => [
@@ -490,7 +502,7 @@ return [
                         ],
                     ],
                     '3_position' => [
-                        'name'  => 'Guides',
+                        'name' => 'Guides',
                         'route' => [
                             'name' => 'PServerCMS/site-detail',
                             'params' => [
@@ -499,7 +511,7 @@ return [
                         ],
                     ],
                     '4_position' => [
-                        'name'  => 'Events',
+                        'name' => 'Events',
                         'route' => [
                             'name' => 'PServerCMS/site-detail',
                             'params' => [
@@ -554,25 +566,25 @@ return [
                 'class' => 'fa fa-graduation-cap'
             ],
         ],
-	],
-	'authenticationadapter' => [
-		'odm_default' => [
-			'objectManager' => 'doctrine.documentmanager.odm_default',
-			'identityClass' => 'PServerCMS\Entity\User',
-			'identityProperty' => 'username',
-			'credentialProperty' => 'password',
-			'credentialCallable' => 'PServerCMS\Entity\User::hashPassword'
-		],
-	],
-	'small-user' => [
-		'user_entity' => [
-			'class' => 'PServerCMS\Entity\User'
-		],
+    ],
+    'authenticationadapter' => [
+        'odm_default' => [
+            'objectManager' => 'doctrine.documentmanager.odm_default',
+            'identityClass' => 'PServerCMS\Entity\User',
+            'identityProperty' => 'username',
+            'credentialProperty' => 'password',
+            'credentialCallable' => 'PServerCMS\Entity\User::hashPassword'
+        ],
+    ],
+    'small-user' => [
+        'user_entity' => [
+            'class' => 'PServerCMS\Entity\User'
+        ],
         'login' => [
             'route' => 'PServerCMS'
         ],
-	],
-	'payment-api' => [
+    ],
+    'payment-api' => [
         // more config params check https://github.com/kokspflanze/PaymentAPI/blob/master/config/module.config.php
         'payment-wall' => [
             /**
@@ -586,8 +598,8 @@ return [
              */
             'secret-key' => ''
         ],
-		'ban-time' => '946681200',
-	],
+        'ban-time' => '946681200',
+    ],
     'zfc-ticket-system' => [
         'entity' => [
             'ticket_category' => 'PServerCMS\Entity\TicketSystem\TicketCategory',
