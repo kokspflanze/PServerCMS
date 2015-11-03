@@ -24,44 +24,44 @@ class Password extends ProvidesEventsForm
 		parent::__construct();
 		$this->setServiceManager($serviceLocatorInterface);
 
-		$this->add(array(
+		$this->add([
 			'type' => 'Zend\Form\Element\Csrf',
 			'name' => 'eugzhoe45gh3o49ug2wrtu7gz50'
-		));
+		]);
 
-		$this->add(array(
+		$this->add([
 			'name' => 'password',
-			'options' => array(
+			'options' => [
 				'label' => 'Password',
-			),
-			'attributes' => array(
+			],
+			'attributes' => [
                 'class' => 'form-control',
 				'type' => 'password'
-			),
-		));
+			],
+		]);
 
-		$this->add(array(
+		$this->add([
 			'name' => 'passwordVerify',
-			'options' => array(
+			'options' => [
 				'label' => 'Password Verify',
-			),
-			'attributes' => array(
+			],
+			'attributes' => [
                 'class' => 'form-control',
 				'type' => 'password'
-			),
-		));
+			],
+		]);
 
 		$submitElement = new Element\Button('submit');
 		$submitElement
 			->setLabel('Submit')
-			->setAttributes(array(
+			->setAttributes([
                 'class' => 'btn btn-default',
 				'type'  => 'submit',
-			));
+			]);
 
-		$this->add($submitElement, array(
+		$this->add($submitElement, [
 			'priority' => -100,
-		));
+		]);
 	}
 
 	/**
@@ -82,31 +82,31 @@ class Password extends ProvidesEventsForm
 			return;
 		}
 
-		$this->add(array(
+		$this->add([
 			'name' => 'question',
-			'options' => array(
+			'options' => [
 				'label' => 'SecretQuestion',
-			),
-			'attributes' => array(
+			],
+			'attributes' => [
 				'placeholder' => 'Question',
 				'class' => 'form-control',
 				'type' => 'text',
 				'disabled' => 'true',
 				'value' => $answer->getQuestion()->getQuestion()
-			),
-		));
+			],
+		]);
 
-		$this->add(array(
+		$this->add([
 			'name' => 'answer',
-			'options' => array(
+			'options' => [
 				'label' => 'SecretAnswer',
-			),
-			'attributes' => array(
+			],
+			'attributes' => [
 				'placeholder' => 'Answer',
 				'class' => 'form-control',
 				'type' => 'text'
-			),
-		));
+			],
+		]);
 
 	}
 

@@ -13,10 +13,10 @@ class DateTimer
      *
      * @return \DateTime
      */
-    public static function getDateTime4TimeStamp( $timestamp )
+    public static function getDateTime4TimeStamp($timestamp)
     {
         $dateTime = new \DateTime();
-        $dateTime->setTimestamp( $timestamp );
+        $dateTime->setTimestamp($timestamp);
 
         return $dateTime;
     }
@@ -26,9 +26,9 @@ class DateTimer
      *
      * @return int
      */
-    public static function getZeroTimeStamp( $timestamp )
+    public static function getZeroTimeStamp($timestamp)
     {
-        return strtotime( date( 'Y-m-d', $timestamp ) );
+        return strtotime(date('Y-m-d', $timestamp));
     }
 
     /**
@@ -37,7 +37,7 @@ class DateTimer
      *
      * @return \DateTime[]
      */
-    public static function getDateRange4Period( \DateTime $beginDate, \DateTime $endDate )
+    public static function getDateRange4Period(\DateTime $beginDate, \DateTime $endDate)
     {
         $result = [];
         if ($beginDate < $endDate) {

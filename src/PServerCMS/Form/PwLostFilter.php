@@ -17,20 +17,20 @@ class PwLostFilter extends ProvidesEventsInputFilter
     {
         $this->setUserValidator( $userValidator );
 
-		$this->add(array(
+		$this->add([
 			'name'       => 'username',
 			'required'   => true,
-			'validators' => array(
-				array(
+			'validators' => [
+				[
 					'name'    => 'StringLength',
-					'options' => array(
+					'options' => [
 						'min' => 3,
 						'max' => 16,
-					),
-				),
+					],
+				],
                 $this->getUserValidator(),
-			),
-		));
+			],
+		]);
 	}
 
     /**

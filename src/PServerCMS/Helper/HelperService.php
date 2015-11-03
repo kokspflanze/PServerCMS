@@ -236,6 +236,6 @@ trait HelperService
      *
      * @return array|object
      */
-    abstract function getService( $serviceName );
+    public abstract function getService($serviceName);
 
 }

@@ -12,6 +12,7 @@ use ZfcTicketSystem\Entity\TicketSubject;
 class TicketSystem extends \ZfcTicketSystem\Service\TicketSystem
 {
     use HelperBasic, HelperService;
+
     /**
      * @param array $data
      * @param UserInterface $user

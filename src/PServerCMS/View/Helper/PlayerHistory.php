@@ -10,7 +10,7 @@ class PlayerHistory extends InvokerBase
      * @param bool|false $showView
      * @return string
      */
-	public function __invoke($showView = false)
+    public function __invoke($showView = false)
     {
         $currentPlayer = $this->getPlayerHistory()->getCurrentPlayer();
         $result = $currentPlayer;
@@ -25,6 +25,6 @@ class PlayerHistory extends InvokerBase
             $result = $this->getView()->render($viewModel);
         }
 
-		return $result;
-	}
+        return $result;
+    }
 }

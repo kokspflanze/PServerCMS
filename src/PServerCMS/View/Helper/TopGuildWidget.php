@@ -11,9 +11,9 @@ class TopGuildWidget extends InvokerBase
      * @param int $limit
      * @return string
      */
-    public function __invoke( $limit = 10 )
+    public function __invoke($limit = 10)
     {
-        $guildList = $this->getCachingHelperService()->getItem('TopGuildWidget', function() use ($limit) {
+        $guildList = $this->getCachingHelperService()->getItem('TopGuildWidget', function () use ($limit) {
             return $this->getRankingService()->getTopGuildEntityData($limit);
         }, 360);
 

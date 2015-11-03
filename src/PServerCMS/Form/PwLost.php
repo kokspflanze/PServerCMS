@@ -15,21 +15,21 @@ class PwLost extends ProvidesEventsForm
     {
 		parent::__construct();
 
-		$this->add(array(
+		$this->add([
 			'type' => 'Zend\Form\Element\Csrf',
 			'name' => 'eugzhoe45gh3o49ug2wrtu7gz50'
-		));
+		]);
 
-		$this->add(array(
+		$this->add([
 			'name' => 'username',
-			'options' => array(
+			'options' => [
 				'label' => 'Username',
-			),
-			'attributes' => array(
+			],
+			'attributes' => [
                 'class' => 'form-control',
 				'type' => 'text'
-			),
-		));
+			],
+		]);
 
         $captcha = new Captcha('captcha');
         $captcha->setCaptcha($sm->get('SanCaptcha'))
@@ -45,14 +45,14 @@ class PwLost extends ProvidesEventsForm
 		$submitElement = new Element\Button('submit');
 		$submitElement
 			->setLabel('PwLost')
-			->setAttributes(array(
+			->setAttributes([
                 'class' => 'btn btn-default',
 				'type'  => 'submit',
-			));
+			]);
 
-		$this->add($submitElement, array(
+		$this->add($submitElement, [
 			'priority' => -100,
-		));
+		]);
 
 	}
 } 

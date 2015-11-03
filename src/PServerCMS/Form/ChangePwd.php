@@ -12,49 +12,49 @@ class ChangePwd extends ProvidesEventsForm
     {
         parent::__construct();
 
-		$this->add(array(
+		$this->add([
 			'type' => 'Zend\Form\Element\Csrf',
 			'name' => 'eugzhoe45gh3o49ug2wrtu7gz50'
-		));
+        ]);
 
-        $this->add(array(
+        $this->add([
             'name' => 'currentPassword',
-            'attributes' => array(
+            'attributes' => [
                 'class' => 'form-control',
                 'type' => 'password',
                 'placeholder' => 'Current Web Password',
-            ),
-        ));
+            ],
+        ]);
 
-        $this->add(array(
+        $this->add([
             'name' => 'password',
-            'attributes' => array(
+            'attributes' => [
                 'class' => 'form-control',
                 'type' => 'password',
                 'placeholder' => 'New Password',
-            ),
-        ));
+            ],
+        ]);
 
-        $this->add(array(
+        $this->add([
             'name' => 'passwordVerify',
-            'attributes' => array(
+            'attributes' => [
                 'class' => 'form-control',
                 'type' => 'password',
                 'placeholder' => 'Confirm new Password',
-            ),
-        ));
+            ],
+        ]);
 
         $submitElement = new Element\Button('submit');
         $submitElement
             ->setLabel('Save')
-            ->setAttributes(array(
+            ->setAttributes([
                 'class' => 'btn btn-primary',
                 'type'  => 'submit',
-            ));
+            ]);
 
-        $this->add($submitElement, array(
+        $this->add($submitElement, [
             'priority' => -100,
-        ));
+        ]);
     }
 
     /**

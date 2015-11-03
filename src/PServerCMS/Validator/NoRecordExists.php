@@ -10,15 +10,15 @@ class NoRecordExists extends AbstractRecord
      * @return bool
      * @throws \Exception
      */
-    public function isValid( $value )
+    public function isValid($value)
     {
         $valid = true;
-        $this->setValue( $value );
+        $this->setValue($value);
 
-        $result = $this->query( $value );
+        $result = $this->query($value);
         if ($result) {
             $valid = false;
-            $this->error( self::ERROR_RECORD_FOUND );
+            $this->error(self::ERROR_RECORD_FOUND);
         }
 
         return $valid;

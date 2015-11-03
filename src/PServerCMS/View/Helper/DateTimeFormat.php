@@ -10,7 +10,7 @@ class DateTimeFormat extends InvokerBase
      * @param \DateTime $dateTime
      * @return string
      */
-    public function __invoke( \DateTime $dateTime )
+    public function __invoke(\DateTime $dateTime)
     {
         return $dateTime->format($this->getConfigFormat());
     }

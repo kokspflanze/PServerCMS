@@ -11,9 +11,9 @@ class TopCharacterWidget extends InvokerBase
      * @param int $limit
      * @return string
      */
-    public function __invoke( $limit = 10 )
+    public function __invoke($limit = 10)
     {
-        $characterList = $this->getCachingHelperService()->getItem('TopCharacterWidget', function() use ($limit) {
+        $characterList = $this->getCachingHelperService()->getItem('TopCharacterWidget', function () use ($limit) {
             return $this->getRankingService()->getTopCharacterEntityData($limit);
         }, 360);
 

@@ -4,7 +4,6 @@
 namespace PServerCMS\Service;
 
 
-
 class Logs extends InvokableBase
 {
     /**

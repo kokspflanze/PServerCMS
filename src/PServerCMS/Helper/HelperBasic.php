@@ -13,17 +13,17 @@ trait HelperBasic
     /**
      * @return ServiceLocatorInterface
      */
-    abstract public function getServiceManager();
+    public abstract function getServiceManager();
 
     /**
      * @param $serviceName
      *
      * @return array|object
      */
-    protected function getService( $serviceName )
+    protected function getService($serviceName)
     {
-        if (!isset( $this->serviceCache[$serviceName] )) {
-            $this->serviceCache[$serviceName] = $this->getServiceManager()->get( $serviceName );
+        if (!isset($this->serviceCache[$serviceName])) {
+            $this->serviceCache[$serviceName] = $this->getServiceManager()->get($serviceName);
         }
 
         return $this->serviceCache[$serviceName];

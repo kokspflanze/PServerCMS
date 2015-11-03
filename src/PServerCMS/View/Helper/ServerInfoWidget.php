@@ -12,9 +12,9 @@ class ServerInfoWidget extends InvokerBase
      */
     public function __invoke()
     {
-        $viewModel = new ViewModel(array(
+        $viewModel = new ViewModel([
             'serverInfo' => $this->getServerInfoService()->getServerInfo()
-        ));
+        ]);
         $viewModel->setTemplate('helper/sidebarServerInfoWidget');
 
         return $this->getView()->render($viewModel);

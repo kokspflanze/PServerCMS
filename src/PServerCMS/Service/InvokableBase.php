@@ -32,7 +32,7 @@ abstract class InvokableBase implements ServiceManagerAwareInterface
      *
      * @return $this
      */
-    public function setServiceManager( ZendServiceManager $serviceManager )
+    public function setServiceManager(ZendServiceManager $serviceManager)
     {
         $this->serviceManager = $serviceManager;
 
@@ -45,7 +45,7 @@ abstract class InvokableBase implements ServiceManagerAwareInterface
     protected function getFlashMessenger()
     {
         if (!$this->flashMessenger) {
-            $this->flashMessenger = $this->getControllerPluginManager()->get( 'flashMessenger' );
+            $this->flashMessenger = $this->getControllerPluginManager()->get('flashMessenger');
         }
 
         return $this->flashMessenger;
@@ -56,24 +56,24 @@ abstract class InvokableBase implements ServiceManagerAwareInterface
      *
      * @return null|\PServerCMS\Entity\UserInterface
      */
-    protected function getUser4Id( $userId )
+    protected function getUser4Id($userId)
     {
         /** @var \PServerCMS\Entity\Repository\User $userRepository */
-        $userRepository = $this->getEntityManager()->getRepository( $this->getEntityOptions()->getUser() );
+        $userRepository = $this->getEntityManager()->getRepository($this->getEntityOptions()->getUser());
 
-        return $userRepository->getUser4Id( $userId );
+        return $userRepository->getUser4Id($userId);
     }
 
     /**
      * @param FormInterface $form
      * @param $namespace
      */
-    protected function addFormMessagesInFlashMessenger( FormInterface $form, $namespace)
+    protected function addFormMessagesInFlashMessenger(FormInterface $form, $namespace)
     {
         $messages = $form->getMessages();
         foreach ($messages as $elementMessages) {
             foreach ($elementMessages as $message) {
-                $this->getFlashMessenger()->setNamespace( $namespace )->addMessage( $message );
+                $this->getFlashMessenger()->setNamespace($namespace)->addMessage($message);
             }
         }
     }

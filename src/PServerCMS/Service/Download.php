@@ -8,82 +8,82 @@ use PServerCMS\Keys\Caching;
 
 class Download extends InvokableBase
 {
-	/**
-	 * @return \PServerCMS\Entity\DownloadList[]
-	 */
-	public function getActiveList()
+    /**
+     * @return \PServerCMS\Entity\DownloadList[]
+     */
+    public function getActiveList()
     {
-		$downloadInfo = $this->getCachingHelperService()->getItem(Caching::DOWNLOAD, function() {
-			return $this->getDownloadRepository()->getActiveDownloadList();
-		});
+        $downloadInfo = $this->getCachingHelperService()->getItem(Caching::DOWNLOAD, function () {
+            return $this->getDownloadRepository()->getActiveDownloadList();
+        });
 
-		return $downloadInfo;
-	}
+        return $downloadInfo;
+    }
 
-	/**
-	 * @return null|\PServerCMS\Entity\DownloadList[]
-	 */
-	public function getDownloadList()
+    /**
+     * @return null|\PServerCMS\Entity\DownloadList[]
+     */
+    public function getDownloadList()
     {
-		return $this->getDownloadRepository()->getDownloadList();
-	}
+        return $this->getDownloadRepository()->getDownloadList();
+    }
 
     /**
      * @param $id
      * @return null|DownloadList
      */
-	public function getDownload4Id( $id )
+    public function getDownload4Id($id)
     {
-		return $this->getDownloadRepository()->getDownload4Id($id);
-	}
+        return $this->getDownloadRepository()->getDownload4Id($id);
+    }
 
-	/**
-	 * @param array $data
-	 * @param null|DownloadList $currentDownload
-	 *
-	 * @return bool|DownloadList
-	 */
-	public function download( array $data, $currentDownload = null)
+    /**
+     * @param array $data
+     * @param null|DownloadList $currentDownload
+     *
+     * @return bool|DownloadList
+     */
+    public function download(array $data, $currentDownload = null)
     {
-		if ($currentDownload == null) {
-			$class = $this->getEntityOptions()->getDownloadList();
-			/** @var DownloadList $currentDownload */
-			$currentDownload = new $class;
-		}
+        if ($currentDownload == null) {
+            $class = $this->getEntityOptions()->getDownloadList();
+            /** @var DownloadList $currentDownload */
+            $currentDownload = new $class;
+        }
 
-		$form = $this->getAdminDownloadForm();
-		$form->setData($data);
-		$form->setHydrator(new HydratorDownload());
-		$form->bind($currentDownload);
-		if (!$form->isValid()) {
-			return false;
-		}
+        $form = $this->getAdminDownloadForm();
+        $form->setData($data);
+        $form->setHydrator(new HydratorDownload());
+        $form->bind($currentDownload);
+        if (!$form->isValid()) {
+            return false;
+        }
 
-		/** @var DownloadList $download */
-		$download = $form->getData();
+        /** @var DownloadList $download */
+        $download = $form->getData();
 
-		$entity = $this->getEntityManager();
-		$entity->persist($download);
-		$entity->flush();
+        $entity = $this->getEntityManager();
+        $entity->persist($download);
+        $entity->flush();
 
-		return $download;
-	}
+        return $download;
+    }
 
-	/**
-	 * @param DownloadList $downloadEntry
-	 * @return mixed
-	 */
-	public function deleteDownloadEntry(DownloadList $downloadEntry)
-	{
-		return $this->getDownloadRepository()->deleteDownloadEntry($downloadEntry->getId());
-	}
+    /**
+     * @param DownloadList $downloadEntry
+     * @return mixed
+     */
+    public function deleteDownloadEntry(DownloadList $downloadEntry)
+    {
+        return $this->getDownloadRepository()->deleteDownloadEntry($downloadEntry->getId());
+    }
 
-	/**
-	 * @return \PServerCMS\Entity\Repository\DownloadList
-	 */
-	protected function getDownloadRepository()
-	{
-		return $this->getEntityManager()->getRepository($this->getEntityOptions()->getDownloadList());;
-	}
+    /**
+     * @return \PServerCMS\Entity\Repository\DownloadList
+     */
+    protected function getDownloadRepository()
+    {
+        return $this->getEntityManager()->getRepository($this->getEntityOptions()->getDownloadList());;
+    }
 
 } 

@@ -15,7 +15,7 @@ class UserRole extends InvokableBase
      * @param $userId
      * @return \PServerCMS\Entity\UserInterface
      */
-    public function addRoleForm( $data, $userId )
+    public function addRoleForm($data, $userId)
     {
         $form = $this->getAdminUserRoleForm();
         $form->setData($data);
@@ -42,7 +42,7 @@ class UserRole extends InvokableBase
      * @param $userId
      * @param $roleId
      */
-    public function removeRole( $userId, $roleId )
+    public function removeRole($userId, $roleId)
     {
         $user = $this->getUser4Id($userId);
         $this->removeRole4User($user, $roleId);
@@ -53,7 +53,7 @@ class UserRole extends InvokableBase
      * @param               $roleId
      * @return bool
      */
-    protected function removeRole4User( UserInterface $user, $roleId )
+    protected function removeRole4User(UserInterface $user, $roleId)
     {
         $role = $this->getRoleEntity4Id($roleId);
         if (!$role) {
@@ -74,7 +74,7 @@ class UserRole extends InvokableBase
      * @param               $roleId
      * @return bool
      */
-    protected function addRole4User( UserInterface $user, $roleId )
+    protected function addRole4User(UserInterface $user, $roleId)
     {
         $result = false;
 
@@ -95,7 +95,7 @@ class UserRole extends InvokableBase
      * @param $roleId
      * @return null|\PServerCMS\Entity\UserRole
      */
-    protected function getRoleEntity4Id( $roleId )
+    protected function getRoleEntity4Id($roleId)
     {
         /** @var \PServerCMS\Entity\Repository\UserRole $repository */
         $repository = $this->getEntityManager()->getRepository($this->getEntityOptions()->getUserRole());
@@ -107,7 +107,7 @@ class UserRole extends InvokableBase
      * @param               $roleId
      * @return bool
      */
-    protected function isRoleAlreadyAdded( UserInterface $user, $roleId )
+    protected function isRoleAlreadyAdded(UserInterface $user, $roleId)
     {
         $result = false;
         foreach ($user->getRoles() as $role) {

@@ -8,24 +8,24 @@ class Timer extends InvokableBase
 {
 
     /**
-     * @param array   $hourList
+     * @param array $hourList
      * @param integer $minute
      *
      * @return int
      */
-    public function getNextTime( array $hourList, $minute )
+    public function getNextTime(array $hourList, $minute)
     {
-        return $this->nextFight( $hourList, $minute );
+        return $this->nextFight($hourList, $minute);
     }
 
     /**
-     * @param array   $dayList
+     * @param array $dayList
      * @param integer $hour
      * @param integer $minute
      *
      * @return int
      */
-    public function getNextTimeDay( array $dayList, $hour, $minute )
+    public function getNextTimeDay(array $dayList, $hour, $minute)
     {
         $nextTime = PHP_INT_MAX;
         $currentTimeStamp = $this->getCurrentTimeStamp();
@@ -35,8 +35,8 @@ class Timer extends InvokableBase
         $jDate = date("j", $currentTimeStamp);
 
         foreach ($dayList as $day) {
-            if (date( 'l', $currentTimeStamp ) == $day) {
-                if ($currentTimeStamp <= ( $time = mktime( $hour, $minute, 0, $nDate, $jDate, $yDate) )) {
+            if (date('l', $currentTimeStamp) == $day) {
+                if ($currentTimeStamp <= ($time = mktime($hour, $minute, 0, $nDate, $jDate, $yDate))) {
                     $nextTime = $time;
                     break;
                 }
@@ -45,9 +45,9 @@ class Timer extends InvokableBase
                 $hour,
                 $minute,
                 0,
-                date( 'n', strtotime('next ' . $day, $currentTimeStamp) ),
-                date( 'j', strtotime( 'next ' . $day, $currentTimeStamp ) ),
-                date( 'Y', strtotime( 'next ' . $day, $currentTimeStamp ) )
+                date('n', strtotime('next ' . $day, $currentTimeStamp)),
+                date('j', strtotime('next ' . $day, $currentTimeStamp)),
+                date('Y', strtotime('next ' . $day, $currentTimeStamp))
             );
             if ($nextTime > $timeStamp) {
                 $nextTime = $timeStamp;
@@ -63,9 +63,9 @@ class Timer extends InvokableBase
      *
      * @return int
      */
-    protected function nextFight( array $hourList, $minute )
+    protected function nextFight(array $hourList, $minute)
     {
-        sort( $hourList );
+        sort($hourList);
         $result = 0;
 
         $timeStamp = $this->getCurrentTimeStamp();
@@ -77,7 +77,7 @@ class Timer extends InvokableBase
 
         foreach ($hourList as $hour) {
             // same day
-            if (( $result = mktime( $hour, $minute, 0, $nDate, $jDate, $yDate ) ) >= $timeStamp) {
+            if (($result = mktime($hour, $minute, 0, $nDate, $jDate, $yDate)) >= $timeStamp) {
                 break;
             } else {
                 $result = 0;
@@ -87,8 +87,9 @@ class Timer extends InvokableBase
         if (!$result) {
             // next day
             foreach ($hourList as $hour) {
-                if (( $result = mktime( $hour, $minute, 0, $nDate, date( 'j', strtotime('+1 day', $timeStamp)), $yDate ) ) >=
-                    $timeStamp) {
+                if (($result = mktime($hour, $minute, 0, $nDate, date('j', strtotime('+1 day', $timeStamp)), $yDate)) >=
+                    $timeStamp
+                ) {
                     break;
                 }
             }
@@ -97,7 +98,7 @@ class Timer extends InvokableBase
         if (!$result) {
             // next month
             foreach ($hourList as $hour) {
-                if (( $result = mktime( $hour, $minute, 0, $mDate + 1, 1, $yDate ) ) >= $timeStamp) {
+                if (($result = mktime($hour, $minute, 0, $mDate + 1, 1, $yDate)) >= $timeStamp) {
                     break;
                 }
             }

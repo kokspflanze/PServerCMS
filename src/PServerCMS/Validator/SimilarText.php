@@ -17,9 +17,9 @@ class SimilarText extends AbstractValidator
      * TODO better message
      * @var array Message templates
      */
-    protected $messageTemplates = array(
+    protected $messageTemplates = [
         self::ERROR_NOT_SAME => "Secret Answer is not correct"
-    );
+    ];
 
     /** @var \PServerCMS\Service\SecretQuestion */
     protected $secretQuestionService;
@@ -27,9 +27,9 @@ class SimilarText extends AbstractValidator
     /**
      * @param \PServerCMS\Service\SecretQuestion $secretQuestionService
      */
-    public function __construct( \PServerCMS\Service\SecretQuestion $secretQuestionService )
+    public function __construct(\PServerCMS\Service\SecretQuestion $secretQuestionService)
     {
-        $this->setSecretQuestion( $secretQuestionService );
+        $this->setSecretQuestion($secretQuestionService);
 
         parent::__construct();
     }
@@ -46,13 +46,13 @@ class SimilarText extends AbstractValidator
      * @return bool
      * @throws Exception\RuntimeException If validation of $value is impossible
      */
-    public function isValid( $value )
+    public function isValid($value)
     {
         $result = true;
-        $this->setValue( $value );
-        if (!$this->getSecretQuestion()->isAnswerAllowed( $this->getUser(), $value )) {
+        $this->setValue($value);
+        if (!$this->getSecretQuestion()->isAnswerAllowed($this->getUser(), $value)) {
             $result = false;
-            $this->error( self::ERROR_NOT_SAME );
+            $this->error(self::ERROR_NOT_SAME);
         }
 
         return $result;
@@ -61,7 +61,7 @@ class SimilarText extends AbstractValidator
     /**
      * @param UserInterface $user
      */
-    public function setUser( UserInterface $user )
+    public function setUser(UserInterface $user)
     {
         $this->user = $user;
     }
@@ -77,7 +77,7 @@ class SimilarText extends AbstractValidator
     /**
      * @param \PServerCMS\Service\SecretQuestion $secretQuestionService
      */
-    protected function setSecretQuestion( \PServerCMS\Service\SecretQuestion $secretQuestionService )
+    protected function setSecretQuestion(\PServerCMS\Service\SecretQuestion $secretQuestionService)
     {
         $this->secretQuestionService = $secretQuestionService;
     }

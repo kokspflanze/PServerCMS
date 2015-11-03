@@ -12,7 +12,7 @@ trait HelperServiceLocator
     /**
      * @return ServiceLocatorInterface
      */
-    abstract function getServiceLocator();
+    public abstract function getServiceLocator();
 
     /**
      * @return ServiceLocatorInterface

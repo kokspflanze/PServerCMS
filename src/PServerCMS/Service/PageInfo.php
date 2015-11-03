@@ -12,15 +12,15 @@ class PageInfo extends InvokableBase
      *
      * @return \PServerCMS\Entity\PageInfo|null
      */
-    public function getPage4Type( $type )
+    public function getPage4Type($type)
     {
         $cachingKey = Caching::PAGE_INFO . '_' . $type;
 
-        $pageInfo = $this->getCachingHelperService()->getItem( $cachingKey, function () use ( $type ) {
+        $pageInfo = $this->getCachingHelperService()->getItem($cachingKey, function () use ($type) {
             /** @var \PServerCMS\Entity\Repository\PageInfo $repository */
-            $repository = $this->getEntityManager()->getRepository( $this->getEntityOptions()->getPageInfo() );
-            return $repository->getPageData4Type( $type );
-        } );
+            $repository = $this->getEntityManager()->getRepository($this->getEntityOptions()->getPageInfo());
+            return $repository->getPageData4Type($type);
+        });
 
         return $pageInfo;
     }
@@ -31,23 +31,23 @@ class PageInfo extends InvokableBase
      *
      * @return bool|\PServerCMS\Entity\PageInfo
      */
-    public function pageInfo( array $data, $type )
+    public function pageInfo(array $data, $type)
     {
         $form = $this->getAdminPageInfoForm();
-        $form->setHydrator( new HydratorPageInfo() );
+        $form->setHydrator(new HydratorPageInfo());
         $class = $this->getEntityOptions()->getPageInfo();
-        $form->bind( new $class() );
-        $form->setData( $data );
+        $form->bind(new $class());
+        $form->setData($data);
         if (!$form->isValid()) {
             return false;
         }
 
         /** @var \PServerCMS\Entity\PageInfo $pageInfo */
         $pageInfo = $form->getData();
-        $pageInfo->setType( $type );
+        $pageInfo->setType($type);
 
         $entity = $this->getEntityManager();
-        $entity->persist( $pageInfo );
+        $entity->persist($pageInfo);
         $entity->flush();
 
         return $pageInfo;
@@ -58,7 +58,7 @@ class PageInfo extends InvokableBase
      */
     public function getPossiblePageInfoTypes()
     {
-        return $this->getConfigService()->get( 'pserver.pageinfotype', array() );
+        return $this->getConfigService()->get('pserver.pageinfotype', []);
     }
 
 } 

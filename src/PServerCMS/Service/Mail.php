@@ -107,6 +107,11 @@ class Mail extends InvokableBase
      */
     protected function send($subjectKey, UserInterface $user, $params)
     {
+        // we have no mail, so we can skip it
+        if (!$user->getEmail()) {
+            return;
+        }
+
         // TODO TwigTemplateEngine
         $renderer = $this->getViewRenderer();
         //$oResolver = $this->getServiceManager()->get('ZfcTwig\View\TwigResolver');
@@ -127,7 +132,7 @@ class Mail extends InvokableBase
             $html = new Part($bodyRender);
             $html->type = "text/html";
             $body = new MimeMessage();
-            $body->setParts(array($html));
+            $body->setParts([$html]);
 
             $mail = new Message();
             $mail->setBody($body);

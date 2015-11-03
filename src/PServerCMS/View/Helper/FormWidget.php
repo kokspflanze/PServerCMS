@@ -11,14 +11,14 @@ class FormWidget extends InvokerBase
      * @param string $template
      * @return string
      */
-    public function __invoke( $form, $template = 'helper/formWidget' )
+    public function __invoke($form, $template = 'helper/formWidget')
     {
-        $viewModel = new ViewModel( array(
+        $viewModel = new ViewModel([
             'formWidget' => $form
-        ) );
-        $viewModel->setTemplate( $template );
+        ]);
+        $viewModel->setTemplate($template);
 
-        return $this->getView()->render( $viewModel );
+        return $this->getView()->render($viewModel);
     }
 
 }

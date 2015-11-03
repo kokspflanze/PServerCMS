@@ -17,7 +17,7 @@ class ServiceManager
     public static function getInstance()
     {
         if (!self::$_instance) {
-            throw new \Exception( 'ServiceManager not defined' );
+            throw new \Exception('ServiceManager not defined');
         }
 
         return self::$_instance;
@@ -26,7 +26,7 @@ class ServiceManager
     /**
      * @param ServiceLocatorInterface $serviceManager
      */
-    public static function setInstance( ServiceLocatorInterface $serviceManager )
+    public static function setInstance(ServiceLocatorInterface $serviceManager)
     {
         self::$_instance = $serviceManager;
     }

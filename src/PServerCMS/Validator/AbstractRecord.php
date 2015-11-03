@@ -20,8 +20,8 @@ abstract class AbstractRecord extends AbstractValidator
      */
     protected $messageTemplates = [
         self::ERROR_NO_RECORD_FOUND => "No record matching the input was found",
-        self::ERROR_RECORD_FOUND    => "A record matching the input was found",
-        self::ERROR_NOT_ACTIVE      => 'Your Account is not active, please confirm your email'
+        self::ERROR_RECORD_FOUND => "A record matching the input was found",
+        self::ERROR_NOT_ACTIVE => 'Your Account is not active, please confirm your email'
     ];
 
     /**
@@ -36,12 +36,12 @@ abstract class AbstractRecord extends AbstractValidator
 
     /**
      * @param ObjectRepository $objectRepository
-     * @param string           $key
+     * @param string $key
      */
-    public function __construct( ObjectRepository $objectRepository, $key = '' )
+    public function __construct(ObjectRepository $objectRepository, $key = '')
     {
-        $this->setObjectRepository( $objectRepository );
-        $this->setKey( $key );
+        $this->setObjectRepository($objectRepository);
+        $this->setKey($key);
 
         parent::__construct();
     }
@@ -60,7 +60,7 @@ abstract class AbstractRecord extends AbstractValidator
      * @param ObjectRepository $objectRepository
      * @return self
      */
-    public function setObjectRepository( ObjectRepository $objectRepository )
+    public function setObjectRepository(ObjectRepository $objectRepository)
     {
         $this->objectRepository = $objectRepository;
 
@@ -81,7 +81,7 @@ abstract class AbstractRecord extends AbstractValidator
      * @param $key
      * @return self
      */
-    public function setKey( $key )
+    public function setKey($key)
     {
         $this->key = $key;
 
@@ -93,24 +93,24 @@ abstract class AbstractRecord extends AbstractValidator
      * @return object
      * @throws \Exception
      */
-    protected function query( $value )
+    protected function query($value)
     {
 
         switch ($this->getKey()) {
             case 'email':
-                $result = $this->getObjectRepository()->findOneBy( ['email' => $value] );
+                $result = $this->getObjectRepository()->findOneBy(['email' => $value]);
                 break;
 
             case 'username':
-                $result = $this->getObjectRepository()->findOneBy( ['username' => $value] );
+                $result = $this->getObjectRepository()->findOneBy(['username' => $value]);
                 break;
 
             case 'categoryId':
-                $result = $this->getObjectRepository()->findOneBy( ['categoryid' => $value, 'active' => '1'] );
+                $result = $this->getObjectRepository()->findOneBy(['categoryid' => $value, 'active' => '1']);
                 break;
 
             default:
-                throw new \Exception( 'Invalid key used in validator' );
+                throw new \Exception('Invalid key used in validator');
                 break;
         }
 

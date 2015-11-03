@@ -104,9 +104,17 @@ trait HelperForm
     }
 
     /**
+     * @return \PServerCMS\Form\AddEmail
+     */
+    public function getAddEmailForm()
+    {
+        return $this->getService('pserver_user_add_mail_form');
+    }
+
+    /**
      * @param $serviceName
      *
      * @return array|object
      */
-    abstract function getService( $serviceName );
+    public abstract function getService($serviceName);
 }

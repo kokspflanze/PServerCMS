@@ -10,73 +10,77 @@ use Zend\Form\Element\Captcha;
 class Register extends ProvidesEventsForm
 {
 
+	/**
+	 * Register constructor.
+	 * @param ServiceLocatorInterface $sm
+     */
 	public function __construct( ServiceLocatorInterface $sm )
     {
 		parent::__construct();
 
-		$this->add(array(
+		$this->add([
 			'type' => 'Zend\Form\Element\Csrf',
 			'name' => 'eugzhoe45gh3o49ug2wrtu7gz50'
-		));
+		]);
 
-		$this->add(array(
+		$this->add([
 			'name' => 'username',
-			'options' => array(
+			'options' => [
 				'label' => 'Username',
-			),
-			'attributes' => array(
+			],
+			'attributes' => [
                 'placeholder' => 'Username',
                 'class' => 'form-control',
 				'type' => 'text'
-			),
-		));
+			],
+		]);
 
-		$this->add(array(
+		$this->add([
 			'name' => 'email',
-			'options' => array(
+			'options' => [
 				'label' => 'Email',
-			),
-			'attributes' => array(
+			],
+			'attributes' => [
                 'placeholder' => 'Email',
                 'class' => 'form-control',
 				'type' => 'email'
-			),
-		));
-		$this->add(array(
+			],
+		]);
+		$this->add([
 			'name' => 'emailVerify',
-			'options' => array(
+			'options' => [
 				'label' => 'Email Verify',
-			),
-			'attributes' => array(
+			],
+			'attributes' => [
                 'placeholder' => 'Email Verify',
                 'class' => 'form-control',
 				'type' => 'email'
-			),
-		));
+			],
+		]);
 
-		$this->add(array(
+		$this->add([
 			'name' => 'password',
-			'options' => array(
+			'options' => [
 				'label' => 'Password',
-			),
-			'attributes' => array(
+			],
+			'attributes' => [
                 'placeholder' => 'Password',
                 'class' => 'form-control',
 				'type' => 'password'
-			),
-		));
+			],
+		]);
 
-		$this->add(array(
+		$this->add([
 			'name' => 'passwordVerify',
-			'options' => array(
+			'options' => [
 				'label' => 'Password Verify',
-			),
-			'attributes' => array(
+			],
+			'attributes' => [
                 'placeholder' => 'Password Verify',
                 'class' => 'form-control',
 				'type' => 'password'
-			),
-		));
+			],
+		]);
 
 		/** @var \PServerCMS\Service\ConfigRead $configService */
 		$configService = $sm->get( 'pserver_configread_service' );
@@ -85,36 +89,36 @@ class Register extends ProvidesEventsForm
 			/** @var \PServerCMS\Options\EntityOptions $entityOptions */
 			$entityOptions = $sm->get('pserver_entity_options');
 
-			$this->add(array(
+			$this->add([
 				'name' => 'question',
 				'type' => 'DoctrineModule\Form\Element\ObjectSelect',
-				'options' => array(
+				'options' => [
 					'object_manager'=> $sm->get( 'Doctrine\ORM\EntityManager' ),
 					'target_class'  => $entityOptions->getSecretQuestion(),
 					'property'		=> 'question',
 					'label'			=> 'SecretQuestion',
 					'empty_option'  => '-- select --',
 					'is_method'		=> true,
-					'find_method'	=> array(
+					'find_method'	=> [
 						'name' => 'getQuestions',
-					),
-				),
-				'attributes' => array(
+					],
+				],
+				'attributes' => [
 					'class' => 'form-control',
-				),
-			));
+				],
+			]);
 
-			$this->add(array(
+			$this->add([
 				'name' => 'answer',
-				'options' => array(
+				'options' => [
 					'label' => 'SecretAnswer',
-				),
-				'attributes' => array(
+				],
+				'attributes' => [
 					'placeholder' => 'Answer',
 					'class' => 'form-control',
 					'type' => 'text'
-				),
-			));
+				],
+			]);
 		}
 
         $captcha = new Captcha('captcha');
@@ -127,21 +131,21 @@ class Register extends ProvidesEventsForm
                 'type' => 'text'
             ]);
 
-        $this->add($captcha, array(
+        $this->add($captcha, [
 			'priority' => -90,
-		));
+		]);
 
 		$submitElement = new Element\Button('submit');
 		$submitElement
 			->setLabel('Register')
-			->setAttributes(array(
+			->setAttributes([
                 'class' => 'btn btn-default',
 				'type'  => 'submit',
-			));
+			]);
 
-		$this->add($submitElement, array(
+		$this->add($submitElement, [
 			'priority' => -100,
-		));
+		]);
 
 	}
 }

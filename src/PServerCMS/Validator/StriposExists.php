@@ -33,13 +33,13 @@ class StriposExists extends AbstractValidator
     protected $type;
 
     /**
-     * @param ServiceManager               $serviceManager
+     * @param ServiceManager $serviceManager
      * @param                              $type
      */
-    public function __construct( ServiceManager $serviceManager, $type )
+    public function __construct(ServiceManager $serviceManager, $type)
     {
-        $this->setServiceManager( $serviceManager );
-        $this->setType( $type );
+        $this->setServiceManager($serviceManager);
+        $this->setType($type);
 
         parent::__construct();
     }
@@ -56,22 +56,22 @@ class StriposExists extends AbstractValidator
      * @return bool
      * @throws Exception\RuntimeException If validation of $value is impossible
      */
-    public function isValid( $value )
+    public function isValid($value)
     {
         $result = true;
-        $this->setValue( $value );
-        $blackList = $this->getConfigService()->get( 'pserver.blacklisted.' . $this->getType(), false );
+        $this->setValue($value);
+        $blackList = $this->getConfigService()->get('pserver.blacklisted.' . $this->getType(), false);
 
         if (!$blackList) {
             return $result;
         }
 
         foreach ($blackList as $entry) {
-            if (stripos( $value, $this->editBlackListedData( $entry ) ) === false) {
+            if (stripos($value, $this->editBlackListedData($entry)) === false) {
                 continue;
             }
             $result = false;
-            $this->error( self::ERROR_BLACKLIST );
+            $this->error(self::ERROR_BLACKLIST);
             break;
         }
 
@@ -83,7 +83,7 @@ class StriposExists extends AbstractValidator
      *
      * @return $this
      */
-    protected function setServiceManager( ServiceManager $serviceManager )
+    protected function setServiceManager(ServiceManager $serviceManager)
     {
         $this->serviceManager = $serviceManager;
 
@@ -101,7 +101,7 @@ class StriposExists extends AbstractValidator
     /**
      * @param $type
      */
-    protected function setType( $type )
+    protected function setType($type)
     {
         $this->type = $type;
     }
@@ -119,10 +119,10 @@ class StriposExists extends AbstractValidator
      *
      * @return string
      */
-    protected function editBlackListedData( $data )
+    protected function editBlackListedData($data)
     {
         if ($this->getType() == self::TYPE_EMAIL) {
-            $data = sprintf( '@%s', $data );
+            $data = sprintf('@%s', $data);
         }
 
         return $data;

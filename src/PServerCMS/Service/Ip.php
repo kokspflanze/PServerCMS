@@ -13,18 +13,18 @@ class Ip extends PaymentApiIp
      *
      * @return bool|int
      */
-    public function getIp2Decimal( $ip = null )
+    public function getIp2Decimal($ip = null)
     {
         if (!$ip) {
             $ip = $this->getIp();
         }
 
-        if (!filter_var( $ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 )) {
+        if (!filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
             return false;
         }
 
-        $ipEntryData = explode( '.', $ip );
+        $ipEntryData = explode('.', $ip);
 
-        return ( (int)$ipEntryData[3] ) + ( $ipEntryData[2] * 256 ) + ( $ipEntryData[1] * 256 * 256 ) + ( $ipEntryData[0] * 256 * 256 * 256 );
+        return ((int)$ipEntryData[3]) + ($ipEntryData[2] * 256) + ($ipEntryData[1] * 256 * 256) + ($ipEntryData[0] * 256 * 256 * 256);
     }
 }

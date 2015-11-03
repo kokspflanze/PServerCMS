@@ -15,9 +15,9 @@ class TimerWidget extends InvokerBase
      */
     public function __invoke()
     {
-        $viewModel = new ViewModel(array(
+        $viewModel = new ViewModel([
             'timer' => $this->getTimer(),
-        ));
+        ]);
         $viewModel->setTemplate('helper/sidebarTimerWidget');
 
         return $this->getView()->render($viewModel);
@@ -30,7 +30,7 @@ class TimerWidget extends InvokerBase
     {
         if (!$this->timerService) {
             $config = $this->getConfig();
-            $timerConfig = isset($config['pserver']['timer'])?$config['pserver']['timer']:[];
+            $timerConfig = isset($config['pserver']['timer']) ? $config['pserver']['timer'] : [];
 
             if ($timerConfig) {
                 foreach ($timerConfig as $data) {
@@ -39,9 +39,10 @@ class TimerWidget extends InvokerBase
 
                     if (!isset($data['type'])) {
                         if (isset($data['days'])) {
-                            $time = $this->getTimerService()->getNextTimeDay( $data['days'], $data['hour'], $data['min'] );
+                            $time = $this->getTimerService()->getNextTimeDay($data['days'], $data['hour'],
+                                $data['min']);
                         } else {
-                            $time = $this->getTimerService()->getNextTime( $data['hours'], $data['min'] );
+                            $time = $this->getTimerService()->getNextTime($data['hours'], $data['min']);
                         }
                     } else {
                         $text = $data['time'];

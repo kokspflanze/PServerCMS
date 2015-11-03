@@ -19,48 +19,48 @@ class AccountController extends AbstractActionController
         /** @var \PServerCMS\Entity\UserInterface $user */
         $user = $this->getUserService()->getAuthService()->getIdentity();
 
-        $form     = $this->getUserService()->getChangePwdForm();
+        $form = $this->getUserService()->getChangePwdForm();
         $elements = $form->getElements();
         foreach ($elements as $element) {
             if ($element instanceof \Zend\Form\Element) {
-                $element->setValue( '' );
+                $element->setValue('');
             }
         }
 
         $formChangeWebPwd = null;
         if (!$this->getUserService()->isSamePasswordOption()) {
-            $webPasswordForm  = clone $form;
-            $formChangeWebPwd = $webPasswordForm->setWhich( 'web' );
+            $webPasswordForm = clone $form;
+            $formChangeWebPwd = $webPasswordForm->setWhich('web');
         }
 
-        $inGamePasswordForm  = clone $form;
-        $formChangeIngamePwd = $inGamePasswordForm->setWhich( 'ingame' );
+        $inGamePasswordForm = clone $form;
+        $formChangeIngamePwd = $inGamePasswordForm->setWhich('ingame');
 
         $request = $this->getRequest();
         if (!$request->isPost()) {
             return [
-                'changeWebPwdForm'    => $formChangeWebPwd,
+                'changeWebPwdForm' => $formChangeWebPwd,
                 'changeIngamePwdForm' => $formChangeIngamePwd,
-                'messagesWeb'         => $this->flashmessenger()->getMessagesFromNamespace( self::SUCCESS_NAME_SPACE . 'Web' ),
-                'messagesInGame'      => $this->flashmessenger()->getMessagesFromNamespace( self::SUCCESS_NAME_SPACE . 'InGame' ),
-                'errorsWeb'           => $this->flashmessenger()->getMessagesFromNamespace( self::ERROR_NAME_SPACE . 'Web' ),
-                'errorsInGame'        => $this->flashmessenger()->getMessagesFromNamespace( self::ERROR_NAME_SPACE . 'InGame' )
+                'messagesWeb' => $this->flashmessenger()->getMessagesFromNamespace(self::SUCCESS_NAME_SPACE . 'Web'),
+                'messagesInGame' => $this->flashmessenger()->getMessagesFromNamespace(self::SUCCESS_NAME_SPACE . 'InGame'),
+                'errorsWeb' => $this->flashmessenger()->getMessagesFromNamespace(self::ERROR_NAME_SPACE . 'Web'),
+                'errorsInGame' => $this->flashmessenger()->getMessagesFromNamespace(self::ERROR_NAME_SPACE . 'InGame')
             ];
 
         }
 
-        $method = $this->params()->fromPost( 'which' ) == 'ingame' ? 'changeInGamePwd' : 'changeWebPwd';
-        if ($this->getUserService()->$method( $this->params()->fromPost(), $user )) {
+        $method = $this->params()->fromPost('which') == 'ingame' ? 'changeInGamePwd' : 'changeWebPwd';
+        if ($this->getUserService()->$method($this->params()->fromPost(), $user)) {
             $successKey = self::SUCCESS_NAME_SPACE;
-            if ($this->params()->fromPost( 'which' ) == 'ingame') {
+            if ($this->params()->fromPost('which') == 'ingame') {
                 $successKey .= 'InGame';
             } else {
                 $successKey .= 'Web';
             }
-            $this->flashMessenger()->setNamespace( $successKey )->addMessage( 'Success, password changed.' );
+            $this->flashMessenger()->setNamespace($successKey)->addMessage('Success, password changed.');
         }
 
-        return $this->redirect()->toUrl( $this->url()->fromRoute( 'PServerCMS/user' ) );
+        return $this->redirect()->toUrl($this->url()->fromRoute('PServerCMS/user'));
     }
 
 }

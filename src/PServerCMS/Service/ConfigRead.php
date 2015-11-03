@@ -5,7 +5,7 @@ namespace PServerCMS\Service;
 class ConfigRead extends InvokableBase
 {
     /**
-	 * Caching the Config String
+     * Caching the Config String
      * @var array
      */
     private $cache = [];
@@ -16,15 +16,15 @@ class ConfigRead extends InvokableBase
      *
      * @return mixed
      */
-    public function get( $configString, $default = false )
+    public function get($configString, $default = false)
     {
-		// Check if we have a cache
+        // Check if we have a cache
         if (isset($this->cache[$configString])) {
             return $this->cache[$configString];
         }
 
         $valueList = explode('.', $configString);
-        $config = $this->getServiceManager()->get( 'Config' );
+        $config = $this->getServiceManager()->get('Config');
         foreach ($valueList as $value) {
             if (!isset($config[$value])) {
                 $config = $default;
@@ -33,8 +33,8 @@ class ConfigRead extends InvokableBase
             $config = $config[$value];
         }
 
-		// save @ cache
-		$this->cache[$configString] = $config;
+        // save @ cache
+        $this->cache[$configString] = $config;
 
         return $config;
     }

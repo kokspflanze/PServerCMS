@@ -21,7 +21,7 @@ class UserNameBackendNotExists extends AbstractValidator
      * @var array Message templates
      */
     protected $messageTemplates = [
-        self::ERROR_RECORD_FOUND    => "A record matching the input was found",
+        self::ERROR_RECORD_FOUND => "A record matching the input was found",
     ];
 
 
@@ -33,7 +33,7 @@ class UserNameBackendNotExists extends AbstractValidator
     /**
      * @param ServiceManager $serviceManager
      */
-    public function __construct( ServiceManager $serviceManager )
+    public function __construct(ServiceManager $serviceManager)
     {
         $this->setServiceManager($serviceManager);
 
@@ -46,15 +46,15 @@ class UserNameBackendNotExists extends AbstractValidator
      * @return bool
      * @throws \Exception
      */
-    public function isValid( $value )
+    public function isValid($value)
     {
         $valid = true;
-        $this->setValue( $value );
+        $this->setValue($value);
 
-        $result = $this->query( $value );
+        $result = $this->query($value);
         if ($result) {
             $valid = false;
-            $this->error( self::ERROR_RECORD_FOUND );
+            $this->error(self::ERROR_RECORD_FOUND);
         }
 
         return $valid;
@@ -72,7 +72,7 @@ class UserNameBackendNotExists extends AbstractValidator
      * @param ServiceManager $serviceManager
      * @return UserNameBackendNotExists
      */
-    public function setServiceManager( ServiceManager $serviceManager )
+    public function setServiceManager(ServiceManager $serviceManager)
     {
         $this->serviceManager = $serviceManager;
 
@@ -84,13 +84,13 @@ class UserNameBackendNotExists extends AbstractValidator
      *
      * @return bool
      */
-    protected function query( $value )
+    protected function query($value)
     {
         $class = $this->getEntityOptions()->getUser();
         /** @var \PServerCMS\Entity\UserInterface $user */
         $user = new $class();
         $user->setUsername($value);
 
-        return $this->getGameBackendService()->isUserNameExists( $user );
+        return $this->getGameBackendService()->isUserNameExists($user);
     }
 }

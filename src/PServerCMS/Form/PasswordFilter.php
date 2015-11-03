@@ -32,41 +32,41 @@ class PasswordFilter extends ProvidesEventsInputFilter
 
         $passwordLengthOptions = $this->getPasswordOptions()->getLength();
 
-		$this->add(array(
+		$this->add([
 			'name'       => 'password',
 			'required'   => true,
-			'filters'    => array(array('name' => 'StringTrim')),
-			'validators' => array(
-				array(
+			'filters'    => [['name' => 'StringTrim']],
+			'validators' => [
+				[
 					'name'    => 'StringLength',
-					'options' => array(
+					'options' => [
 						'min' => $passwordLengthOptions['min'],
 						'max' => $passwordLengthOptions['max'],
-					),
-				),
-			),
-		));
+					],
+				],
+			],
+		]);
 
-		$this->add(array(
+		$this->add([
 			'name'       => 'passwordVerify',
 			'required'   => true,
-			'filters'    => array(array('name' => 'StringTrim')),
-			'validators' => array(
-				array(
+			'filters'    => [['name' => 'StringTrim']],
+			'validators' => [
+				[
 					'name'    => 'StringLength',
-					'options' => array(
+					'options' => [
                         'min' => $passwordLengthOptions['min'],
                         'max' => $passwordLengthOptions['max'],
-					),
-				),
-				array(
+					],
+				],
+				[
 					'name'    => 'Identical',
-					'options' => array(
+					'options' => [
 						'token' => 'password',
-					),
-				),
-			),
-		));
+					],
+				],
+			],
+		]);
 	}
 
     /**
@@ -101,14 +101,14 @@ class PasswordFilter extends ProvidesEventsInputFilter
 
         $similarText->setUser( $user );
 
-		$this->add(array(
+		$this->add([
 			'name'       => 'answer',
 			'required'   => true,
-			'filters'    => array(array('name' => 'StringTrim')),
-			'validators' => array(
+			'filters'    => [['name' => 'StringTrim']],
+			'validators' => [
 				$similarText,
-			),
-		));
+			],
+		]);
 
 	}
 
