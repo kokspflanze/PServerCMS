@@ -2,34 +2,33 @@
 
 namespace PServerCMS\Form;
 
-use Zend\Form\Form;
 use Zend\Form\Element;
+use Zend\Form\Element\Captcha;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use ZfcBase\Form\ProvidesEventsForm;
-use Zend\Form\Element\Captcha;
 
 class PwLost extends ProvidesEventsForm
 {
 
-	public function __construct( ServiceLocatorInterface $sm )
+    public function __construct(ServiceLocatorInterface $sm)
     {
-		parent::__construct();
+        parent::__construct();
 
-		$this->add([
-			'type' => 'Zend\Form\Element\Csrf',
-			'name' => 'eugzhoe45gh3o49ug2wrtu7gz50'
-		]);
+        $this->add([
+            'type' => 'Zend\Form\Element\Csrf',
+            'name' => 'eugzhoe45gh3o49ug2wrtu7gz50'
+        ]);
 
-		$this->add([
-			'name' => 'username',
-			'options' => [
-				'label' => 'Username',
-			],
-			'attributes' => [
+        $this->add([
+            'name' => 'username',
+            'options' => [
+                'label' => 'Username',
+            ],
+            'attributes' => [
                 'class' => 'form-control',
-				'type' => 'text'
-			],
-		]);
+                'type' => 'text'
+            ],
+        ]);
 
         $captcha = new Captcha('captcha');
         $captcha->setCaptcha($sm->get('SanCaptcha'))
@@ -42,17 +41,17 @@ class PwLost extends ProvidesEventsForm
             ]);
         $this->add($captcha);
 
-		$submitElement = new Element\Button('submit');
-		$submitElement
-			->setLabel('PwLost')
-			->setAttributes([
+        $submitElement = new Element\Button('submit');
+        $submitElement
+            ->setLabel('PwLost')
+            ->setAttributes([
                 'class' => 'btn btn-default',
-				'type'  => 'submit',
-			]);
+                'type' => 'submit',
+            ]);
 
-		$this->add($submitElement, [
-			'priority' => -100,
-		]);
+        $this->add($submitElement, [
+            'priority' => -100,
+        ]);
 
-	}
+    }
 } 

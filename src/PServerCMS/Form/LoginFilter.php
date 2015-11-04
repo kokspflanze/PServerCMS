@@ -9,7 +9,7 @@ class LoginFilter extends \SmallUser\Form\LoginFilter
     /**
      * @param AbstractRecord $userValidator
      */
-    public function __construct( AbstractRecord $userValidator )
+    public function __construct(AbstractRecord $userValidator)
     {
         parent::__construct();
 

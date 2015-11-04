@@ -4,173 +4,173 @@ namespace PServerCMS\Form;
 
 use PServerCMS\Entity\UserInterface;
 use Zend\Form\Element;
-use ZfcBase\Form\ProvidesEventsForm;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use ZfcBase\Form\ProvidesEventsForm;
 
 class Password extends ProvidesEventsForm
 {
-	/** @var  ServiceLocatorInterface */
-	protected $serviceManager;
-	/** @var  UserInterface */
-	protected $user;
-	/** @var  \Doctrine\ORM\EntityManager */
-	protected $entityManager;
+    /** @var  ServiceLocatorInterface */
+    protected $serviceManager;
+    /** @var  UserInterface */
+    protected $user;
+    /** @var  \Doctrine\ORM\EntityManager */
+    protected $entityManager;
 
-	/**
-	 * @param ServiceLocatorInterface $serviceLocatorInterface
-	 */
-	public function __construct( ServiceLocatorInterface $serviceLocatorInterface )
+    /**
+     * @param ServiceLocatorInterface $serviceLocatorInterface
+     */
+    public function __construct(ServiceLocatorInterface $serviceLocatorInterface)
     {
-		parent::__construct();
-		$this->setServiceManager($serviceLocatorInterface);
+        parent::__construct();
+        $this->setServiceManager($serviceLocatorInterface);
 
-		$this->add([
-			'type' => 'Zend\Form\Element\Csrf',
-			'name' => 'eugzhoe45gh3o49ug2wrtu7gz50'
-		]);
+        $this->add([
+            'type' => 'Zend\Form\Element\Csrf',
+            'name' => 'eugzhoe45gh3o49ug2wrtu7gz50'
+        ]);
 
-		$this->add([
-			'name' => 'password',
-			'options' => [
-				'label' => 'Password',
-			],
-			'attributes' => [
+        $this->add([
+            'name' => 'password',
+            'options' => [
+                'label' => 'Password',
+            ],
+            'attributes' => [
                 'class' => 'form-control',
-				'type' => 'password'
-			],
-		]);
+                'type' => 'password'
+            ],
+        ]);
 
-		$this->add([
-			'name' => 'passwordVerify',
-			'options' => [
-				'label' => 'Password Verify',
-			],
-			'attributes' => [
+        $this->add([
+            'name' => 'passwordVerify',
+            'options' => [
+                'label' => 'Password Verify',
+            ],
+            'attributes' => [
                 'class' => 'form-control',
-				'type' => 'password'
-			],
-		]);
+                'type' => 'password'
+            ],
+        ]);
 
-		$submitElement = new Element\Button('submit');
-		$submitElement
-			->setLabel('Submit')
-			->setAttributes([
+        $submitElement = new Element\Button('submit');
+        $submitElement
+            ->setLabel('Submit')
+            ->setAttributes([
                 'class' => 'btn btn-default',
-				'type'  => 'submit',
-			]);
+                'type' => 'submit',
+            ]);
 
-		$this->add($submitElement, [
-			'priority' => -100,
-		]);
-	}
+        $this->add($submitElement, [
+            'priority' => -100,
+        ]);
+    }
 
-	/**
-	 * @param UserInterface $user
-	 */
-	public function addSecretQuestion(UserInterface $user)
+    /**
+     * @param UserInterface $user
+     */
+    public function addSecretQuestion(UserInterface $user)
     {
-		if (!$this->getPasswordOptions()->isSecretQuestion()) {
-			return;
-		}
+        if (!$this->getPasswordOptions()->isSecretQuestion()) {
+            return;
+        }
 
-		$this->setUser($user);
-		/** @var \PServerCMS\Entity\Repository\SecretAnswer $repositorySecretAnswer */
-		$repositorySecretAnswer = $this->getEntityManager()->getRepository($this->getEntityOptions()->getSecretAnswer());
-		$answer = $repositorySecretAnswer->getAnswer4UserId($this->getUser()->getId());
+        $this->setUser($user);
+        /** @var \PServerCMS\Entity\Repository\SecretAnswer $repositorySecretAnswer */
+        $repositorySecretAnswer = $this->getEntityManager()->getRepository($this->getEntityOptions()->getSecretAnswer());
+        $answer = $repositorySecretAnswer->getAnswer4UserId($this->getUser()->getId());
 
-		if (!$answer) {
-			return;
-		}
+        if (!$answer) {
+            return;
+        }
 
-		$this->add([
-			'name' => 'question',
-			'options' => [
-				'label' => 'SecretQuestion',
-			],
-			'attributes' => [
-				'placeholder' => 'Question',
-				'class' => 'form-control',
-				'type' => 'text',
-				'disabled' => 'true',
-				'value' => $answer->getQuestion()->getQuestion()
-			],
-		]);
+        $this->add([
+            'name' => 'question',
+            'options' => [
+                'label' => 'SecretQuestion',
+            ],
+            'attributes' => [
+                'placeholder' => 'Question',
+                'class' => 'form-control',
+                'type' => 'text',
+                'disabled' => 'true',
+                'value' => $answer->getQuestion()->getQuestion()
+            ],
+        ]);
 
-		$this->add([
-			'name' => 'answer',
-			'options' => [
-				'label' => 'SecretAnswer',
-			],
-			'attributes' => [
-				'placeholder' => 'Answer',
-				'class' => 'form-control',
-				'type' => 'text'
-			],
-		]);
+        $this->add([
+            'name' => 'answer',
+            'options' => [
+                'label' => 'SecretAnswer',
+            ],
+            'attributes' => [
+                'placeholder' => 'Answer',
+                'class' => 'form-control',
+                'type' => 'text'
+            ],
+        ]);
 
-	}
+    }
 
-	/**
-	 * @param UserInterface $user
-	 */
-	public function setUser( UserInterface $user )
+    /**
+     * @param UserInterface $user
+     */
+    public function setUser(UserInterface $user)
     {
-		$this->user = $user;
-	}
+        $this->user = $user;
+    }
 
-	/**
-	 * @return UserInterface
-	 */
-	public function getUser()
+    /**
+     * @return UserInterface
+     */
+    public function getUser()
     {
-		return $this->user;
-	}
+        return $this->user;
+    }
 
-	/**
-	 * @param ServiceLocatorInterface $serviceManager
-	 *
-	 * @return $this
-	 */
-	protected function setServiceManager( ServiceLocatorInterface $serviceManager )
+    /**
+     * @param ServiceLocatorInterface $serviceManager
+     *
+     * @return $this
+     */
+    protected function setServiceManager(ServiceLocatorInterface $serviceManager)
     {
-		$this->serviceManager = $serviceManager;
+        $this->serviceManager = $serviceManager;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * @return \Doctrine\ORM\EntityManager
-	 */
-	public function getEntityManager()
+    /**
+     * @return \Doctrine\ORM\EntityManager
+     */
+    public function getEntityManager()
     {
-		if (!$this->entityManager) {
-			$this->entityManager = $this->getServiceManager()->get('Doctrine\ORM\EntityManager');
-		}
+        if (!$this->entityManager) {
+            $this->entityManager = $this->getServiceManager()->get('Doctrine\ORM\EntityManager');
+        }
 
-		return $this->entityManager;
-	}
+        return $this->entityManager;
+    }
 
-	/**
-	 * @return ServiceLocatorInterface
-	 */
-	protected function getServiceManager()
+    /**
+     * @return ServiceLocatorInterface
+     */
+    protected function getServiceManager()
     {
-		return $this->serviceManager;
-	}
+        return $this->serviceManager;
+    }
 
-	/**
-	 * @return \PServerCMS\Options\EntityOptions
-	 */
-	protected function getEntityOptions()
+    /**
+     * @return \PServerCMS\Options\EntityOptions
+     */
+    protected function getEntityOptions()
     {
-		return $this->getServiceManager()->get('pserver_entity_options');
-	}
+        return $this->getServiceManager()->get('pserver_entity_options');
+    }
 
-	/**
-	 * @return \PServerCMS\Options\PasswordOptions
-	 */
-	public function getPasswordOptions()
-	{
-		return $this->getServiceManager()->get('pserver_password_options');
-	}
+    /**
+     * @return \PServerCMS\Options\PasswordOptions
+     */
+    public function getPasswordOptions()
+    {
+        return $this->getServiceManager()->get('pserver_password_options');
+    }
 } 

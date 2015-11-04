@@ -53,7 +53,7 @@ class UserExtension
      * @param string $key
      * @return UserExtension
      */
-    public function setKey( $key )
+    public function setKey($key)
     {
         $this->key = $key;
 
@@ -74,7 +74,7 @@ class UserExtension
      * @param string $value
      * @return UserExtension
      */
-    public function setValue( $value )
+    public function setValue($value)
     {
         $this->value = $value;
 
@@ -95,7 +95,7 @@ class UserExtension
      * @param UserInterface $user
      * @return UserExtension
      */
-    public function setUser( UserInterface $user )
+    public function setUser(UserInterface $user)
     {
         $this->user = $user;
 

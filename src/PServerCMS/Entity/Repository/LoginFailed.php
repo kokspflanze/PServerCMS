@@ -11,20 +11,20 @@ use PServerCMS\Helper\DateTimer;
 class LoginFailed extends EntityRepository
 {
 
-	/**
-	 * @param $ip
-	 * @param $timeInterVal
-	 *
-	 * @return int
-	 */
-	public function getNumberOfFailLogin4Ip( $ip, $timeInterVal )
+    /**
+     * @param $ip
+     * @param $timeInterVal
+     *
+     * @return int
+     */
+    public function getNumberOfFailLogin4Ip($ip, $timeInterVal)
     {
         $query = $this->createQueryBuilder('p')
             ->select('p')
             ->where('p.ip = :ipString')
             ->setParameter('ipString', $ip)
             ->andWhere('p.created >= :expireTime')
-            ->setParameter('expireTime', DateTimer::getDateTime4TimeStamp(time()-$timeInterVal))
+            ->setParameter('expireTime', DateTimer::getDateTime4TimeStamp(time() - $timeInterVal))
             ->getQuery();
         /**
          * TODO remove count

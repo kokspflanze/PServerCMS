@@ -2,7 +2,7 @@
 
 namespace PServerCMS\Service;
 
-use \Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
 class ServiceManager
 {

@@ -39,7 +39,7 @@ class LoginOptions extends AbstractOptions
      * @param array $exploit
      * @return LoginOptions
      */
-    public function setExploit( $exploit )
+    public function setExploit($exploit)
     {
         $this->exploit = $exploit;
 
@@ -58,7 +58,7 @@ class LoginOptions extends AbstractOptions
      * @param boolean $countryCheck
      * @return LoginOptions
      */
-    public function setCountryCheck( $countryCheck )
+    public function setCountryCheck($countryCheck)
     {
         $this->countryCheck = $countryCheck;
 
@@ -77,7 +77,7 @@ class LoginOptions extends AbstractOptions
      * @param array $secretLoginRoleList
      * @return LoginOptions
      */
-    public function setSecretLoginRoleList( $secretLoginRoleList )
+    public function setSecretLoginRoleList($secretLoginRoleList)
     {
         $this->secretLoginRoleList = $secretLoginRoleList;
 

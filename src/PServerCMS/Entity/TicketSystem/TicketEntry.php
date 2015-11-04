@@ -2,8 +2,8 @@
 
 namespace PServerCMS\Entity\TicketSystem;
 
-use SmallUser\Entity\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
+use SmallUser\Entity\UserInterface;
 use ZfcTicketSystem\Entity\TicketSubject as ZfcTicketSubject;
 
 /**
@@ -59,7 +59,7 @@ class TicketEntry extends \ZfcTicketSystem\Entity\TicketEntry
      * @param $id
      * @return $this
      */
-    public function setId( $id )
+    public function setId($id)
     {
         $this->id = $id;
 
@@ -80,7 +80,7 @@ class TicketEntry extends \ZfcTicketSystem\Entity\TicketEntry
      * @param string $memo
      * @return TicketEntry
      */
-    public function setMemo( $memo )
+    public function setMemo($memo)
     {
         $this->memo = $memo;
 
@@ -101,7 +101,7 @@ class TicketEntry extends \ZfcTicketSystem\Entity\TicketEntry
      * @param UserInterface $user
      * @return TicketEntry
      */
-    public function setUser( UserInterface $user = null )
+    public function setUser(UserInterface $user = null)
     {
         $this->user = $user;
 
@@ -129,7 +129,7 @@ class TicketEntry extends \ZfcTicketSystem\Entity\TicketEntry
      * @param ZfcTicketSubject $subject
      * @return TicketEntry
      */
-    public function setSubject( ZfcTicketSubject $subject )
+    public function setSubject(ZfcTicketSubject $subject)
     {
         $this->subject = $subject;
 
@@ -141,7 +141,7 @@ class TicketEntry extends \ZfcTicketSystem\Entity\TicketEntry
      * @param \DateTime $created
      * @return TicketEntry
      */
-    public function setCreated( $created )
+    public function setCreated($created)
     {
         $this->created = $created;
 

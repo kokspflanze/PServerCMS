@@ -56,7 +56,7 @@ class IpBlock
      * @param string $ip
      * @return IpBlock
      */
-    public function setIp( $ip )
+    public function setIp($ip)
     {
         $this->ip = $ip;
 
@@ -77,7 +77,7 @@ class IpBlock
      * @param \DateTime $expire
      * @return IpBlock
      */
-    public function setExpire( \DateTime $expire )
+    public function setExpire(\DateTime $expire)
     {
         $this->expire = $expire;
 
@@ -98,7 +98,7 @@ class IpBlock
      * @param \DateTime $created
      * @return IpBlock
      */
-    public function setCreated( \DateTime $created )
+    public function setCreated(\DateTime $created)
     {
         $this->created = $created;
 

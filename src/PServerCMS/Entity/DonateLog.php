@@ -97,9 +97,9 @@ class DonateLog
      * @param string $transactionId
      * @return DonateLog
      */
-    public function setTransactionId( $transactionId )
+    public function setTransactionId($transactionId)
     {
-        $this->transactionId = (string) $transactionId;
+        $this->transactionId = (string)$transactionId;
 
         return $this;
     }
@@ -118,7 +118,7 @@ class DonateLog
      * @param string $type
      * @return DonateLog
      */
-    public function setType( $type )
+    public function setType($type)
     {
         $this->type = $type;
 
@@ -139,7 +139,7 @@ class DonateLog
      * @param string $success
      * @return DonateLog
      */
-    public function setSuccess( $success )
+    public function setSuccess($success)
     {
         $this->success = $success;
 
@@ -160,7 +160,7 @@ class DonateLog
      * @param integer $coins
      * @return DonateLog
      */
-    public function setCoins( $coins )
+    public function setCoins($coins)
     {
         $this->coins = $coins;
 
@@ -181,7 +181,7 @@ class DonateLog
      * @param string $desc
      * @return DonateLog
      */
-    public function setDesc( $desc )
+    public function setDesc($desc)
     {
         $this->desc = $desc;
 
@@ -202,7 +202,7 @@ class DonateLog
      * @param string $ip
      * @return DonateLog
      */
-    public function setIp( $ip )
+    public function setIp($ip)
     {
         $this->ip = $ip;
 
@@ -223,7 +223,7 @@ class DonateLog
      * @param \DateTime $created
      * @return DonateLog
      */
-    public function setCreated( $created )
+    public function setCreated($created)
     {
         $this->created = $created;
 
@@ -244,7 +244,7 @@ class DonateLog
      * @param UserInterface $user
      * @return DonateLog
      */
-    public function setUser( UserInterface $user = null )
+    public function setUser(UserInterface $user = null)
     {
         $this->user = $user;
 

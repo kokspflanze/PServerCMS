@@ -2,8 +2,8 @@
 
 namespace PServerCMS\Form;
 
-use ZfcBase\InputFilter\ProvidesEventsInputFilter;
 use PServerCMS\Validator\AbstractRecord;
+use ZfcBase\InputFilter\ProvidesEventsInputFilter;
 
 class PwLostFilter extends ProvidesEventsInputFilter
 {
@@ -13,25 +13,25 @@ class PwLostFilter extends ProvidesEventsInputFilter
     /**
      * @param AbstractRecord $userValidator
      */
-	public function __construct( AbstractRecord $userValidator )
+    public function __construct(AbstractRecord $userValidator)
     {
-        $this->setUserValidator( $userValidator );
+        $this->setUserValidator($userValidator);
 
-		$this->add([
-			'name'       => 'username',
-			'required'   => true,
-			'validators' => [
-				[
-					'name'    => 'StringLength',
-					'options' => [
-						'min' => 3,
-						'max' => 16,
-					],
-				],
+        $this->add([
+            'name' => 'username',
+            'required' => true,
+            'validators' => [
+                [
+                    'name' => 'StringLength',
+                    'options' => [
+                        'min' => 3,
+                        'max' => 16,
+                    ],
+                ],
                 $this->getUserValidator(),
-			],
-		]);
-	}
+            ],
+        ]);
+    }
 
     /**
      * @return AbstractRecord

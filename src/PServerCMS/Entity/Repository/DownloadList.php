@@ -7,62 +7,62 @@ use Doctrine\ORM\EntityRepository;
 class DownloadList extends EntityRepository
 {
 
-	/**
-	 * @return null|\PServerCMS\Entity\DownloadList[]
-	 */
-	public function getActiveDownloadList()
+    /**
+     * @return null|\PServerCMS\Entity\DownloadList[]
+     */
+    public function getActiveDownloadList()
     {
-		$query = $this->createQueryBuilder('p')
-			->select('p')
-			->where('p.active = :active')
-			->setParameter('active', '1')
-			->orderBy('p.sortKey','asc')
-			->getQuery();
+        $query = $this->createQueryBuilder('p')
+            ->select('p')
+            ->where('p.active = :active')
+            ->setParameter('active', '1')
+            ->orderBy('p.sortKey', 'asc')
+            ->getQuery();
 
-		return $query->getResult();
-	}
+        return $query->getResult();
+    }
 
-	/**
-	 * @return null|\PServerCMS\Entity\DownloadList[]
-	 */
-	public function getDownloadList()
+    /**
+     * @return null|\PServerCMS\Entity\DownloadList[]
+     */
+    public function getDownloadList()
     {
-		$query = $this->createQueryBuilder('p')
-			->select('p')
-			->getQuery();
+        $query = $this->createQueryBuilder('p')
+            ->select('p')
+            ->getQuery();
 
-		return $query->getResult();
-	}
+        return $query->getResult();
+    }
 
-	/**
-	 * @param $id
-	 *
-	 * @return null|\PServerCMS\Entity\DownloadList
-	 */
-	public function getDownload4Id( $id )
+    /**
+     * @param $id
+     *
+     * @return null|\PServerCMS\Entity\DownloadList
+     */
+    public function getDownload4Id($id)
     {
-		$query = $this->createQueryBuilder('p')
-			->select('p')
-			->where('p.id = :id')
-			->setParameter('id', $id)
-			->setMaxResults(1)
-			->getQuery();
+        $query = $this->createQueryBuilder('p')
+            ->select('p')
+            ->where('p.id = :id')
+            ->setParameter('id', $id)
+            ->setMaxResults(1)
+            ->getQuery();
 
-		return $query->getOneOrNullResult();
-	}
+        return $query->getOneOrNullResult();
+    }
 
-	/**
-	 * @param $downloadId
-	 * @return mixed
-	 */
-	public function deleteDownloadEntry($downloadId)
-	{
-		$query = $this->createQueryBuilder('p')
-			->delete($this->getEntityName(), 'p')
-			->where('p.id = :id')
-			->setParameter('id', $downloadId)
-			->getQuery();
+    /**
+     * @param $downloadId
+     * @return mixed
+     */
+    public function deleteDownloadEntry($downloadId)
+    {
+        $query = $this->createQueryBuilder('p')
+            ->delete($this->getEntityName(), 'p')
+            ->where('p.id = :id')
+            ->setParameter('id', $downloadId)
+            ->getQuery();
 
-		return $query->execute();
-	}
+        return $query->execute();
+    }
 }

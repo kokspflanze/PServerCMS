@@ -32,14 +32,14 @@ class PasswordOptions extends AbstractOptions
      */
     public function isDifferentPasswords()
     {
-        return (bool) $this->differentPasswords;
+        return (bool)$this->differentPasswords;
     }
 
     /**
      * @param boolean $differentPasswords
      * @return PasswordOptions
      */
-    public function setDifferentPasswords( $differentPasswords )
+    public function setDifferentPasswords($differentPasswords)
     {
         $this->differentPasswords = $differentPasswords;
 
@@ -51,14 +51,14 @@ class PasswordOptions extends AbstractOptions
      */
     public function isSecretQuestion()
     {
-        return (bool) $this->secretQuestion;
+        return (bool)$this->secretQuestion;
     }
 
     /**
      * @param boolean $secretQuestion
      * @return PasswordOptions
      */
-    public function setSecretQuestion( $secretQuestion )
+    public function setSecretQuestion($secretQuestion)
     {
         $this->secretQuestion = $secretQuestion;
 
@@ -77,7 +77,7 @@ class PasswordOptions extends AbstractOptions
      * @param array $length
      * @return PasswordOptions
      */
-    public function setLength( array $length )
+    public function setLength(array $length)
     {
         $this->length = $length;
 

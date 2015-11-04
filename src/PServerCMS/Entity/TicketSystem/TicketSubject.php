@@ -2,9 +2,9 @@
 
 namespace PServerCMS\Entity\TicketSystem;
 
-use SmallUser\Entity\UserInterface;
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
+use SmallUser\Entity\UserInterface;
 use ZfcTicketSystem\Entity\TicketCategory as ZfcTicketCategory;
 use ZfcTicketSystem\Entity\TicketEntry as ZfcTicketEntry;
 
@@ -79,9 +79,9 @@ class TicketSubject extends \ZfcTicketSystem\Entity\TicketSubject
     public function __construct()
     {
         parent::__construct();
-        $this->type        = self::TYPE_NEW;
-        $this->created     = new \DateTime();
-        $this->lastEdit    = new \DateTime();
+        $this->type = self::TYPE_NEW;
+        $this->created = new \DateTime();
+        $this->lastEdit = new \DateTime();
         $this->ticketEntry = new ArrayCollection();
     }
 
@@ -89,7 +89,7 @@ class TicketSubject extends \ZfcTicketSystem\Entity\TicketSubject
      * @param $id
      * @return $this
      */
-    public function setId( $id )
+    public function setId($id)
     {
         $this->id = $id;
 
@@ -110,7 +110,7 @@ class TicketSubject extends \ZfcTicketSystem\Entity\TicketSubject
      * @param string $subject
      * @return TicketSubject
      */
-    public function setSubject( $subject )
+    public function setSubject($subject)
     {
         $this->subject = $subject;
 
@@ -131,7 +131,7 @@ class TicketSubject extends \ZfcTicketSystem\Entity\TicketSubject
      * @param string $type
      * @return TicketSubject
      */
-    public function setType( $type )
+    public function setType($type)
     {
         $this->type = $type;
 
@@ -152,7 +152,7 @@ class TicketSubject extends \ZfcTicketSystem\Entity\TicketSubject
      * @param UserInterface $user
      * @return TicketSubject
      */
-    public function setUser( UserInterface $user = null )
+    public function setUser(UserInterface $user = null)
     {
         $this->user = $user;
 
@@ -173,7 +173,7 @@ class TicketSubject extends \ZfcTicketSystem\Entity\TicketSubject
      * @param ZfcTicketCategory $ticketCategory
      * @return TicketSubject
      */
-    public function setTicketCategory( ZfcTicketCategory $ticketCategory = null )
+    public function setTicketCategory(ZfcTicketCategory $ticketCategory = null)
     {
         $this->ticketCategory = $ticketCategory;
 
@@ -194,7 +194,7 @@ class TicketSubject extends \ZfcTicketSystem\Entity\TicketSubject
      * @param \DateTime $created
      * @return TicketSubject
      */
-    public function setCreated( $created )
+    public function setCreated($created)
     {
         $this->created = $created;
 
@@ -215,7 +215,7 @@ class TicketSubject extends \ZfcTicketSystem\Entity\TicketSubject
      * @param \DateTime $lastEdit
      * @return $this
      */
-    public function setLastEdit( $lastEdit )
+    public function setLastEdit($lastEdit)
     {
         $this->lastEdit = $lastEdit;
 
@@ -236,7 +236,7 @@ class TicketSubject extends \ZfcTicketSystem\Entity\TicketSubject
      * @param  ZfcTicketEntry $ticketEntry
      * @return $this
      */
-    public function addTicketEntry(  ZfcTicketEntry $ticketEntry = null )
+    public function addTicketEntry(ZfcTicketEntry $ticketEntry = null)
     {
         $this->ticketEntry[] = $ticketEntry;
 

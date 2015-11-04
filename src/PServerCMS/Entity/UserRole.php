@@ -72,7 +72,7 @@ class UserRole implements UserRoleInterface
      * @param int $id
      * @return UserRole
      */
-    public function setId( $id )
+    public function setId($id)
     {
         $this->id = $id;
 
@@ -84,7 +84,7 @@ class UserRole implements UserRoleInterface
      * @param string $roleId
      * @return UserRole
      */
-    public function setRoleId( $roleId )
+    public function setRoleId($roleId)
     {
         $this->roleId = $roleId;
 
@@ -105,7 +105,7 @@ class UserRole implements UserRoleInterface
      * @param boolean $isDefault
      * @return UserRole
      */
-    public function setIsDefault( $isDefault )
+    public function setIsDefault($isDefault)
     {
         $this->isDefault = $isDefault;
 
@@ -126,7 +126,7 @@ class UserRole implements UserRoleInterface
      * @param string $parent
      * @return UserRole
      */
-    public function setParent( $parent )
+    public function setParent($parent)
     {
         $this->parent = $parent;
 
@@ -147,7 +147,7 @@ class UserRole implements UserRoleInterface
      * @param UserInterface $user
      * @return UserRole
      */
-    public function addUser( UserInterface $user )
+    public function addUser(UserInterface $user)
     {
         $this->user[] = $user;
 
@@ -158,9 +158,9 @@ class UserRole implements UserRoleInterface
      * Remove user
      * @param UserInterface $user
      */
-    public function removeUser( UserInterface $user )
+    public function removeUser(UserInterface $user)
     {
-        $this->user->removeElement( $user );
+        $this->user->removeElement($user);
     }
 
     /**

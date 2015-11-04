@@ -51,14 +51,14 @@ class PageInfo
     /**
      * @ORM\PostPersist()
      */
-    public function postPersist( LifecycleEventArgs $eventArgs )
+    public function postPersist(LifecycleEventArgs $eventArgs)
     {
         /** @var PageInfo $entity */
         $entity = $eventArgs->getEntity();
 
         /** @var \PServerCMS\Service\CachingHelper $cachingHelperService */
-        $cachingHelperService = ServiceManager::getInstance()->get( 'pserver_cachinghelper_service' );
-        $cachingHelperService->delItem( Caching::PAGE_INFO . '_' . $entity->getType() );
+        $cachingHelperService = ServiceManager::getInstance()->get('pserver_cachinghelper_service');
+        $cachingHelperService->delItem(Caching::PAGE_INFO . '_' . $entity->getType());
     }
 
     public function __construct()
@@ -78,7 +78,7 @@ class PageInfo
      * @param string $type
      * @return PageInfo
      */
-    public function setType( $type )
+    public function setType($type)
     {
         $this->type = $type;
 
@@ -97,7 +97,7 @@ class PageInfo
      * @param string $title
      * @return PageInfo
      */
-    public function setTitle( $title )
+    public function setTitle($title)
     {
         $this->title = $title;
 
@@ -116,7 +116,7 @@ class PageInfo
      * @param string $memo
      * @return PageInfo
      */
-    public function setMemo( $memo )
+    public function setMemo($memo)
     {
         $this->memo = $memo;
 
@@ -135,7 +135,7 @@ class PageInfo
      * @param \DateTime $created
      * @return PageInfo
      */
-    public function setCreated( $created )
+    public function setCreated($created)
     {
         $this->created = $created;
 

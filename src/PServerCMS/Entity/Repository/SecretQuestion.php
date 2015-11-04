@@ -12,9 +12,9 @@ class SecretQuestion extends EntityRepository
      */
     public function getQuestions()
     {
-        $query = $this->createQueryBuilder( 'p' )
-            ->select( 'p' )
-            ->orderBy( 'p.sortKey', 'asc' )
+        $query = $this->createQueryBuilder('p')
+            ->select('p')
+            ->orderBy('p.sortKey', 'asc')
             ->getQuery();
 
 
@@ -26,12 +26,12 @@ class SecretQuestion extends EntityRepository
      *
      * @return \PServerCMS\Entity\SecretQuestion[]|null
      */
-    public function getQuestion4Id( $id )
+    public function getQuestion4Id($id)
     {
-        $query = $this->createQueryBuilder( 'p' )
-            ->select( 'p' )
-            ->where( 'p.id = :id' )
-            ->setParameter( 'id', $id )
+        $query = $this->createQueryBuilder('p')
+            ->select('p')
+            ->where('p.id = :id')
+            ->setParameter('id', $id)
             ->getQuery();
 
 
@@ -43,7 +43,7 @@ class SecretQuestion extends EntityRepository
      */
     public function getQuestionQueryBuilder()
     {
-        return $this->createQueryBuilder( 'p' )
-            ->select( 'p' );
+        return $this->createQueryBuilder('p')
+            ->select('p');
     }
 } 

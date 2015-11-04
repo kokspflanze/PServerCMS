@@ -58,8 +58,8 @@ class DownloadList
     public function preFlush()
     {
         /** @var \PServerCMS\Service\CachingHelper $cachingHelperService */
-        $cachingHelperService = ServiceManager::getInstance()->get( 'pserver_cachinghelper_service' );
-        $cachingHelperService->delItem( Caching::DOWNLOAD );
+        $cachingHelperService = ServiceManager::getInstance()->get('pserver_cachinghelper_service');
+        $cachingHelperService->delItem(Caching::DOWNLOAD);
     }
 
     /**
@@ -76,7 +76,7 @@ class DownloadList
      * @param string $hoster
      * @return self
      */
-    public function setHoster( $hoster )
+    public function setHoster($hoster)
     {
         $this->hoster = $hoster;
 
@@ -97,7 +97,7 @@ class DownloadList
      * @param string $link
      * @return self
      */
-    public function setLink( $link )
+    public function setLink($link)
     {
         $this->link = $link;
 
@@ -118,7 +118,7 @@ class DownloadList
      * @param string $memo
      * @return self
      */
-    public function setMemo( $memo )
+    public function setMemo($memo)
     {
         $this->memo = $memo;
 
@@ -139,7 +139,7 @@ class DownloadList
      * @param string $active
      * @return self
      */
-    public function setActive( $active )
+    public function setActive($active)
     {
         $this->active = $active;
 
@@ -160,7 +160,7 @@ class DownloadList
      * @param integer $sortKey
      * @return self
      */
-    public function setSortKey( $sortKey )
+    public function setSortKey($sortKey)
     {
         $this->sortKey = $sortKey;
 

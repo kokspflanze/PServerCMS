@@ -56,7 +56,7 @@ class LoginFailed
      * @param string $username
      * @return LoginFailed
      */
-    public function setUsername( $username )
+    public function setUsername($username)
     {
         $this->username = $username;
 
@@ -77,7 +77,7 @@ class LoginFailed
      * @param string $ip
      * @return LoginFailed
      */
-    public function setIp( $ip )
+    public function setIp($ip)
     {
         $this->ip = $ip;
 
@@ -98,7 +98,7 @@ class LoginFailed
      * @param integer $created
      * @return LoginFailed
      */
-    public function setCreated( $created )
+    public function setCreated($created)
     {
         $this->created = $created;
 

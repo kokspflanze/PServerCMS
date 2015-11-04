@@ -51,7 +51,7 @@ class SecretQuestion
      * @param string $question
      * @return $this
      */
-    public function setQuestion( $question )
+    public function setQuestion($question)
     {
         $this->question = $question;
 
@@ -70,7 +70,7 @@ class SecretQuestion
      * @param int $sortKey
      * @return $this
      */
-    public function setSortKey( $sortKey )
+    public function setSortKey($sortKey)
     {
         $this->sortKey = $sortKey;
 

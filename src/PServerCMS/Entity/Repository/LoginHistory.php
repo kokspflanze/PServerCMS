@@ -11,10 +11,10 @@ class LoginHistory extends EntityRepository
 
     /**
      * @param UserInterface $user
-     * @param int           $days
+     * @param int $days
      * @return \PServerCMS\Entity\LoginHistory[]
      */
-    public function getLastLoginList4User( UserInterface $user, $days = 10 )
+    public function getLastLoginList4User(UserInterface $user, $days = 10)
     {
         $query = $this->createQueryBuilder('p')
             ->select('p')

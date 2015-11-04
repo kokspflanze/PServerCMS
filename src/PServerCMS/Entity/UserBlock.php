@@ -69,7 +69,7 @@ class UserBlock
      * @param string $reason
      * @return self
      */
-    public function setReason( $reason )
+    public function setReason($reason)
     {
         $this->reason = $reason;
 
@@ -90,13 +90,13 @@ class UserBlock
      * @param $expire
      * @return self
      */
-    public function setExpire( $expire )
+    public function setExpire($expire)
     {
         if (!$expire instanceof \DateTime) {
-            if (is_integer( $expire )) {
-                $expire = DateTimer::getDateTime4TimeStamp( $expire );
+            if (is_integer($expire)) {
+                $expire = DateTimer::getDateTime4TimeStamp($expire);
             } else {
-                $expire = new \DateTime( $expire );
+                $expire = new \DateTime($expire);
             }
         }
         $this->expire = $expire;
@@ -118,7 +118,7 @@ class UserBlock
      * @param \DateTime $created
      * @return self
      */
-    public function setCreated( $created )
+    public function setCreated($created)
     {
         $this->created = $created;
 
@@ -138,7 +138,7 @@ class UserBlock
      * @param UserInterface $user
      * @return $this
      */
-    public function setUser( UserInterface $user )
+    public function setUser(UserInterface $user)
     {
         $this->user = $user;
 

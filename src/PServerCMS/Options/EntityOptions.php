@@ -117,7 +117,7 @@ class EntityOptions extends AbstractOptions
      *
      * @return EntityOptions
      */
-    public function setAvailableCountries( $availableCountries )
+    public function setAvailableCountries($availableCountries)
     {
         $this->availableCountries = $availableCountries;
         return $this;
@@ -136,7 +136,7 @@ class EntityOptions extends AbstractOptions
      *
      * @return EntityOptions
      */
-    public function setCountryList( $countryList )
+    public function setCountryList($countryList)
     {
         $this->countryList = $countryList;
         return $this;
@@ -155,7 +155,7 @@ class EntityOptions extends AbstractOptions
      *
      * @return EntityOptions
      */
-    public function setDonateLog( $donateLog )
+    public function setDonateLog($donateLog)
     {
         $this->donateLog = $donateLog;
         return $this;
@@ -174,7 +174,7 @@ class EntityOptions extends AbstractOptions
      *
      * @return EntityOptions
      */
-    public function setDownloadList( $downloadList )
+    public function setDownloadList($downloadList)
     {
         $this->downloadList = $downloadList;
         return $this;
@@ -193,7 +193,7 @@ class EntityOptions extends AbstractOptions
      *
      * @return EntityOptions
      */
-    public function setIpBlock( $ipBlock )
+    public function setIpBlock($ipBlock)
     {
         $this->ipBlock = $ipBlock;
         return $this;
@@ -212,7 +212,7 @@ class EntityOptions extends AbstractOptions
      *
      * @return EntityOptions
      */
-    public function setLoginFailed( $loginFailed )
+    public function setLoginFailed($loginFailed)
     {
         $this->loginFailed = $loginFailed;
         return $this;
@@ -231,7 +231,7 @@ class EntityOptions extends AbstractOptions
      *
      * @return EntityOptions
      */
-    public function setLoginHistory( $loginHistory )
+    public function setLoginHistory($loginHistory)
     {
         $this->loginHistory = $loginHistory;
         return $this;
@@ -250,7 +250,7 @@ class EntityOptions extends AbstractOptions
      *
      * @return EntityOptions
      */
-    public function setLogs( $logs )
+    public function setLogs($logs)
     {
         $this->logs = $logs;
         return $this;
@@ -269,7 +269,7 @@ class EntityOptions extends AbstractOptions
      *
      * @return EntityOptions
      */
-    public function setNews( $news )
+    public function setNews($news)
     {
         $this->news = $news;
         return $this;
@@ -288,7 +288,7 @@ class EntityOptions extends AbstractOptions
      *
      * @return EntityOptions
      */
-    public function setPageInfo( $pageInfo )
+    public function setPageInfo($pageInfo)
     {
         $this->pageInfo = $pageInfo;
         return $this;
@@ -307,7 +307,7 @@ class EntityOptions extends AbstractOptions
      *
      * @return EntityOptions
      */
-    public function setPlayerHistory( $playerHistory )
+    public function setPlayerHistory($playerHistory)
     {
         $this->playerHistory = $playerHistory;
         return $this;
@@ -326,7 +326,7 @@ class EntityOptions extends AbstractOptions
      *
      * @return EntityOptions
      */
-    public function setSecretAnswer( $secretAnswer )
+    public function setSecretAnswer($secretAnswer)
     {
         $this->secretAnswer = $secretAnswer;
         return $this;
@@ -345,7 +345,7 @@ class EntityOptions extends AbstractOptions
      *
      * @return EntityOptions
      */
-    public function setSecretQuestion( $secretQuestion )
+    public function setSecretQuestion($secretQuestion)
     {
         $this->secretQuestion = $secretQuestion;
         return $this;
@@ -364,7 +364,7 @@ class EntityOptions extends AbstractOptions
      *
      * @return EntityOptions
      */
-    public function setServerInfo( $serverInfo )
+    public function setServerInfo($serverInfo)
     {
         $this->serverInfo = $serverInfo;
         return $this;
@@ -383,7 +383,7 @@ class EntityOptions extends AbstractOptions
      *
      * @return EntityOptions
      */
-    public function setUserBlock( $userBlock )
+    public function setUserBlock($userBlock)
     {
         $this->userBlock = $userBlock;
         return $this;
@@ -402,7 +402,7 @@ class EntityOptions extends AbstractOptions
      *
      * @return EntityOptions
      */
-    public function setUserCodes( $userCodes )
+    public function setUserCodes($userCodes)
     {
         $this->userCodes = $userCodes;
         return $this;
@@ -421,7 +421,7 @@ class EntityOptions extends AbstractOptions
      *
      * @return EntityOptions
      */
-    public function setUserExtension( $userExtension )
+    public function setUserExtension($userExtension)
     {
         $this->userExtension = $userExtension;
         return $this;
@@ -440,7 +440,7 @@ class EntityOptions extends AbstractOptions
      *
      * @return EntityOptions
      */
-    public function setUserRole( $userRole )
+    public function setUserRole($userRole)
     {
         $this->userRole = $userRole;
         return $this;
@@ -459,7 +459,7 @@ class EntityOptions extends AbstractOptions
      *
      * @return EntityOptions
      */
-    public function setUser( $user )
+    public function setUser($user)
     {
         $this->user = $user;
         return $this;

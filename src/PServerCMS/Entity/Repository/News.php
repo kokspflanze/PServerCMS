@@ -9,28 +9,28 @@ use Doctrine\ORM\EntityRepository;
  */
 class News extends EntityRepository
 {
-	/**
-	 * @param $limit
-	 *
-	 * @return \PServerCMS\Entity\News[]
-	 */
-	public function getActiveNews( $limit = null )
+    /**
+     * @param $limit
+     *
+     * @return \PServerCMS\Entity\News[]
+     */
+    public function getActiveNews($limit = null)
     {
-		$query = $this->createQueryBuilder('p')
-			->select('p')
-			->where('p.active = :active')
-			->setParameter('active', '1')
-			->orderBy('p.created','desc')
-			->getQuery();
+        $query = $this->createQueryBuilder('p')
+            ->select('p')
+            ->where('p.active = :active')
+            ->setParameter('active', '1')
+            ->orderBy('p.created', 'desc')
+            ->getQuery();
 
-		if(!$limit){
-			$limit = 5;
-		}
+        if (!$limit) {
+            $limit = 5;
+        }
 
-		$query = $query->setMaxResults($limit);
+        $query = $query->setMaxResults($limit);
 
-		return $query->getResult();
-	}
+        return $query->getResult();
+    }
 
     /**
      * @return null|\PServerCMS\Entity\News[]
@@ -50,22 +50,22 @@ class News extends EntityRepository
         return $this->createQueryBuilder('p')
             ->select('p', 'user')
             ->join('p.user', 'user')
-            ->orderBy('p.created','desc');
+            ->orderBy('p.created', 'desc');
     }
 
-	/**
-	 * @param $newsId
-	 *
-	 * @return null|\PServerCMS\Entity\News
-	 */
-	public function getNews4Id( $newsId )
+    /**
+     * @param $newsId
+     *
+     * @return null|\PServerCMS\Entity\News
+     */
+    public function getNews4Id($newsId)
     {
-		$query = $this->createQueryBuilder('p')
-			->select('p')
-			->where('p.id = :newsId')
-			->setParameter('newsId', $newsId)
-			->getQuery();
+        $query = $this->createQueryBuilder('p')
+            ->select('p')
+            ->where('p.id = :newsId')
+            ->setParameter('newsId', $newsId)
+            ->getQuery();
 
-		return $query->getOneOrNullResult();
-	}
+        return $query->getOneOrNullResult();
+    }
 }

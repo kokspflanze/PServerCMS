@@ -2,10 +2,10 @@
 
 namespace PServerCMS\Entity\Repository;
 
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 
-class AvailableCountries extends EntityRepository{
+class AvailableCountries extends EntityRepository
+{
 
     /**
      * @param $userId
@@ -13,7 +13,8 @@ class AvailableCountries extends EntityRepository{
      *
      * @return bool
      */
-    public function isCountryAllowedForUser($userId, $country){
+    public function isCountryAllowedForUser($userId, $country)
+    {
 
         $query = $this->createQueryBuilder('p')
             ->select('p')
@@ -24,9 +25,9 @@ class AvailableCountries extends EntityRepository{
         $data = $query->getResult();
         $return = false;
 
-        foreach($data as $availableCountries){
+        foreach ($data as $availableCountries) {
             /** @var \PServerCMS\Entity\AvailableCountries $availableCountries */
-            if($availableCountries->getCntry() == $country){
+            if ($availableCountries->getCntry() == $country) {
                 $return = true;
                 break;
             }

@@ -12,9 +12,9 @@ class ChangePwd extends ProvidesEventsForm
     {
         parent::__construct();
 
-		$this->add([
-			'type' => 'Zend\Form\Element\Csrf',
-			'name' => 'eugzhoe45gh3o49ug2wrtu7gz50'
+        $this->add([
+            'type' => 'Zend\Form\Element\Csrf',
+            'name' => 'eugzhoe45gh3o49ug2wrtu7gz50'
         ]);
 
         $this->add([
@@ -49,7 +49,7 @@ class ChangePwd extends ProvidesEventsForm
             ->setLabel('Save')
             ->setAttributes([
                 'class' => 'btn btn-primary',
-                'type'  => 'submit',
+                'type' => 'submit',
             ]);
 
         $this->add($submitElement, [

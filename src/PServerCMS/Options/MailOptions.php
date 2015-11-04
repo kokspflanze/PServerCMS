@@ -35,12 +35,12 @@ class MailOptions extends AbstractOptions
     protected $basic = [
         'name' => 'localhost',
         'host' => 'smtp.example.com',
-        'port'=> 587,
+        'port' => 587,
         'connection_class' => 'login',
         'connection_config' => [
             'username' => 'put your username',
             'password' => 'put your password',
-            'ssl'=> 'tls',
+            'ssl' => 'tls',
         ],
     ];
 
@@ -56,7 +56,7 @@ class MailOptions extends AbstractOptions
      * @param string $from
      * @return MailOptions
      */
-    public function setFrom( $from )
+    public function setFrom($from)
     {
         $this->from = $from;
 
@@ -75,7 +75,7 @@ class MailOptions extends AbstractOptions
      * @param string $fromName
      * @return MailOptions
      */
-    public function setFromName( $fromName )
+    public function setFromName($fromName)
     {
         $this->fromName = $fromName;
 
@@ -94,7 +94,7 @@ class MailOptions extends AbstractOptions
      * @param array $subject
      * @return MailOptions
      */
-    public function setSubject( $subject )
+    public function setSubject($subject)
     {
         $this->subject = $subject;
 
@@ -113,7 +113,7 @@ class MailOptions extends AbstractOptions
      * @param array $basic
      * @return MailOptions
      */
-    public function setBasic( $basic )
+    public function setBasic($basic)
     {
         $this->basic = $basic;
 

@@ -59,7 +59,7 @@ class LoginHistory
      * @param string $ip
      * @return self
      */
-    public function setIp( $ip )
+    public function setIp($ip)
     {
         $this->ip = $ip;
 
@@ -80,7 +80,7 @@ class LoginHistory
      * @param \DateTime $created
      * @return self
      */
-    public function setCreated( $created )
+    public function setCreated($created)
     {
         $this->created = $created;
 
@@ -101,7 +101,7 @@ class LoginHistory
      * @param UserInterface $user
      * @return self
      */
-    public function setUser( UserInterface $user = null )
+    public function setUser(UserInterface $user = null)
     {
         $this->user = $user;
 

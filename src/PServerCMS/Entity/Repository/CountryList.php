@@ -16,9 +16,9 @@ class CountryList extends EntityRepository
      *
      * @return \PServerCMS\Entity\CountryList
      */
-    public function getCountryCode4Ip( $decimalIp )
+    public function getCountryCode4Ip($decimalIp)
     {
-        $query  = $this->createQueryBuilder('p')
+        $query = $this->createQueryBuilder('p')
             ->select('p')
             ->where('p.ipMin <= :ip')
             ->andWhere('p.ipMax >= :ip')
@@ -27,7 +27,7 @@ class CountryList extends EntityRepository
 
         /** @var \PServerCMS\Entity\CountryList $result */
         $result = $query->getOneOrNullResult();
-        if(!$result){
+        if (!$result) {
             return 'ZZZ';
         }
         return $result->getCntry();
@@ -38,7 +38,8 @@ class CountryList extends EntityRepository
      *
      * @return string
      */
-    public function getDescription4CountryCode( $cntry ) {
+    public function getDescription4CountryCode($cntry)
+    {
 
         $query = $this->createQueryBuilder('p')
             ->select('p')
@@ -50,10 +51,10 @@ class CountryList extends EntityRepository
         /** @var \PServerCMS\Entity\CountryList $result */
         $result = $query->getOneOrNullResult();
 
-		// no country found
-		if(!$result){
-			return 'ZZZ';
-		}
+        // no country found
+        if (!$result) {
+            return 'ZZZ';
+        }
 
         return $result->getCountry();
     }

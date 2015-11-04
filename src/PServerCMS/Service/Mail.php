@@ -3,15 +3,15 @@
 namespace PServerCMS\Service;
 
 
-use ZfcTicketSystem\Entity\TicketEntry;
-use ZfcTicketSystem\Entity\TicketSubject;
 use PServerCMS\Entity\UserInterface;
+use Zend\Mail\Message;
 use Zend\Mail\Transport\Smtp;
 use Zend\Mail\Transport\SmtpOptions;
-use Zend\Mime\Part;
 use Zend\Mime\Message as MimeMessage;
+use Zend\Mime\Part;
 use Zend\View\Model\ViewModel;
-use Zend\Mail\Message;
+use ZfcTicketSystem\Entity\TicketEntry;
+use ZfcTicketSystem\Entity\TicketSubject;
 
 class Mail extends InvokableBase
 {

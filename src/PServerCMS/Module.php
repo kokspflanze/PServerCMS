@@ -145,6 +145,11 @@ class Module
                     $form->setInputFilter(new Form\ChangePwdFilter($sm));
                     return $form;
                 },
+                'pserver_user_add_mail_form' => function ($sm) {
+                    $form = new Form\AddEmail();
+                    $form->setInputFilter(new Form\AddEmailFilter($sm));
+                    return $form;
+                },
                 'pserver_entity_options' => function ($sm) {
                     /** @var $sm \Zend\ServiceManager\ServiceLocatorInterface */
                     $config = $sm->get('Configuration');

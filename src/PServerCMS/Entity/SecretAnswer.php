@@ -63,7 +63,7 @@ class SecretAnswer
      * @param string $answer
      * @return SecretAnswer
      */
-    public function setAnswer( $answer )
+    public function setAnswer($answer)
     {
         $this->answer = $answer;
 
@@ -82,7 +82,7 @@ class SecretAnswer
      * @param SecretQuestion $question
      * @return SecretAnswer
      */
-    public function setQuestion( SecretQuestion $question )
+    public function setQuestion(SecretQuestion $question)
     {
         $this->question = $question;
 
@@ -101,7 +101,7 @@ class SecretAnswer
      * @param UserInterface $user
      * @return SecretAnswer
      */
-    public function setUser( UserInterface $user )
+    public function setUser(UserInterface $user)
     {
         $this->user = $user;
 

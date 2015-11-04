@@ -65,7 +65,7 @@ class Logs
      * @param string $topic
      * @return Logs
      */
-    public function setTopic( $topic )
+    public function setTopic($topic)
     {
         $this->topic = $topic;
 
@@ -86,9 +86,9 @@ class Logs
      * @param string $memo
      * @return Logs
      */
-    public function setMemo( $memo )
+    public function setMemo($memo)
     {
-        $memo       = is_array( $memo ) ? json_encode( $memo ) : $memo;
+        $memo = is_array($memo) ? json_encode($memo) : $memo;
         $this->memo = $memo;
 
         return $this;
@@ -108,7 +108,7 @@ class Logs
      * @param \DateTime $created
      * @return Logs
      */
-    public function setCreated( $created )
+    public function setCreated($created)
     {
         $this->created = $created;
 
@@ -129,7 +129,7 @@ class Logs
      * @param UserInterface $user
      * @return Logs
      */
-    public function setUser( UserInterface $user = null )
+    public function setUser(UserInterface $user = null)
     {
         $this->user = $user;
 

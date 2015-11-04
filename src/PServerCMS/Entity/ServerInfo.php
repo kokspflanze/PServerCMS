@@ -58,15 +58,15 @@ class ServerInfo
     public function preFlush()
     {
         /** @var \PServerCMS\Service\CachingHelper $cachingHelperService */
-        $cachingHelperService = ServiceManager::getInstance()->get( 'pserver_cachinghelper_service' );
-        $cachingHelperService->delItem( Caching::SERVER_INFO );
+        $cachingHelperService = ServiceManager::getInstance()->get('pserver_cachinghelper_service');
+        $cachingHelperService->delItem(Caching::SERVER_INFO);
     }
 
     /**
      * @param string $active
      * @return ServerInfo
      */
-    public function setActive( $active )
+    public function setActive($active)
     {
         $this->active = $active;
 
@@ -85,7 +85,7 @@ class ServerInfo
      * @param string $icon
      * @return ServerInfo
      */
-    public function setIcon( $icon )
+    public function setIcon($icon)
     {
         $this->icon = $icon;
 
@@ -112,7 +112,7 @@ class ServerInfo
      * @param string $label
      * @return ServerInfo
      */
-    public function setLabel( $label )
+    public function setLabel($label)
     {
         $this->label = $label;
 
@@ -131,7 +131,7 @@ class ServerInfo
      * @param string $memo
      * @return ServerInfo
      */
-    public function setMemo( $memo )
+    public function setMemo($memo)
     {
         $this->memo = $memo;
 
@@ -150,7 +150,7 @@ class ServerInfo
      * @param int $sortKey
      * @return ServerInfo
      */
-    public function setSortKey( $sortKey )
+    public function setSortKey($sortKey)
     {
         $this->sortKey = $sortKey;
 

@@ -3,8 +3,8 @@
 namespace PServerCMS\Service;
 
 
-use PServerCMS\Entity\Userblock as UserBlockEntity;
 use PServerAdmin\Mapper\HydratorUserBlock;
+use PServerCMS\Entity\Userblock as UserBlockEntity;
 use PServerCMS\Entity\UserInterface;
 
 class UserBlock extends InvokableBase

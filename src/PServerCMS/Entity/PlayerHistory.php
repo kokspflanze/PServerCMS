@@ -3,7 +3,6 @@
 namespace PServerCMS\Entity;
 
 
-use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use PServerCMS\Keys\Caching;
 use PServerCMS\Service\ServiceManager;
@@ -48,8 +47,8 @@ class PlayerHistory
     public function preFlush()
     {
         /** @var \PServerCMS\Service\CachingHelper $cachingHelperService */
-        $cachingHelperService = ServiceManager::getInstance()->get( 'pserver_cachinghelper_service' );
-        $cachingHelperService->delItem( Caching::PLAYER_HISTORY );
+        $cachingHelperService = ServiceManager::getInstance()->get('pserver_cachinghelper_service');
+        $cachingHelperService->delItem(Caching::PLAYER_HISTORY);
     }
 
     /**
@@ -72,7 +71,7 @@ class PlayerHistory
      * @param int $player
      * @return PlayerHistory
      */
-    public function setPlayer( $player )
+    public function setPlayer($player)
     {
         $this->player = $player;
 
@@ -91,7 +90,7 @@ class PlayerHistory
      * @param \DateTime $created
      * @return PlayerHistory
      */
-    public function setCreated( $created )
+    public function setCreated($created)
     {
         $this->created = $created;
 

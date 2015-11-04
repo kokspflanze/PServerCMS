@@ -5,10 +5,10 @@ namespace PServerCMS\Form;
 use PServerCMS\Helper\HelperBasic;
 use PServerCMS\Helper\HelperOptions;
 use PServerCMS\Helper\HelperService;
-use ZfcBase\InputFilter\ProvidesEventsInputFilter;
-use PServerCMS\Validator\AbstractRecord;
 use PServerCMS\Validator;
+use PServerCMS\Validator\AbstractRecord;
 use Zend\ServiceManager\ServiceManager;
+use ZfcBase\InputFilter\ProvidesEventsInputFilter;
 
 class RegisterFilter extends ProvidesEventsInputFilter
 {

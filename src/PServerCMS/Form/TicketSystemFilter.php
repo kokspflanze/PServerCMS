@@ -3,22 +3,22 @@
 
 namespace PServerCMS\Form;
 
-use ZfcBBCode\Validator\BBCodeValid;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use ZfcBBCode\Validator\BBCodeValid;
 
 class TicketSystemFilter extends \ZfcTicketSystem\Form\TicketSystemFilter
 {
     /**
      * @param ServiceLocatorInterface $sm
      */
-    public function __construct( ServiceLocatorInterface $sm )
+    public function __construct(ServiceLocatorInterface $sm)
     {
-        parent::__construct( $sm );
+        parent::__construct($sm);
 
-        $memo = $this->get( 'memo' );
+        $memo = $this->get('memo');
         $validatorChain = $memo->getValidatorChain();
-        $validatorChain->attach( new BBCodeValid( $sm ) );
+        $validatorChain->attach(new BBCodeValid($sm));
 
-        $memo->setValidatorChain( $validatorChain );
+        $memo->setValidatorChain($validatorChain);
     }
 }

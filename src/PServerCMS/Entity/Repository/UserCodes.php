@@ -10,52 +10,52 @@ use Doctrine\ORM\EntityRepository;
 class UserCodes extends EntityRepository
 {
 
-	/**
-	 * @param $code
-	 * @param $type
-	 *
-	 * @return null|\PServerCMS\Entity\UserCodes
-	 */
-	public function getData4CodeType($code, $type)
+    /**
+     * @param $code
+     * @param $type
+     *
+     * @return null|\PServerCMS\Entity\UserCodes
+     */
+    public function getData4CodeType($code, $type)
     {
-		$query = $this->createQueryBuilder('p')
-			->select('p')
-			->where('p.code = :code')
-			->setParameter('code', $code)
-			->andWhere('p.expire >= :expire')
-			->setParameter('expire', new \DateTime())
-			->andWhere('p.type = :type')
-			->setParameter('type', $type)
-			->getQuery();
+        $query = $this->createQueryBuilder('p')
+            ->select('p')
+            ->where('p.code = :code')
+            ->setParameter('code', $code)
+            ->andWhere('p.expire >= :expire')
+            ->setParameter('expire', new \DateTime())
+            ->andWhere('p.type = :type')
+            ->setParameter('type', $type)
+            ->getQuery();
 
-		return $query->getOneOrNullResult();
-	}
+        return $query->getOneOrNullResult();
+    }
 
-	/**
-	 * @param $userId
-	 * @param $type
-	 *
-	 * @return mixed
-	 */
-	public function deleteCodes4User($userId, $type)
+    /**
+     * @param $userId
+     * @param $type
+     *
+     * @return mixed
+     */
+    public function deleteCodes4User($userId, $type)
     {
-		$query = $this->createQueryBuilder('p')
-			->delete($this->getEntityName(), 'p')
-			->where('p.user = :user_id')
-			->setParameter('user_id', $userId)
-			->andWhere('p.type = :type')
-			->setParameter('type', $type)
-			->getQuery();
+        $query = $this->createQueryBuilder('p')
+            ->delete($this->getEntityName(), 'p')
+            ->where('p.user = :user_id')
+            ->setParameter('user_id', $userId)
+            ->andWhere('p.type = :type')
+            ->setParameter('type', $type)
+            ->getQuery();
 
-		return $query->execute();
-	}
+        return $query->execute();
+    }
 
     /**
      * @param $code
      *
      * @return null|\PServerCMS\Entity\UserCodes
      */
-    public function getCode( $code )
+    public function getCode($code)
     {
         return $this->findOneBy(['code' => $code]);
     }
@@ -65,7 +65,7 @@ class UserCodes extends EntityRepository
      *
      * @return \PServerCMS\Entity\UserCodes[]
      */
-    public function getExpiredCodes( $limit = 100 )
+    public function getExpiredCodes($limit = 100)
     {
         $query = $this->createQueryBuilder('p')
             ->select('p')

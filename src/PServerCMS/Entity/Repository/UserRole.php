@@ -18,7 +18,7 @@ class UserRole extends \SmallUser\Entity\Repository\UserRole
      * @param $id
      * @return \PServerCMS\Entity\UserRoleInterface|null
      */
-    public function getRole4Id( $id )
+    public function getRole4Id($id)
     {
         return $this->findOneBy(['id' => $id]);
     }

@@ -59,8 +59,8 @@ class UserCodes
     public function __construct()
     {
         $this->created = new \DateTime();
-        $dateTime      = new \DateTime();
-        $this->expire  = $dateTime->setTimestamp( time() + static::EXPIRE_DEFAULT );
+        $dateTime = new \DateTime();
+        $this->expire = $dateTime->setTimestamp(time() + static::EXPIRE_DEFAULT);
     }
 
     /**
@@ -68,7 +68,7 @@ class UserCodes
      * @param string $sCode
      * @return self
      */
-    public function setCode( $sCode )
+    public function setCode($sCode)
     {
         $this->code = $sCode;
 
@@ -89,7 +89,7 @@ class UserCodes
      * @param string $type
      * @return self
      */
-    public function setType( $type )
+    public function setType($type)
     {
         $this->type = $type;
 
@@ -110,7 +110,7 @@ class UserCodes
      * @param \DateTime $expire
      * @return self
      */
-    public function setExpire( \DateTime $expire )
+    public function setExpire(\DateTime $expire)
     {
         $this->expire = $expire;
 
@@ -131,7 +131,7 @@ class UserCodes
      * @param \DateTime $created
      * @return self
      */
-    public function setCreated( \DateTime $created )
+    public function setCreated(\DateTime $created)
     {
         $this->created = $created;
 
@@ -152,7 +152,7 @@ class UserCodes
      * @param UserInterface $user
      * @return self
      */
-    public function setUser( UserInterface $user = null )
+    public function setUser(UserInterface $user = null)
     {
         $this->user = $user;
 

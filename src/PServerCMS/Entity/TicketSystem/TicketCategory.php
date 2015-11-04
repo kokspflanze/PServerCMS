@@ -41,7 +41,7 @@ class TicketCategory extends \ZfcTicketSystem\Entity\TicketCategory
      * @param $id
      * @return $this
      */
-    public function setId( $id )
+    public function setId($id)
     {
         $this->id = $id;
 
@@ -62,7 +62,7 @@ class TicketCategory extends \ZfcTicketSystem\Entity\TicketCategory
      * @param string $subject
      * @return TicketCategory
      */
-    public function setSubject( $subject )
+    public function setSubject($subject)
     {
         $this->subject = $subject;
 
@@ -83,7 +83,7 @@ class TicketCategory extends \ZfcTicketSystem\Entity\TicketCategory
      * @param integer $sortKey
      * @return TicketCategory
      */
-    public function setSortKey( $sortKey )
+    public function setSortKey($sortKey)
     {
         $this->sortKey = $sortKey;
 
@@ -104,9 +104,9 @@ class TicketCategory extends \ZfcTicketSystem\Entity\TicketCategory
      * @param string $active
      * @return TicketCategory
      */
-    public function setActive( $active )
+    public function setActive($active)
     {
-        $this->active = (string) $active;
+        $this->active = (string)$active;
 
         return $this;
     }

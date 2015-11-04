@@ -24,7 +24,7 @@ class Logs extends EntityRepository
     /**
      * @param UserInterface $users
      */
-    public function setLogsNull4User( UserInterface $user )
+    public function setLogsNull4User(UserInterface $user)
     {
         $query = $this->createQueryBuilder('p')
             ->update()

@@ -65,7 +65,7 @@ class AvailableCountries
      * @param string $cntry
      * @return self
      */
-    public function setCntry( $cntry )
+    public function setCntry($cntry)
     {
         $this->cntry = $cntry;
 
@@ -86,7 +86,7 @@ class AvailableCountries
      * @param string $active
      * @return self
      */
-    public function setActive( $active )
+    public function setActive($active)
     {
         $this->active = $active;
 
@@ -107,7 +107,7 @@ class AvailableCountries
      * @param \DateTime $created
      * @return self
      */
-    public function setCreated( $created )
+    public function setCreated($created)
     {
         $this->created = $created;
 
@@ -128,7 +128,7 @@ class AvailableCountries
      * @param UserInterface $user
      * @return self
      */
-    public function setUser( UserInterface $user = null )
+    public function setUser(UserInterface $user = null)
     {
         $this->user = $user;
 

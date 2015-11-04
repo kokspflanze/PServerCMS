@@ -15,21 +15,21 @@ interface UserInterface extends
      *
      * @return self
      */
-    public function setBackendId( $backendId );
+    public function setBackendId($backendId);
 
     /**
      * @param UserRoleInterface $userRole
      *
      * @return self
      */
-    public function addUserRole( UserRoleInterface $userRole);
+    public function addUserRole(UserRoleInterface $userRole);
 
     /**
      * @param UserRoleInterface $userRole
      *
      * @return self
      */
-    public function removeUserRole( UserRoleInterface $userRole);
+    public function removeUserRole(UserRoleInterface $userRole);
 
     /**
      * @return \Doctrine\Common\Collections\Collection|UserRoleInterface[]

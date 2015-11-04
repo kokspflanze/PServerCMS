@@ -3,8 +3,8 @@
 namespace PServerCMS\Service;
 
 use PServerAdmin\Mapper\HydratorSecretQuestion;
-use PServerCMS\Entity\UserInterface;
 use PServerCMS\Entity\SecretQuestion as Entity;
+use PServerCMS\Entity\UserInterface;
 
 class SecretQuestion extends InvokableBase
 {

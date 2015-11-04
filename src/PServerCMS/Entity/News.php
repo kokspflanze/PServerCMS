@@ -61,8 +61,8 @@ class News
     public function preFlush()
     {
         /** @var \PServerCMS\Service\CachingHelper $cachingHelperService */
-        $cachingHelperService = ServiceManager::getInstance()->get( 'pserver_cachinghelper_service' );
-        $cachingHelperService->delItem( Caching::NEWS );
+        $cachingHelperService = ServiceManager::getInstance()->get('pserver_cachinghelper_service');
+        $cachingHelperService->delItem(Caching::NEWS);
     }
 
     public function __construct()
@@ -83,7 +83,7 @@ class News
      * @param $id
      * @return News
      */
-    public function setId( $id )
+    public function setId($id)
     {
         $this->id = $id;
 
@@ -95,7 +95,7 @@ class News
      * @param string $title
      * @return News
      */
-    public function setTitle( $title )
+    public function setTitle($title)
     {
         $this->title = $title;
 
@@ -116,7 +116,7 @@ class News
      * @param string $memo
      * @return News
      */
-    public function setMemo( $memo )
+    public function setMemo($memo)
     {
         $this->memo = $memo;
 
@@ -137,7 +137,7 @@ class News
      * @param string $active
      * @return News
      */
-    public function setActive( $active )
+    public function setActive($active)
     {
         $this->active = $active;
 
@@ -158,7 +158,7 @@ class News
      * @param \DateTime $created
      * @return News
      */
-    public function setCreated( $created )
+    public function setCreated($created)
     {
         $this->created = $created;
 
@@ -179,7 +179,7 @@ class News
      * @param UserInterface $user
      * @return News
      */
-    public function setUser( UserInterface $user = null )
+    public function setUser(UserInterface $user = null)
     {
         $this->user = $user;
 

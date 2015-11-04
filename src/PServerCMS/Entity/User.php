@@ -4,7 +4,6 @@ namespace PServerCMS\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use PServerCMS\Service\ServiceManager;
-use Zend\Crypt\Password\Bcrypt;
 
 /**
  * User
@@ -75,9 +74,9 @@ class User implements UserInterface
      */
     public function __construct()
     {
-        $this->userRole      = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->userRole = new \Doctrine\Common\Collections\ArrayCollection();
         $this->userExtension = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->created       = new \DateTime();
+        $this->created = new \DateTime();
     }
 
     /**
@@ -92,7 +91,7 @@ class User implements UserInterface
      * @param int $usrId
      * @return User
      */
-    public function setId( $usrId )
+    public function setId($usrId)
     {
         $this->usrId = $usrId;
 
@@ -111,7 +110,7 @@ class User implements UserInterface
      * @param $backendId
      * @return $this
      */
-    public function setBackendId( $backendId )
+    public function setBackendId($backendId)
     {
         $this->backendId = $backendId;
 
@@ -123,7 +122,7 @@ class User implements UserInterface
      * @param string $username
      * @return User
      */
-    public function setUsername( $username )
+    public function setUsername($username)
     {
         $this->username = $username;
 
@@ -144,7 +143,7 @@ class User implements UserInterface
      * @param string $password
      * @return User
      */
-    public function setPassword( $password )
+    public function setPassword($password)
     {
         $this->password = $password;
 
@@ -165,7 +164,7 @@ class User implements UserInterface
      * @param string $email
      * @return User
      */
-    public function setEmail( $email )
+    public function setEmail($email)
     {
         $this->email = $email;
 
@@ -186,7 +185,7 @@ class User implements UserInterface
      * @param string $createIp
      * @return User
      */
-    public function setCreateIp( $createIp )
+    public function setCreateIp($createIp)
     {
         $this->createip = $createIp;
 
@@ -207,7 +206,7 @@ class User implements UserInterface
      * @param \DateTime $created
      * @return User
      */
-    public function setCreated( $created )
+    public function setCreated($created)
     {
         $this->created = $created;
 
@@ -228,7 +227,7 @@ class User implements UserInterface
      * @param UserRoleInterface $userRole
      * @return User
      */
-    public function addUserRole( UserRoleInterface $userRole )
+    public function addUserRole(UserRoleInterface $userRole)
     {
         $this->userRole[] = $userRole;
 
@@ -240,9 +239,9 @@ class User implements UserInterface
      * @param UserRoleInterface $userRole
      * @return self
      */
-    public function removeUserRole( UserRoleInterface $userRole )
+    public function removeUserRole(UserRoleInterface $userRole)
     {
-        $this->userRole->removeElement( $userRole );
+        $this->userRole->removeElement($userRole);
 
         return $this;
     }
@@ -269,7 +268,7 @@ class User implements UserInterface
      * @param UserExtension $userExtension
      * @return self
      */
-    public function addUserExtension( $userExtension )
+    public function addUserExtension($userExtension)
     {
         $this->userExtension[] = $userExtension;
 
@@ -281,9 +280,9 @@ class User implements UserInterface
      * @param UserExtension $userExtension
      * @return self
      */
-    public function removeUserExtension( $userExtension )
+    public function removeUserExtension($userExtension)
     {
-        $this->userExtension->removeElement( $userExtension );
+        $this->userExtension->removeElement($userExtension);
 
         return $this;
     }
@@ -301,10 +300,10 @@ class User implements UserInterface
      * @param               $plaintext
      * @return bool
      */
-    public static function hashPassword( $entity, $plaintext )
+    public static function hashPassword($entity, $plaintext)
     {
         /** @var \PServerCMS\Service\User $userService */
-        $userService = ServiceManager::getInstance()->get( 'small_user_service' );
+        $userService = ServiceManager::getInstance()->get('small_user_service');
 
         return $userService->hashPassword($entity, $plaintext);
     }

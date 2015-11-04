@@ -76,7 +76,7 @@ class CountryList
      * @param integer $ipMin
      * @return CountryList
      */
-    public function setIpMin( $ipMin )
+    public function setIpMin($ipMin)
     {
         $this->ipMin = $ipMin;
 
@@ -97,7 +97,7 @@ class CountryList
      * @param integer $ipMax
      * @return CountryList
      */
-    public function setIpMax( $ipMax )
+    public function setIpMax($ipMax)
     {
         $this->ipMax = $ipMax;
 
@@ -118,7 +118,7 @@ class CountryList
      * @param string $registry
      * @return CountryList
      */
-    public function setRegistry( $registry )
+    public function setRegistry($registry)
     {
         $this->registry = $registry;
 
@@ -139,7 +139,7 @@ class CountryList
      * @param integer $assigned
      * @return CountryList
      */
-    public function setAssigned( $assigned )
+    public function setAssigned($assigned)
     {
         $this->assigned = $assigned;
 
@@ -160,7 +160,7 @@ class CountryList
      * @param string $ctry
      * @return CountryList
      */
-    public function setCtry( $ctry )
+    public function setCtry($ctry)
     {
         $this->ctry = $ctry;
 
@@ -181,7 +181,7 @@ class CountryList
      * @param string $cntry
      * @return CountryList
      */
-    public function setCntry( $cntry )
+    public function setCntry($cntry)
     {
         $this->cntry = $cntry;
 
@@ -202,7 +202,7 @@ class CountryList
      * @param string $country
      * @return CountryList
      */
-    public function setCountry( $country )
+    public function setCountry($country)
     {
         $this->country = $country;
 
