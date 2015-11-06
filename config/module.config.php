@@ -104,7 +104,6 @@ return [
             },
         ],
         'invokables' => [
-            'small_user_service' => 'PServerCMS\Service\User',
             'pserver_mail_service' => 'PServerCMS\Service\Mail',
             'pserver_download_service' => 'PServerCMS\Service\Download',
             'pserver_server_info_service' => 'PServerCMS\Service\ServerInfo',
@@ -115,7 +114,6 @@ return [
             'pserver_playerhistory_service' => 'PServerCMS\Service\PlayerHistory',
             'pserver_donate_service' => 'PServerCMS\Service\Donate',
             'pserver_cachinghelper_service' => 'PServerCMS\Service\CachingHelper',
-            'payment_api_log_service' => 'PServerCMS\Service\PaymentNotify',
             'pserver_user_block_service' => 'PServerCMS\Service\UserBlock',
             'pserver_secret_question' => 'PServerCMS\Service\SecretQuestion',
             'pserver_log_service' => 'PServerCMS\Service\Logs',
@@ -124,6 +122,9 @@ return [
             'pserver_login_history_service' => 'PServerCMS\Service\LoginHistory',
             'pserver_coin_service' => 'PServerCMS\Service\Coin',
             'pserver_timer_service' => 'PServerCMS\Service\Timer',
+            'pserver_add_email_service' => 'PServerCMS\Service\AddEmail',
+            'small_user_service' => 'PServerCMS\Service\User',
+            'payment_api_log_service' => 'PServerCMS\Service\PaymentNotify',
             'payment_api_ip_service' => 'PServerCMS\Service\Ip',
             'zfcticketsystem_ticketsystem_service' => 'PServerCMS\Service\TicketSystem',
         ],
@@ -179,7 +180,7 @@ return [
             'p-server-cms/navigation' => __DIR__ . '/../view/helper/navigation.phtml',
         ],
         'template_path_stack' => [
-            __DIR__ . '/../view',
+            'p-server-cms' =>__DIR__ . '/../view',
         ],
     ],
     // Placeholder for console routes

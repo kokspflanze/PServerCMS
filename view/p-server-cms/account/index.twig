@@ -27,8 +27,8 @@
 		</div>
 	{% endif %}
 
-    <div class="col-sm-6">
-        <h4>{{ translate('Change '~ (changeWebPwdForm?'Ingame':'') ~' Password') }}</h4>
+	<div class="col-sm-6">
+		<h4>{{ translate('Change '~ (changeWebPwdForm?'Ingame':'') ~' Password') }}</h4>
 		{% if errorsInGame %}
 			<div class="alert alert-danger" role="alert">
 				{% for error in errorsInGame %}
@@ -42,7 +42,32 @@
 				{% endfor %}
 			</div>
 		{% endif %}
-        {{ formWidget(changeIngamePwdForm, 'helper/formNoLabelWidget') }}
-    </div>
+		{{ formWidget(changeIngamePwdForm, 'helper/formNoLabelWidget') }}
+	</div>
+
+	{% if changeWebPwdForm %}
+		<div class="clearfix"></div>
+	{% endif %}
+
+	{% if addEmailForm %}
+	<div class="col-sm-6">
+		<h4>{{ translate('AddEmail') }}</h4>
+		{% if errorsAddEmail %}
+			<div class="alert alert-danger" role="alert">
+				{% for error in errorsAddEmail %}
+					{{ error }}
+				{% endfor %}
+			</div>
+		{% elseif messagesAddEmail %}
+			<div class="alert alert-success" role="alert">
+				{% for message in messagesAddEmail %}
+					{{ message }}
+				{% endfor %}
+			</div>
+		{% endif %}
+		{% set a = addEmailForm.setAttribute('action', url('PServerCMS/user', {'action' : 'add-email'})) %}
+		{{ formWidget(addEmailForm, 'helper/formNoLabelWidget') }}
+	</div>
+	{% endif %}
 	<div class="clearfix"></div>
 {% endblock content %}

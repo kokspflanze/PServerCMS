@@ -19,16 +19,16 @@ class AuthController extends \SmallUser\Controller\AuthController
 
         //if already login, redirect to success page
         if ($this->getUserService()->getAuthService()->hasIdentity()) {
-            return $this->redirect()->toRoute( $this->getLoggedInRoute() );
+            return $this->redirect()->toRoute($this->getLoggedInRoute());
         }
 
         $form = $this->getUserService()->getRegisterForm();
 
         $request = $this->getRequest();
         if ($request->isPost()) {
-            $user = $this->getUserService()->register( $this->params()->fromPost() );
+            $user = $this->getUserService()->register($this->params()->fromPost());
             if ($user) {
-                return $this->redirect()->toRoute( 'small-user-auth', ['action' => 'register-done']);
+                return $this->redirect()->toRoute('small-user-auth', ['action' => 'register-done']);
             }
         }
 
@@ -52,24 +52,24 @@ class AuthController extends \SmallUser\Controller\AuthController
      */
     public function registerConfirmAction()
     {
-        $codeRoute = $this->params()->fromRoute( 'code' );
+        $codeRoute = $this->params()->fromRoute('code');
 
-        $userCode = $this->getCode4Data( $codeRoute, UserCodes::TYPE_REGISTER );
+        $userCode = $this->getCode4Data($codeRoute, UserCodes::TYPE_REGISTER);
         if (!$userCode) {
-            return $this->forward()->dispatch( 'PServerCMS\Controller\Auth', ['action' => 'wrong-code']);
+            return $this->forward()->dispatch('PServerCMS\Controller\Auth', ['action' => 'wrong-code']);
         }
 
-        $user = $this->getUserService()->registerGameWithSamePassword( $userCode );
+        $user = $this->getUserService()->registerGameWithSamePassword($userCode);
 
-        $form    = $this->getUserService()->getPasswordForm();
+        $form = $this->getUserService()->getPasswordForm();
         $request = $this->getRequest();
         if ($request->isPost() || $user) {
             if (!$user) {
-                $user = $this->getUserService()->registerGameWithOtherPw( $this->params()->fromPost(), $userCode );
+                $user = $this->getUserService()->registerGameWithOtherPw($this->params()->fromPost(), $userCode);
             }
             if ($user) {
                 //$this->getUserService()->doAuthentication($user);
-                return $this->redirect()->toRoute( $this->getLoggedInRoute() );
+                return $this->redirect()->toRoute($this->getLoggedInRoute());
             }
         }
 
@@ -80,16 +80,16 @@ class AuthController extends \SmallUser\Controller\AuthController
 
     public function ipConfirmAction()
     {
-        $code = $this->params()->fromRoute( 'code' );
+        $code = $this->params()->fromRoute('code');
 
-        $oCode = $this->getCode4Data( $code, UserCodes::TYPE_CONFIRM_COUNTRY );
+        $oCode = $this->getCode4Data($code, UserCodes::TYPE_CONFIRM_COUNTRY);
         if (!$oCode) {
-            return $this->forward()->dispatch( 'PServerCMS\Controller\Auth', ['action' => 'wrong-code']);
+            return $this->forward()->dispatch('PServerCMS\Controller\Auth', ['action' => 'wrong-code']);
         }
 
-        $user = $this->getUserService()->countryConfirm( $oCode );
+        $user = $this->getUserService()->countryConfirm($oCode);
         if ($user) {
-            return $this->redirect()->toRoute( 'small-user-auth', ['action' => 'ip-confirm-done']);
+            return $this->redirect()->toRoute('small-user-auth', ['action' => 'ip-confirm-done']);
         }
 
         return [];
@@ -107,9 +107,9 @@ class AuthController extends \SmallUser\Controller\AuthController
 
         $request = $this->getRequest();
         if ($request->isPost()) {
-            $user = $this->getUserService()->lostPw( $this->params()->fromPost() );
+            $user = $this->getUserService()->lostPw($this->params()->fromPost());
             if ($user) {
-                return $this->redirect()->toRoute( 'small-user-auth', ['action' => 'pw-lost-done']);
+                return $this->redirect()->toRoute('small-user-auth', ['action' => 'pw-lost-done']);
             }
         }
 
@@ -125,19 +125,19 @@ class AuthController extends \SmallUser\Controller\AuthController
 
     public function pwLostConfirmAction()
     {
-        $code = $this->params()->fromRoute( 'code' );
+        $code = $this->params()->fromRoute('code');
 
-        $codeEntity = $this->getCode4Data( $code, UserCodes::TYPE_LOST_PASSWORD );
+        $codeEntity = $this->getCode4Data($code, UserCodes::TYPE_LOST_PASSWORD);
         if (!$codeEntity) {
-            return $this->forward()->dispatch( 'PServerCMS\Controller\Auth', ['action' => 'wrong-code']);
+            return $this->forward()->dispatch('PServerCMS\Controller\Auth', ['action' => 'wrong-code']);
         }
         $form = $this->getUserService()->getPasswordForm();
-        $form->addSecretQuestion( $codeEntity->getUser() );
+        $form->addSecretQuestion($codeEntity->getUser());
         $request = $this->getRequest();
         if ($request->isPost()) {
-            $user = $this->getUserService()->lostPwConfirm( $this->params()->fromPost(), $codeEntity );
+            $user = $this->getUserService()->lostPwConfirm($this->params()->fromPost(), $codeEntity);
             if ($user) {
-                return $this->redirect()->toRoute( 'small-user-auth', ['action' => 'pw-lost-confirm-done']);
+                return $this->redirect()->toRoute('small-user-auth', ['action' => 'pw-lost-confirm-done']);
             }
         }
 
@@ -148,16 +148,16 @@ class AuthController extends \SmallUser\Controller\AuthController
 
     public function secretLoginAction()
     {
-        $code = $this->params()->fromRoute( 'code' );
+        $code = $this->params()->fromRoute('code');
 
-        $codeEntity = $this->getCode4Data( $code, UserCodes::TYPE_SECRET_LOGIN );
+        $codeEntity = $this->getCode4Data($code, UserCodes::TYPE_SECRET_LOGIN);
         if (!$codeEntity) {
-            return $this->forward()->dispatch( 'PServerCMS\Controller\Auth', ['action' => 'wrong-code']);
+            return $this->forward()->dispatch('PServerCMS\Controller\Auth', ['action' => 'wrong-code']);
         }
         $this->getUserService()->doAuthentication($codeEntity->getUser());
         $this->getUserCodesService()->deleteCode($codeEntity);
 
-        return $this->redirect()->toRoute( $this->getLoggedInRoute() );
+        return $this->redirect()->toRoute($this->getLoggedInRoute());
     }
 
     public function pwLostConfirmDoneAction()
@@ -170,12 +170,12 @@ class AuthController extends \SmallUser\Controller\AuthController
         return [];
     }
 
-    protected function getCode4Data( $code, $type )
+    protected function getCode4Data($code, $type)
     {
         $entityManager = $this->getEntityManager();
         /** @var $repositoryCode \PServerCMS\Entity\Repository\UserCodes */
-        $repositoryCode = $entityManager->getRepository( $this->getEntityOptions()->getUserCodes() );
-        $codeEntity     = $repositoryCode->getData4CodeType( $code, $type );
+        $repositoryCode = $entityManager->getRepository($this->getEntityOptions()->getUserCodes());
+        $codeEntity = $repositoryCode->getData4CodeType($code, $type);
 
         return $codeEntity;
     }

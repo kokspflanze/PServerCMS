@@ -25,10 +25,10 @@ class SiteController extends AbstractActionController
      */
     public function pageAction()
     {
-        $type     = $this->params()->fromRoute( 'type' );
-        $pageInfo = $this->getPageInfoService()->getPage4Type( $type );
+        $type = $this->params()->fromRoute('type');
+        $pageInfo = $this->getPageInfoService()->getPage4Type($type);
         if (!$pageInfo) {
-            return $this->redirect()->toRoute( 'PServerCMS' );
+            return $this->redirect()->toRoute('PServerCMS');
         }
 
         return [

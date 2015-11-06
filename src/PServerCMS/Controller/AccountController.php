@@ -2,6 +2,7 @@
 
 namespace PServerCMS\Controller;
 
+use PServerCMS\Helper\HelperForm;
 use PServerCMS\Helper\HelperService;
 use PServerCMS\Helper\HelperServiceLocator;
 use PServerCMS\Service;
@@ -9,7 +10,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 
 class AccountController extends AbstractActionController
 {
-    use HelperServiceLocator, HelperService;
+    use HelperServiceLocator, HelperForm, HelperService;
 
     const ERROR_NAME_SPACE = 'pserver-user-account-error';
     const SUCCESS_NAME_SPACE = 'pserver-user-account-success';
@@ -19,7 +20,7 @@ class AccountController extends AbstractActionController
         /** @var \PServerCMS\Entity\UserInterface $user */
         $user = $this->getUserService()->getAuthService()->getIdentity();
 
-        $form = $this->getUserService()->getChangePwdForm();
+        $form = $this->getChangePwdForm();
         $elements = $form->getElements();
         foreach ($elements as $element) {
             if ($element instanceof \Zend\Form\Element) {
@@ -36,15 +37,24 @@ class AccountController extends AbstractActionController
         $inGamePasswordForm = clone $form;
         $formChangeIngamePwd = $inGamePasswordForm->setWhich('ingame');
 
+        $addEmailForm = null;
+        if (!$user->getEmail()) {
+            $addEmailForm = $this->getAddEmailForm();
+        }
+
+        /** @var \Zend\Http\Request $request */
         $request = $this->getRequest();
         if (!$request->isPost()) {
             return [
                 'changeWebPwdForm' => $formChangeWebPwd,
                 'changeIngamePwdForm' => $formChangeIngamePwd,
+                'addEmailForm' => $addEmailForm,
                 'messagesWeb' => $this->flashmessenger()->getMessagesFromNamespace(self::SUCCESS_NAME_SPACE . 'Web'),
                 'messagesInGame' => $this->flashmessenger()->getMessagesFromNamespace(self::SUCCESS_NAME_SPACE . 'InGame'),
+                'messagesAddEmail' => $this->flashmessenger()->getMessagesFromNamespace(self::SUCCESS_NAME_SPACE . 'AddEmail'),
                 'errorsWeb' => $this->flashmessenger()->getMessagesFromNamespace(self::ERROR_NAME_SPACE . 'Web'),
-                'errorsInGame' => $this->flashmessenger()->getMessagesFromNamespace(self::ERROR_NAME_SPACE . 'InGame')
+                'errorsInGame' => $this->flashmessenger()->getMessagesFromNamespace(self::ERROR_NAME_SPACE . 'InGame'),
+                'errorsAddEmail' => $this->flashmessenger()->getMessagesFromNamespace(self::ERROR_NAME_SPACE . 'AddEmail'),
             ];
 
         }
@@ -61,6 +71,11 @@ class AccountController extends AbstractActionController
         }
 
         return $this->redirect()->toUrl($this->url()->fromRoute('PServerCMS/user'));
+    }
+
+    public function addEmailAction()
+    {
+        return $this->redirect()->toRoute('PServerCMS/user', ['action' => 'index']);
     }
 
 }
