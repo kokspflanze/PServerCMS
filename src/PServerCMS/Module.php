@@ -50,7 +50,8 @@ class Module
     {
         return [
             'invokables' => [
-                'pserverformerrors' => 'PServerCMS\View\Helper\FormError'
+                'pserverformerrors' => 'PServerCMS\View\Helper\FormError',
+                'formlabel' => 'PServerCMS\View\Helper\FormLabel',
             ],
             'factories' => [
                 'sidebarWidget' => function (AbstractPluginManager $pluginManager) {

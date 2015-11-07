@@ -31,7 +31,8 @@ class Register extends ProvidesEventsForm
             'attributes' => [
                 'placeholder' => 'Username',
                 'class' => 'form-control',
-                'type' => 'text'
+                'type' => 'text',
+                'required' => true,
             ],
         ]);
 
@@ -43,7 +44,8 @@ class Register extends ProvidesEventsForm
             'attributes' => [
                 'placeholder' => 'Email',
                 'class' => 'form-control',
-                'type' => 'email'
+                'type' => 'email',
+                'required' => true,
             ],
         ]);
         $this->add([
@@ -54,7 +56,8 @@ class Register extends ProvidesEventsForm
             'attributes' => [
                 'placeholder' => 'Email Verify',
                 'class' => 'form-control',
-                'type' => 'email'
+                'type' => 'email',
+                'required' => true,
             ],
         ]);
 
@@ -66,7 +69,8 @@ class Register extends ProvidesEventsForm
             'attributes' => [
                 'placeholder' => 'Password',
                 'class' => 'form-control',
-                'type' => 'password'
+                'type' => 'password',
+                'required' => true,
             ],
         ]);
 
@@ -78,7 +82,8 @@ class Register extends ProvidesEventsForm
             'attributes' => [
                 'placeholder' => 'Password Verify',
                 'class' => 'form-control',
-                'type' => 'password'
+                'type' => 'password',
+                'required' => true,
             ],
         ]);
 
@@ -105,6 +110,7 @@ class Register extends ProvidesEventsForm
                 ],
                 'attributes' => [
                     'class' => 'form-control',
+                    'required' => true,
                 ],
             ]);
 
@@ -116,7 +122,8 @@ class Register extends ProvidesEventsForm
                 'attributes' => [
                     'placeholder' => 'Answer',
                     'class' => 'form-control',
-                    'type' => 'text'
+                    'type' => 'text',
+                    'required' => true,
                 ],
             ]);
         }
@@ -128,7 +135,8 @@ class Register extends ProvidesEventsForm
             ])
             ->setAttributes([
                 'class' => 'form-control',
-                'type' => 'text'
+                'type' => 'text',
+                'required' => true,
             ]);
 
         $this->add($captcha, [

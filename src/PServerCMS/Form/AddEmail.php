@@ -31,7 +31,8 @@ class AddEmail extends ProvidesEventsForm
             'attributes' => [
                 'placeholder' => 'Email',
                 'class' => 'form-control',
-                'type' => 'email'
+                'type' => 'email',
+                'required' => true,
             ],
         ]);
         $this->add([
@@ -42,7 +43,8 @@ class AddEmail extends ProvidesEventsForm
             'attributes' => [
                 'placeholder' => 'Email Verify',
                 'class' => 'form-control',
-                'type' => 'email'
+                'type' => 'email',
+                'required' => true,
             ],
         ]);
 

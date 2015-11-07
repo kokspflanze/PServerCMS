@@ -26,7 +26,8 @@ class PwLost extends ProvidesEventsForm
             ],
             'attributes' => [
                 'class' => 'form-control',
-                'type' => 'text'
+                'type' => 'text',
+                'required' => true,
             ],
         ]);
 
@@ -37,7 +38,8 @@ class PwLost extends ProvidesEventsForm
             ])
             ->setAttributes([
                 'class' => 'form-control',
-                'type' => 'text'
+                'type' => 'text',
+                'required' => true,
             ]);
         $this->add($captcha);
 

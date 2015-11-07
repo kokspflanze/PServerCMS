@@ -92,7 +92,8 @@ class Password extends ProvidesEventsForm
                 'class' => 'form-control',
                 'type' => 'text',
                 'disabled' => 'true',
-                'value' => $answer->getQuestion()->getQuestion()
+                'value' => $answer->getQuestion()->getQuestion(),
+                'required' => true,
             ],
         ]);
 
@@ -104,7 +105,8 @@ class Password extends ProvidesEventsForm
             'attributes' => [
                 'placeholder' => 'Answer',
                 'class' => 'form-control',
-                'type' => 'text'
+                'type' => 'text',
+                'required' => true,
             ],
         ]);
 

@@ -23,6 +23,7 @@ class ChangePwd extends ProvidesEventsForm
                 'class' => 'form-control',
                 'type' => 'password',
                 'placeholder' => 'Current Web Password',
+                'required' => true,
             ],
         ]);
 
@@ -32,6 +33,7 @@ class ChangePwd extends ProvidesEventsForm
                 'class' => 'form-control',
                 'type' => 'password',
                 'placeholder' => 'New Password',
+                'required' => true,
             ],
         ]);
 
@@ -41,6 +43,7 @@ class ChangePwd extends ProvidesEventsForm
                 'class' => 'form-control',
                 'type' => 'password',
                 'placeholder' => 'Confirm new Password',
+                'required' => true,
             ],
         ]);
 
