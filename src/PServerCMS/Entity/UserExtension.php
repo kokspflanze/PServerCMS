@@ -11,6 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class UserExtension
 {
+    const KEY_ADD_EMAIL = 'add_email';
+
     /**
      * @var integer
      * @ORM\Column(name="id", type="integer", nullable=false)

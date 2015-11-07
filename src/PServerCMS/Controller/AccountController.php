@@ -75,6 +75,11 @@ class AccountController extends AbstractActionController
 
     public function addEmailAction()
     {
+        $this->getAddEmailService()->addEmail(
+            $this->params()->fromPost(),
+            $this->getUserService()->getAuthService()->getIdentity()
+        );
+
         return $this->redirect()->toRoute('PServerCMS/user', ['action' => 'index']);
     }
 

@@ -16,6 +16,7 @@ class UserCodes
     const TYPE_LOST_PASSWORD = 'password';
     const TYPE_CONFIRM_COUNTRY = 'country';
     const TYPE_SECRET_LOGIN = 'secret_login';
+    const TYPE_ADD_EMAIL = 'add_email';
     const EXPIRE_DEFAULT = 86400;
 
     /**

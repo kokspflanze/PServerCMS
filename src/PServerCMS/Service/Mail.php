@@ -20,6 +20,7 @@ class Mail extends InvokableBase
     const SUBJECT_KEY_CONFIRM_COUNTRY = 'country';
     const SUBJECT_KEY_SECRET_LOGIN = 'secretLogin';
     const SUBJECT_KEY_TICKET_ANSWER = 'ticketAnswer';
+    const SUBJECT_KEY_ADD_EMAIL = 'addEmail';
 
     /**
      * @var SmtpOptions
@@ -98,6 +99,20 @@ class Mail extends InvokableBase
         ];
 
         $this->send(self::SUBJECT_KEY_TICKET_ANSWER, $user, $params);
+    }
+
+    /**
+     * @param UserInterface $user
+     * @param $code
+     */
+    public function addEmail(UserInterface $user, $code)
+    {
+        $params = [
+            'user' => $user,
+            'code' => $code
+        ];
+
+        $this->send(self::SUBJECT_KEY_ADD_EMAIL, $user, $params);
     }
 
     /**

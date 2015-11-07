@@ -232,6 +232,14 @@ trait HelperService
     }
 
     /**
+     * @return \PServerCMS\Service\AddEmail
+     */
+    protected function getAddEmailService()
+    {
+        return $this->getService('pserver_add_email_service');
+    }
+
+    /**
      * @param $serviceName
      *
      * @return array|object

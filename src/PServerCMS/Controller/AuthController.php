@@ -170,6 +170,20 @@ class AuthController extends \SmallUser\Controller\AuthController
         return [];
     }
 
+    public function addEmailAction()
+    {
+        $code = $this->params()->fromRoute('code');
+
+        $codeEntity = $this->getCode4Data($code, UserCodes::TYPE_ADD_EMAIL);
+        if (!$codeEntity) {
+            return $this->forward()->dispatch('PServerCMS\Controller\Auth', ['action' => 'wrong-code']);
+        }
+        $user = $this->getAddEmailService()->changeMail($codeEntity->getUser());
+        $this->getUserCodesService()->deleteCode($codeEntity);
+
+        $this->getUserService()->doAuthentication($user);
+    }
+
     protected function getCode4Data($code, $type)
     {
         $entityManager = $this->getEntityManager();

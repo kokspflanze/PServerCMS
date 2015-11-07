@@ -160,6 +160,7 @@ return [
             'email/tpl/country' => __DIR__ . '/../view/email/tpl/country.phtml',
             'email/tpl/secretLogin' => __DIR__ . '/../view/email/tpl/secret_login.phtml',
             'email/tpl/ticketAnswer' => __DIR__ . '/../view/email/tpl/ticket_answer.phtml',
+            'email/tpl/addEmail' => __DIR__ . '/../view/email/tpl/add_email.phtml',
             'helper/sidebarWidget' => __DIR__ . '/../view/helper/sidebar.phtml',
             'helper/sidebarLoggedInWidget' => __DIR__ . '/../view/helper/logged-in.phtml',
             'helper/sidebarServerInfoWidget' => __DIR__ . '/../view/helper/server-info.phtml',
@@ -394,6 +395,7 @@ return [
                 'register' => null,
                 'password' => null,
                 'country' => null,
+                'add_email' => null,
                 'secret_login' => 60
             ]
         ],

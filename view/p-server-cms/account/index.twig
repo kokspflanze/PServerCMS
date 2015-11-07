@@ -23,6 +23,7 @@
 					{% endfor %}
 				</div>
 			{% endif %}
+			{% set a = addEmailForm.changeWebPwdForm('action', url('PServerCMS/user', {'action' : 'index'})) %}
 			{{ formWidget(changeWebPwdForm, 'helper/formNoLabelWidget') }}
 		</div>
 	{% endif %}
@@ -42,6 +43,7 @@
 				{% endfor %}
 			</div>
 		{% endif %}
+		{% set a = addEmailForm.changeIngamePwdForm('action', url('PServerCMS/user', {'action' : 'index'})) %}
 		{{ formWidget(changeIngamePwdForm, 'helper/formNoLabelWidget') }}
 	</div>
 
@@ -55,7 +57,7 @@
 		{% if errorsAddEmail %}
 			<div class="alert alert-danger" role="alert">
 				{% for error in errorsAddEmail %}
-					{{ error }}
+					{{ error }}<br />
 				{% endfor %}
 			</div>
 		{% elseif messagesAddEmail %}
