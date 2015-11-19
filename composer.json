@@ -26,6 +26,7 @@
     "ext-gd" : "*",
     "ext-curl" : "*",
     "twig/twig": "1.*",
+    "zendframework/zendframework": "~2.5",
     "doctrine/doctrine-orm-module": "0.*",
     "mabuzagu/pdo-dblib-module": "dev-master",
     "kokspflanze/zfc-ticket-system": "dev-master",
@@ -42,10 +43,7 @@
   },
   "require-dev": {
     "phpunit/phpunit": "~4|~5",
-    "zendframework/zendframework": "~2.0",
-    "fabpot/php-cs-fixer": ">=1.0",
-    "satooshi/php-coveralls": "dev-master",
-    "phpunit/phpcov": ">=2.0"
+    "satooshi/php-coveralls": "dev-master"
   },
   "suggest" : {
     "kokspflanze/p-server-sro": "Its a extension for Silkroad, to provide more features for that game"

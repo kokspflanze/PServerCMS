@@ -240,6 +240,14 @@ trait HelperService
     }
 
     /**
+     * @return \PServerCMS\Service\Format
+     */
+    protected function getFormatService()
+    {
+        return $this->getService('pserver_format_service');
+    }
+
+    /**
      * @param $serviceName
      *
      * @return array|object

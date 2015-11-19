@@ -1,21 +1,16 @@
 <?php
 
-namespace PServerCMS\Helper;
 
-/**
- * Class Format
- * @package PServerCMS\Helper
- * @deprecated please use the \PServerCMS\Service\Format
- */
-class Format
+namespace PServerCMS\Service;
+
+
+class Format extends InvokableBase
 {
-
     /**
      * @param int $length
-     *
      * @return string
      */
-    public static function getCode($length = 32)
+    public function getCode($length = 32)
     {
         $result = '';
         for ($i = 1; $i <= $length; $i++) {

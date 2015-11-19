@@ -28,7 +28,7 @@ class UserCodes extends InvokableBase
 
         do {
             $found = false;
-            $code = Format::getCode();
+            $code = $this->getFormatService()->getCode();
             if ($this->getRepositoryManager()->getCode($code)) {
                 $found = true;
             }

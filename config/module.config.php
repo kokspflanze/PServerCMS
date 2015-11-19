@@ -123,6 +123,7 @@ return [
             'pserver_coin_service' => 'PServerCMS\Service\Coin',
             'pserver_timer_service' => 'PServerCMS\Service\Timer',
             'pserver_add_email_service' => 'PServerCMS\Service\AddEmail',
+            'pserver_format_service' => 'PServerCMS\Service\Format',
             'small_user_service' => 'PServerCMS\Service\User',
             'payment_api_log_service' => 'PServerCMS\Service\PaymentNotify',
             'payment_api_ip_service' => 'PServerCMS\Service\Ip',
