@@ -65,4 +65,13 @@ class DownloadList extends EntityRepository
 
         return $query->execute();
     }
+
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function getQueryBuilder()
+    {
+        return $this->createQueryBuilder('p')
+            ->select('p');
+    }
 }

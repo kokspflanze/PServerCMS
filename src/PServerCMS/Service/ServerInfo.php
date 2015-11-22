@@ -13,9 +13,7 @@ class ServerInfo extends InvokableBase
     public function getServerInfo()
     {
         $serverInfo = $this->getCachingHelperService()->getItem(Caching::SERVER_INFO, function () {
-            /** @var \PServerCMS\Entity\Repository\ServerInfo $repository */
-            $repository = $this->getEntityManager()->getRepository($this->getEntityOptions()->getServerInfo());
-            return $repository->getActiveInfoList();
+            return $this->getServerInfoRepository()->getActiveInfoList();
         });
 
         return $serverInfo;
@@ -26,10 +24,7 @@ class ServerInfo extends InvokableBase
      */
     public function getAllServerInfo()
     {
-        /** @var \PServerCMS\Entity\Repository\ServerInfo $repository */
-        $repository = $this->getEntityManager()->getRepository($this->getEntityOptions()->getServerInfo());
-
-        return $repository->getInfoList();
+        return $this->getServerInfoRepository()->getInfoList();
     }
 
     /**
@@ -39,10 +34,15 @@ class ServerInfo extends InvokableBase
      */
     public function getServerInfo4Id($id)
     {
-        /** @var \PServerCMS\Entity\Repository\ServerInfo $repository */
-        $repository = $this->getEntityManager()->getRepository($this->getEntityOptions()->getServerInfo());
+        return $this->getServerInfoRepository()->getServerInfo4Id($id);
+    }
 
-        return $repository->getServerInfo4Id($id);
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function getQueryBuilder()
+    {
+        return $this->getServerInfoRepository()->getQueryBuilder();
     }
 
     /**
@@ -75,5 +75,15 @@ class ServerInfo extends InvokableBase
         $entity->flush();
 
         return $serverInfo;
+    }
+
+    /**
+     * @return \PServerCMS\Entity\Repository\ServerInfo
+     */
+    protected function getServerInfoRepository()
+    {
+        /** @var \PServerCMS\Entity\Repository\ServerInfo $repository */
+        $repository = $this->getEntityManager()->getRepository($this->getEntityOptions()->getServerInfo());
+        return $repository;
     }
 } 

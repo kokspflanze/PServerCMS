@@ -38,6 +38,14 @@ class Download extends InvokableBase
     }
 
     /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function getQueryBuilder()
+    {
+        return $this->getDownloadRepository()->getQueryBuilder();
+    }
+
+    /**
      * @param array $data
      * @param null|DownloadList $currentDownload
      *
