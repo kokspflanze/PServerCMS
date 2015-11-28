@@ -14,6 +14,7 @@ class DonateLog
 
     const TYPE_PAYMENT_WALL = 'paymentwall';
     const TYPE_SUPER_REWARD = 'superreward';
+    const TYPE_XSOLLA = 'xsolla';
     const TYPE_INTERNAL = 'internal';
 
     const STATUS_SUCCESS = 1;

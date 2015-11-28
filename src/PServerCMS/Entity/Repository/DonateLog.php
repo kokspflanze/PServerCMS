@@ -75,7 +75,11 @@ class DonateLog extends EntityRepository
             ->andWhere('p.type in (:type)')
             ->setParameter(
                 'type',
-                [Entity::TYPE_PAYMENT_WALL, Entity::TYPE_SUPER_REWARD],
+                [
+                    Entity::TYPE_PAYMENT_WALL,
+                    Entity::TYPE_SUPER_REWARD,
+                    Entity::TYPE_XSOLLA,
+                ],
                 \Doctrine\DBAL\Connection::PARAM_STR_ARRAY
             )
             ->getQuery();
@@ -91,6 +95,7 @@ class DonateLog extends EntityRepository
         return [
             Entity::TYPE_PAYMENT_WALL,
             Entity::TYPE_SUPER_REWARD,
+            Entity::TYPE_XSOLLA,
             Entity::TYPE_INTERNAL
         ];
     }
