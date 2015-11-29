@@ -25,6 +25,7 @@
     "ext-intl" : "*",
     "ext-gd" : "*",
     "ext-curl" : "*",
+    "ext-json" : "*",
     "twig/twig": "1.*",
     "zendframework/zendframework": "~2.5",
     "doctrine/doctrine-orm-module": "0.*",

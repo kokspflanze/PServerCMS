@@ -127,6 +127,7 @@ return [
             'small_user_service' => 'PServerCMS\Service\User',
             'payment_api_log_service' => 'PServerCMS\Service\PaymentNotify',
             'payment_api_ip_service' => 'PServerCMS\Service\Ip',
+            'payment_api_validation' => 'PServerCMS\Service\PaymentValidation',
             'zfcticketsystem_ticketsystem_service' => 'PServerCMS\Service\TicketSystem',
         ],
         'aliases' => [

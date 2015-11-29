@@ -63,7 +63,7 @@ You can find some screenshots @ [screenshot-directory](https://github.com/kokspf
 - SecretQuestionSystem (possible to enable it in the config, and set the question in the admin panel)
 - SecretLogin (you can define different roles, which has to confirm there mail before they can login)
 - lost Password
-- Donate (PaymentWall and Superreward, in default added)
+- Donate ([PaymentWall](https://www.paymentwall.com), [Superrewards](http://superrewards.com/) and [xsolla](http://xsolla.com/), in default added)
 - TicketSystem (with bb-code) change TicketCategories in the Adminpanel
 - AccountPanel (to change the web/ingame password)
 - CharacterPanel (to show current status of a character, set main character[alias for ticket-system])
@@ -92,6 +92,7 @@ To improve the performance
 
 - Paymentwall default link => `/payment-api/payment-wall-response.html`
 - Superreward default link => `/payment-api/super-reward-response.html`
+- xsolla default link => `/payment-api/xsolla.html`
 
 Please check the config with the key `payment-api` to setup the secret-keys, ban-time and more.
 

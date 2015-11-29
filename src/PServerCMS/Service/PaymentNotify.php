@@ -128,6 +128,9 @@ class PaymentNotify extends InvokableBase implements LogInterface
             case Request::PROVIDER_SUPER_REWARD:
                 $result = DonateLog::TYPE_SUPER_REWARD;
                 break;
+            case Request::PROVIDER_XSOLLA:
+                $result = DonateLog::TYPE_XSOLLA;
+                break;
         }
 
         return $result;
