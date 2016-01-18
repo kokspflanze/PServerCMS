@@ -28,4 +28,5 @@ class UserExtension extends EntityRepository
         $query->getQuery()
             ->execute();
     }
+
 }

@@ -8,6 +8,7 @@ use PServerCMS\Helper\HelperBasic;
 use PServerCMS\Helper\HelperService;
 use SmallUser\Entity\UserInterface;
 use ZfcTicketSystem\Entity\TicketSubject;
+use PServerCMS\Entity\TicketSystem\TicketSubject as PServerTicketSubject;
 
 class TicketSystem extends \ZfcTicketSystem\Service\TicketSystem
 {
@@ -16,7 +17,7 @@ class TicketSystem extends \ZfcTicketSystem\Service\TicketSystem
     /**
      * @param array $data
      * @param UserInterface $user
-     * @param TicketSubject $subject
+     * @param TicketSubject|PServerTicketSubject $subject
      * @return bool|\ZfcTicketSystem\Entity\TicketEntry
      */
     public function newAdminEntry(array $data, UserInterface $user, TicketSubject $subject)
@@ -33,6 +34,21 @@ class TicketSystem extends \ZfcTicketSystem\Service\TicketSystem
         }
 
         return $result;
+    }
+
+    /**
+     * @param string $type
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function getQueryBuilderSubjectAdminPanel($type)
+    {
+        /** @var \ZfcTicketSystem\Entity\Repository\TicketSubject $repository */
+        $repository = $this->getEntityManager()->getRepository($this->getEntityOptions()->getTicketSubject());
+
+        $queryBuilder = $repository->getQueryBuilder($type);
+        $queryBuilder->join('p.user', 'user');
+
+        return $queryBuilder;
     }
 
     /**
