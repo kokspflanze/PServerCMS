@@ -47,6 +47,7 @@ class TicketSystem extends \ZfcTicketSystem\Service\TicketSystem
 
         $queryBuilder = $repository->getQueryBuilder($type);
         $queryBuilder->join('p.user', 'user');
+        $queryBuilder->join('p.ticketCategory', 'category');
 
         return $queryBuilder;
     }
