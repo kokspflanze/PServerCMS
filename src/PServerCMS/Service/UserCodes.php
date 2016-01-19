@@ -4,7 +4,6 @@ namespace PServerCMS\Service;
 
 use PServerCMS\Entity\UserCodes as Entity;
 use PServerCMS\Entity\UserInterface;
-use PServerCMS\Helper\Format;
 
 class UserCodes extends InvokableBase
 {

@@ -91,7 +91,7 @@ class Download extends InvokableBase
      */
     protected function getDownloadRepository()
     {
-        return $this->getEntityManager()->getRepository($this->getEntityOptions()->getDownloadList());;
+        return $this->getEntityManager()->getRepository($this->getEntityOptions()->getDownloadList());
     }
 
 } 
