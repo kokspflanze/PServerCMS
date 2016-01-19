@@ -44,6 +44,7 @@
     "zendframework/zend-validator": "~2.5",
     "zendframework/zend-mail": "~2.5",
     "zendframework/zend-mime": "~2.5",
+    "zendframework/zend-captcha": "~2.5",
     "doctrine/doctrine-orm-module": "0.*",
     "mabuzagu/pdo-dblib-module": "dev-master",
     "kokspflanze/zfc-ticket-system": "dev-master",
