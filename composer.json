@@ -8,12 +8,6 @@
     "p-server-cms"
   ],
   "homepage": "https://github.com/kokspflanze/PServerCMS",
-  "autoload": {
-    "psr-0": {
-      "PServerCMS\\": "src/",
-      "PServerCMSTest\\": "tests/"
-    }
-  },
   "authors": [
     {
       "name": "Oliver",
@@ -21,35 +15,12 @@
     }
   ],
   "require": {
-    "php": ">=5.5",
-    "ext-intl" : "*",
-    "ext-gd" : "*",
-    "ext-curl" : "*",
-    "ext-json" : "*",
-    "twig/twig": "1.*",
-    "zendframework/zend-modulemanager": "~2.5",
-    "zendframework/zend-servicemanager": "~2.5",
-    "zendframework/zend-mvc": "~2.5",
-    "zendframework/zend-loader": "~2.5",
-    "zendframework/zend-config": "~2.5",
-    "zendframework/zend-view": "~2.5",
-    "zendframework/zend-serializer": "~2.5",
-    "zendframework/zend-log": "~2.5",
-    "zendframework/zend-i18n": "~2.5",
-    "zendframework/zend-session": "~2.5",
-    "zendframework/zend-cache": "~2.5",
-    "zendframework/zend-stdlib": "~2.5",
-    "zendframework/zend-form": "~2.5",
-    "zendframework/zend-inputfilter": "~2.5",
-    "zendframework/zend-validator": "~2.5",
-    "zendframework/zend-mail": "~2.5",
-    "zendframework/zend-mime": "~2.5",
-    "zendframework/zend-captcha": "~2.5",
     "doctrine/doctrine-orm-module": "0.*",
     "mabuzagu/pdo-dblib-module": "dev-master",
-    "kokspflanze/zfc-ticket-system": "dev-master",
+    "kokspflanze/zfc-ticket-system": "~0.1",
     "kokspflanze/small-user": "~0.1",
-    "kokspflanze/game-backend": "dev-master",
+    "kokspflanze/game-backend": "~0.1",
+    "kokspflanze/p-server-core": "~0.1",
     "kokspflanze/p-server-admin": "dev-master",
     "kokspflanze/p-server-admin-statistic": "~0.2",
     "kokspflanze/p-server-cli": "~0.1",
@@ -57,12 +28,7 @@
     "kokspflanze/p-server-ranking": "dev-master",
     "kokspflanze/p-server-panel": "dev-master",
     "zf-commons/zfc-twig": "dev-master",
-    "kokspflanze/zfc-bbcode": "~1.0",
     "san/san-captcha": "dev-master"
-  },
-  "require-dev": {
-    "phpunit/phpunit": "~4|~5",
-    "satooshi/php-coveralls": "dev-master"
   },
   "suggest" : {
     "kokspflanze/p-server-sro": "Its a extension for Silkroad, to provide more features for that game"
