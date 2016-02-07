@@ -1,9 +1,5 @@
 # PSeverCMS Module for Zend Framework 2
 
-Master
-[![Build Status](https://travis-ci.org/kokspflanze/PServerCMS.svg?branch=master)](https://travis-ci.org/kokspflanze/PServerCMS?branch=master)
-[![Coverage Status](https://coveralls.io/repos/kokspflanze/PServerCMS/badge.svg?branch=master)](https://coveralls.io/r/kokspflanze/PServerCMS?branch=master)
-
 ## SYSTEM REQUIREMENTS
 
 requires PHP 5.5 or later; we recommend using the latest PHP version whenever possible.
@@ -21,7 +17,7 @@ php composer.phar require kokspflanze/p-server-cms
 ```
 
 Then add `ZfcTwig`, `ZfcBase`, `ZfcDatagrid`, `DoctrineModule`, `DoctrineORMModule`, `PDODblibModule`, `BjyAuthorize`, `GameBackend`, `ZfcTicketSystem`,
-`ZfcBBCode`, `SanCaptcha`, `PaymentAPI`, `SmallUser`, `PServerCMS`, `PServerAdmin`, `PServerAdminStatistic`, `PServerRanking`, `PServerPanel` and `PServerCLI`
+`ZfcBBCode`, `SanCaptcha`, `PaymentAPI`, `SmallUser`, `PServerCore`, `PServerAdmin`, `PServerAdminStatistic`, `PServerRanking`, `PServerPanel` and `PServerCLI`
  to your `config/application.config.php` and create directory
 `data/cache`, `data/PaymentAPI`, `data/DoctrineORMModule`, `data/ZfcDatagrid` and make sure your application has write access to it.
 
