@@ -64,6 +64,7 @@ You can find some screenshots @ [screenshot-directory](https://github.com/kokspf
 - AccountPanel (to change the web/ingame password)
 - CharacterPanel (to show current status of a character, set main character[alias for ticket-system])
 - AdminPanel with UserPanel, DonateStatistic, view Logs, edit different parts in page
+- BlockHistory in AdminPanel + little widget in UserDetail
 - Vote4Coins (modification in admin-panel)
 - RoleSystem, its possible to add more roles with different permissions
 - show current online player as an image for threads `/info/online-player.png`
@@ -91,6 +92,8 @@ To improve the performance
 - xsolla default link => `/payment-api/xsolla.html`
 
 Please check the config with the key `payment-api` to setup the secret-keys, ban-time and more.
+
+Also check the PaymentAPI extension for more information https://github.com/kokspflanze/PaymentAPI
 
 ## Problems or improvements
 
