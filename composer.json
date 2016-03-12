@@ -27,8 +27,7 @@
     "kokspflanze/payment-api": "~0.1",
     "kokspflanze/p-server-ranking": "~0.1",
     "kokspflanze/p-server-panel": "~0.1",
-    "zf-commons/zfc-twig": "dev-master",
-    "san/san-captcha": "dev-master"
+    "zf-commons/zfc-twig": "dev-master"
   },
   "suggest" : {
     "kokspflanze/p-server-sro": "Its a extension for Silkroad, to provide more features for that game"
