@@ -17,14 +17,14 @@
   "require": {
     "doctrine/doctrine-orm-module": "0.*",
     "mabuzagu/pdo-dblib-module": "dev-master",
-    "kokspflanze/zfc-ticket-system": "~0.1",
+    "kokspflanze/zfc-ticket-system": "~0.2",
     "kokspflanze/small-user": "~0.1",
     "kokspflanze/game-backend": "~0.1",
-    "kokspflanze/p-server-core": "~0.1",
+    "kokspflanze/p-server-core": "~0.3",
     "kokspflanze/p-server-admin": "~0.1",
     "kokspflanze/p-server-admin-statistic": "~0.2",
     "kokspflanze/p-server-cli": "~0.1",
-    "kokspflanze/payment-api": "~0.1",
+    "kokspflanze/payment-api": "~1.0",
     "kokspflanze/p-server-ranking": "~0.1",
     "kokspflanze/p-server-panel": "~0.1",
     "zf-commons/zfc-twig": "dev-master"
