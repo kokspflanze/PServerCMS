@@ -30,6 +30,15 @@ that are listed in `composer.json`
 php ./vendor/doctrine/doctrine-module/bin/doctrine-module orm:schema-tool:create
 ```
 
+if you get an error, try
+
+```sh
+php ./vendor/doctrine/doctrine-module/bin/doctrine-module orm:schema-tool:create --dump-sql
+```
+
+and create with the response the tables.
+Before you do that delete the current tables. 
+
 ### Create the Roles
 
 ```sql
