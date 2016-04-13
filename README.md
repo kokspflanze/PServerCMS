@@ -1,5 +1,7 @@
 # PSeverCMS Module for Zend Framework 2
 
+[![Join the chat at https://gitter.im/kokspflanze/PServerCMS](https://badges.gitter.im/kokspflanze/PServerCMS.svg)](https://gitter.im/kokspflanze/PServerCMS?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ## SYSTEM REQUIREMENTS
 
 requires PHP 5.5 or later; we recommend using the latest PHP version whenever possible.
