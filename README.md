@@ -1,8 +1,8 @@
-# PSeverCMS Module for Zend Framework 2
+# PSeverCMS Module for Zend Framework
 
 ## SYSTEM REQUIREMENTS
 
-requires PHP 5.5 or later; we recommend using the latest PHP version whenever possible.
+requires PHP 5.6 or later; we recommend using the latest PHP version whenever possible.
 
 ## INSTALLATION
 
@@ -99,6 +99,7 @@ To improve the performance
 - Paymentwall default link => `/payment-api/payment-wall-response.html`
 - Superreward default link => `/payment-api/super-reward-response.html`
 - xsolla default link => `/payment-api/xsolla.html`
+- paypal default link => `/payment-api/pay-pal.html`
 
 Please check the config with the key `payment-api` to setup the secret-keys, ban-time and more.
 
