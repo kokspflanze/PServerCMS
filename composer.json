@@ -1,6 +1,7 @@
 {
   "name": "kokspflanze/p-server-cms",
   "description": "Zendframework 2 Module for pServer",
+  "type": "metapackage",
   "keywords": [
     "framework",
     "zf2",
