@@ -16,14 +16,16 @@
     }
   ],
   "require": {
-    "mabuzagu/pdo-dblib-module": "dev-master",
     "kokspflanze/game-backend": "~0.2",
     "kokspflanze/p-server-core": "~0.4",
     "kokspflanze/p-server-admin": "~0.4",
     "kokspflanze/p-server-admin-statistic": "~0.3",
     "kokspflanze/p-server-cli": "~0.2",
     "kokspflanze/p-server-ranking": "~0.2",
-    "kokspflanze/p-server-panel": "~0.2",
+    "kokspflanze/p-server-panel": "~0.2"
+  },
+  "require-dev": {
+    "mabuzagu/pdo-dblib-module": "dev-master",
     "zf-commons/zfc-twig": "dev-master"
   },
   "suggest" : {
