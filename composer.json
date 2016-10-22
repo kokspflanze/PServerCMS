@@ -1,6 +1,6 @@
 {
   "name": "kokspflanze/p-server-cms",
-  "description": "Zendframework 2 Module for pServer",
+  "description": "Zendframework Module for pServer",
   "type": "metapackage",
   "keywords": [
     "framework",
@@ -8,25 +8,21 @@
     "game backend",
     "p-server-cms"
   ],
+  "license": "MIT",
   "homepage": "https://github.com/kokspflanze/PServerCMS",
   "authors": [
     {
       "name": "Oliver",
-      "email": "kokspflanze@gmx.de"
+      "email": "kokspflanze@protonmail.com"
     }
   ],
   "require": {
-    "kokspflanze/game-backend": "~0.2",
-    "kokspflanze/p-server-core": "~0.4",
-    "kokspflanze/p-server-admin": "~0.4",
-    "kokspflanze/p-server-admin-statistic": "~0.3",
-    "kokspflanze/p-server-cli": "~0.2",
-    "kokspflanze/p-server-ranking": "~0.2",
-    "kokspflanze/p-server-panel": "~0.2"
-  },
-  "require-dev": {
-    "mabuzagu/pdo-dblib-module": "dev-master",
-    "zf-commons/zfc-twig": "dev-master"
+    "kokspflanze/p-server-core": "^1.0",
+    "kokspflanze/p-server-admin": "^1.0",
+    "kokspflanze/p-server-admin-statistic": "^1.0",
+    "kokspflanze/p-server-cli": "^1.0",
+    "kokspflanze/p-server-ranking": "^1.0",
+    "kokspflanze/p-server-panel": "^1.0"
   },
   "suggest" : {
     "kokspflanze/p-server-sro": "Its a extension for Silkroad, to provide more features for that game"

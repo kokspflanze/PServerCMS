@@ -47,7 +47,7 @@ Before you do that delete the current tables.
 INSERT INTO user_role (role_id, is_default, parent_id) VALUES
     ('guest', NULL, NULL),
     ('user', NULL, NULL),
-    ('admin', NULL, NULL);
+    ('admin', NULL, 2);
 ```
 
 ## Example Application
