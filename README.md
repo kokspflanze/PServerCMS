@@ -18,7 +18,7 @@ php composer.phar require kokspflanze/p-server-cms
 # (When asked for a version, type `dev-master`)
 ```
 
-Then add `ZfcTwig`, `ZfcBase`, `ZfcDatagrid`, `DoctrineModule`, `DoctrineORMModule`, `PDODblibModule`, `BjyAuthorize`, `GameBackend`, `ZfcTicketSystem`,
+Then add `ZfcTwig`, `ZfcDatagrid`, `DoctrineModule`, `DoctrineORMModule`, `PDODblibModule`, `BjyAuthorize`, `GameBackend`, `ZfcTicketSystem`,
 `ZfcBBCode`, `SanCaptcha`, `PaymentAPI`, `SmallUser`, `PServerCore`, `PServerAdmin`, `PServerAdminStatistic`, `PServerRanking`, `PServerPanel` and `PServerCLI`
  to your `config/application.config.php` and create directory
 `data/cache`, `data/PaymentAPI`, `data/DoctrineORMModule`, `data/ZfcDatagrid` and make sure your application has write access to it.
@@ -65,12 +65,13 @@ You can find some screenshots @ [screenshot-directory](https://github.com/kokspf
 - ServerTimes (modification in config)
 - Download (modification in admin-panel)
 - Ranking (TopGuild|TopPlayer) with detail pages
+- Char search
 - ServerInfoPages (modification in admin-panel, possible to add more dynamic)
 - Register (with mail confirmation, 2 pw system [different pws for ingame and web])
 - SecretQuestionSystem (possible to enable it in the config, and set the question in the admin panel)
 - SecretLogin (you can define different roles, which has to confirm there mail before they can login)
 - lost Password
-- Donate ([PaymentWall](https://www.paymentwall.com), [Superrewards](http://superrewards.com/) and [xsolla](http://xsolla.com/), in default added)
+- Donate ([PaymentWall](https://www.paymentwall.com), [Superrewards](http://superrewards.com/), [xsolla](http://xsolla.com/) and PayPal-IPN, in default added)
 - TicketSystem (with bb-code) change TicketCategories in the Adminpanel
 - AccountPanel (to change the web/ingame password)
 - CharacterPanel (to show current status of a character, set main character[alias for ticket-system])
