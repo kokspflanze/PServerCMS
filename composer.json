@@ -17,12 +17,12 @@
     }
   ],
   "require": {
-    "kokspflanze/p-server-core": "^1.0",
-    "kokspflanze/p-server-admin": "^1.0",
+    "kokspflanze/p-server-core": "^1.6.0",
+    "kokspflanze/p-server-admin": "^1.5.0",
     "kokspflanze/p-server-admin-statistic": "^1.0",
     "kokspflanze/p-server-cli": "^1.0",
-    "kokspflanze/p-server-ranking": "^1.0",
-    "kokspflanze/p-server-panel": "^1.0"
+    "kokspflanze/p-server-ranking": "^1.2.0",
+    "kokspflanze/p-server-panel": "^1.1.0"
   },
   "suggest" : {
     "kokspflanze/p-server-sro": "Its a extension for Silkroad, to provide more features for that game"
