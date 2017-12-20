@@ -84,9 +84,9 @@ You can find some screenshots @ [screenshot-directory](https://github.com/kokspf
 
 ## PHP Extensions
 
-- php5-curl
-- php5-intl
-- php5-gd
+- php-curl
+- php-intl
+- php-gd
 
 ## CronTab settings
 
