@@ -17,3 +17,4 @@
  * [Unique](/modules/PServerSROUnique/README.md)
  * [ItemPoints](/modules/SROItemPoints/README.md)
  * [How to show icons in ranking](/general-setup/RANKING_ICONS.md) 
+ * [DonateAction](/modules/PServerCMSDonateAction/README.md)

@@ -4,11 +4,11 @@
 
 Install the downloaded Git-Client
 
-## Clone the repository
+## Copy the repository
 
  Copy the page-files to `/c/Apache24/htdocs/pserverCMSFull`.
  
- ![GitClone](https://raw.githubusercontent.com/kokspflanze/PServerCMS/master/docs/images/git-clone.gif?raw=true)
+ ![GitClone](https://raw.githubusercontent.com/kokspflanze/PServerCMS/master/docs/images/COPY.png?raw=true)
  
 ## Download all other parts with composer
  
