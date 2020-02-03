@@ -6,16 +6,16 @@ We also recommend a centos8.minimal image.
 
 ## Install script
 
-YOu have to copy all files to `/var/www/page`. After upload check that you have following valid path `/var/www/page/public/index.php`
+You have to copy all files to `/var/www/page`. After upload check that you have following valid path `/var/www/page/public/index.php`
 
 this should be run as root/sudo
 
 this setup script works with SELinux, firewall-cmd and will setup the default crons
 
 ```
-curl -L -O https://gist.githubusercontent.com/kokspflanze/c7223ff44580ca1b78b2b0221bb1c0d6/raw/7e136f7cadd28b51050df3f2cf9a5447d81968ff/setup.sh
-chmod +x setup.sh
-./setup.sh
+curl -L -O https://raw.githubusercontent.com/kokspflanze/PServerCMS/master/install/centos8.sh
+chmod +x centos8.sh
+./centos8.sh
 ```
 
 Now you have to add the ioncube key, this line you will get from me. You just need to execute the command.
