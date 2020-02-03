@@ -6,20 +6,21 @@ Install the downloaded Git-Client
 
 ## Copy the repository
 
- Copy the page-files to `/c/Apache24/htdocs/pserverCMSFull`.
- 
- ![GitClone](https://raw.githubusercontent.com/kokspflanze/PServerCMS/master/docs/images/COPY.png?raw=true)
+go to `/c/Apache24/htdocs` and create the `pserverCMSFull` directory.
+Then you have to copy the webfiles into the `pserverCMSFull` directory.
+
+![GitClone](https://raw.githubusercontent.com/kokspflanze/PServerCMS/master/docs/images/COPY.png?raw=true)
  
 ## Download all other parts with composer
- 
- Go with the Git-Bash to the page like `cd /c/Apache24/htdocs/pserverCMSFull` and type the following commands
-  
-  ```shell
-  php composer.phar self-update
-  php composer.phar update
-  ```
-  
-  That can take some minutes.
+
+Go with the Git-Bash to the page like `cd /c/Apache24/htdocs/pserverCMSFull` and type the following commands
+
+```shell
+php composer.phar self-update
+php composer.phar update
+```
+
+That can take some minutes.
   
 ### Info API rate limit
 

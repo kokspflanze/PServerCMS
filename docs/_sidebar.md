@@ -13,7 +13,6 @@
  * [How to enable debugger?](/general-setup/DEBUGGER.md)
 * [Customize Guides](/general-setup/CUSTOMIZE.md)
 * Special extensions
- * [Basics](/modules/PServerSRO/README.md)
  * [Unique](/modules/PServerSROUnique/README.md)
  * [ItemPoints](/modules/SROItemPoints/README.md)
  * [How to show icons in ranking](/general-setup/RANKING_ICONS.md) 
