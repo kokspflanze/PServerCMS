@@ -61,12 +61,74 @@ If you found no entry in the table, than the pingback url is wrong.
 
 ## PayOP Setup
 
-### Packages
+_PayOP is at the moment in BETA!_
 
+### Config
+
+Go to `config/autoload/payment.local.php` and add the following. (be careful, it could be possible that you have to merge your existing payment config with the payop parts)
+ 
+```php
+<?php
+return [
+    'pserver' => [
+        'donate' => [
+            'payop' => [
+                'package' => [
+                    [
+                        'name' => 'foobar', // name of the package
+                        'price' => 1, // price in USD
+                        'value' => 100, // reward in game-amount
+                    ],
+                    [
+                        'name' => 'foobar2', // name of the package
+                        'price' => 14.2, // price in USD
+                        'value' => 1420, // reward in game-amount
+                    ],
+                    // there is no limit of packages.
+                ],
+            ],
+        ],
+    ],
+    'payment-api' => [
+        'payop' => [
+            'token' => '<<< YOUR TOKEN FROM PAYOP >>>',
+            'public' => '<<< YOUR PUBLIC-KEY FROM PAYOP >>>',
+            'secret' => '<<< YOUR SECRET-KEY FROM PAYOP >>>',
+        ],
+    ],
+];
+```
+
+### Template
+
+Your template must contains following
+
+````
+{% if paygoPackage %}
+    <h1>Payop</h1>
+    <form action="{{ url('PServerCore/panel_donate', {'action':'payop'}) }}" method="post">
+        <label>Package selection</label>
+        <select class="form-control" name="payop">
+            {% for key, package in paygoPackage %}
+                <option value="{{ key }}">{{ package['name'] }}</option>
+            {% endfor %}
+        </select>
+
+        <input type="submit" value="Submit"/>
+    </form>
+{% endif %}
+````
+
+This is default added, only if you overwrite the template you have to add it your self.
+
+### Testing
+
+PayOP, dont support a testing api, so you have to test with min 1 USD on the production-system.
+
+If you have problems, check the donate-log in the admin-panel.
 
 
 ## PayPal IPN Setup
-
 
 ### Install dependencies
 
