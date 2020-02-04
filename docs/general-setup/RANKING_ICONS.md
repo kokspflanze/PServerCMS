@@ -20,5 +20,4 @@ ALTER TABLE dbo._RefObjCommon ADD webName varchar(255) NOT NULL DEFAULT 'ItemNam
 Now you can enable `'SROItemDetails',` in `config/application.config.php`.
 Than you can see the Items of a character with blues/whites.
 
-
 ![ScreenShot](https://raw.githubusercontent.com/kokspflanze/PServerCMS/master/docs/images/blues_whites.png)

@@ -1,8 +1,6 @@
 # PServerCMS
 
 This doc provide you every thing for the first start with the PServerCMS
-  
-## General information
 
 ![ScreenShot](https://raw.githubusercontent.com/kokspflanze/PServerCMS/master/docs/images/screenshots/news.png)
 
@@ -60,3 +58,6 @@ This doc provide you every thing for the first start with the PServerCMS
 - view Logs
 - BlockHistory 
 
+### Additional-Pay-Features
+- Support Online-Counter
+- E-PIN System
