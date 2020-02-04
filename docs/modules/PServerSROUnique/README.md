@@ -69,9 +69,23 @@ example
 INSERT INTO _UniqueInfo ([CodeName128], [Name]) VALUES ('MOB_SPECIAL', 'SPECIAL');
 ````
 
+### Config
+
+Now you can enable `'PServerCMS\SROUnique',` in `config/application.config.php`.
+
 ## How to use
 
+### Trigger
+
+You need to migrate your current unique-history to the new tables for the website.
+
 ### View-Helper
+
+These view-helper are out of the box added.
+
+This mean if you enable the module, than you can see directly the changes in the sidebar and in the character-details.
+
+This list just show you , how to add it also on other positions, for your custom design.
 
 ````php
 <?= $this->uniqueKillListPServerSROUnique(10) ?>
