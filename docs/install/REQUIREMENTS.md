@@ -11,3 +11,4 @@ If you dont have a webserver with php72+ than you can chek the install section [
 
 - `_OnlineOffline` Table in LOG-DB
 - php73
+- SMTP-Server for mailing like namecheap, hostgator, .. to send register confirm or lost-password [setup](/general-setup/MAIL.md)

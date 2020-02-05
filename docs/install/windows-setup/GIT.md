@@ -1,4 +1,4 @@
-## Git-Client download and install
+# Git-Client download and install
 
  - http://git-scm.com/download/win
 

@@ -1,4 +1,4 @@
-## Setup basic Apache with default PHP
+# Setup basic Apache with default PHP
 
  Use the CommandlineTool and go to the apache/bin directory and type `httpd -k install` as administrator. than you can start the 
  ApacheMonitor to check if the Apache24 is listed and can be start.

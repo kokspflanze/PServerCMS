@@ -1,4 +1,4 @@
-## Configuration for Apache
+# Configuration for Apache
 
  Add the following things in your `httpd.conf` file.
 
