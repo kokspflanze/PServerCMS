@@ -11,6 +11,8 @@ PS: You have to create the web-database by your self, the scripts of the p-serve
 
 ### Generate the Database
 
+Go to your install directory windows `/c/Apache24/htdocs/pserverCMSFull` with your git-bash or with centos to `/var/www/page` in your terminal. 
+
 ```sh
 php ./vendor/doctrine/doctrine-module/bin/doctrine-module orm:schema-tool:create
 ```
@@ -25,6 +27,8 @@ and create with the response the tables.
 Before you do that delete the current tables. 
 
 ### Create the Roles
+
+You have to execute this in your SQL-Client (SQL Management or HeidiSQL, ...)
 
 ```sql
 INSERT INTO user_role (role_id, is_default, parent_id) VALUES
