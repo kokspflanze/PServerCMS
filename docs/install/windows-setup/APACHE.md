@@ -69,12 +69,18 @@ _**REQUIRED for PayOP**_
 You have to download the loader from [Ioncube](https://www.ioncube.com/loaders.php), select `Windows VC15 (64 bits)` or a newer version.
 Copy the `ioncube_loader_win_7.3.dll` to your `ext` directory from your PHP.
 
-Now you have to add the ioncube key, this line you will get from me. You just have to enable ioncube and add config part in your `php.ini`.
+Now you have to add the `ioncube-key`, this line you will get from me. You just have to enable ioncube and add config part in your `php.ini`.
 
 ````
 zend_extension = ioncube_loader_win_7.3.dll
-[ioncube-key-replace]
+ioncube.loader.key.pservercms = [ioncube-key]
 ````
+
+as example a valid line could looks like, `dfg3egsg34g4gdfg` this is what you get from me as `ioncube-key`
+````
+zend_extension = ioncube_loader_win_7.3.dll
+ioncube.loader.key.pservercms = dfg3egsg34g4gdfg
+```` 
 
 ### PHP-Path in Environment Variables
  

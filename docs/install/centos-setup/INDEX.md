@@ -21,8 +21,13 @@ chmod +x centos8.sh
 Now you have to add the ioncube key, this line you will get from me. You just need to execute the command.
 
 ````
-echo "[ioncube-key-replace]" >> /etc/opt/remi/php73/php.d/50-custome.ini
+echo "ioncube.loader.key.pservercms = [ioncube-key-replace]" >> /etc/opt/remi/php73/php.d/50-custome.ini
 systemctl restart httpd
+````
+
+example key would be
+````
+echo "ioncube.loader.key.pservercms = fdhg54hfghddfgh" >> /etc/opt/remi/php73/php.d/50-custome.ini
 ````
 
 You also have to restart the webserver, to load these changes.
