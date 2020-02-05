@@ -2,6 +2,10 @@
 * Install
   * [REQUIREMENTS](install/REQUIREMENTS.md)
   * [Windows](install/windows-setup/INDEX.md)
+    * [Start](install/windows-setup/INDEX.md)
+    * [Apache-Setup](install/windows-setup/APACHE.md)
+    * [GIT](install/windows-setup/GIT.md)
+    * [Apache-Settings](install/windows-setup/APACHE-CONFIG.md)
   * [Centos](install/centos-setup/INDEX.md)
 * General Guides
  * [config](/general-setup/CONFIG.md)
