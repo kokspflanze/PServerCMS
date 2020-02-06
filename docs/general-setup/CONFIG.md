@@ -39,4 +39,18 @@ INSERT INTO user_role (role_id, is_default, parent_id) VALUES
 
 ## Finished
 
-if everything done, the page works and you can start with [customize](/#customize-guides) the system.
+![Congratulation](https://i.giphy.com/xT0xezQGU5xCDJuCPe.gif)
+
+Now the page should work, if you get an error please recheck the guide.
+If you dont find the problem please [contact](/info/CONTACT.md) me.
+
+You can now start with the features. (check also the sidebar)
+ * [How to enable debugger?](/general-setup/DEBUGGER.md)
+ * [access to admin-panel](/general-setup/ADMIN-PANEL-ACCESS.md)
+ * [donation-setup](/general-setup/DONATE.md)
+ * [cron-setup](/general-setup/CRONTAB.md)
+ * [mail setup](/general-setup/MAIL.md)
+ * [Customize Guides](/general-setup/CUSTOMIZE.md)
+ * [Unique](/modules/PServerSROUnique/README.md)
+ * [ItemPoints](/modules/SROItemPoints/README.md)
+ * [How to show icons in ranking](/general-setup/RANKING_ICONS.md)
