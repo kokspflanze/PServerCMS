@@ -15,6 +15,9 @@ You have to copy your own icons to the `public` directory. They must be on the s
 ALTER TABLE dbo._RefObjCommon ADD webName varchar(255) NOT NULL DEFAULT 'ItemName';
 ````
 
+Hint you can use [File](https://raw.githubusercontent.com/kokspflanze/PServerCMS/master/help/itemname.txt) for the basic ItemNames of your items, but dont miss, you could have other names and/or additional Items.
+
+
 ## Config
 
 Now you can enable `'SROItemDetails',` in `config/application.config.php`.
