@@ -43,13 +43,13 @@ If you are note sure about the name you can also go to the view-helper, which is
 In all modules, listed in `/modules/*` you can find a `config` directory with a `module.config.php` file.
 In that file is also a `view_helpers` section with a `aliases` part, these view-helpers you can call in all templates, in `*.twig` files is the syntax like `{{ viewHelper }}` and in `*.phtml` is it like `<?= $this->viewHelper() ?>`.
 
-please check also [zend-guide](https://zendframework.github.io/zend-view/helpers/intro/)
+please check also [laminas-guide](https://docs.laminas.dev/laminas-view/helpers/intro/)
 
 see also [How to show icons in ranking](/general-setup/RANKING_ICONS.md)
 
 ## Why some styles/scripts get not loaded?
 
-Since PServerCore 1.9 we use internal the [HeadScript](https://docs.zendframework.com/zend-view/helpers/head-script/) and [HeadLink](https://docs.zendframework.com/zend-view/helpers/head-link/) system from [Zend-View](https://docs.zendframework.com/zend-view/).
+Since PServerCore 1.9 we use internal the [HeadScript](https://docs.laminas.dev/laminas-view/helpers/head-script/) and [HeadLink](https://docs.zendframework.com/zend-view/helpers/head-link/) system from [Laminas-View](https://docs.laminas.dev/laminas-view/).
 That help us to set all stylesheet-files on top and all script-files on the bottom of the layout, thats improve the performance and its possible to call custom filters to minimize the size and load-time.
 
 ### What happens if i do nothing?
