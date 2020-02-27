@@ -1,6 +1,6 @@
 # PServerCMS Donate setup
 
-This guide will show you an example setup for paymentwall, payop, paypal and payssion.
+This guide will show you an example setup for paymentwall, payop, maxigame, paypal and payssion.
 
 ## PingBackUrls
 

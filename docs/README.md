@@ -29,6 +29,7 @@ This doc provide you every thing for the first start with the PServerCMS
 ### Donate
 - PaymentWall
 - PayOP
+- Maxigame
 - xsolla
 - PayPal-IPN
 
