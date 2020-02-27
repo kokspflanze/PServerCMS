@@ -64,3 +64,8 @@ This doc provide you every thing for the first start with the PServerCMS
 ### Additional-Pay-Features
 - Support Online-Counter
 - E-PIN System
+- TitleSystem
+- Monitoring
+- Setup (Linux, Windows)
+- Cloudflare GET-Attack Firewall
+- special modules, what you need
