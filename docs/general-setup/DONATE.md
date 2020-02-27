@@ -128,6 +128,74 @@ PayOP, dont support a testing api, so you have to test with min 1 USD on the pro
 If you have problems, check the donate-log in the admin-panel.
 
 
+## Maxigame Setup
+
+### Config
+
+Go to `config/autoload/payment.local.php` and add the following. (be careful, it could be possible that you have to merge your existing payment config with the payop parts)
+ 
+```php
+<?php
+return [
+    'pserver' => [
+        'donate' => [
+            'maxigame' => [
+                'url' => 'https://www.maxigame.com/epin/yukle.php',
+                'key' => '<<< YOUR KEY >>>',
+                'secret' => '<<< YOUR SECRET >>>',
+                // mapping for the amount of maxigame, if the amount is not mention in this config, it will use the amount from the api
+                'package' => [
+                    1 => 2,
+                    5 => 6,
+                    10 => 11,
+                    25 => 26,
+                    50 => 51,
+                    75 => 76,
+                    100 => 101,
+                    250 => 251,
+                ],
+            ],
+        ],
+    ],
+];
+```
+
+### Template
+
+Your template must contains following.
+This will add a link to the maxigame form. (It would also be possible to add the link directly in the navigation)
+
+````
+<a href="{{ url('PServerPanel/maxigame') }}" class="btn btn-md btn-primary">Maxigame</a>
+````
+
+navigation config, that you could add in the `config/autoload/payment.local.php` to get a link in the account navigation
+````
+'navigation' => [
+    'default' => [
+        'account' => [
+            'pages' => [
+                'maxigame' => [
+                    'label' => 'Maxigame',
+                    'route' => 'PServerPanel/maxigame',
+                    'resource' => 'PServerPanel/maxigame',
+                    'icon' => 'fas fa-gamepad',
+                    'order' => -10,
+                ],
+            ],
+        ],
+    ],
+],
+````
+
+
+### Testing
+
+Ask the Maxigame team to get test key, to test the integration.
+
+If you have problems, check the donate-log in the admin-panel.
+
+
 ## PayPal IPN Setup
 
 ### Install dependencies
