@@ -132,7 +132,7 @@ If you have problems, check the donate-log in the admin-panel.
 
 ### Config
 
-Go to `config/autoload/payment.local.php` and add the following. (be careful, it could be possible that you have to merge your existing payment config with the payop parts)
+Go to `config/autoload/payment.local.php` and add the following. (be careful, it could be possible that you have to merge your existing payment config with the maxigame parts)
  
 ```php
 <?php
@@ -157,6 +157,7 @@ return [
             ],
         ],
     ],
+    //navigation here (optional)
 ];
 ```
 
