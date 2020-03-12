@@ -15,6 +15,7 @@
  * [mail setup](/general-setup/MAIL.md)
  * [disable pages](/general-setup/AUTH.md)
  * [How to enable debugger?](/general-setup/DEBUGGER.md)
+ * [How to add custom-pages?](/general-setup/CUSTOM_PAGES.md)
 * [Customize Guides](/general-setup/CUSTOMIZE.md)
 * Special extensions
  * [Unique](/modules/PServerSROUnique/README.md)
