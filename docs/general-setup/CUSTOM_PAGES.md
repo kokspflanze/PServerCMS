@@ -1,4 +1,4 @@
-#How to add custom-pages (refund, privacy ...)
+# How to add custom-pages (refund, privacy ...)
 
 Sometimes you have to add custom pages for refund, privacy or example or smth else.
 
