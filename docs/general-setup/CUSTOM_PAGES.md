@@ -2,7 +2,7 @@
 
 Sometimes you have to add custom pages for refund, privacy or example or smth else.
 
-You just have to create following file in `config/autoloag/pages.local.php`.
+You just have to create following file in `config/autoload/pages.local.php`.
 
 ````text
 <?php
@@ -39,7 +39,7 @@ Now you have to add the link from the Page to the site.
 
 You can add it like `{{ url('PServerCore/site-detail', {'type':'TYPE'}) }}`.
 
-If you want it on the navigation, like the other pages you have to add following in the navigation section of `config/autoloag/pages.local.php` .
+If you want it on the navigation, like the other pages you have to add following in the navigation section of `config/autoload/pages.local.php` .
 
 ````text
 'default' => [
