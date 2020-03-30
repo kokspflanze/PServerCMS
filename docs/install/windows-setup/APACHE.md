@@ -57,7 +57,7 @@
  
 ### Curl CAInfo [optional]
 
-_**REQUIRED for PayOP, Maxigame, PayPal-IPN, AdminOverview**_
+_**REQUIRED for PayOP, Maxigame, PayPal-IPN, Paymentwall, AdminOverview**_
 
  [Guide StackOverflow](http://stackoverflow.com/questions/21114371/php-curl-error-code-60#answer-21114601)
  

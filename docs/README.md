@@ -32,6 +32,7 @@ This doc provide you every thing for the first start with the PServerCMS
 - Maxigame
 - xsolla
 - PayPal-IPN
+- Payssion
 
 ### Ranking
 - Ranking (TopGuild|TopPlayer) with detail pages
