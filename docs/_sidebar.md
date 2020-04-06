@@ -16,7 +16,7 @@
  * [disable pages](/general-setup/AUTH.md)
  * [How to enable debugger?](/general-setup/DEBUGGER.md)
  * [How to add custom-pages?](/general-setup/CUSTOM_PAGES.md)
- * [Cache](/general-setup/CACHE.md)
+ * [Caching](/general-setup/CACHING.md)
 * [Customize Guides](/general-setup/CUSTOMIZE.md)
 * Special extensions
  * [Unique](/modules/PServerSROUnique/README.md)
