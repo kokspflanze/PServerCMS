@@ -48,7 +48,7 @@ set ItemPoints for all characters (maybe you have to rename the database in the 
 	FROM [SRO_VT_SHARD].[dbo].[_Inventory] as inventory
 	join [SRO_VT_SHARD].[dbo]._Items as Items on Items.ID64  = inventory.ItemID
 	join [SRO_VT_SHARD].[dbo]._RefObjCommon as Common on Items.RefItemId  = Common.ID
-	left join [SRO_VT_SHARD].[dbo]._BindingOptionWithItem as Binding on Binding.nItemDBID = Items.ID64
+	left join [SRO_VT_SHARD].[dbo]._BindingOptionWithItem as Binding on Binding.nItemDBID = Items.ID64 AND Binding.nOptValue > 0 and Binding.bOptType = 2
 	where
 		inventory.slot < 13 and
 		inventory.slot != 8 and
@@ -83,7 +83,7 @@ add following in the `_AddLogChar` procedure, that you can find in your `LOG` da
 			FROM [SRO_VT_SHARD].[dbo].[_Inventory] as inventory
 			join [SRO_VT_SHARD].[dbo]._Items as Items on Items.ID64  = inventory.ItemID
 			join [SRO_VT_SHARD].[dbo]._RefObjCommon as Common on Items.RefItemId  = Common.ID
-			left join [SRO_VT_SHARD].[dbo]._BindingOptionWithItem as Binding on Binding.nItemDBID = Items.ID64
+			left join [SRO_VT_SHARD].[dbo]._BindingOptionWithItem as Binding on Binding.nItemDBID = Items.ID64 AND Binding.nOptValue > 0 and Binding.bOptType = 2
 			where
 				inventory.slot < 13 and
 				inventory.slot != 8 and
