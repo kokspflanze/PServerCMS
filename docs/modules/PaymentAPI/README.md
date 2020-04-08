@@ -7,9 +7,7 @@ Please check the `config/module.config.php` for the config entries.
 ## Supported PingBackApi´s
 
 - Paymentwall
-- Xsolla
 - PayPal IPN
-- Sofortueberweisung
 - Payssion
 - Payop
 
@@ -22,17 +20,9 @@ people.
 	- Route `PaymentApi/payment-wall-server`
 	- URL `/payment-api/payment-wall-response.html`
 
-- Xsolla
-	- Route `PaymentApi/xsolla`
-	- URL `/payment-api/xsolla.html`
-
 - PayPal
     - Route `PaymentApi/pay-pal`
     - URL `/payment-api/pay-pal.html`
-
-- Sofortueberweisung
-    - Route `PaymentApi/sofortueberweisung`
-    - URL `/payment-api/sofortueberweisung.html`
 
 - Payssion
     - Route `PaymentApi/payssion`

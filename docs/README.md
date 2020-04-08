@@ -30,7 +30,6 @@ This doc provide you every thing for the first start with the PServerCMS
 - PaymentWall
 - PayOP
 - Maxigame
-- xsolla
 - PayPal-IPN
 - Payssion
 

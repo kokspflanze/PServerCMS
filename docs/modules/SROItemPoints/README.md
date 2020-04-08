@@ -18,6 +18,10 @@ go to your `Shard` database and execute following query, to add 2 new cols.
 ````sql
 ALTER TABLE dbo._Char ADD ItemPoints int NOT NULL DEFAULT 0;
 ALTER TABLE dbo._Guild ADD ItemPoints int NOT NULL DEFAULT 0;
+ALTER TABLE dbo._RefObjCommon ADD webNumber integer NOT NULL DEFAULT 0;
+UPDATE _RefObjCommon SET webNumber = 5 WHERE CodeName128 LIKE '%_A_RARE%';
+UPDATE _RefObjCommon SET webNumber = 10 WHERE CodeName128 LIKE '%_B_RARE%';
+UPDATE _RefObjCommon SET webNumber = 15 WHERE CodeName128 LIKE '%_C_RARE%';
 ````
 
 ### Config
@@ -28,10 +32,8 @@ Now you can enable `'PServerCMS\SROItemPoints',` in `config/application.config.p
 
 Now you have 2 new cols, but empty. Your todo is now to fill these cols with data.
 
-As example a character logout, than you check the inventory and add the `ReqLevel` + `OptValue` for each item and put it in the `ItemPoints` col of the player.
+As example a character logout, than you check the inventory and add the `ReqLevel` + `OptValue` + `a custom webNumber` (this is used for SOX, default `A_RARE` + 5, `A_RARE` + 10, `C_RARE` + 15) for each item and put it in the `ItemPoints` col of the player.
 After this you update the guild (if exists) for the player.
-
-Maybe ppl will post there examples in the issue tracker, so we can share it with other ppl.
 
 ### Example
 
@@ -44,7 +46,7 @@ set ItemPoints for all characters (maybe you have to rename the database in the 
   UPDATE [SRO_VT_SHARD].[dbo]._Char 
   set ItemPoints = (
   SELECT
-	ISNULL((sum(ISNULL(Binding.nOptValue, 0)) + sum(ISNULL(OptLevel, 0)) + sum(ISNULL(Common.ReqLevel1, 0))), 0) as ItemPoints
+	ISNULL((sum(ISNULL(Binding.nOptValue, 0)) + sum(ISNULL(OptLevel, 0)) + sum(ISNULL(Common.ReqLevel1, 0)) + sum(ISNULL(Common.webNumber, 0))), 0) as ItemPoints
 	FROM [SRO_VT_SHARD].[dbo].[_Inventory] as inventory
 	join [SRO_VT_SHARD].[dbo]._Items as Items on Items.ID64  = inventory.ItemID
 	join [SRO_VT_SHARD].[dbo]._RefObjCommon as Common on Items.RefItemId  = Common.ID
@@ -79,7 +81,7 @@ add following in the `_AddLogChar` procedure, that you can find in your `LOG` da
         UPDATE [SRO_VT_SHARD].[dbo]._Char 
 			set ItemPoints = (
 			SELECT
-			ISNULL((sum(ISNULL(Binding.nOptValue, 0)) + sum(ISNULL(OptLevel, 0)) + sum(ISNULL(Common.ReqLevel1, 0))), 0) as ItemPoints
+			ISNULL((sum(ISNULL(Binding.nOptValue, 0)) + sum(ISNULL(OptLevel, 0)) + sum(ISNULL(Common.ReqLevel1, 0)) + sum(ISNULL(Common.webNumber, 0))), 0) as ItemPoints
 			FROM [SRO_VT_SHARD].[dbo].[_Inventory] as inventory
 			join [SRO_VT_SHARD].[dbo]._Items as Items on Items.ID64  = inventory.ItemID
 			join [SRO_VT_SHARD].[dbo]._RefObjCommon as Common on Items.RefItemId  = Common.ID
