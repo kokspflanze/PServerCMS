@@ -53,6 +53,10 @@ chcon -t httpd_sys_rw_content_t /var/www/page/data -R
 # cache directory
 chown apache:apache -R /var/www/page/data
 
+cd /var/www/page
+php composer.phar update
+
+
 #setup crons
 echo "* * * * * apache php /var/www/page/public/index.php player-history
 */5 * * * * apache php /var/www/page/public/index.php user-codes-cleanup
