@@ -38,7 +38,7 @@ You can also add the following tasks
 ### Sitemap
 This should run each hour.
 ```php
-C:\Apache24\htdocs\pserverCMSFull\public\index.php https://example.io/
+C:\Apache24\htdocs\pserverCMSFull\public\index.php generate-sitemap https://example.io/
 ```
 
 Change `https://example.io/` to your own Domain
