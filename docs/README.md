@@ -21,7 +21,7 @@ This doc provide you every thing for the first start with the PServerCMS
 - TicketSystem (with bb-code) change TicketCategories in the Adminpanel
 - AccountPanel (to change the web/ingame password)
 - CharacterPanel (to show current status of a character, set main character[alias for ticket-system])
-- Vote4Coins (modification in admin-panel)
+- Vote4Coins (modification in admin-panel, VotePostBack possible)
 - RoleSystem, its possible to add more roles with different permissions
 - show current online player as an image for threads `/info/online-player.png`
 - easy to change the web, admin and email layout
@@ -32,6 +32,14 @@ This doc provide you every thing for the first start with the PServerCMS
 - Maxigame
 - PayPal-IPN
 - Payssion
+
+### VotePostBackProvider
+- gamestop100
+- xtremetop100
+- gtop100
+- silkroad-server
+- private-server
+- topg
 
 ### Ranking
 - Ranking (TopGuild|TopPlayer) with detail pages
