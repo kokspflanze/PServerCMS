@@ -45,6 +45,7 @@ ServerSignature Off
 
 mkdir -p /var/www/page/data
 mkdir -p /var/www/page/public
+mkdir -p /var/opt/remi/php73/log/php-fpm
 
 # selinux
 setsebool -P httpd_can_network_connect on
