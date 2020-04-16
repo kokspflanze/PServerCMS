@@ -20,7 +20,7 @@ yum -y install php73 php73-php php73-php-opcache php73-php-bcmath php73-php-cli 
 # helpful tools
 yum -y install epel-release curl crontabs git
 
-systemctl enable httpd crond
+systemctl enable httpd crond php73-php-fpm
 
 echo "expose_php = Off" > /etc/opt/remi/php73/php.d/50-custome.ini
 
@@ -63,4 +63,4 @@ echo "* * * * * apache php /var/www/page/public/index.php player-history
 */5 * * * * apache php /var/www/page/public/index.php user-codes-cleanup
 " > /etc/cron.d/pservercms
 
-systemctl start httpd crond
+systemctl start httpd crond php73-php-fpm

@@ -22,7 +22,7 @@ Now you have to add the ioncube key, this line you will get from me. You just ne
 
 ````
 echo "ioncube.loader.key.pservercms = [ioncube-key-replace]" >> /etc/opt/remi/php73/php.d/50-custome.ini
-systemctl restart httpd
+systemctl restart httpd php73-php-fpm
 ````
 
 example key would be
@@ -30,7 +30,7 @@ example key would be
 echo "ioncube.loader.key.pservercms = fdhg54hfghddfgh" >> /etc/opt/remi/php73/php.d/50-custome.ini
 ````
 
-You also have to restart the webserver, to load these changes.
+You also have to restart the webserver/fpm, to load these changes.
 
 
 ## PServerCMS-DB
