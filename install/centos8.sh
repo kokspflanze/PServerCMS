@@ -14,7 +14,7 @@ rpm -Uvh https://rpms.remirepo.net/enterprise/remi-release-8.rpm
 yum -y update
 
 # php && httpd
-yum -y install php72 php72-php php72-php-opcache php72-php-bcmath php72-php-cli php72-php-common php72-php-gd php72-php-intl php72-php-json php72-php-mbstring php72-php-pdo php72-php-pdo-dblib php72-php-pear php72-php-pecl-mcrypt php72-php-xmlrpc php72-php-xml php72-php-mysql php72-php-soap php72-php-pecl-zip php72-php-ioncube-loader httpd
+yum -y install php73 php73-php php73-php-opcache php73-php-bcmath php73-php-cli php73-php-common php73-php-gd php73-php-intl php73-php-json php73-php-mbstring php73-php-pdo php73-php-pdo-dblib php73-php-pear php73-php-pecl-mcrypt php73-php-xmlrpc php73-php-xml php73-php-mysql php73-php-soap php73-php-pecl-zip php73-php-ioncube-loader httpd
 
 
 # helpful tools
@@ -22,9 +22,9 @@ yum -y install epel-release curl crontabs git
 
 systemctl enable httpd crond
 
-echo "expose_php = Off" > /etc/opt/remi/php72/php.d/50-custome.ini
+echo "expose_php = Off" > /etc/opt/remi/php73/php.d/50-custome.ini
 
-ln -s /bin/php72 /bin/php
+ln -s /bin/php73 /bin/php
 
 echo "ServerTokens prod
 ServerSignature Off
@@ -45,7 +45,7 @@ ServerSignature Off
 
 mkdir -p /var/www/page/data
 mkdir -p /var/www/page/public
-mkdir -p /var/opt/remi/php72/log/php-fpm
+mkdir -p /var/opt/remi/php73/log/php-fpm
 
 # selinux
 setsebool -P httpd_can_network_connect on
