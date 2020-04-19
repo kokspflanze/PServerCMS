@@ -1,5 +1,12 @@
 # Customize
 
+## Important
+
+Your edits should only be in `module/Customize` or in `config`.
+Its also possible to change stuff in `public`.
+
+Never change smth on `vendor` or `module/pserver*`. If you do that, no updates are possible anymore. 
+
 ## How to change the projectname?
 
 Go to `config/autoload/global.php` and check the configuration `server_name`. Just change `PSercerCMS` to your projectname.
