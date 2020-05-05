@@ -36,6 +36,7 @@
  extension=php_fileinfo.dll
  extension=php_gd2.dll
  extension=php_intl.dll
+ extension=php_gettext.dll
  extension=php_mbstring.dll
  extension=php_exif.dll      ; Must be after mbstring as it depends on it
  extension=php_openssl.dll
