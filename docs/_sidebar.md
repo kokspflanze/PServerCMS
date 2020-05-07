@@ -17,7 +17,7 @@
  * [How to enable debugger?](/general-setup/DEBUGGER.md)
  * [How to add custom-pages?](/general-setup/CUSTOM_PAGES.md)
  * [Caching](/general-setup/CACHING.md)
- * [VotePostBack](/general-setup/VOTE_POSTBACK.md)
+ * [Vote](/general-setup/VOTE.md)
 * [Customize Guides](/general-setup/CUSTOMIZE.md)
 * Special extensions
  * [Unique](/modules/PServerSROUnique/README.md)
