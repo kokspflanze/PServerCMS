@@ -25,6 +25,8 @@ This doc provide you every thing for the first start with the PServerCMS
 - RoleSystem, its possible to add more roles with different permissions
 - show current online player as an image for threads `/info/online-player.png`
 - easy to change the web, admin and email layout
+- resend register mail (user can login and resend the confirmation mail, its also possible in the adminpanel)
+- You can change the language of the page, or just change some texts to your custom version, without touch the template
 
 ### Donate
 - PaymentWall

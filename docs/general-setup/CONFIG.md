@@ -34,6 +34,7 @@ You have to execute this in your SQL-Client (SQL Management or HeidiSQL, ...)
 INSERT INTO user_role (role_id, is_default, parent_id) VALUES
 ('guest', NULL, NULL),
 ('user', NULL, NULL),
+('not_active', NULL, NULL),
 ('admin', NULL, 2);
 ```
 
