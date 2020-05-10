@@ -27,7 +27,6 @@ This doc provide you every thing for the first start with the PServerCMS
 - easy to change the web, admin and email layout
 - resend register mail (user can login and resend the confirmation mail, its also possible in the adminpanel)
 - You can change the language of the page, or just change some texts to your custom version, without touch the template
-- player-map (SRO Map with all online chars, exclude jobs and special accounts)
 
 ### Donate
 - PaymentWall
@@ -62,6 +61,7 @@ This doc provide you every thing for the first start with the PServerCMS
 - Fortress owners guilds (Can be shown anywhere you want, and for every role) as ViewHelper `fortressGuildViewSro`, default it show only entires with realy winner guilds, you can change that in config `module/PServerSRO//config/module.config.php` to show all entries.
 - Job ranking widgets (Can be shown anywhere you want, and for every role) as ViewHelper `rankingJobTraderViewSro`, `rankingJobHunterViewSro`, `rankingJobThievesViewSro`
 - Job type to name mapper (For your own customize parts, if you want to show the job of a character) as ViewHelper `jobType2Name`
+- player-map (SRO Map with all online chars, exclude jobs and special accounts), (this require the `_OnlineOffline` Table)
 
 ### AdminPanel
 - Character options (Ability to view characters in your DB) accessible from admin panel
