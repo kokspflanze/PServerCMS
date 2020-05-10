@@ -67,6 +67,8 @@ This doc provide you every thing for the first start with the PServerCMS
 - Character options (Ability to view characters in your DB) accessible from admin panel
 - Job name history (Ability to view original job names & changed ones) accessible from admin panel
 - SMC Log (Shows the GM/SMC logs on your website) accessible from admin panel
+- LogEventChar accessible from admin panel
+- LogEventItem accessible from admin panel
 - UserPanel
 - DonateStatistic
 - view Logs
