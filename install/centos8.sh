@@ -18,7 +18,7 @@ yum -y install php73 php73-php php73-php-opcache php73-php-bcmath php73-php-cli 
 
 
 # helpful tools
-yum -y install epel-release curl crontabs git
+yum -y install epel-release curl crontabs git unzip htop tmux
 
 systemctl enable httpd crond php73-php-fpm
 

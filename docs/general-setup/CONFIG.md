@@ -38,6 +38,19 @@ INSERT INTO user_role (role_id, is_default, parent_id) VALUES
 ('admin', NULL, 2);
 ```
 
+### WorldMap Images
+
+For the WorldMap you have to download the map images.
+
+Go to your install directory windows `/c/Apache24/htdocs/pserverCMSFull` with your git-bash or with centos to `/var/www/page` in your terminal. 
+
+````bash
+curl -LO https://github.com/JellyBitz/xSROMap/archive/master.zip
+unzip master.zip
+mv xSROMap-master/assets/img public/assets/xSROMap/img
+rm -rf master.zip xSROMap-master
+````
+
 ## Finished
 
 ![Congratulation](https://i.giphy.com/xT0xezQGU5xCDJuCPe.gif)
