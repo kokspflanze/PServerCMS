@@ -24,3 +24,8 @@ Now you can enable `'SROItemDetails',` in `config/application.config.php`.
 Than you can see the Items of a character with blues/whites.
 
 ![ScreenShot](https://raw.githubusercontent.com/kokspflanze/PServerCMS/master/docs/images/blues_whites.png)
+
+If you still see the old version, you have to delete the cache. You can delete the cache with your Terminal or the Git-Bash (you have to stay in the directory of the cms).
+```bash
+rm -rf data/cache/laminas*
+```
