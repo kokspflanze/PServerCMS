@@ -1,12 +1,5 @@
 #!/usr/bin/env bash
 
-# firewall setup allow 80 and 443
-for s in http https
-do
-    firewall-cmd --permanent --add-service=$s
-done
-firewall-cmd --reload
-
 rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
 rpm -Uvh https://rpms.remirepo.net/enterprise/remi-release-8.rpm
 
@@ -14,8 +7,16 @@ rpm -Uvh https://rpms.remirepo.net/enterprise/remi-release-8.rpm
 yum -y update
 
 # php && httpd
-yum -y install php73 php73-php php73-php-opcache php73-php-bcmath php73-php-cli php73-php-common php73-php-gd php73-php-intl php73-php-json php73-php-mbstring php73-php-pdo php73-php-pdo-dblib php73-php-pear php73-php-pecl-mcrypt php73-php-xmlrpc php73-php-xml php73-php-mysql php73-php-soap php73-php-pecl-zip php73-php-ioncube-loader httpd
+yum -y install php73 php73-php php73-php-opcache php73-php-bcmath php73-php-cli php73-php-common php73-php-gd php73-php-intl php73-php-json php73-php-mbstring php73-php-pdo php73-php-pdo-dblib php73-php-pear php73-php-pecl-mcrypt php73-php-xmlrpc php73-php-xml php73-php-mysql php73-php-soap php73-php-pecl-zip php73-php-ioncube-loader httpd firewalld
 
+systemctl start firewalld
+
+# firewall setup allow 80 and 443
+for s in http https
+do
+    firewall-cmd --permanent --add-service=$s
+done
+firewall-cmd --reload
 
 # helpful tools
 yum -y install epel-release curl crontabs git unzip htop tmux
