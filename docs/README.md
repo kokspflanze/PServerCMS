@@ -55,6 +55,9 @@ This doc provide you every thing for the first start with the PServerCMS
 - Unique ranking [enable](/modules/PServerSROUnique/README)
     - kill-history in sidebar
     - kill-history and points information in the character-details-page
+- PVP / Job Kill/Death [enable](/modules/SROKill/README)
+    - 2 rankings
+    - history of last fights in character-details-page
 
 ### Game-Specials
 - Unstuck character (Teleport the buggy char back to town, default hotan) accessible from the character panel, (this require the `_OnlineOffline` Table)
