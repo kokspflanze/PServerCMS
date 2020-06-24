@@ -16,7 +16,7 @@ CREATE TABLE [dbo].[_KillDeathCounter](
 	[kill] [int] NULL,
 	[code] [varchar](50) NULL
 ) ON [PRIMARY]
-GO;
+GO
 
 CREATE TABLE [dbo].[_KillHistory](
 	[CharId] [int] NOT NULL,
@@ -82,7 +82,7 @@ BEGIN
     declare @iCharLevel tinyint
 
     -- PVP KILL
-    ELSE IF (((SELECT CHARINDEX('My: no job, Neutral,',@Desc)) > 0) AND ((SELECT CHARINDEX('): no job, Neutral, ',@Desc)) > 0))
+    IF (((SELECT CHARINDEX('My: no job, Neutral,',@Desc)) > 0) AND ((SELECT CHARINDEX('): no job, Neutral, ',@Desc)) > 0))
     BEGIN
         SELECT @sKillChar = SUBSTRING(@Desc,
                 CHARINDEX('(',@Desc)+1,
