@@ -96,8 +96,15 @@ BEGIN
         exec _AddKillHistoryTableData @iKillCharId, @CharID, @iKillCharLevel, @iCharLevel, 0
     END
     -- JOB KILL
-    ELSE IF (((SELECT CHARINDEX(', Neutral, no freebattle team',@Desc)) > 0) AND ((SELECT CHARINDEX(', Neutral, no freebattle team',@Desc, CHARINDEX(', Neutral, no freebattle team',@Desc))) > 0))
+    ELSE IF (((SELECT CHARINDEX(', Neutral, no freebattle team',@Desc)) > 0) AND ((SELECT CHARINDEX(', Neutral, no freebattle team',@Desc, CHARINDEX(', Neutral, no freebattle team',@Desc) + 1)) > 0))
     BEGIN
+        SELECT @sKillChar = SUBSTRING(@Desc,
+                CHARINDEX('(',@Desc)+1,
+                CHARINDEX(')',@Desc) - CHARINDEX('(',@Desc)-1
+            )
+        SELECT @iKillCharId = CharID, @iKillCharLevel = CurLevel FROM [LEG_SHD].[dbo].[_Char] WHERE CharName16 = @sKillChar
+        SELECT @iCharLevel = CurLevel FROM [LEG_SHD].[dbo].[_Char] WHERE CharID = @CharID
+
         exec _AddKillDeathCounterTableData @iKillCharId, 'job', 1, 0
         exec _AddKillDeathCounterTableData @CharID, 'job', 0, 1
         exec _AddKillHistoryTableData @iKillCharId, @CharID, @iKillCharLevel, @iCharLevel, 1
