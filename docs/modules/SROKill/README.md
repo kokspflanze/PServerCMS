@@ -81,8 +81,13 @@ BEGIN
     declare @iKillCharLevel tinyint
     declare @iCharLevel tinyint
 
+    -- MOB KILL
+    IF((SELECT CHARINDEX('] vs [Monster: ',@Desc)) > 0)
+    BEGIN
+        exec _AddKillDeathCounterTableData @CharID, 'monster', 0, 1
+    END
     -- PVP KILL
-    IF (((SELECT CHARINDEX('My: no job, Neutral,',@Desc)) > 0) AND ((SELECT CHARINDEX('): no job, Neutral, ',@Desc)) > 0))
+    ELSE IF (((SELECT CHARINDEX('My: no job, Neutral,',@Desc)) > 0) AND ((SELECT CHARINDEX('): no job, Neutral, ',@Desc)) > 0))
     BEGIN
         SELECT @sKillChar = SUBSTRING(@Desc,
                 CHARINDEX('(',@Desc)+1,
