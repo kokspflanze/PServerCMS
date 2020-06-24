@@ -102,8 +102,8 @@ BEGIN
                 CHARINDEX('(',@Desc)+1,
                 CHARINDEX(')',@Desc) - CHARINDEX('(',@Desc)-1
             )
-        SELECT @iKillCharId = CharID, @iKillCharLevel = CurLevel FROM [LEG_SHD].[dbo].[_Char] WHERE CharName16 = @sKillChar
-        SELECT @iCharLevel = CurLevel FROM [LEG_SHD].[dbo].[_Char] WHERE CharID = @CharID
+        SELECT @iKillCharId = CharID, @iKillCharLevel = CurLevel FROM [SRO_VT_SHARD].[dbo].[_Char] WHERE CharName16 = @sKillChar
+        SELECT @iCharLevel = CurLevel FROM [SRO_VT_SHARD].[dbo].[_Char] WHERE CharID = @CharID
 
         exec _AddKillDeathCounterTableData @iKillCharId, 'job', 1, 0
         exec _AddKillDeathCounterTableData @CharID, 'job', 0, 1
