@@ -94,6 +94,7 @@ return [
             'token' => '<<< YOUR TOKEN FROM PAYOP >>>',
             'public' => '<<< YOUR PUBLIC-KEY FROM PAYOP >>>',
             'secret' => '<<< YOUR SECRET-KEY FROM PAYOP >>>',
+            'currency' => 'USD',
         ],
     ],
 ];
