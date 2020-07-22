@@ -8,7 +8,7 @@ requires `Visual Studio 2015` and above
 
 ## DownloadList
 
-- [PHP 7.3.17](https://windows.php.net/downloads/releases/php-7.3.17-Win32-VC15-x64.zip) OR [PHP 7.3.17 Archive](https://windows.php.net/downloads/releases/archives/php-7.3.17-Win32-VC15-x64.zip), use the archive version if the first link not work or download the latest 7.3.X VC14 x64 Thread Safe
+- [PHP 7.3.20](https://windows.php.net/downloads/releases/php-7.3.20-Win32-VC15-x64.zip) OR [PHP 7.3.20 Archive](https://windows.php.net/downloads/releases/archives/php-7.3.20-Win32-VC15-x64.zip), use the archive version if the first link not work or download the latest 7.3.X VC14 x64 Thread Safe
 - [Apache](https://www.apachehaus.com/cgi-bin/download.plx?dli=QVXRXNaBTQ10kentmWwYFVKVlUGR1UwNVTtxmR) (latest apache for x64)
 - [Visual C++ Redistributable](https://www.microsoft.com/en-us/download/details.aspx?id=48145)
 - [ODBC Driver 11](https://www.microsoft.com/en-us/download/details.aspx?id=36434)
