@@ -64,6 +64,7 @@ php composer.phar update
 #setup crons
 echo "* * * * * apache php /var/www/page/public/index.php player-history
 */5 * * * * apache php /var/www/page/public/index.php user-codes-cleanup
+2 * * * * apache php /var/www/page/public/index.php generate-sitemap https://www.example.io/
 " > /etc/cron.d/pservercms
 
 systemctl start httpd crond php73-php-fpm
