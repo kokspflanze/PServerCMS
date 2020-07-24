@@ -23,7 +23,9 @@ yum -y install epel-release curl crontabs git unzip htop tmux
 
 systemctl enable httpd crond php73-php-fpm
 
-echo "expose_php = Off" > /etc/opt/remi/php73/php.d/50-custome.ini
+echo "expose_php = Off
+date.timezone = Europe/Berlin
+" > /etc/opt/remi/php73/php.d/50-custome.ini
 
 ln -s /bin/php73 /bin/php
 
