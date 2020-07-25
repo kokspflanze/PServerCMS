@@ -8,6 +8,11 @@ example in your php.ini
 ioncube.loader.key.pservercms = dfg3egsg34g4gdfg
 ````
 
+## How to change Slider-Images
+
+If you just want to change the image of the slider and not the slider it self, you can go to `config/autoload/global.php` and there you can find the current slider-settings in the `sliders` key.
+Just replace the links to your images, you can also remove and add images in the slider.
+
 ## You get a white page with a HTTP-Code 500
 
 Check your Webserver `error-log`

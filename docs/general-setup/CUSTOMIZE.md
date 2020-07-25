@@ -62,6 +62,8 @@ see also [How to show icons in ranking](/general-setup/RANKING_ICONS.md)
 
 ## How to change the sliders, news&update page?
 
+If you just want to replace the slider-images, check the FAQ-Section.
+
 Go with the terminal or git-bash to the pserver directory.
 type following.
 
