@@ -4,7 +4,7 @@ This doc provide you every thing for the first start with the PServerCMS
 
 [**Contact - Trail Version**](/info/CONTACT.md)
 
-![ScreenShot](https://raw.githubusercontent.com/kokspflanze/PServerCMS/master/docs/images/screenshots/news.png)
+![ScreenShot](https://raw.githubusercontent.com/kokspflanze/PServerCMS/master/docs/images/screenshots/default_mode.png)
 
 ## Features
 
