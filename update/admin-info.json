@@ -1,6 +1,11 @@
 [
  {
   "headline" : "Updates",
+  "body" : "Its now possible to add own rankings, based on your config. check [link](https://kokspflanze.github.io/PServerCMS/#/modules/CustomRanking/README)\n",
+  "datetime" : "2020-09-25T16:00:01Z"
+ },
+ {
+  "headline" : "Updates",
   "body" : "Updates of the last weeks/months:\n- donate-bonus update (beta, example give from '2020-10-03' to '2020-10-03' a 10% to all donats)\n- layout with a dark and light mode, you can switch it in config and the user self (config based)\n- layout get some meta-data for the link-preview\n- layout character search icon added\n- sticky navigation, if you scroll down the navigation scroll too\n- new module sro-kill added\n- character buffs added in character-details\n- paginator cache time changed to 1min\n- ticket-notification for admins added (config based)\n- added multi language (beta, not all parts has this option)\n- checkbox @ register added to confirm terms/rules (config based)\n- resend register added\n- added ranking view, to switch between based ranking navigation and one page ranking\n- race and job added in charater-details",
   "datetime" : "2020-09-20T00:00:01Z"
  },
