@@ -15,10 +15,12 @@ This doc provide you every thing for the first start with the PServerCMS
 - Download (modification in admin-panel)
 - ServerInfoPages (modification in admin-panel, possible to add more dynamic)
 - Register (with mail confirmation, 2 pw system [different pws for ingame and web])
+- Checkbox at register to confirm terms/rules
 - SecretQuestionSystem (possible to enable it in the config, and set the question in the admin panel)
 - SecretLogin (you can define different roles, which has to confirm there mail before they can login)
 - lost Password
 - TicketSystem (with bb-code) change TicketCategories in the Adminpanel
+- TicketNotification for Admins via mail
 - AccountPanel (to change the web/ingame password)
 - CharacterPanel (to show current status of a character, set main character[alias for ticket-system])
 - Vote4Coins (modification in admin-panel, VotePostBack possible)
@@ -27,6 +29,8 @@ This doc provide you every thing for the first start with the PServerCMS
 - easy to change the web, admin and email layout
 - resend register mail (user can login and resend the confirmation mail, its also possible in the adminpanel)
 - You can change the language of the page, or just change some texts to your custom version, without touch the template
+- Theme Layout Switch (Dark/Light mode)
+- MultiLanguage Support (beta)
 
 ### Donate
 - PaymentWall
@@ -58,6 +62,8 @@ This doc provide you every thing for the first start with the PServerCMS
 - PVP / Job Kill/Death [enable](/modules/SROKill/README)
     - 2 rankings
     - history of last fights in character-details-page
+- CustomRanking, you can add own rankings, just add the definition in the config
+- Switch between rankings based on navigation and one ranking page.
 
 ### Game-Specials
 - Unstuck character (Teleport the buggy char back to town, default hotan) accessible from the character panel, (this require the `_OnlineOffline` Table)
