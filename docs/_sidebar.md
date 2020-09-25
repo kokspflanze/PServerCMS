@@ -25,5 +25,6 @@
  * [How to show icons in ranking](/general-setup/RANKING_ICONS.md) 
  * [DonateAction](/modules/PServerCMSDonateAction/README.md)
  * [SROKill](/modules/SROKill/README.md)
+ * [CustomRanking](/modules/CustomRanking/README.md)
 * [Frequently Asked Questions](/info/FAQ.md)
 * [**Contact - Trail Version**](/info/CONTACT.md)
