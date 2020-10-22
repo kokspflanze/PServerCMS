@@ -19,6 +19,14 @@ return [
              * SecretKey
              */
             'secret-key' => 'YOUR SECRETKEY, PLEASE REPLACE ME',
+            /**
+             * PublicKey
+             */
+            'public-key' => 'YOUR PUBLICKEY, PLEASE REPLACE ME',
+            /**
+             * ApiVersion, supported version atm 1,2,3
+             */
+            'version' => 'SET THE VERSION; WHICH YOU SET IN PAYMENTWALL',
         ],
     ],
 ];
@@ -44,11 +52,11 @@ return [
  {% block content %}
 	<h2>Paymentwall</h2>
 	<hr />
-    <iframe src="https://api.paymentwall.com/api/ps/?key=XXXXXX&uid={{ user.getId() }}&widget=XXXXXX&email={{ user.getEmail() }}&history[registration_date]={{ user.getCreated.getTimestamp }}" width="100%" height="800" frameborder="0"></iframe>
+    <iframe src="https://api.paymentwall.com/api/ps/?{{ paymentAPIPaymentwallWidgetUrl(user.getId(), 'WIDGET_CODE') }}" width="100%" height="800" frameborder="0"></iframe>
  {% endblock content %}
 ```
 
-these is just an example how the widget looks, you have to replace the `XXXXXX` parts.
+these is just an example how the widget looks, you have to replace the `WIDGET_CODE` part, from your created widget.
 
 If this is done you can see the Donate widget.
 
