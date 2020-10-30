@@ -36,6 +36,8 @@ INSERT INTO user_role (role_id, is_default, parent_id) VALUES
 ('user', NULL, NULL),
 ('admin', NULL, 2),
 ('not_active', NULL, NULL);
+
+INSERT INTO `translation_locale` (`locale`, `name`, `active`, `created`) VALUES ('en', 'English', '1', now());
 ```
 
 ### WorldMap Images
