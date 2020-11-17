@@ -70,8 +70,6 @@ If you found no entry in the table, than the pingback url is wrong.
 
 ## PayOP Setup
 
-_PayOP is at the moment in BETA!_
-
 ### Config
 
 Go to `config/autoload/payment.local.php` and add the following. (be careful, it could be possible that you have to merge your existing payment config with the payop parts)
@@ -134,6 +132,41 @@ This is default added, only if you overwrite the template you have to add it you
 ### Testing
 
 PayOP, dont support a testing api, so you have to test with min 1 USD on the production-system.
+
+If you have problems, check the donate-log in the admin-panel.
+
+
+## Paywant Setup
+
+_Paywant is at the moment in ALPHA!_ The implementation is not 100%, that mean i will help with the integration in your project-page.
+
+### Config
+
+Go to `config/autoload/payment.local.php` and add the following. (be careful, it could be possible that you have to merge your existing payment config with the paywant parts)
+ 
+```php
+<?php
+return [
+    'payment-api' => [
+        'paywant' => [
+            'public-key' => '<<< YOUR API-KEY FROM PAYWANT >>>',
+            'secret-key' => '<<< YOUR SECRET-KEY FROM PAYWANT >>>',
+        ],
+    ],
+];
+```
+
+### Template
+
+Your template must contains following
+
+````
+<a href="{{ url('PServerCore/panel_donate', {'action':'paywant'}) }}">Paywant</a>
+````
+
+This is default added, only if you overwrite the template you have to add it your self.
+
+### Testing
 
 If you have problems, check the donate-log in the admin-panel.
 
