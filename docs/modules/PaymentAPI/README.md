@@ -10,6 +10,7 @@ Please check the `config/module.config.php` for the config entries.
 - PayPal IPN
 - Payssion
 - Payop
+- Paywant
 
 You can easy add more with a new controller and a new provider, and create a pull-request to share the ping-back-provider with other 
 people.
@@ -31,6 +32,10 @@ people.
 - Payop
     - Route `PaymentApi/payop`
     - URL `/payment-api/payop.html`
+
+- Paywant
+    - Route `PaymentApi/paywant`
+    - URL `/payment-api/paywant.html`
 
 ## How to give different reward´s for request 
 

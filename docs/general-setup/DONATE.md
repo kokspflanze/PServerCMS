@@ -242,6 +242,8 @@ If you have problems, check the donate-log in the admin-panel.
 
 ## PayPal IPN Setup
 
+_DON'T RECOMMENDED, PayPal allow chargebacks for virtual currencies!_
+
 ### Install dependencies
 
 ````ssh
