@@ -15,6 +15,7 @@
  * [mail setup](/general-setup/MAIL.md)
  * [disable pages](/general-setup/AUTH.md)
  * [How to enable debugger?](/general-setup/DEBUGGER.md)
+ * [Log SQL-Queries?](/general-setup/SQL_LOGGING.md)
  * [How to add custom-pages?](/general-setup/CUSTOM_PAGES.md)
  * [Caching](/general-setup/CACHING.md)
  * [Vote](/general-setup/VOTE.md)
