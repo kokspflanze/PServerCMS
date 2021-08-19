@@ -1,6 +1,6 @@
 # Log all queries
 
-_WARNING: that function ALL data into a txt file, that can include private data!_
+_WARNING: that function log ALL data into a txt file, that can include private data!_
 
 You don´t trust the SQL Queries and think there are SQL-Injects? You can LOG all queries to check what happen.
 
