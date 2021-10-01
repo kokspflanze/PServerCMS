@@ -38,7 +38,7 @@ This doc provide you every thing for the first start with the PServerCMS
 - PayOP
 - Paywant
 - Maxigame
-- PayPal-IPN
+- PayPal-IPN (not recommended)
 - Payssion
 
 ### VotePostBackProvider
