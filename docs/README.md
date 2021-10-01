@@ -21,7 +21,7 @@ This doc provide you every thing for the first start with the PServerCMS
 - lost Password
 - TicketSystem (with bb-code) change TicketCategories in the Adminpanel
 - TicketNotification for Admins via mail
-- AccountPanel (to change the web/ingame password)
+- AccountPanel (to change the web/ingame password and change email with confirmation)
 - CharacterPanel (to show current status of a character, set main character[alias for ticket-system])
 - Vote4Coins (modification in admin-panel, VotePostBack possible)
 - RoleSystem, its possible to add more roles with different permissions
@@ -79,7 +79,7 @@ This doc provide you every thing for the first start with the PServerCMS
 - SMC Log (Shows the GM/SMC logs on your website) accessible from admin panel
 - LogEventChar accessible from admin panel
 - LogEventItem accessible from admin panel
-- UserPanel
+- UserPanel (edits like email possible)
 - DonateStatistic
 - view Logs
 - BlockHistory 
