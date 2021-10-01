@@ -89,6 +89,7 @@ This doc provide you every thing for the first start with the PServerCMS
 - Support Online-Counter
 - E-PIN System
 - TitleSystem
+- InGame PIN System
 - Monitoring
 - Setup (Linux, Windows)
 - Cloudflare GET-Attack Firewall
