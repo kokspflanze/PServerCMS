@@ -30,6 +30,7 @@ This doc provide you every thing for the first start with the PServerCMS
 - resend register mail (user can login and resend the confirmation mail, its also possible in the adminpanel)
 - You can change the language of the page, or just change some texts to your custom version, without touch the template
 - Theme Layout Switch (Dark/Light mode)
+- Captcha System (switch between PHP-Captcha and ReCaptcha v2)
 - MultiLanguage Support (beta)
 
 ### Donate
