@@ -21,7 +21,7 @@ This doc provide you every thing for the first start with the PServerCMS
 - lost Password
 - TicketSystem (with bb-code) change TicketCategories in the Adminpanel
 - TicketNotification for Admins via mail
-- AccountPanel (to change the web/ingame password)
+- AccountPanel (to change the web/ingame password and change email with confirmation)
 - CharacterPanel (to show current status of a character, set main character[alias for ticket-system])
 - Vote4Coins (modification in admin-panel, VotePostBack possible)
 - RoleSystem, its possible to add more roles with different permissions
@@ -30,6 +30,7 @@ This doc provide you every thing for the first start with the PServerCMS
 - resend register mail (user can login and resend the confirmation mail, its also possible in the adminpanel)
 - You can change the language of the page, or just change some texts to your custom version, without touch the template
 - Theme Layout Switch (Dark/Light mode)
+- Captcha System (switch between PHP-Captcha and ReCaptcha v2)
 - MultiLanguage Support (beta)
 
 ### Donate
@@ -38,7 +39,7 @@ This doc provide you every thing for the first start with the PServerCMS
 - Paywant
 - Maxigame (E-Pin Provider)
 - [HipopoTamya](https://www.hipopoTamya.com/) (E-Pin Provider)
-- PayPal-IPN
+- PayPal-IPN (not recommended)
 - Payssion
 
 ### VotePostBackProvider
@@ -80,7 +81,7 @@ This doc provide you every thing for the first start with the PServerCMS
 - SMC Log (Shows the GM/SMC logs on your website) accessible from admin panel
 - LogEventChar accessible from admin panel
 - LogEventItem accessible from admin panel
-- UserPanel
+- UserPanel (edits like email possible)
 - DonateStatistic
 - view Logs
 - BlockHistory 
@@ -89,6 +90,7 @@ This doc provide you every thing for the first start with the PServerCMS
 - Support Online-Counter
 - E-PIN System
 - TitleSystem
+- InGame PIN System
 - Monitoring
 - Setup (Linux, Windows)
 - Cloudflare GET-Attack Firewall
