@@ -176,7 +176,7 @@ If you have problems, check the donate-log in the admin-panel.
 ### Config
 
 Go to `config/autoload/payment.local.php` and add the following. (be careful, it could be possible that you have to merge your existing payment config with the maxigame parts)
- 
+
 ```php
 <?php
 return [
@@ -236,6 +236,74 @@ navigation config, that you could add in the `config/autoload/payment.local.php`
 ### Testing
 
 Ask the Maxigame team to get test key, to test the integration.
+
+If you have problems, check the donate-log in the admin-panel.
+
+## HipopoTamya Setup
+
+### Config
+
+Go to `config/autoload/payment.local.php` and add the following. (be careful, it could be possible that you have to merge your existing payment config with the HipopoTamya parts)
+
+```php
+<?php
+return [
+    'pserver' => [
+        'donate' => [
+            'hipopotamya' => [
+                'url' => 'https://www.hipopotamya.com/api/hipocard/epins',
+                'key' => '<<< YOUR KEY >>>',
+                'secret' => '<<< YOUR SECRET >>>',
+                // mapping for the amount of HipopoTamya, if the amount is not mention in this config, it will use the amount from the api
+                'package' => [
+                    1 => 2,
+                    5 => 6,
+                    10 => 11,
+                    25 => 26,
+                    50 => 51,
+                    75 => 76,
+                    100 => 101,
+                    250 => 251,
+                ],
+            ],
+        ],
+    ],
+    //navigation here (optional)
+];
+```
+
+### Template
+
+Your template must contains following.
+This will add a link to the HipopoTamya form. (It would also be possible to add the link directly in the navigation)
+
+````
+<a href="{{ url('PServerPanel/hipopotamya') }}" class="btn btn-md btn-primary">HipopoTamya</a>
+````
+
+navigation config, that you could add in the `config/autoload/payment.local.php` to get a link in the account navigation
+````
+'navigation' => [
+    'default' => [
+        'account' => [
+            'pages' => [
+                'hipopotamya' => [
+                    'label' => 'HipopoTamya',
+                    'route' => 'PServerPanel/hipopotamya',
+                    'resource' => 'PServerPanel/hipopotamya',
+                    'icon' => 'fas fa-gamepad',
+                    'order' => -10,
+                ],
+            ],
+        ],
+    ],
+],
+````
+
+
+### Testing
+
+Change the url in the config to `https://dev.hipopotamya.com/view/11907402/UV5RkfWH#6e25ef1f-96b9-4a3a-b20f-760ac0d75d0f` and use the codes from [here](https://dev.hipopotamya.com/view/11907402/UV5RkfWH#c4c77bc8-96a5-406c-b6f9-4e9a28a16280)
 
 If you have problems, check the donate-log in the admin-panel.
 

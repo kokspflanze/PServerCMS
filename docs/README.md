@@ -36,7 +36,8 @@ This doc provide you every thing for the first start with the PServerCMS
 - PaymentWall
 - PayOP
 - Paywant
-- Maxigame
+- Maxigame (E-Pin Provider)
+- [HipopoTamya](https://www.hipopoTamya.com/) (E-Pin Provider)
 - PayPal-IPN
 - Payssion
 
