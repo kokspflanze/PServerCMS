@@ -312,12 +312,6 @@ If you have problems, check the donate-log in the admin-panel.
 
 _DON'T RECOMMENDED, PayPal allow chargebacks for virtual currencies!_
 
-### Install dependencies
-
-````ssh
-php composer.phar require wadeshuler/php-paypal-ipn
-````
-
 ### ACL
 
 You have to enable the PayPal workflow in the ACL. Otherwise, you will receive the error code 403 (Forbidden).
