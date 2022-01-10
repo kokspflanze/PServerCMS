@@ -76,3 +76,33 @@ If you use the ranking one page, than remove the `navigation` config-part.
 You need for each ranking, a query for the number of items (for the paginator) that give `number` as return and a query for the data.
 For the DataQuery you have to define the `result_row_settings` for the output.
 `Navigation` and `pserver-ranking` are just for the link generation on the ranking pages or in the navigation of the page.
+
+
+
+## Own Ranking
+
+to define your own ranking, pages you have to overwrite or null the following parts.
+
+````php
+<?php
+
+return [
+    'pserver' => [
+		'ranking-main' => [
+            'default' => 'character', // overwrite default ranking
+        ],
+        'ranking' => [
+			'top_player' => null,
+			'top_guild' => null,
+			'top_trader' => null,
+			'top_hunter' => null,
+			'top_thieves' => null,
+			'top_honor' => null,
+			'top_alliance' => null,
+			'sro_kill_pvp' => null,
+			'sro_kill_job' => null,
+			'top_unique' => null,
+        ],
+    ],
+];
+````
