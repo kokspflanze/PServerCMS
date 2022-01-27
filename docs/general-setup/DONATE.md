@@ -143,7 +143,7 @@ _Paywant is at the moment in ALPHA!_ The implementation is not 100%, that mean i
 ### Config
 
 Go to `config/autoload/payment.local.php` and add the following. (be careful, it could be possible that you have to merge your existing payment config with the paywant parts)
- 
+
 ```php
 <?php
 return [
@@ -169,6 +169,64 @@ This is default added, only if you overwrite the template you have to add it you
 ### Testing
 
 If you have problems, check the donate-log in the admin-panel.
+
+## CentApp Setup
+
+### Config
+
+Go to `config/autoload/payment.local.php` and add the following. (be careful, it could be possible that you have to merge your existing payment config with the paywant parts)
+
+```php
+<?php
+return [
+    'payment-api' => [
+        'cent-app' => [
+            'api-token' => '',
+            'currency' => 'USD',
+            'shop_id' => '',
+            'payer_pays_commission' => 1,
+            'packet_mapping' => [
+                [
+                    'name' => 'Package 1', // name of the package
+                    'price' => 7.5, // price in USD
+                    'value' => 1050, // reward in game-amount
+                ],
+                [
+                    'name' => 'Package 2', // name of the package
+                    'price' => 15, // price in USD
+                    'value' => 2200, // reward in game-amount
+                ],
+            ],
+        ],
+    ],
+];
+```
+
+### Template
+
+Your template must contains following
+
+````
+	{% if centAppPackage %}
+		<h1>CentApp</h1>
+		<form action="{{ url('PServerCore/panel_donate', {'action':'centapp'}) }}" method="post">
+			<label>{{ translate('Package selection') }}</label>
+			<select class="form-control" name="centapp">
+				{% for key, package in centAppPackage %}
+					<option value="{{ key }}">{{ package['name'] }}</option>
+				{% endfor %}
+			</select>
+
+			<input class="btn btn-md btn-warning" type="submit" value="Submit"/>
+		</form>
+	{% endif %}
+````
+
+This is default added, only if you overwrite the template you have to add it your self.
+
+### Testing
+
+If you have problems, check the donate-log or the general log in the admin-panel.
 
 
 ## Maxigame Setup
