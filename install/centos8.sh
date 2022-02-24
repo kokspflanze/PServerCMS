@@ -70,20 +70,6 @@ SSLCertificateFile /etc/pki/tls/certs/localhost.crt
 
 SSLCertificateKeyFile /etc/pki/tls/private/localhost.key
 
-<FilesMatch "\.(cgi|shtml|phtml|php)$">
-    SSLOptions +StdEnvVars
-</FilesMatch>
-<Directory "/var/www/cgi-bin">
-    SSLOptions +StdEnvVars
-</Directory>
-
-BrowserMatch "MSIE [2-5]" \
-         nokeepalive ssl-unclean-shutdown \
-         downgrade-1.0 force-response-1.0
-
-CustomLog logs/ssl_request_log \
-          "%t %h %{SSL_PROTOCOL}x %{SSL_CIPHER}x \"%r\" %b"
-
 </VirtualHost>
 
 " > /etc/httpd/conf.d/v-host.conf
