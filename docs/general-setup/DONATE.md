@@ -53,7 +53,7 @@ Please set your `Secret-Key`, `Public-Key` and the `Version` that you define in 
  {% block content %}
 	<h2>Paymentwall</h2>
 	<hr />
-    <iframe src="https://api.paymentwall.com/api/ps/?{{ paymentAPIPaymentwallWidgetUrl(user, 'WIDGET_CODE') }}" width="100%" height="800" frameborder="0"></iframe>
+    <iframe src="https://api.paymentwall.com/api/ps/?{{ paymentAPIPaymentwallWidgetUrl(user, 'WIDGET_CODE') }}&ps=p1_1" width="100%" height="800" frameborder="0"></iframe>
  {% endblock content %}
 ```
 
