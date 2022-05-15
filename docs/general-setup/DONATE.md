@@ -366,6 +366,74 @@ Change the url in the config to `https://dev.hipopotamya.com/view/11907402/UV5Rk
 If you have problems, check the donate-log in the admin-panel.
 
 
+## Tiklaode Setup
+
+### Config
+
+Go to `config/autoload/payment.local.php` and add the following. (be careful, it could be possible that you have to merge your existing payment config with the HipopoTamya parts)
+
+```php
+<?php
+return [
+    'pserver' => [
+        'donate' => [
+            'tiklaode' => [
+                'url' => 'https://tiklaode.com/private/api',
+                'key' => '<<< YOUR KEY >>>',
+                // mapping for the amount of Tiklaode, if the amount is not mention in this config, it will use the amount from the api
+                'package' => [
+                    1 => 2,
+                    5 => 6,
+                    10 => 11,
+                    25 => 26,
+                    50 => 51,
+                    75 => 76,
+                    100 => 101,
+                    250 => 251,
+                ],
+            ],
+        ],
+    ],
+    //navigation here (optional)
+];
+```
+
+### Template
+
+Your template must contains following.
+This will add a link to the Tiklaode form. (It would also be possible to add the link directly in the navigation)
+
+````
+<a href="{{ url('PServerPanel/tiklaode') }}" class="btn btn-md btn-primary">Tiklaode</a>
+````
+
+navigation config, that you could add in the `config/autoload/payment.local.php` to get a link in the account navigation
+````
+'navigation' => [
+    'default' => [
+        'account' => [
+            'pages' => [
+                'tiklaode' => [
+                    'label' => 'Tiklaode',
+                    'route' => 'PServerPanel/tiklaode',
+                    'resource' => 'PServerPanel/tiklaode',
+                    'icon' => 'fas fa-gamepad',
+                    'order' => -10,
+                ],
+            ],
+        ],
+    ],
+],
+````
+
+
+### Testing
+
+Ask the Tiklaode team to get test key, to test the integration.
+
+If you have problems, check the donate-log in the admin-panel.
+
+
 ## PayPal IPN Setup
 
 _DON'T RECOMMENDED, PayPal allow chargebacks for virtual currencies!_
