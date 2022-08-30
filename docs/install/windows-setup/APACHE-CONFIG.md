@@ -28,7 +28,7 @@
 </IfModule>
  ```
  
- Remove everything in `httpd-vhosts.conf` and add the following, in the `conf/extra` directory.
+Remove everything in `httpd-vhosts.conf` and add the following, in the `conf/extra` directory.
   
  ```ini
 <VirtualHost *:80>
@@ -41,6 +41,47 @@
 	</Directory>
 </VirtualHost>
  ```
+
+For SSL support, like cloudflare SSL-Full mode you need also the following setting.
+With SSL-Flexible it is not required.
+
+Remove everything in `httpd-ssl.conf` and add the following, in the `conf/extra` directory.
+````ini
+Listen 443
+
+SSLPassPhraseDialog  builtin
+
+SSLSessionCache        "shmcb:${SRVROOT}/logs/ssl_scache(512000)"
+SSLSessionCacheTimeout  300
+
+##
+## SSL Virtual Host Context
+##
+
+<VirtualHost _default_:443>
+
+#   General setup for the virtual host
+DocumentRoot "${SRVROOT}/htdocs/pserverCMSFull/public"
+
+<Directory "${SRVROOT}/htdocs/pserverCMSFull/public">
+   Options Indexes FollowSymLinks MultiViews
+   AllowOverride All
+   Require all granted
+</Directory>
+
+ServerAdmin admin@example.com
+ErrorLog "${SRVROOT}/logs/ssl_error.log"
+TransferLog "${SRVROOT}/logs/ssl_access.log"
+
+#   SSL Engine Switch:
+#   Enable/Disable SSL for this virtual host.
+SSLEngine on
+SSLCipherSuite ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP:+eNULL
+SSLCertificateFile "${SRVROOT}/conf/server.crt"
+SSLCertificateKeyFile "${SRVROOT}/conf/server.key"
+
+</VirtualHost>                                  
+````
  ![ApacheVHost](https://raw.githubusercontent.com/kokspflanze/PServerCMS/master/docs/images/apache-vhost.gif?raw=true)
  
 Continue with [config](/general-setup/CONFIG.md)
