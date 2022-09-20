@@ -437,7 +437,6 @@ If you have problems, check the donate-log in the admin-panel.
 ## PayPal IPN Setup
 
 _DON'T RECOMMENDED, PayPal allow chargebacks for virtual currencies!_
-_AT THE MOMENT DISABLED, if you need it please mention it 4weeks before_
 
 ### ACL
 
