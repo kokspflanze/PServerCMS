@@ -88,20 +88,20 @@ to define your own ranking, pages you have to overwrite or null the following pa
 
 return [
     'pserver' => [
-		'ranking-main' => [
+	'ranking-main' => [
             'default' => 'character', // overwrite default ranking
         ],
         'ranking' => [
-			'top_player' => null,
-			'top_guild' => null,
-			'top_trader' => null,
-			'top_hunter' => null,
-			'top_thieves' => null,
-			'top_honor' => null,
-			'top_alliance' => null,
-			'sro_kill_pvp' => null,
-			'sro_kill_job' => null,
-			'top_unique' => null,
+		'top_player' => null,
+		'top_guild' => null,
+		'top_trader' => null,
+		'top_hunter' => null,
+		'top_thieves' => null,
+		'top_honor' => null,
+		'top_alliance' => null,
+		'sro_kill_pvp' => null,
+		'sro_kill_job' => null,
+		'top_unique' => null,
         ],
     ],
 ];
