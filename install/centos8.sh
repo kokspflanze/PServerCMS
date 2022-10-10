@@ -81,6 +81,7 @@ mkdir -p /var/opt/remi/php74/log/php-fpm
 # selinux
 setsebool -P httpd_can_network_connect on
 chcon -t httpd_sys_rw_content_t /var/www/page/data -R
+restorecon -R /var/www/page
 
 # cache directory
 chown apache:apache -R /var/www/page/data
