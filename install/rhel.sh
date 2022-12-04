@@ -6,6 +6,8 @@ OS_MIN_VERSION=8
 OS_MAX_VERSION=9
 TARGET_DIR="/var/www/page/"
 
+export ACCEPT_EULA=Y
+
 if [ "$EUID" -ne 0 ]
   then echo "Please run as root"
   exit
