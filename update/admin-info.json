@@ -1,5 +1,10 @@
 [
  {
+  "headline" : "Session handling update",
+  "body" : "With the latest update, its possible to set https cookies, for more security.",
+  "datetime" : "2022-10-06T12:00:01Z"
+ },
+ {
   "headline" : "Updates of 2021",
   "body" : "- new donate provider added [cent.app](https://cent.app/) as alternative to PayOp.\n- new config added to use the register-password after mail-confirmation for the game without a form.\n- recaptcha support added\n- paymentwall signature update for version 2 and 3\n- session-handling update, with the update we only store the user-id in the session\n- coin-reseller role added, this role is for your resellers to give coins only\n- new donate Provider [HIPOPOTAMYA](https://www.hipopotamya.com/), like maxigame\n- ip handling update for hyperfilter\n- coin-reward procedure added\n- sql-logger added\n- change-email added\n- migrate to bs5\n- framework update to latest versions",
   "datetime" : "2022-02-06T12:00:01Z"
