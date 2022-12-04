@@ -4,6 +4,7 @@ READHAT_FILE=/etc/redhat-release
 PHP_Version=74
 OS_MIN_VERSION=8
 OS_MAX_VERSION=9
+TARGET_DIR="/var/www/page/"
 
 if [ "$EUID" -ne 0 ]
   then echo "Please run as root"
@@ -33,6 +34,11 @@ else
    rpm -Uvh https://packages.microsoft.com/rhel/$OS_MAJOR_VERSION/prod/packages-microsoft-prod.rpm
 fi;
 
+if [ ! -d "$TARGET_DIR" ] || [ ! -d "$TARGET_DIR/composer.phar" ]; then
+  # Take action if $DIR exists. #
+  echo "Please Upload the Files to ${TARGET_DIR}..."
+  exit 1
+fi
 
 # stay up to date
 yum -y update
@@ -64,8 +70,8 @@ echo "ServerTokens prod
 ServerSignature Off
 
 <VirtualHost *:80>
-	DocumentRoot /var/www/page/public
-	<Directory /var/www/page/public>
+	DocumentRoot ${TARGET_DIR}public
+	<Directory ${TARGET_DIR}public>
 			Options -Indexes +FollowSymLinks +MultiViews
 			AllowOverride All
 			Order allow,deny
@@ -79,8 +85,8 @@ ServerSignature Off
 
 <VirtualHost _default_:443>
 
-DocumentRoot /var/www/page/public
-<Directory /var/www/page/public>
+DocumentRoot ${TARGET_DIR}public
+<Directory ${TARGET_DIR}public>
 		Options -Indexes +FollowSymLinks +MultiViews
 		AllowOverride All
 		Order allow,deny
@@ -105,27 +111,27 @@ SSLCertificateKeyFile /etc/pki/tls/private/localhost.key
 
 " > /etc/httpd/conf.d/v-host.conf
 
-mkdir -p /var/www/page/data/DoctrineModule/cache
-mkdir -p /var/www/page/public
+mkdir -p ${TARGET_DIR}data/DoctrineModule/cache
+mkdir -p ${TARGET_DIR}public
 mkdir -p /var/opt/remi/php$PHP_Version/log/php-fpm
 
 # selinux
 setsebool -P httpd_can_network_connect on
-restorecon -R /var/www/page
-chcon -t httpd_sys_rw_content_t /var/www/page/data -R
+restorecon -R $TARGET_DIR
+chcon -t httpd_sys_rw_content_t ${TARGET_DIR}/data -R
 
 # cache directory
-chown apache:apache -R /var/www/page/data
-chmod -R 777 /var/www/page/data
+chown apache:apache -R ${TARGET_DIR}/data
+chmod -R 777 ${TARGET_DIR}/data
 
-cd /var/www/page
+cd $TARGET_DIR
 php composer.phar update
 
 
 #setup crons
-echo "* * * * * apache php /var/www/page/public/index.php player-history
-*/5 * * * * apache php /var/www/page/public/index.php user-codes-cleanup
-2 * * * * apache php /var/www/page/public/index.php generate-sitemap https://www.example.io/
+echo "* * * * * apache php ${TARGET_DIR}/public/index.php player-history
+*/5 * * * * apache php ${TARGET_DIR}/public/index.php user-codes-cleanup
+2 * * * * apache php ${TARGET_DIR}/public/index.php generate-sitemap https://www.example.io/
 " > /etc/cron.d/pservercms
 
 systemctl start httpd crond php$PHP_Version-php-fpm
