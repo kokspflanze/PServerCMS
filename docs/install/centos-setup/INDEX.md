@@ -1,8 +1,19 @@
-# How to install the PServerCMS on CentOS8
+# How to install the PServerCMS on RHEL
 
 This guide is a little setup script which provide you how to setup the PServerCMS.
 There should be a clean system with no webserver and no php. If there are conflicts please delete the old parts. or install it manuel.
-We also recommend a centos8.minimal image. 
+We also recommend a centos.minimal image.
+
+Following OS Supported:
+- CentOS 8 (tested)
+- CentOS 9 (tested)
+- AlmaLinux 8 (tested)
+- AlmaLinux 9 (tested)
+- Rocky Linux 8
+- Rocky Linux 9
+- Oracle Linux 8
+- Oracle Linux 9
+- other RPM Distributions with RHEL 8 or 9
 
 ## Install script
 
@@ -13,9 +24,9 @@ this should be run as root/sudo
 this setup script works with SELinux, firewall-cmd and will setup the default crons
 
 ```
-curl -L -O https://raw.githubusercontent.com/kokspflanze/PServerCMS/master/install/centos8.sh
-chmod +x centos8.sh
-./centos8.sh
+curl -L -O https://raw.githubusercontent.com/kokspflanze/PServerCMS/master/install/rhel.sh
+chmod +x rhel.sh
+./rhel.sh
 ```
 
 Now you have to add the ioncube key, this line you will get from me. You just need to execute the command.
