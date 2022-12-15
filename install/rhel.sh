@@ -36,7 +36,7 @@ else
    rpm -Uvh https://packages.microsoft.com/rhel/$OS_MAJOR_VERSION/prod/packages-microsoft-prod.rpm
 fi;
 
-if [ ! -d "$TARGET_DIR" ] || [ ! -d "$TARGET_DIR/composer.phar" ]; then
+if [ ! -d "$TARGET_DIR" ] || [ ! -f "$TARGET_DIR/composer.phar" ]; then
   # Take action if $DIR exists. #
   echo "Please Upload the Files to ${TARGET_DIR}..."
   exit 1
