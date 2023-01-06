@@ -263,7 +263,7 @@ return [
 ### Stripe Configuration
 
 You have to create products on the stripe page, foreach package and use the api-id of the product.
-Also its important to create a webhook, to `/payment-api/stripe.html` for the event `checkout.session.completed`.
+Also its important to create a webhook, to `/payment-api/stripe.html` for the event `checkout.session.completed` and `charge.refunded`.
 
 ### Template
 
