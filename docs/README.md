@@ -43,7 +43,7 @@ This doc provide you every thing for the first start with the PServerCMS
 - [Tiklaode](https://tiklaode.com/) (E-Pin Provider)
 - PayPal-IPN (not recommended)
 - Payssion
-- DigiStore24 (Todo, on request)
+- Stripe
 
 ### VotePostBackProvider
 - gamestop100

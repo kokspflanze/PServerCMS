@@ -228,6 +228,69 @@ This is default added, only if you overwrite the template you have to add it you
 
 If you have problems, check the donate-log or the general log in the admin-panel.
 
+## Stripe Setup
+
+### Config
+
+Go to `config/autoload/payment.local.php` and add the following. (be careful, it could be possible that you have to merge your existing payment config with the paywant parts)
+
+```php
+<?php
+return [
+    'pserver' => [
+        'donate' => [
+            'stripe' => [
+                'package' => [
+                    [
+                        'hash' => 'API-ID of product',
+                        'name' => 'NAME',
+                        'value' => 9999, // coins reward
+                    ]
+                ],
+            ],
+        ],
+    ],
+    'payment-api' => [
+        'stripe' => [
+            'api-key' => '<< private api key >>',
+            'endpoint-secret' => '<< endpoint secret >>',
+            'currency' => 'USD',
+        ],
+    ],
+];
+```
+
+### Stripe Configuration
+
+You have to create products on the stripe page, foreach package and use the api-id of the product.
+Also its important to create a webhook, to `/payment-api/stripe.html` for the event `checkout.session.completed`.
+
+### Template
+
+Your template must contains following
+
+````
+	{% if stripePackage %}
+		<h1>Stripe</h1>
+		<form action="{{ url('PServerCore/panel_donate', {'action':'stripe'}) }}" method="post">
+			<label>{{ translate('Package selection') }}</label>
+			<select class="form-control" name="stripe">
+				{% for key, package in stripePackage %}
+					<option value="{{ key }}">{{ package['name'] }}</option>
+				{% endfor %}
+			</select>
+
+			<input class="btn btn-md btn-warning" type="submit" value="Submit"/>
+		</form>
+	{% endif %}
+````
+
+This is default added, only if you overwrite the template you have to add it your self.
+
+### Testing
+
+If you have problems, check the donate-log or the general log in the admin-panel.
+
 
 ## Maxigame Setup
 
