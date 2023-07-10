@@ -304,7 +304,7 @@ return [
     'pserver' => [
         'donate' => [
             'maxigame' => [
-                'url' => 'https://www.maxigame.com/epin/yukle.php',
+                'url' => 'https://www.maxigame.org/epin/yukle.php',
                 'key' => '<<< YOUR KEY >>>',
                 'secret' => '<<< YOUR SECRET >>>',
                 // mapping for the amount of maxigame, if the amount is not mention in this config, it will use the amount from the api
