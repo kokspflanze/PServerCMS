@@ -10,7 +10,7 @@ requires `Visual Studio 2015` and above
 
 - [PHP 7.4.27](https://windows.php.net/downloads/releases/php-7.4.27-Win32-vc15-x64.zip) OR [PHP 7.4.27 Archive](https://windows.php.net/downloads/releases/archives/php-7.4.27-Win32-VC15-x64.zip), use the archive version if the first link not work or download the latest 7.4.X VC14 x64 Thread Safe
 - [Apache](https://www.apachehaus.com/cgi-bin/download.plx?dli=QVXRXNaBTQ10kentmWwYFVKVlUGR1UwNVTtxmR) (latest apache for x64)
-- [Visual C++ Redistributable](https://www.microsoft.com/en-us/download/details.aspx?id=48145)
+- [Visual C++ Redistributable](https://aka.ms/vs/17/release/vc_redist.x64.exe)
 - [ODBC Driver 11](https://www.microsoft.com/en-us/download/details.aspx?id=36434)
 - [mssql-extension](https://github.com/microsoft/msphpsql/releases/download/v5.10.0/Windows-7.4.zip)
 
