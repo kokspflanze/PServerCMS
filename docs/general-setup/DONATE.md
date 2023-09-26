@@ -661,14 +661,63 @@ Go to `config/autoload/payment.local.php` and add the following. (be careful, it
 ```php
 <?php
 return [
+    'pserver' => [
+        'donate' => [
+            'coin-payments' => [
+                'currency_list' => [
+                    [
+                        'currency' => '',
+                        'address' => '',
+                    ]            
+                ],
+                'package' => [
+                    [
+                        'name' => 'NAME',
+                        'price' => 1,
+                        'value' => 9999, // coins reward
+                    ]
+                ],
+            ],
+        ],
+    ],
     'payment-api' => [
         'coin-payments' => [
             'merchant_id' => '<<< YOUR merchant_id >>>',
             'secret' => '<<< YOUR secret >>>',
+            'public-key' => '<<< YOUR public-key >>>',
+            'currency' => '<<< YOUR currency >>>',
         ],
     ],
 ];
 ```
+
+### Template
+
+Your template must contains following
+
+````
+	{% if coinPaymentsPackage['package'] %}
+		<h1>CoinPayments</h1>
+		<form action="{{ url('PServerCore/panel_donate', {'action':'coin-payments'}) }}" method="post">
+			<label>{{ translate('Package selection') }}</label>
+			<select class="form-control" name="coins_payments">
+				{% for key, package in coinPaymentsPackage['package'] %}
+					<option value="{{ key }}">{{ package['name'] }}</option>
+				{% endfor %}
+			</select>
+			<label>{{ translate('Currency') }}</label>
+			<select class="form-control" name="coins_payments_currency">
+				{% for key, package in coinPaymentsPackage['currency_list'] %}
+					<option value="{{ key }}">{{ package['currency'] }}</option>
+				{% endfor %}
+			</select>
+
+			<input class="btn btn-md btn-warning" type="submit" value="Submit"/>
+		</form>
+	{% endif %}
+````
+
+This is default added, only if you overwrite the template you have to add it your self.
 
 Please contact me, for more informations.
 
