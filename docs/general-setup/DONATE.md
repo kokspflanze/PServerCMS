@@ -649,6 +649,13 @@ return [
 ];
 ```
 
+### Testing
+
+If you have problems, check the donate-log in the admin-panel.
+
+The `packet_mapping` part map the price to the amount of coins, if there is an invalid mapping the user get zero coins.
+Note payssion deliver every time with cents, so if the donation is 10USD the api deliver `10.00`, so you have to map `10.00` and not just `10`.
+
 
 ## CoinPayments Setup
 
@@ -725,6 +732,3 @@ Please contact me, for more informations.
 ### Testing
 
 If you have problems, check the donate-log in the admin-panel.
-
-The `packet_mapping` part map the price to the amount of coins, if there is an invalid mapping the user get zero coins.
-Note payssion deliver every time with cents, so if the donation is 10USD the api deliver `10.00`, so you have to map `10.00` and not just `10`.
