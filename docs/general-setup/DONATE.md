@@ -138,8 +138,6 @@ If you have problems, check the donate-log in the admin-panel.
 
 ## Paywant Setup
 
-_Paywant is at the moment in ALPHA!_ The implementation is not 100%, that mean i will help with the integration in your project-page.
-
 ### Config
 
 Go to `config/autoload/payment.local.php` and add the following. (be careful, it could be possible that you have to merge your existing payment config with the paywant parts)
@@ -650,6 +648,34 @@ return [
     ],
 ];
 ```
+
+
+## CoinPayments Setup
+
+_CoinPayments is at the moment in ALPHA!_ The implementation is not 100%, that mean i will help with the integration in your project-page.
+
+### Config
+
+Go to `config/autoload/payment.local.php` and add the following. (be careful, it could be possible that you have to merge your existing payment config with the paywant parts)
+
+```php
+<?php
+return [
+    'payment-api' => [
+        'coin-payments' => [
+            'merchant_id' => '<<< YOUR merchant_id >>>',
+            'secret' => '<<< YOUR secret >>>',
+        ],
+    ],
+];
+```
+
+Please contact me, for more informations.
+
+
+### Testing
+
+If you have problems, check the donate-log in the admin-panel.
 
 The `packet_mapping` part map the price to the amount of coins, if there is an invalid mapping the user get zero coins.
 Note payssion deliver every time with cents, so if the donation is 10USD the api deliver `10.00`, so you have to map `10.00` and not just `10`.

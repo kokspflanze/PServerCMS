@@ -44,6 +44,7 @@ This doc provide you every thing for the first start with the PServerCMS
 - PayPal-IPN (not recommended)
 - Payssion
 - Stripe
+- CoinPayments (Cryto-Payment)
 
 ### VotePostBackProvider
 - gamestop100
