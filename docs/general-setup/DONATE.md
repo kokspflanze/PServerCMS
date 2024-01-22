@@ -691,6 +691,7 @@ return [
         'coin-payments' => [
             'merchant_id' => '<<< YOUR merchant_id >>>',
             'secret' => '<<< YOUR secret >>>',
+            'ipn_secret' => '<<< YOUR IPN-secret >>>',
             'public-key' => '<<< YOUR public-key >>>',
             'currency' => '<<< YOUR currency >>>',
         ],
