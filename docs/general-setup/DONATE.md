@@ -659,8 +659,6 @@ Note payssion deliver every time with cents, so if the donation is 10USD the api
 
 ## CoinPayments Setup
 
-_CoinPayments is at the moment in ALPHA!_ The implementation is not 100%, that mean i will help with the integration in your project-page.
-
 ### Config
 
 Go to `config/autoload/payment.local.php` and add the following. (be careful, it could be possible that you have to merge your existing payment config with the paywant parts)
