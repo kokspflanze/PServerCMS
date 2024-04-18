@@ -41,7 +41,7 @@ people.
     - Route `PaymentApi/coin-payments`
     - URL `/payment-api/coin-payments.html`
 
-- CoinPayment
+- HipopoTamya
     - Route `PaymentApi/hipopotamya-payments`
     - URL `/payment-api/hipopotamya-payments.html`
 
