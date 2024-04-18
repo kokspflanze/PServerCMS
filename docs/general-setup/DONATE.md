@@ -617,7 +617,7 @@ put these html-form in to the content section of the `Donate-Template`.
 
 ### IPN
 
-You have to set the PingBack URL of Paypal in your `PayPal-Account (IPN section)`, which you can find [here](/modules/PaymentAPI#pingbackurls).
+You have to set the PingBack URL of Paypal in your `PayPal-Account (IPN section)`.
 
 ### Config
 
