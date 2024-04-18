@@ -375,14 +375,14 @@ return [
                 'secret' => '<<< YOUR SECRET >>>',
                 // mapping for the amount of HipopoTamya, if the amount is not mention in this config, it will use the amount from the api
                 'package' => [
-                    1 => 2,
-                    5 => 6,
-                    10 => 11,
-                    25 => 26,
-                    50 => 51,
-                    75 => 76,
-                    100 => 101,
-                    250 => 251,
+                    1.00 => 2,
+                    5.00 => 6,
+                    10.00 => 11,
+                    25.00 => 26,
+                    50.00 => 51,
+                    75.00 => 76,
+                    100.00 => 101,
+                    250.00 => 251,
                 ],
             ],
         ],
@@ -425,6 +425,73 @@ navigation config, that you could add in the `config/autoload/payment.local.php`
 Change the url in the config to `https://dev.hipopotamya.com/view/11907402/UV5RkfWH#6e25ef1f-96b9-4a3a-b20f-760ac0d75d0f` and use the codes from [here](https://dev.hipopotamya.com/view/11907402/UV5RkfWH#c4c77bc8-96a5-406c-b6f9-4e9a28a16280)
 
 If you have problems, check the donate-log in the admin-panel.
+
+
+## HipopoTamya-Payment Setup
+
+### Config
+
+Go to `config/autoload/payment.local.php` and add the following. (be careful, it could be possible that you have to merge your existing payment config with the hipopotamya parts)
+
+```php
+<?php
+return [
+    'pserver' => [
+        'donate' => [
+            'hipopotamya_payments' => [
+                'package' => [
+                    [
+                        'name' => 'foobar', // name of the package
+                        'price' => 1, // price in USD
+                        'value' => 100, // reward in game-amount
+                    ],
+                    [
+                        'name' => 'foobar2', // name of the package
+                        'price' => 14.2, // price in USD
+                        'value' => 1420, // reward in game-amount
+                    ],
+                    // there is no limit of packages.
+                ],
+            ],
+        ],
+    ],
+    'payment-api' => [
+        'hipopotamya_payments' => [
+            'url' => 'https://www.hipopotamya.com/api/v1/merchants/payment/token',
+            'api-key' => '<<< YOUR API-KEY >>',
+            'secret-key' => '<<< YOUR SECRET-KEY >>',
+            'commission_type' => 1,
+        ],
+    ],
+];
+```
+
+### Template
+
+Your template must contains following
+
+````
+{% if hipopotamyaPackage %}
+    <h1>Hipopotamya</h1>
+    <form action="{{ url('PServerCore/panel_donate', {'action':'hipopotamya'}) }}" method="post">
+        <label>{{ translate('Package selection') }}</label>
+        <select class="form-control" name="hipopotamya">
+            {% for key, package in hipopotamyaPackage %}
+                <option value="{{ key }}">{{ package['name'] }}</option>
+            {% endfor %}
+        </select>
+
+        <input class="btn btn-md btn-warning" type="submit" value="Submit"/>
+    </form>
+{% endif %}
+````
+
+This is default added, only if you overwrite the template you have to add it your self.
+
+### Testing
+
+If you have problems, check the donate-log in the admin-panel.
+
 
 
 ## Tiklaode Setup

@@ -41,6 +41,10 @@ people.
     - Route `PaymentApi/coin-payments`
     - URL `/payment-api/coin-payments.html`
 
+- CoinPayment
+    - Route `PaymentApi/hipopotamya-payments`
+    - URL `/payment-api/hipopotamya-payments.html`
+
 ## How to give different reward´s for request 
 
 ```php
