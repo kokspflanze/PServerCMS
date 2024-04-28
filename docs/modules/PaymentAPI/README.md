@@ -45,6 +45,14 @@ people.
     - Route `PaymentApi/hipopotamya-payments`
     - URL `/payment-api/hipopotamya-payments.html`
 
+- CentApp
+    - Route `PaymentApi/cent-app`
+    - URL `/payment-api/cent-app.html`
+
+- Stripe
+    - Route `PaymentApi/stripe`
+    - URL `/payment-api/stripe.html`
+
 ## How to give different reward´s for request 
 
 ```php
