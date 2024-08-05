@@ -31,7 +31,7 @@ This doc provide you every thing for the first start with the PServerCMS
 - You can change the language of the page, or just change some texts to your custom version, without touch the template
 - Theme Layout Switch (Dark/Light mode)
 - Captcha System (switch between PHP-Captcha and ReCaptcha v2)
-- MultiLanguage Support (beta)
+- MultiLanguage Support
 
 ### Donate
 - PaymentWall
@@ -71,6 +71,7 @@ This doc provide you every thing for the first start with the PServerCMS
     - 2 rankings
     - history of last fights in character-details-page
 - CustomRanking, you can add own rankings, just add the definition in the config
+- Custom-Widgets with custom MSSQL-queries for last-globals or special rankings and more
 - Switch between rankings based on navigation and one ranking page.
 
 ### Game-Specials

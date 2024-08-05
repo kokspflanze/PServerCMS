@@ -27,5 +27,6 @@
  * [DonateAction](/modules/PServerCMSDonateAction/README.md)
  * [SROKill](/modules/SROKill/README.md)
  * [CustomRanking](/modules/CustomRanking/README.md)
+ * [CustomWidgets](/modules/CustomRanking/CUSTOM_WIDGETS.md)
 * [Frequently Asked Questions](/info/FAQ.md)
 * [**Contact - Trail Version**](/info/CONTACT.md)
