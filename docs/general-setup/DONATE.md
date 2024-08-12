@@ -562,9 +562,10 @@ Ask the Tiklaode team to get test key, to test the integration.
 If you have problems, check the donate-log in the admin-panel.
 
 
-## PayPal IPN Setup
+## PayPal SDK Setup
 
 _DON'T RECOMMENDED, PayPal allow chargebacks for virtual currencies!_
+
 _DON'T RECOMMENDED, PayPal in BETA, own RISK!_
 
 ### ACL
