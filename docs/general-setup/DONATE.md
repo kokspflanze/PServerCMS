@@ -565,6 +565,7 @@ If you have problems, check the donate-log in the admin-panel.
 ## PayPal IPN Setup
 
 _DON'T RECOMMENDED, PayPal allow chargebacks for virtual currencies!_
+_DON'T RECOMMENDED, PayPal in BETA, own RISK!_
 
 ### ACL
 
@@ -576,49 +577,6 @@ To enable it go to `config/autoload/bjyauthorize.global.php` and add following l
 ['controller' => APIController\PayPalController::class, 'roles' => []],
 ````
 
-### Button
-
-Create a button in paypal with a select-box for the `Coin options` which have different options like
-
-- 2995
-- 3999
-
-Than we need a input-field, which will be for the `UserId`.
-
-at the end the HTML code of the button should looks like 
-
-````html
-<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-    <input type="hidden" name="cmd" value="_s-xclick">
-    <input type="hidden" name="hosted_button_id" value="1337">
-    <table>
-    <tr><td><input type="hidden" name="on0" value="Coin">Coin</td></tr><tr><td><select name="os0">
-	    <option value="2995">2995 - $5,00 USD</option>
-	    <option value="3999">3999 - $10,00 USD</option>
-
-    </select> </td></tr>
-    <tr><td><input type="hidden" name="on1" value="UserID"></td></tr>
-    <tr><td><input type="hidden" name="os1" value="{{ user.getId() }}" maxlength="200"></td></tr>
-    </table>
-    <br>
-    <input type="hidden" name="currency_code" value="USD">
-    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_SM.gif" name="submit" alt="PayPal - The safer, easier way to pay online!">
-    <img alt="" border="0" src="https://www.paypalobjects.com/de_DE/i/scr/pixel.gif" width="1" height="1">
-    </form>
-````
-
-you have to change it a bit (the above example already has the changes)
-
-- change the UserID input to hidden
-- set the UserID value to `{{ user.getId() }}`
-- you can also change the option text of the select-box but not the value
-
-put these html-form in to the content section of the `Donate-Template`.
-
-### IPN
-
-You have to set the PingBack URL of Paypal in your `PayPal-Account (IPN section)`.
-
 ### Config
 
 Go to `config/autoload/payment.local.php` and add the following.
@@ -628,26 +586,33 @@ Go to `config/autoload/payment.local.php` and add the following.
 return [
     'payment-api' => [
         'pay-pal' => [
-            /**
-             * your paypal email
-             */
-            'receiver_email' => '<-- YOUR PAYPAL-ACCOUNT-MAIL -->',
-            /**
-             * receiver currency
-             */
-            'payment_currency' => '<-- YOUR CURRENCY OF THE BUTTON LIKE USD OR EU -->',
-            /**
-             * map a packet name to a amount of coins
-             */
-            'packet_mapping' => [],
-            'sandbox' => false,
+            'payment_currency' => 'EUR',
+            //'endpoint' => 'https://api-m.paypal.com', // for prod only
+            'endpoint' => 'https://api-m.sandbox.paypal.com', // for sandbox only
+            'client_id' => '<-- CLIENT-ID -->',
+            'secret' => '<-- SECRET -->',
+            'webhook_id' => '<-- WEBHOOK-ID -->',
+        ],
+    ],
+    'pserver' => [
+        'donate' => [
+            'paypal' => [
+                'package' => [
+                    [
+                        'name' => 'foobar', // name of the package
+                        'price' => 1, // price in USD
+                        'value' => 100, // reward in game-amount
+                    ],
+                ],
+            ],
         ],
     ],
 ];
 ```
 
-The `packet_mapping` part map the value of the of the section option to the reward coins, if there is no mapping (realy-empty), the value will be used as reward.
-If there is a mapping but no match, the value will be zero.
+### Webhook
+
+You need to create a WebHook for `Payment capture completed` to the Postback-URL `/payment-api/pay-pal.html` and write the webhook-id in the configuration.
 
 ## Payssion Setup
 
