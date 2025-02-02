@@ -764,3 +764,69 @@ Please contact me, for more informations.
 ### Testing
 
 If you have problems, check the donate-log in the admin-panel.
+
+
+## Binance Setup
+
+### Config
+
+Go to `config/autoload/payment.local.php` and add the following. (be careful, it could be possible that you have to merge your existing payment config with the paywant parts)
+
+```php
+<?php
+return [
+    'pserver' => [
+        'donate' => [
+            'binance' => [
+                'package' => [
+                    [
+			'id' => '1', // itemNo
+                        'name' => 'NAME',
+                        'price' => 1,
+                        'value' => 9999, // coins reward
+			'goodsCurrency' => 'Coins', // currency ingame
+			'currency' => 'USDT', //currency or fiatCurrency
+			'fiatCurrency' => null', //currency or fiatCurrency
+                    ]
+                ],
+            ],
+        ],
+    ],
+    'payment-api' => [
+        'binance' => [
+            'description' => 'custom text',
+            'secret' => '<<< YOUR secret >>>',
+            'supportPayCurrency' => null,
+        ],
+    ],
+];
+```
+
+### Template
+
+Your template must contains following
+
+````
+	{% if binancePackage %}
+		<h1>Binance</h1>
+		<form action="{{ url('PServerCore/panel_donate', {'action':'binance'}) }}" method="post">
+			<label>{{ translate('Package selection') }}</label>
+			<select class="form-control" name="paypal">
+				{% for key, package in binancePackage %}
+					<option value="{{ key }}">{{ package['name'] }}</option>
+				{% endfor %}
+			</select>
+
+			<input class="btn btn-md btn-warning" type="submit" value="Submit"/>
+		</form>
+	{% endif %}
+````
+
+This is default added, only if you overwrite the template you have to add it your self.
+
+Please contact me, for more informations.
+
+
+### Testing
+
+If you have problems, check the donate-log in the admin-panel.
