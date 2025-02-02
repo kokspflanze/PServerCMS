@@ -796,7 +796,6 @@ return [
         'binance' => [
             'description' => 'custom text',
             'secret' => '<<< YOUR secret >>>',
-            'binance-public-key' => '<<< PUBLIC-KEY >>>',
             'supportPayCurrency' => null,
         ],
     ],
