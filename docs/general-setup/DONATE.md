@@ -796,6 +796,7 @@ return [
         'binance' => [
             'description' => 'custom text',
             'secret' => '<<< YOUR secret >>>',
+		'certificate-sn' => '',
             'supportPayCurrency' => null,
         ],
     ],
