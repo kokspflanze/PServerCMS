@@ -812,7 +812,7 @@ Your template must contains following
 		<h1>Binance</h1>
 		<form action="{{ url('PServerCore/panel_donate', {'action':'binance'}) }}" method="post">
 			<label>{{ translate('Package selection') }}</label>
-			<select class="form-control" name="paypal">
+			<select class="form-control" name="binance">
 				{% for key, package in binancePackage %}
 					<option value="{{ key }}">{{ package['name'] }}</option>
 				{% endfor %}
